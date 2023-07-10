@@ -11,49 +11,33 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## notes
+## Key Information
 
--   modifying code \-- change the code for an existing graph
+### **Meeting Time and Place**
 
--   make a bad graph/analysis
+Mondays, 12:00 - 2:30 pm (online and synchronous)
 
--   even more motivation/investigation-supporting data (tailor based on
-    majors)
+### Credit Hours
 
--   having a consistent structure within a class and across weeks
-    (eliciting question, lecture, guided practice, walkthrough) and then
-    a few other projects and a final
+3
 
--   structuring breakout room work to more efficient \-- more
-    accountability
-
--   more guest speakers
-
--   possibly using RStudio/Posit Cloud
-
--   more examples of data science projects that connect to the week's
-    tasks
-
--   more on finding data sources - public internet data
-
--   text analysis
-
--   adding reach tasks
-
--   peer coding
-
-**Meeting Time and Place**:
-
-Tuesdays and Thursdays, 2:50 -- 4:05 pm (online, synchronous) **Credit
-Hours**: 3
-
-**Faculty Contact Information**:
+### Faculty Contact Information
 
 *Dr. Isabella Velasquez*
 
 *Dr. Maryrose Weatherton*
 
-## Overview
+### Course Links
+
+Zoom: [add link]
+
+Slack: [add link]
+
+GitHub: [add link]
+
+Canvas: [add link]
+
+### Course Description
 
 Intended to support graduate-level students to be able to apply data
 science methods to topics of teaching, learning, and educational
@@ -64,67 +48,60 @@ suite of R packages. Data ethics are foregrounded. Includes an
 introduction to text analysis/Natural Language Processing. No
 pre-requisites or programming experience is required.
 
-## Major Topics
+A key element of this class is that students will have the opportunity
+to bring their own data from their research projects for use in this
+class. In this way, they will have immediate application for the
+concepts learned in the course. If no data is immediately available from
+the student's research, students can use one of hundreds of freely
+available datasets to complete coursework or students can use datasets
+provided to them.
 
--   The course will provide students with a foundation in data science
-    in education, defined as those that integrate computation with
-    statistics and substantive expertise. Also, the course will include
-    opportunities for students to gain experience with specific data
-    science techniques that may be widely used across research projects.
+In all, this course will provide scaffolding to help students become
+proficient in a few sophisticated data science techniques, and it will
+give students enough foundational knowledge to pick up new data science
+skills on their own after the course is through. This course will serve
+as a foundation for later data science in education, including the
+second foundations class, data visualization, and machine learning and
+the capstone course.
 
--   Students will have the opportunity to bring their own data from
-    their research projects for use in this class. In this way, they
-    will have immediate application for the concepts learned in the
-    course. Bringing in one's own data will be highly encouraged, as the
-    work done in this class could serve as the foundation of a future
-    conference proposal or publication for the student. If no data is
-    immediately available from the student's research, students can use
-    one of hundreds of freely available datasets to complete coursework
-    or students can use datasets provided to them.
-
--   My goal in teaching this course will be to catalyze students'
-    interest in data science and to bolster their confidence in their
-    abilities to use programming techniques to support their research
-    programs. Many people who try to self-teach become overwhelmed by
-    available resources. This course will provide scaffolding to help
-    students become proficient in a few sophisticated data science
-    techniques, and it will give students enough foundational knowledge
-    to pick up new data science skills on their own after the course is
-    through.
-
-## Learning Objectives:
+### Learning Objectives
 
 The objectives for the proposed course are for students to be able to:
 
-Install, set up, and use R and RStudio Use reproducible workflows (so
-that analyses can easily be modified and then carried out again by the
-analyst or others) with R Markdown Prepare and explore complex data
-sources for analysis using the tidyverse suite of R packages Understand
-how issues of equity, privacy, and ethics are central to data science in
-education Develop a personal learning and development plan related to
-data science in education Develop a portfolio of work from this class
-that you can add to later Pursue an independent project to work toward a
-relevant professional goal
+-   Install, set up, and use R and RStudio
 
-These objectives will serve as a foundation for later data science in
-education-related courses, including data visualization, creating
-interactive web applications, and machine learning applications.
+-   Use reproducible workflows (so that analyses can easily be modified
+    and then carried out again by the analyst or others) with R Markdown
+
+-   Develop foundational skills - focused around the tidyverse R
+    packages - to prepare and explore data sources for analysis
+
+-   Understand how issues of equity, privacy, and ethics are central to
+    data science in education
+
+-   Develop a personal learning and development plan related to data
+    science in education
+
+-   Begin a portfolio of work from this class that you can add to later
+
+-   Pursue an independent project to work toward a relevant professional
+    goal
 
 ## Format and Learning Environment
 
 This class will be taught in a fully-online format. We will use Zoom for
-synchronous (or at-the-same-time) a) introductions to new content, b)
-"try-it-out" laboratories, and c) discussions. We will also use a number
-of tools for asynchronous communication, including a) Slack, b) GitHub,
-and c) features of the Canvas course learning management system. Course
-Communications: Slack Slack is a communication platform designed for
-teams (e.g., in a company), that has begun to be used in education. We
-will use Slack to share resources and for asking and questions of one
-another. You are encouraged but not required to check Slack daily, and
-to use the app on your mobile device or phone. Email If you email us,
-you will generally receive a response within 24 hours. We ask for you to
-please try to respond within 24 hours, too. You can contact us via email
-(above) or Slack (preferred). How to Be Successful in This Course:
+synchronous (or at-the-same-time) class. We will also use a number of
+tools for asynchronous communication, including a) Slack, b) GitHub, and
+c) features of the Canvas course learning management system.
+
+## Communication
+
+You will generally receive a response to messages within 24 hours during
+the work week (Monday - Friday). We ask for you to please try to respond
+within 24 hours during the work week, too. You can contact us via email
+(above) or Slack (preferred).
+
+## How to Be Successful in This Course
 
 Don't hesitate to ask questions! Learning to do data science is
 challenging for everyone, and reaching out for support and assistance is
@@ -134,24 +111,12 @@ may grade assignments very soon after they are due. For assignments
 received after the due date, 5% from the grade you otherwise would earn
 will be subtracted from your final grade for each day late.
 
-## Required Equipment:
+## Required Equipment
 
 You will need a computer (Mac, Windows, or Linux are fine!) on which you
 can install applications, but you do not need a computer with any
 particular specifications (speed, storage, etc.) beyond what you use for
 other courses: whatever you have will work for this course.
-
-## Course Grade
-
-| ASSIGNMENT               | PERCENT OF GRADE | POINTS                              |
-|--------------------------|------------------|-------------------------------------|
-| Participation (Readings) | 12.5%            | 10 / week for 15 weeks = 150 points |
-| Weekly Assignments       | 32.5%            | 30 / week for 13 weeks = 390 points |
-| Resource Sharing         | 5%               | 60                                  |
-| Mini Project 1           | 12.5%            | 150                                 |
-| Mini Project 2           | 12.5%            | 150                                 |
-| Final Project            | 25%              | 300                                 |
-| Total:                   | 100%             | 1,200                               |
 
 ## Grading Scale
 
@@ -168,13 +133,38 @@ other courses: whatever you have will work for this course.
 | D            | 60.01-70     |
 | F            | 60 and below |
 
+## Course Grade
+
++---------------------+----------------+------------------------------+
+| ASSIGNMENT          | PERCENT OF     | POINTS                       |
+|                     | GRADE          |                              |
++=====================+================+==============================+
+| Participation       | 12.5%          | 10 / week for 15 weeks = 150 |
+| (Readings)          |                | points                       |
++---------------------+----------------+------------------------------+
+| Weekly Assignments  | 32.5%          | 30 / week for 13 weeks = 390 |
+|                     |                | points                       |
++---------------------+----------------+------------------------------+
+| Professional        | 5%             | 60                           |
+| Development Plan    |                |                              |
++---------------------+----------------+------------------------------+
+| Mini Project        | 12.5%          | 150                          |
++---------------------+----------------+------------------------------+
+| Data Ethics         | 12.5%          | 150                          |
+| Statement           |                |                              |
++---------------------+----------------+------------------------------+
+| Final Project       | 25%            | 300                          |
++---------------------+----------------+------------------------------+
+| Total:              | 100%           | 1,200                        |
++---------------------+----------------+------------------------------+
+
 ## Learning Activities
 
--   **In-class discussions and activities.** There will be weekly
-    readings that focus on the theory and principles of data
-    visualization. We will engage with these readings through
-    discussions and other in-class activities and apply the knowledge
-    gained to our visualization work.
+-   **Participation: readings, discussions, and in-class activities.**
+    There will be weekly readings that focus on the theory and
+    principles of data visualization. We will engage with these readings
+    through discussions and other in-class activities and apply the
+    knowledge gained to our visualization work.
 
 -   **In-class programming.** At the core of this class is programming
     in R. We will develop R programming skills for data wrangling,
@@ -184,14 +174,12 @@ other courses: whatever you have will work for this course.
     give us a chance to discuss, better understand, and practice our
     programming skills.
 
--   **Weekly visualization assignments**: Weekly tasks that involve
-    combining reading about relevant theory and prior research, working
-    through fundamentals in a guided practice model, and creating
-    visualizations based on the relevant theory and prior research and
-    fundamental skills. These will be submitted as R documents, HTML
-    files, or images. 
+-   **Weekly assignments**: Weekly tasks that involve combining reading
+    about relevant theory and prior research, working through
+    fundamentals in a guided practice model. These will be submitted as
+    R documents, HTML files, or images. 
 
--   **Mini project 1:** This independent project will involve the
+-   **Mini project:** This independent project will involve the
     application of theory and programming to create various
     visualizations from an already-existing data set. Your work will be
     shared with other students and the instructor to provide you with
@@ -206,7 +194,7 @@ other courses: whatever you have will work for this course.
     provide you with opportunities to provide and receive constructive
     critique and revise your work.
 
--   **Resource sharing:** xx
+-   **Professional development plan:** xx
 
 -   **Final project:** You will complete a final project that involves
     developing visualizations for your own data or a data set of your
@@ -216,164 +204,210 @@ other courses: whatever you have will work for this course.
 
 ## Generative Artificial Intelligence
 
-xx
+Open AI's GPT-4 and other generative artifcial intelligence tools like
+it (e.g., Google's Bard) can be immensely helpful when it comes to
+programming in R and other languages. We encourage their use, but ask
+that you add a note to anything you submit in which you have used a
+generative artificial intelligence tool about how you have used it to
+provide context to us and to help us to learn how these tools are
+useful.
 
 ## Timeline
 
-+-------------+-----------------+-----------------+-----------------+
-| **We ek**   | **Focal         | **Participation | **Assignments   |
-|             | Question and    | (Readings) Due  | Due by Class    |
-|             | Topic**         | by Class Time** | Time**          |
-+-------------+-----------------+-----------------+-----------------+
-| 1           | What's this     | Week 1 Reading  | Install R and R |
-|             | course about?   | and Discussing  | Studio          |
-|             | Introducing the |                 |                 |
-|             | course and      | Estrellado et   | Complete        |
-|             | ourselves       | al. (20xx)      | primers         |
-|             |                 |                 |                 |
-|             |                 |                 | Complete Week 0 |
-|             |                 |                 | discussion      |
-+-------------+-----------------+-----------------+-----------------+
-| 2           | What's all the  | Week 2 Reading  | Week 1          |
-|             | fuss about data | and Discussing  | Assignment:     |
-|             | science? Doing  |                 | Creating        |
-|             | things we could |                 | faceted plots   |
-|             | not easily do   |                 | with ggplot2    |
-|             | without         |                 |                 |
-|             | advanced        |                 |                 |
-|             | *graphics*      |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| : 3         | What's all the  | Week 3 Reading  | Week 2          |
-|             | fuss about data | and Discussing  | Assignment:     |
-|             | science? Doing  |                 | Joining         |
-|             | things we could |                 |                 |
-|             | not easily do   |                 |                 |
-|             | without         |                 |                 |
-|             | *coding*        |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 4           | What counts as  | Week 4 Reading  | Week 3          |
-|             | data? Accessing | and Discussing  | Assignment:     |
-|             | and describing  |                 | Accessing and   |
-|             | social media    |                 | describing      |
-|             | data            |                 | Facebook data   |
-+-------------+-----------------+-----------------+-----------------+
-| 5           | What counts as  | Week 5 Reading  | Week 4          |
-|             | data? Accessing | and Discussing  | Assignment:     |
-|             | and describing  |                 | Accessing and   |
-|             | public internet |                 | describing      |
-|             | data            |                 | Wikipedia data  |
-+-------------+-----------------+-----------------+-----------------+
-| 6           | What are the    | Week 6 Reading  | Week 5          |
-|             | core skills I   | and Discussing  | Assignment      |
-|             | need to work    |                 |                 |
-|             | with data?      |                 |                 |
-|             | Foundational    |                 |                 |
-|             | skills, Part 1a |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 7           | What are the    | Week 7 Reading  | Week 6          |
-|             | core skills I   | and Discussing  | Assignment      |
-|             | need to work    |                 |                 |
-|             | with data?      |                 |                 |
-|             | Foundational    |                 |                 |
-|             | skills, Part 1b |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 8           | What have I     | Week 8 Reading  | Mini Project 1  |
-|             | done?!?         | and Discussing  |                 |
-|             | Presenting Mini |                 |                 |
-|             | Project 1       |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 9           | What are the    | Week 9 Reading  | Week 8          |
-|             | core skills I   | and Discussing  | Assignment      |
-|             | need to work    |                 |                 |
-|             | with data?      |                 |                 |
-|             | Foundational    |                 |                 |
-|             | skills, Part 2a |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 10          | What are the    | Week 10 Reading | Week 9          |
-|             | core skills I   | and Discussing  | Assignment      |
-|             | need to work    |                 |                 |
-|             | with data?      |                 |                 |
-|             | Foundational    |                 |                 |
-|             | skills, Part 2b |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 11          | How can I       | Week 12 Reading | Week 10         |
-|             | prepare for the | and Discussing  | Assignment      |
-|             | final project?  |                 |                 |
-|             | Learning more   |                 |                 |
-|             | and creating    |                 |                 |
-|             | data products   |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 12          | How can I use   | Week 13 Reading | Data Ethics     |
-|             | text as data?   | and Discussing  | Statement       |
-|             | Tokens and      |                 |                 |
-|             | frequencies     |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 13          | How can I use   | Week 14 Reading | Week 12         |
-|             | text as data?   | and Discussing  | Assignment      |
-|             | Sentiment       |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 14          | How can I use   | Week 15 Reading | Week 13         |
-|             | text as data?   | and Discussing  | Assignment      |
-|             | Term            |                 |                 |
-|             | co-occurences   |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 15          | How can I share | Week 16 Reading | Week 14         |
-|             | my work?        | and Discussing  | Assignment      |
-|             | Blogdown and    |                 |                 |
-|             | GitHub          |                 |                 |
-+-------------+-----------------+-----------------+-----------------+
-| 16          | Presenting      | \-              | Week 15         |
-|             | Final Projects  |                 | Assignment      |
-|             |                 |                 |                 |
-|             |                 |                 | Final Project   |
-+-------------+-----------------+-----------------+-----------------+
-
-# Assessment
-
-Complete exercises each week Four interactive examinations Write a
-personal statement on one's perspective toward the role and nature of
-data, addressing how issues of equity, privacy, and ethics are central
-to data science in education (due approximately one-third of the way
-through the semester). Develop a personal learning and development plan
-related to data science in education Complete an individually-designed
-project that can take different forms (R Markdown Report, interactive
-Shiny app, interactive dashboard, etc.) related to identifying and
-solving a data-related problem in education using R (due approximately
-two-thirds of the way through the semester). Develop a portfolio with
-your work from throughout the semester. Complete an
-individually-designed project that can take different forms (R Markdown
-Report, interactive Shiny app, interactive dashboard, etc.) related to
-identifying and solving a data-related problem in education using R (due
-as a final exam at the end of the semester, with updates on progress
-made due throughout the semester).
++---------------+---------------+---------------+---------------+------+
+| **Week**      | **Focal       | **            | **Assignments | **   |
+|               | Question and  | Participation | Due by Class  | Data |
+|               | Topic**       | (Readings)    | Time**        | Set  |
+|               |               | Due by Class  |               | Us   |
+|               |               | Time**        |               | ed** |
++---------------+---------------+---------------+---------------+------+
+| 1             | What's this   | Week 1        | Install R and |      |
+|               | course about? | Reading and   | R Studio      |      |
+|               | Introducing   | Discussing    |               |      |
+|               | the course    |               | Complete      |      |
+|               | and ourselves | Substantive   | primers       |      |
+|               |               | reading: xx   |               |      |
+|               |               |               | Complete Week |      |
+|               |               | Technical     | 0 discussion  |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 2             | What's all    | Week 2        | Week 1        |      |
+|               | the fuss      | Reading and   | Assignment:   |      |
+|               | about data    | Discussing    | Creating      |      |
+|               | science?      |               | faceted plots |      |
+|               | Doing things  | Substantive   | with ggplot2  |      |
+|               | we could not  | reading: xx   |               |      |
+|               | easily do     |               |               |      |
+|               | without       | Technical     |               |      |
+|               | advanced      | reading: xx   |               |      |
+|               | *graphics*    |               |               |      |
++---------------+---------------+---------------+---------------+------+
+| : 3           | What's all    | Week 3        | Week 2        |      |
+|               | the fuss      | Reading and   | Assignment:   |      |
+|               | about data    | Discussing    | Joining       |      |
+|               | science?      |               |               |      |
+|               | Doing things  | Substantive   |               |      |
+|               | we could not  | reading: xx   |               |      |
+|               | easily do     |               |               |      |
+|               | without       | Technical     |               |      |
+|               | *coding*      | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 4             | What counts   | Week 4        | Week 3        |      |
+|               | as data?      | Reading and   | Assignment:   |      |
+|               | Accessing and | Discussing    | Accessing and |      |
+|               | describing    |               | describing    |      |
+|               | social media  | Substantive   | Facebook data |      |
+|               | data          | reading: xx   |               |      |
+|               |               |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 5             | What counts   | Week 5        | Week 4        |      |
+|               | as data?      | Reading and   | Assignment:   |      |
+|               | Accessing and | Discussing    | Accessing and |      |
+|               | describing    |               | describing    |      |
+|               | public        | Substantive   | Wikipedia     |      |
+|               | internet data | reading: xx   | data          |      |
+|               |               |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 6             | What are the  | Week 6        | Week 5        |      |
+|               | core skills I | Reading and   | Assignment    |      |
+|               | need to work  | Discussing    |               |      |
+|               | with data?    |               |               |      |
+|               | Foundational  | Substantive   |               |      |
+|               | skills, Part  | reading: xx   |               |      |
+|               | 1a            |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 7             | What are the  | Week 7        | Week 6        |      |
+|               | core skills I | Reading and   | Assignment    |      |
+|               | need to work  | Discussing    |               |      |
+|               | with data?    |               |               |      |
+|               | Foundational  | Substantive   |               |      |
+|               | skills, Part  | reading: xx   |               |      |
+|               | 1b            |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 8             | What have I   | Week 8        | Mini Project  |      |
+|               | done?!?       | Reading and   |               |      |
+|               | Presenting    | Discussing    |               |      |
+|               | Mini Project  |               |               |      |
+|               |               | Substantive   |               |      |
+|               |               | reading: xx   |               |      |
+|               |               |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 9             | What are the  | Week 9        | Week 8        |      |
+|               | core skills I | Reading and   | Assignment    |      |
+|               | need to work  | Discussing    |               |      |
+|               | with data?    |               |               |      |
+|               | Foundational  | Substantive   |               |      |
+|               | skills, Part  | reading: xx   |               |      |
+|               | 2a            |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 10            | What are the  | Week 10       | Week 9        |      |
+|               | core skills I | Reading and   | Assignment    |      |
+|               | need to work  | Discussing    |               |      |
+|               | with data?    |               |               |      |
+|               | Foundational  | Substantive   |               |      |
+|               | skills, Part  | reading: xx   |               |      |
+|               | 2b            |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 11            | How can I     | Week 12       | Week 10       |      |
+|               | prepare for   | Reading and   | Assignment    |      |
+|               | the final     | Discussing    |               |      |
+|               | project?      |               |               |      |
+|               | Learning more | Substantive   |               |      |
+|               | and creating  | reading: xx   |               |      |
+|               | data products |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 12            | How can I use | Week 13       | Data Ethics   |      |
+|               | text as data? | Reading and   | Statement     |      |
+|               | Tokens and    | Discussing    |               |      |
+|               | frequencies   |               |               |      |
+|               |               | Substantive   |               |      |
+|               |               | reading: xx   |               |      |
+|               |               |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 13            | How can I use | Week 14       | Week 12       |      |
+|               | text as data? | Reading and   | Assignment    |      |
+|               | Sentiment     | Discussing    |               |      |
+|               |               |               |               |      |
+|               |               | Substantive   |               |      |
+|               |               | reading: xx   |               |      |
+|               |               |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 14            | How can I use | Week 15       | Week 13       |      |
+|               | text as data? | Reading and   | Assignment    |      |
+|               | Term          | Discussing    |               |      |
+|               | co-occurences |               |               |      |
+|               |               | Substantive   |               |      |
+|               |               | reading: xx   |               |      |
+|               |               |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 15            | How can I     | Week 16       | Week 14       |      |
+|               | share my      | Reading and   | Assignment    |      |
+|               | work?         | Discussing    |               |      |
+|               | Blogdown and  |               |               |      |
+|               | GitHub        | Substantive   |               |      |
+|               |               | reading: xx   |               |      |
+|               |               |               |               |      |
+|               |               | Technical     |               |      |
+|               |               | reading: xx   |               |      |
++---------------+---------------+---------------+---------------+------+
+| 16            | Presenting    | \-            | Week 15       |      |
+|               | Final         |               | Assignment    |      |
+|               | Projects      |               |               |      |
+|               |               |               | Final Project |      |
++---------------+---------------+---------------+---------------+------+
 
 ## University Policies
 
-## **University Policies:**
+### **Academic Integrity**
 
-### **Academic Integrity:**
-
-\
-
-"An essential feature of the University of Tennessee, Knoxville is a
+An essential feature of the University of Tennessee, Knoxville is a
 commitment to maintaining an atmosphere of intellectual integrity and
 academic honesty. As a student of the university, I pledge that I will
 neither knowingly give nor receive any inappropriate assistance in
 academic work, thus affirming my own personal commitment to honor and
-integrity."
+integrity.
 
 ### **Title IV Policy**
 
-### University of Tennessee faculty are committed to supporting our students and upholding gender equity laws as outlined by Title IX.
+University of Tennessee faculty are committed to supporting our students
+and upholding gender equity laws as outlined by Title IX.
 
-### Please be aware that if you choose to confide in a faculty member regarding an issue of sexual harassment (including sexual assault, dating violence, domestic violence, and stalking), sexual exploitation, and retaliation (prohibited conduct) we are obligated to inform the University's Office of Title IX. They can assist you in connecting with all possible resources both on- and off-campus.
+Please be aware that if you choose to confide in a faculty member
+regarding an issue of sexual harassment (including sexual assault,
+dating violence, domestic violence, and stalking), sexual exploitation,
+and retaliation (prohibited conduct) we are obligated to inform the
+University's Office of Title IX. They can assist you in connecting with
+all possible resources both on- and off-campus.
 
-### If you would like to speak with someone confidentially, the Student Counseling Center (865-974-2196) and the Student Health Center (865-974-3135) are both confidential resources.
+If you would like to speak with someone confidentially, the Student
+Counseling Center (865-974-2196) and the Student Health Center
+(865-974-3135) are both confidential resources.
 
-### For additional resources and information, visit titleix.utk.edu.
+For additional resources and information, visit titleix.utk.edu.
 
-\
-**University Civility Statement:**
+### University Civility Statement
 
 Civility is genuine respect and regard for others: politeness,
 consideration, tact, good manners, graciousness, cordiality, affability,
@@ -388,7 +422,7 @@ the university community, the campus asks that all its members adhere to
 the principles of civility and community adopted by the campus:
 <http://civility.utk.edu/>.
 
-### **Disability Services:**
+### **Disability Services**
 
 Any student who feels s/he may need an accommodation based on the impact
 of a disability should contact Student Disability Services in Dunford
@@ -397,14 +431,14 @@ reasonable academic accommodations.
 
 ### **Your Role in Improving Teaching and Learning Through Course Assessment**
 
-At UT, it is our collective responsibility to improve the state of
-teaching and learning.During the semester, you may be requested to
-assess aspects of this course either during class or at the completion
-of the class. You are encouraged to respond to these various forms of
-assessment as a means of continuing to improve the quality of the UT
-learning experience.
+It is our collective responsibility to improve the state of teaching and
+learning. During the semester, you may be requested to assess aspects of
+this course either during class or at the completion of the class. You
+are encouraged to respond to these various forms of assessment as a
+means of continuing to improve the quality of the UT learning
+experience.
 
-## **Basic Needs**
+### **Basic Needs**
 
 Any student who faces challenges securing their food or housing and
 believes they may affect their performance in the course is urged to
@@ -412,40 +446,6 @@ contact the Dean of Students (974-HELP or via<https://dos.utk.edu/>) for
 support. Furthermore, please contact the instructor if you are
 comfortable doing so.
 
-\
-
-## **Key Campus Resources for Students:**
-
-\
-
--   [Center for Career Development](http://career.utk.edu/) (Career
-    counseling and resources; HIRE-A-VOL job search system)
-
--   [Course Catalogs](http://catalog.utk.edu/)  (Listing of academic
-    programs, courses, and policies)
-
--   [Hilltopics](http://hilltopics.utk.edu/) (Campus and academic
-    policies, procedures and standards of conduct)
-
--   [OIT HelpDesk](https://help.utk.edu/) (865) 974-9900
-
--   [Schedule of
-    Classes/Timetable](https://bannerssb.utk.edu/kbanpr/bwckschd.p_disp_dyn_sched)
-
--   [Student Health Center](http://studenthealth.utk.edu/) (visit the
-    site for a list of services)
-
--   [Student Success Center](http://studentsuccess.utk.edu/) (Academic
-    support resources)
-
--   [Undergraduate Academic Advising](http://advising.utk.edu/)
-    (Advising resources, course requirements, and major guides)
-
--   [University Libraries](http://www.lib.utk.edu/) (Access to library
-    resources, databases, course reserves, and services)
-
-\
-
-The instructor reserves the right to revise, alter or amend this
+The instructors reserve the right to revise, alter or amend this
 syllabus as necessary. Students will be notified in writing / email of
 any such changes. 
