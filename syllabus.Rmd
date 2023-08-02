@@ -386,94 +386,40 @@ useful.
 | **Semester    | **Date**       | Readings          |
 | Week**        |                |                   |
 +---------------+----------------+-------------------+
-| 1             | N/A            | Getting Setup     |
+| 1             | N/A            |                   |
 +---------------+----------------+-------------------+
-| 2             | August 28      | What's this       |
-|               |                | course about?     |
-|               |                | Introducing the   |
-|               |                | course and        |
-|               |                | ourselves         |
+| 2             | August 28      |                   |
 +---------------+----------------+-------------------+
-| 3             | September 4    | What's all the    |
-|               |                | fuss about data   |
-|               |                | science? Doing    |
-|               |                | things we could   |
-|               |                | not easily do     |
-|               |                | without advanced  |
-|               |                | *graphics*        |
+| 3             | September 4    |                   |
 +---------------+----------------+-------------------+
-| 4             | September 11   | What's all the    |
-|               |                | fuss about data   |
-|               |                | science? Doing    |
-|               |                | things we could   |
-|               |                | not easily do     |
-|               |                | without *coding*  |
+| 4             | September 11   |                   |
 +---------------+----------------+-------------------+
-| 5             | September 18   | What counts as    |
-|               |                | data? Accessing   |
-|               |                | and describing    |
-|               |                | social media data |
+| 5             | September 18   |                   |
 +---------------+----------------+-------------------+
-| 6             | September 25   | What counts as    |
-|               |                | data? Accessing   |
-|               |                | and describing    |
-|               |                | public internet   |
-|               |                | data              |
+| 6             | September 25   |                   |
 +---------------+----------------+-------------------+
-| 7             | October 2      | What are the core |
-|               |                | skills I need to  |
-|               |                | work with data?   |
-|               |                | Foundational      |
-|               |                | skills, Part 1a   |
+| 7             | October 2      |                   |
 +---------------+----------------+-------------------+
-| **8**         | **October 9    | **N/A**           |
+| **8**         | **October 9    |                   |
 |               | (Fall Break)** |                   |
 +---------------+----------------+-------------------+
-| 9             | October 16     | What are the core |
-|               |                | skills I need to  |
-|               |                | work with data?   |
-|               |                | Foundational      |
-|               |                | skills, Part 1b   |
+| 9             | October 16     |                   |
 +---------------+----------------+-------------------+
-| 10            | October 23     | What have I       |
-|               |                | done?!? Sharing   |
-|               |                | work (Rmd and its |
-|               |                | friends) and      |
-|               |                | Presenting Mini   |
-|               |                | Project           |
+| 10            | October 23     |                   |
 +---------------+----------------+-------------------+
-| 1 0           | October 30     | What are the core |
-|               |                | skills I need to  |
-|               |                | work with data?   |
-|               |                | Foundational      |
-|               |                | skills, Part 2a   |
+| 1 0           | October 30     |                   |
 +---------------+----------------+-------------------+
-| 1 1           | November 6     | What are the core |
-|               |                | skills I need to  |
-|               |                | work with data?   |
-|               |                | Foundational      |
-|               |                | skills, Part 2b   |
+| 1 1           | November 6     |                   |
 +---------------+----------------+-------------------+
-| 1 2           | November 13    | How can I prepare |
-|               |                | for the final     |
-|               |                | project? Learning |
-|               |                | more and creating |
-|               |                | data products     |
+| 1 2           | November 13    |                   |
 +---------------+----------------+-------------------+
-| 1 3           | November 20    | How can I use     |
-|               |                | text as data?     |
-|               |                | Tokens and        |
-|               |                | frequencies       |
+| 1 3           | November 20    |                   |
 +---------------+----------------+-------------------+
-| 1 4           | November 27    | How can I use     |
-|               |                | text as data?     |
-|               |                | Sentiment and     |
-|               |                | term              |
-|               |                | co-occurences     |
+| 1 4           | November 27    |                   |
 +---------------+----------------+-------------------+
-| 1 5           | December 4     | Final Projects    |
+| 1 5           | December 4     |                   |
 +---------------+----------------+-------------------+
-| 1 6           | N/A            | Final Projects    |
+| 1 6           | N/A            |                   |
 +---------------+----------------+-------------------+
 
 ## University Policies
