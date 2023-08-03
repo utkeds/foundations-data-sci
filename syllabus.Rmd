@@ -430,7 +430,7 @@ useful.
 |             |             |             | candidate -**    |
 |             |             |             | prep for the     |
 |             |             |             | dashboard;       |
-|             |             |             | getting teh data |
+|             |             |             | getting the data |
 |             |             |             | ready            |
 |             |             |             |                  |
 |             |             |             | Weekly reading   |
@@ -528,14 +528,16 @@ useful.
 +-------------+-------------+-------------+------------------+
 | 16          | December 4  | Final       | Weekly reading   |
 |             |             | Projects    | and discussion   |
+|             |             |             |                  |
+|             |             |             | help             |
 +-------------+-------------+-------------+------------------+
 
 ## Readings
 
 +-------------+-------------+-------------+--------------------+
-| *           | -           |             | **Tutorial         |
-| *DaSemester |  \*Date\*\* | **          | Reading(s)**       |
-| Week**      |             | Substantive |                    |
+| **Semester  | -           |             | **Tutorial         |
+| Week**      |  \*Date\*\* | **          | Reading(s)**       |
+|             |             | Substantive |                    |
 |             |             | R           |                    |
 |             |             | eading(s)** |                    |
 +-------------+-------------+-------------+--------------------+
@@ -676,24 +678,24 @@ useful.
 | 5           | Se ptember  | Reich, J.   | Query an API using |
 |             | 18          | (2022).     | R:                 |
 |             |             | Learning    |                    |
-|             |             | analytics   | [https://medi      |
-|             |             | and         | um.com/\@traffordD |
-|             |             | learning at | ataLab/querying-ap |
-|             |             | scale.      | is-in-r-39029b73d5 |
-|             |             | Lang, C.,   | f1](https://medium |
-|             |             | Siemens, G. | .com/@traffordData |
-|             |             | Wise, AF,   | Lab/querying-apis- |
-|             |             | Gašević,    | in-r-39029b73d5f1) |
-|             |             | D.,         |                    |
-|             |             | Merceron,   | <http://lab.rady.u |
-|             |             | A.,(eds.)   | csd.edu/sawtooth/b |
-|             |             | Handbook of | usiness_analytics_ |
-|             |             | Learning    | in_r/DataApi.html> |
+|             |             | analytics   | <https             |
+|             |             | and         | ://urbaninstitute. |
+|             |             | learning at | github.io/educatio |
+|             |             | scale.      | n-data-package-r/> |
+|             |             | Lang, C.,   |                    |
+|             |             | Siemens, G. | [https://medi      |
+|             |             | Wise, AF,   | um.com/\@traffordD |
+|             |             | Gašević,    | ataLab/querying-ap |
+|             |             | D.,         | is-in-r-39029b73d5 |
+|             |             | Merceron,   | f1](https://medium |
+|             |             | A.,(eds.)   | .com/@traffordData |
+|             |             | Handbook of | Lab/querying-apis- |
+|             |             | Learning    | in-r-39029b73d5f1) |
 |             |             | Analytics,  |                    |
-|             |             | 2nd ed.     |                    |
-|             |             | Vancouver,  |                    |
-|             |             | Canada:     |                    |
-|             |             | SOLAR.      |                    |
+|             |             | 2nd ed.     | <http://lab.rady.u |
+|             |             | Vancouver,  | csd.edu/sawtooth/b |
+|             |             | Canada:     | usiness_analytics_ |
+|             |             | SOLAR.      | in_r/DataApi.html> |
 |             |             |             |                    |
 |             |             | White, R.   |                    |
 |             |             | S. (2023).  |                    |
@@ -852,9 +854,9 @@ useful.
 |             |             | data mining | -from-wikipedia-ta |
 |             |             | methods in  | bles-3efa04c6b53f> |
 |             |             | in          |                    |
-|             |             | structional |                    |
-|             |             | design,     |                    |
-|             |             | educational |                    |
+|             |             | structional | <https://rves      |
+|             |             | design,     | t.tidyverse.org/ar |
+|             |             | educational | ticles/rvest.html> |
 |             |             | technology, |                    |
 |             |             | and online  |                    |
 |             |             | learning    |                    |
