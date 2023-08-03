@@ -139,32 +139,33 @@ other courses: whatever you have will work for this course.
 
 ## Course Grade
 
-+------------------------+------------------+------------------------+
-| ASSIGNMENT             | PERCENT OF GRADE | POINTS                 |
-+========================+==================+========================+
-| Readings               | 12.5%            | 10 / week for 15 weeks |
-|                        |                  | = 150 points           |
-|                        |                  |                        |
-|                        |                  | \*no reading in Week   |
-|                        |                  | 16                     |
-+------------------------+------------------+------------------------+
-| Weekly Assignments     | 32.5%            | 30 / week for 13 weeks |
-|                        |                  | = 390 points           |
-|                        |                  |                        |
-|                        |                  | \*no assignment Weeks  |
-|                        |                  | 1, 9, and 16           |
-+------------------------+------------------+------------------------+
-| Professional           | 5%               | 60                     |
-| Development Plan       |                  |                        |
-+------------------------+------------------+------------------------+
-| Mini Project           | 12.5%            | 150                    |
-+------------------------+------------------+------------------------+
-| Data Ethics Statement  | 12.5%            | 150                    |
-+------------------------+------------------+------------------------+
-| Final Project          | 25%              | 300                    |
-+------------------------+------------------+------------------------+
-| Total:                 | 100%             | 1,200                  |
-+------------------------+------------------+------------------------+
++------------------+----------------+-------------------------+
+| ASSIGNMENT       | PERCENT OF     | POINTS                  |
+|                  | GRADE          |                         |
++==================+================+=========================+
+| Readings         | 12.5%          | 10 / week for 15 weeks  |
+|                  |                | = 150 points            |
+|                  |                |                         |
+|                  |                | \*no reading in Week 16 |
++------------------+----------------+-------------------------+
+| Weekly           | 32.5%          | 30 / week for 13 weeks  |
+| Assignments      |                | = 390 points            |
+|                  |                |                         |
+|                  |                | \*no assignment Weeks   |
+|                  |                | 1, 9, and 16            |
++------------------+----------------+-------------------------+
+| Professional     | 5%             | 60                      |
+| Development Plan |                |                         |
++------------------+----------------+-------------------------+
+| Mini Project     | 12.5%          | 150                     |
++------------------+----------------+-------------------------+
+| Data Ethics      | 12.5%          | 150                     |
+| Statement        |                |                         |
++------------------+----------------+-------------------------+
+| Final Project    | 25%            | 300                     |
++------------------+----------------+-------------------------+
+| Total:           | 100%           | 1,200                   |
++------------------+----------------+-------------------------+
 
 ## Learning Activities
 
@@ -237,719 +238,780 @@ useful.
 
 ## Timeline
 
-+----------------+----------------+----------------+----------------+
-| -   \*Semester | **Date**       | **Focal        | **Assignments  |
-|     W eek\*\*  |                | Question and   | Due Before the |
-|                |                | Topic**        | Next Class**   |
-+----------------+----------------+----------------+----------------+
-| 1              | N/A            | What's R?      | Primers        |
-|                |                | Getting Setup  |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 2              | August 28      | What's this    | Week 2         |
-|                |                | course about?  | Assignment:    |
-|                |                | Introducing    | Install R and  |
-|                |                | the course and | R Studio,      |
-|                |                | ourselves      | Simple code    |
-|                |                |                | walkthrough;   |
-|                |                |                | use janitor,   |
-|                |                |                | "skim" a data  |
-|                |                |                | set to get a   |
-|                |                |                | feel for the   |
-|                |                |                | data, **and    |
-|                |                |                | answer some    |
-|                |                |                | questions**    |
-|                |                |                | (what's the    |
-|                |                |                | average?       |
-|                |                |                | what's your    |
-|                |                |                | state? what's  |
-|                |                |                | the max? min?) |
-|                |                |                | with NAEP      |
-|                |                |                | state-level    |
-|                |                |                | data           |
-|                |                |                |                |
-|                |                |                | Slides: which  |
-|                |                |                | state performs |
-|                |                |                | best? why?     |
-|                |                |                | what does best |
-|                |                |                | mean?          |
-|                |                |                | introduce      |
-|                |                |                | janitor, skim, |
-|                |                |                | reading in a   |
-|                |                |                | data set;      |
-|                |                |                | code, code     |
-|                |                |                | chunks, the    |
-|                |                |                | coding         |
-|                |                |                | process;       |
-|                |                |                | create an R    |
-|                |                |                | Markdown file  |
-|                |                |                |                |
-|                |                |                | In-class       |
-|                |                |                | code-along:    |
-|                |                |                | read data, use |
-|                |                |                | janitor, use   |
-|                |                |                | skimr          |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 3              | S eptember 4   | What's all the | Week 3         |
-|                |                | fuss about     | Assignment:    |
-|                |                | data science?  | Creating       |
-|                |                | Doing things   | faceted plots  |
-|                |                | we could not   | with ggplot2 - |
-|                |                | easily do      | drill down     |
-|                |                | without        | into           |
-|                |                | advanced       | group-specific |
-|                |                | *graphics*     | *patterns*     |
-|                |                |                | within federal |
-|                |                |                | school data    |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 4              | S eptember 11  | What's all the | Week 4         |
-|                |                | fuss about     | Assignment:    |
-|                |                | data science?  | Joining        |
-|                |                | Doing things   | multiple       |
-|                |                | we could not   | frames -- join |
-|                |                | easily do      | two unrelated  |
-|                |                | without        | data sets      |
-|                |                | *coding*       | together and   |
-|                |                |                | examine the    |
-|                |                |                | correlation -  |
-|                |                |                | tidykids       |
-|                |                |                | spending -     |
-|                |                |                | pk12 spending  |
-|                |                |                | relates to     |
-|                |                |                | NAEP           |
-|                |                |                | performance?   |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 5              | S eptember 18  | How do I       | Week 5         |
-|                |                | access and     | Assignment:    |
-|                |                | describe data? | Accessing and  |
-|                |                | Using an R     | describing     |
-|                |                | package and an | data - using   |
-|                |                | API            | the            |
-|                |                |                | educationdata  |
-|                |                |                | package to     |
-|                |                |                | query an API   |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 6              | S eptember 25  | How do I       | Week 6         |
-|                |                | preparing data | Assignment:    |
-|                |                | for analysis   | Foundational   |
-|                |                | ?F oundational | data           |
-|                |                | skills, Part   | wrangling,     |
-|                |                | 1a             | part 1 -       |
-|                |                |                | Making a       |
-|                |                |                | better college |
-|                |                |                | rating using   |
-|                |                |                | college data - |
-|                |                |                | using          |
-|                |                |                | educationdata  |
-|                |                |                | coll           |
-|                |                |                | ege-university |
-|                |                |                | end points     |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 7              | October 2      | How do I group | Week 7         |
-|                |                | and summarize  | Assignment:    |
-|                |                | data? F        | Foundational   |
-|                |                | oundational    | data           |
-|                |                | skills, Part   | wrangling,     |
-|                |                | 1b             | part 2, Making |
-|                |                |                | a better       |
-|                |                |                | college rating |
-|                |                |                | using college  |
-|                |                |                | data - using   |
-|                |                |                | educationdata  |
-|                |                |                | coll           |
-|                |                |                | ege-university |
-|                |                |                | end points     |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 8              | October 9      | N/A            | Weekly reading |
-|                | (Fall Break)   |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 9              | October 16     | How do I       | Week 9         |
-|                |                | access public  | Assignment,    |
-|                |                | Internet data? | Scraping       |
-|                |                | Web scraping   | Wikipedia      |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 10             | October 23     | What have I    | Mini Project   |
-|                |                | done?!?        | -- \< \<https: |
-|                |                | Sharing work   | //data.        |
-|                |                | (Quarto, Rmd   | utk.edu/\>\> - |
-|                |                | and its        | Calculating    |
-|                |                | friends) and   | descriptive    |
-|                |                | Presenting     | stats from a   |
-|                |                | Mini Project   | survey to      |
-|                |                |                | share with     |
-|                |                |                | instructors    |
-|                |                |                | and            |
-|                |                |                | administrators |
-|                |                |                | OR Making a    |
-|                |                |                | better college |
-|                |                |                | rating using   |
-|                |                |                | college data   |
-|                |                |                | OR Use student |
-|                |                |                | performance    |
-|                |                |                | data over      |
-|                |                |                | several years  |
-|                |                |                | to identify    |
-|                |                |                | trends, make   |
-|                |                |                | predictions,   |
-|                |                |                | and recommend  |
-|                |                |                | interventions  |
-|                |                |                | for at-risk    |
-|                |                |                | students       |
-|                |                |                |                |
-|                |                |                | Week 10        |
-|                |                |                | Assignment,    |
-|                |                |                | Create a       |
-|                |                |                | report based   |
-|                |                |                | on your mini   |
-|                |                |                | project        |
-|                |                |                | analysis       |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 11             | October 30     | What are the   | Week 11        |
-|                |                | more complex   | Assignment,    |
-|                |                | skills I need  | Advanced data  |
-|                |                | to work with   | wrangling and  |
-|                |                | data? F        | visualization, |
-|                |                | oundational    | part 1 -       |
-|                |                | skills, Part   | **Building a   |
-|                |                | 2a             | dashboard      |
-|                |                |                | using learning |
-|                |                |                | analytics      |
-|                |                |                | data -         |
-|                |                |                | candidate -**  |
-|                |                |                | prep for the   |
-|                |                |                | dashboard;     |
-|                |                |                | getting teh    |
-|                |                |                | data ready     |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 12             | November 6     | What are the   | Week 12        |
-|                |                | core skills I  | Assignment,    |
-|                |                | need to work   | Advanced data  |
-|                |                | with data? F   | wrangling and  |
-|                |                | oundational    | visualization, |
-|                |                | skills, Part   | part 2 -       |
-|                |                | 2b             | building a     |
-|                |                |                | beta version   |
-|                |                |                | of dashboard   |
-|                |                |                | with a single  |
-|                |                |                | plot           |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 13             | November 13    | How can I      | Week 13        |
-|                |                | prepare for    | Assignment,    |
-|                |                | the final      | Mapping        |
-|                |                | project?       | Achievement    |
-|                |                | Learning more  | Gaps: Use      |
-|                |                | and creating   | school         |
-|                |                | data products  | performance    |
-|                |                |                | data and       |
-|                |                |                | district shape |
-|                |                |                | files to       |
-|                |                |                | create a map   |
-|                |                |                | to understand  |
-|                |                |                | achievement    |
-|                |                |                | gaps. -        |
-|                |                |                | Creating an    |
-|                |                |                | interactive    |
-|                |                |                | map -          |
-|                |                |                | \<<https://gi> |
-|                |                |                | thub.          |
-|                |                |                | com/iv         |
-|                |                |                | elasq/leaidr\> |
-|                |                |                | and\           |
-|                |                |                | \<<http        |
-|                |                |                | s://www.tn.go> |
-|                |                |                | v              |
-|                |                |                | /education/dis |
-|                |                |                | tric           |
-|                |                |                | ts/fed         |
-|                |                |                | eral-programs- |
-|                |                |                | an             |
-|                |                |                | d-oversight/da |
-|                |                |                | ta/d           |
-|                |                |                | ata-do         |
-|                |                |                | wnloads.html\> |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 14             | November 20    | How can I use  | Week 14        |
-|                |                | text as data?  | Assignment,    |
-|                |                | Tokens and     | Text analysis, |
-|                |                | frequencies    | part 1 -       |
-|                |                |                | social media   |
-|                |                |                | data...        |
-|                |                |                | CrowdTangle    |
-|                |                |                | data on        |
-|                |                |                | climate change |
-|                |                |                | (you can parse |
-|                |                |                | for            |
-|                |                |                | educational    |
-|                |                |                | implications   |
-|                |                |                | or             |
-|                |                |                | broader/other  |
-|                |                |                | implications)  |
-|                |                |                |                |
-|                |                |                | Accessing and  |
-|                |                |                | describing     |
-|                |                |                | social media   |
-|                |                |                | and public     |
-|                |                |                | internet data  |
-|                |                |                |                |
-|                |                |                | Data Ethics    |
-|                |                |                | Statement      |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 15             | November 27    | How can I use  | Week 15        |
-|                |                | text as data?  | Assignment,    |
-|                |                | Sentiment and  | Text analysis, |
-|                |                | term c         | part 2 -       |
-|                |                | ooccurences    | student        |
-|                |                |                | comments (Ryan |
-|                |                |                | and/or Rita    |
-|                |                |                | and Josh)      |
-|                |                |                |                |
-|                |                |                | Accessing and  |
-|                |                |                | describing     |
-|                |                |                | social media   |
-|                |                |                | and public     |
-|                |                |                | internet data  |
-|                |                |                |                |
-|                |                |                | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
-| 16             | December 4     | Final Projects | Weekly reading |
-|                |                |                | and discussion |
-+----------------+----------------+----------------+----------------+
++-------------+-------------+-------------+------------------+
+| -           | **Date**    | **Focal     | **Assignments    |
+|  \*Semester |             | Question    | Due Before the   |
+|     W       |             | and Topic** | Next Class**     |
+|     eek\*\* |             |             |                  |
++-------------+-------------+-------------+------------------+
+| 1           | N/A         | What's R?   | Primers          |
+|             |             | Getting     |                  |
+|             |             | Setup       | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 2           | August 28   | What's this | Week 2           |
+|             |             | course      | Assignment:      |
+|             |             | about?      | Install R and R  |
+|             |             | Introducing | Studio, Simple   |
+|             |             | the course  | code             |
+|             |             | and         | walkthrough; use |
+|             |             | ourselves   | janitor, "skim"  |
+|             |             |             | a data set to    |
+|             |             |             | get a feel for   |
+|             |             |             | the data, **and  |
+|             |             |             | answer some      |
+|             |             |             | questions**      |
+|             |             |             | (what's the      |
+|             |             |             | average? what's  |
+|             |             |             | your state?      |
+|             |             |             | what's the max?  |
+|             |             |             | min?) with NAEP  |
+|             |             |             | state-level data |
+|             |             |             |                  |
+|             |             |             | Slides: which    |
+|             |             |             | state performs   |
+|             |             |             | best? why? what  |
+|             |             |             | does best mean?  |
+|             |             |             | introduce        |
+|             |             |             | janitor, skim,   |
+|             |             |             | reading in a     |
+|             |             |             | data set; code,  |
+|             |             |             | code chunks, the |
+|             |             |             | coding process;  |
+|             |             |             | create an R      |
+|             |             |             | Markdown file    |
+|             |             |             |                  |
+|             |             |             | In-class         |
+|             |             |             | code-along: read |
+|             |             |             | data, use        |
+|             |             |             | janitor, use     |
+|             |             |             | skimr            |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 3           | September 4 | What's all  | Week 3           |
+|             |             | the fuss    | Assignment:      |
+|             |             | about data  | Creating faceted |
+|             |             | science?    | plots with       |
+|             |             | Doing       | ggplot2 - drill  |
+|             |             | things we   | down into        |
+|             |             | could not   | group-specific   |
+|             |             | easily do   | *patterns*       |
+|             |             | without     | within federal   |
+|             |             | advanced    | school data      |
+|             |             | *graphics*  |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 4           | September   | What's all  | Week 4           |
+|             | 11          | the fuss    | Assignment:      |
+|             |             | about data  | Joining multiple |
+|             |             | science?    | frames -- join   |
+|             |             | Doing       | two unrelated    |
+|             |             | things we   | data sets        |
+|             |             | could not   | together and     |
+|             |             | easily do   | examine the      |
+|             |             | without     | correlation -    |
+|             |             | *coding*    | tidykids         |
+|             |             |             | spending - pk12  |
+|             |             |             | spending relates |
+|             |             |             | to NAEP          |
+|             |             |             | performance?     |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 5           | September   | How do I    | Week 5           |
+|             | 18          | access and  | Assignment:      |
+|             |             | describe    | Accessing and    |
+|             |             | data? Using | describing       |
+|             |             | an R        | data - using the |
+|             |             | package and | educationdata    |
+|             |             | an API      | package to query |
+|             |             |             | an API           |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 6           | September   | How do I    | Week 6           |
+|             | 25          | preparing   | Assignment:      |
+|             |             | data for    | Foundational     |
+|             |             | analysis ?F | data wrangling,  |
+|             |             | oundational | part 1 - Making  |
+|             |             | skills,     | a better college |
+|             |             | Part 1a     | rating using     |
+|             |             |             | college data -   |
+|             |             |             | using            |
+|             |             |             | educationdata    |
+|             |             |             | co               |
+|             |             |             | llege-university |
+|             |             |             | end points       |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 7           | October 2   | How do I    | Week 7           |
+|             |             | group and   | Assignment:      |
+|             |             | summarize   | Foundational     |
+|             |             | data? F     | data wrangling,  |
+|             |             | oundational | part 2, Making a |
+|             |             | skills,     | better college   |
+|             |             | Part 1b     | rating using     |
+|             |             |             | college data -   |
+|             |             |             | using            |
+|             |             |             | educationdata    |
+|             |             |             | co               |
+|             |             |             | llege-university |
+|             |             |             | end points       |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 8           | October 9   | N/A         | Weekly reading   |
+|             | (Fall       |             | and discussion   |
+|             | Break)      |             |                  |
++-------------+-------------+-------------+------------------+
+| 9           | October 16  | How do I    | Week 9           |
+|             |             | access      | Assignment,      |
+|             |             | public      | Scraping         |
+|             |             | Internet    | Wikipedia        |
+|             |             | data? Web   |                  |
+|             |             | scraping    | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 10          | October 23  | What have I | Mini Project --  |
+|             |             | done?!?     | \< \<https:      |
+|             |             | Sharing     | //dat            |
+|             |             | work        | a.utk.edu/\>\> - |
+|             |             | (Quarto,    | Calculating      |
+|             |             | Rmd and its | descriptive      |
+|             |             | friends)    | stats from a     |
+|             |             | and         | survey to share  |
+|             |             | Presenting  | with instructors |
+|             |             | Mini        | and              |
+|             |             | Project     | administrators   |
+|             |             |             | OR Making a      |
+|             |             |             | better college   |
+|             |             |             | rating using     |
+|             |             |             | college data OR  |
+|             |             |             | Use student      |
+|             |             |             | performance data |
+|             |             |             | over several     |
+|             |             |             | years to         |
+|             |             |             | identify trends, |
+|             |             |             | make             |
+|             |             |             | predictions, and |
+|             |             |             | recommend        |
+|             |             |             | interventions    |
+|             |             |             | for at-risk      |
+|             |             |             | students         |
+|             |             |             |                  |
+|             |             |             | Week 10          |
+|             |             |             | Assignment,      |
+|             |             |             | Create a report  |
+|             |             |             | based on your    |
+|             |             |             | mini project     |
+|             |             |             | analysis         |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 11          | October 30  | What are    | Week 11          |
+|             |             | the more    | Assignment,      |
+|             |             | complex     | Advanced data    |
+|             |             | skills I    | wrangling and    |
+|             |             | need to     | visualization,   |
+|             |             | work with   | part 1 -         |
+|             |             | data? F     | **Building a     |
+|             |             | oundational | dashboard using  |
+|             |             | skills,     | learning         |
+|             |             | Part 2a     | analytics data - |
+|             |             |             | candidate -**    |
+|             |             |             | prep for the     |
+|             |             |             | dashboard;       |
+|             |             |             | getting teh data |
+|             |             |             | ready            |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 12          | November 6  | What are    | Week 12          |
+|             |             | the core    | Assignment,      |
+|             |             | skills I    | Advanced data    |
+|             |             | need to     | wrangling and    |
+|             |             | work with   | visualization,   |
+|             |             | data? F     | part 2 -         |
+|             |             | oundational | building a beta  |
+|             |             | skills,     | version of       |
+|             |             | Part 2b     | dashboard with a |
+|             |             |             | single plot      |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 13          | November 13 | How can I   | Week 13          |
+|             |             | prepare for | Assignment,      |
+|             |             | the final   | Mapping          |
+|             |             | project?    | Achievement      |
+|             |             | Learning    | Gaps: Use school |
+|             |             | more and    | performance data |
+|             |             | creating    | and district     |
+|             |             | data        | shape files to   |
+|             |             | products    | create a map to  |
+|             |             |             | understand       |
+|             |             |             | achievement      |
+|             |             |             | gaps. - Creating |
+|             |             |             | an interactive   |
+|             |             |             | map -            |
+|             |             |             | \<<https://gi>   |
+|             |             |             | thub.            |
+|             |             |             | com/             |
+|             |             |             | ivelasq/leaidr\> |
+|             |             |             | and\             |
+|             |             |             | \<<ht            |
+|             |             |             | tps://www.tn.go> |
+|             |             |             | v/education/dis  |
+|             |             |             | tric             |
+|             |             |             | ts/f             |
+|             |             |             | ederal-programs- |
+|             |             |             | and-oversight/da |
+|             |             |             | ta/d             |
+|             |             |             | ata-             |
+|             |             |             | downloads.html\> |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 14          | November 20 | How can I   | Week 14          |
+|             |             | use text as | Assignment, Text |
+|             |             | data?       | analysis, part   |
+|             |             | Tokens and  | 1 - social media |
+|             |             | frequencies | data...          |
+|             |             |             | CrowdTangle data |
+|             |             |             | on climate       |
+|             |             |             | change (you can  |
+|             |             |             | parse for        |
+|             |             |             | educational      |
+|             |             |             | implications or  |
+|             |             |             | broader/other    |
+|             |             |             | implications)    |
+|             |             |             |                  |
+|             |             |             | Accessing and    |
+|             |             |             | describing       |
+|             |             |             | social media and |
+|             |             |             | public internet  |
+|             |             |             | data             |
+|             |             |             |                  |
+|             |             |             | Data Ethics      |
+|             |             |             | Statement        |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 15          | November 27 | How can I   | Week 15          |
+|             |             | use text as | Assignment, Text |
+|             |             | data?       | analysis, part   |
+|             |             | Sentiment   | 2 - student      |
+|             |             | and term c  | comments (Ryan   |
+|             |             | ooccurences | and/or Rita and  |
+|             |             |             | Josh)            |
+|             |             |             |                  |
+|             |             |             | Accessing and    |
+|             |             |             | describing       |
+|             |             |             | social media and |
+|             |             |             | public internet  |
+|             |             |             | data             |
+|             |             |             |                  |
+|             |             |             | Weekly reading   |
+|             |             |             | and discussion   |
++-------------+-------------+-------------+------------------+
+| 16          | December 4  | Final       | Weekly reading   |
+|             |             | Projects    | and discussion   |
++-------------+-------------+-------------+------------------+
 
 ## Readings
 
-+----------------+----------------+----------------+----------------+
-| **Semester     | -   \*Date\*\* | **Substantive  | **Tutorial     |
-| Week**         |                | R eading(s)**  | Reading(s)**   |
-+----------------+----------------+----------------+----------------+
-| 1              | N/A            | Estrellado, R. | We can         |
-|                |                | A., Freer, E.  |                |
-|                |                | A., Mostipak,  |                |
-|                |                | J., Rosenberg, |                |
-|                |                | J. M., &       |                |
-|                |                | Velásquez, I.  |                |
-|                |                | C. (2020).     |                |
-|                |                | Data science   |                |
-|                |                | in education   |                |
-|                |                | using R.       |                |
-|                |                | Routledge.     |                |
-|                |                | Chapter 3,     |                |
-|                |                | What does data |                |
-|                |                | science in     |                |
-|                |                | education look |                |
-|                |                | like? \<<http  |                |
-|                |                | s://datasc>    |                |
-|                |                | ienc           |                |
-|                |                | eineducatio    |                |
-|                |                | n.com          |                |
-|                |                | /c03.html\>    |                |
-|                |                |                |                |
-|                |                | McFarland, D.  |                |
-|                |                | A., Khanna,    |                |
-|                |                | S., Domingue,  |                |
-|                |                | B. W., &       |                |
-|                |                | Pardos, Z. A.  |                |
-|                |                | (2021).        |                |
-|                |                | Education data |                |
-|                |                | science: Past, |                |
-|                |                | present,       |                |
-|                |                | future. AERA   |                |
-|                |                | Open, 7, 233   |                |
-|                |                | 2858           |                |
-|                |                | 4211052055.    |                |
-+----------------+----------------+----------------+----------------+
-| 2              | August 28      | Salganik, M.   |                |
-|                |                | J. (2019). Bit |                |
-|                |                | by bit: Social |                |
-|                |                | research in    |                |
-|                |                | the digital    |                |
-|                |                | age. Princeton |                |
-|                |                | University     |                |
-|                |                | Press.         |                |
-|                |                | Chapters 2     |                |
-|                |                | (Observing     |                |
-|                |                | Behavior) and  |                |
-|                |                | 3 (Asking      |                |
-|                |                | Questions).    |                |
-+----------------+----------------+----------------+----------------+
-| 3              | Se ptember 4   | Lang, C.,      |                |
-|                |                | Wise, A. F.,   |                |
-|                |                | Merceron, A.,  |                |
-|                |                | Gasevic, D., & |                |
-|                |                | Siemens, G.    |                |
-|                |                | (2022). What   |                |
-|                |                | is learning    |                |
-|                |                | analytics. The |                |
-|                |                | handbook of    |                |
-|                |                | learning       |                |
-|                |                | analytics,     |                |
-|                |                | 8-18.          |                |
-|                |                |                |                |
-|                |                | Rutherford,    |                |
-|                |                | T., Duck, K.,  |                |
-|                |                | Rosenberg, J.  |                |
-|                |                | M., & Patt, R. |                |
-|                |                | (2022).        |                |
-|                |                | Leveraging     |                |
-|                |                | mathematics    |                |
-|                |                | software data  |                |
-|                |                | to understand  |                |
-|                |                | student        |                |
-|                |                | learning and   |                |
-|                |                | motivation     |                |
-|                |                | during the     |                |
-|                |                | COVID-19       |                |
-|                |                | pandemic.      |                |
-|                |                | Journal of     |                |
-|                |                | Research on    |                |
-|                |                | Technology in  |                |
-|                |                | Education,     |                |
-|                |                | 54(sup1),      |                |
-|                |                | S94-S131.      |                |
-+----------------+----------------+----------------+----------------+
-| 4              | Se ptember 11  | Worsley, M.,   |                |
-|                |                | Mart inez      |                |
-|                |                | -Maldonado,    |                |
-|                |                | R., &          |                |
-|                |                | D'Angelo, C.   |                |
-|                |                | (2021). A New  |                |
-|                |                | Era in         |                |
-|                |                | Multimodal     |                |
-|                |                | Learning       |                |
-|                |                | Analytics:     |                |
-|                |                | Twelve Core    |                |
-|                |                | Commitments to |                |
-|                |                | Ground and     |                |
-|                |                | Grow MMLA.     |                |
-|                |                | Journal of     |                |
-|                |                | Learning       |                |
-|                |                | Analytics,     |                |
-|                |                | 8(3), 10-27.   |                |
-+----------------+----------------+----------------+----------------+
-| 5              | Se ptember 18  | Reich, J.      |                |
-|                |                | (2022).        |                |
-|                |                | Learning       |                |
-|                |                | analytics and  |                |
-|                |                | learning at    |                |
-|                |                | scale. Lang,   |                |
-|                |                | C., Siemens,   |                |
-|                |                | G. Wise, AF,   |                |
-|                |                | Gašević, D.,   |                |
-|                |                | Merceron,      |                |
-|                |                | A.,(eds.)      |                |
-|                |                | Handbook of    |                |
-|                |                | Learning       |                |
-|                |                | Analytics, 2nd |                |
-|                |                | ed. Vancouver, |                |
-|                |                | Canada: SOLAR. |                |
-|                |                |                |                |
-|                |                | White, R. S.   |                |
-|                |                | (2023). What's |                |
-|                |                | in a first     |                |
-|                |                | name?:         |                |
-|                |                | America's K-12 |                |
-|                |                | public school  |                |
-|                |                | district sup   |                |
-|                |                | erintendent    |                |
-|                |                | gender gap.    |                |
-|                |                | Leadership and |                |
-|                |                | Policy in      |                |
-|                |                | Schools,       |                |
-|                |                | 22(2),         |                |
-|                |                | 385-401.       |                |
-+----------------+----------------+----------------+----------------+
-| 6              | Se ptember 25  | Shelton, C.    |                |
-|                |                | C., Koehler,   |                |
-|                |                | M. J.,         |                |
-|                |                | Greenhalgh, S. |                |
-|                |                | P., &          |                |
-|                |                | Carpenter, J.  |                |
-|                |                | P. (2022).     |                |
-|                |                | Lifting the    |                |
-|                |                | veil on Teach  |                |
-|                |                | ersP           |                |
-|                |                | ayTeachers.    |                |
-|                |                | com: An in     |                |
-|                |                | vestigation of |                |
-|                |                | educational    |                |
-|                |                | marketplace    |                |
-|                |                | offerings and  |                |
-|                |                | downloads.     |                |
-|                |                | Learning,      |                |
-|                |                | Media and      |                |
-|                |                | Technology,    |                |
-|                |                | 47(2),         |                |
-|                |                | 268-287.       |                |
-|                |                |                |                |
-|                |                | Rosenberg, J.  |                |
-|                |                | M., Borchers,  |                |
-|                |                | C.,            |                |
-|                |                | Burchfield, M. |                |
-|                |                | A., Anderson,  |                |
-|                |                | D., Stegenga,  |                |
-|                |                | S. M., &       |                |
-|                |                | Fischer, C.    |                |
-|                |                | (2022). Posts  |                |
-|                |                | about students |                |
-|                |                | on Facebook: a |                |
-|                |                | data ethics p  |                |
-|                |                | erspective.    |                |
-|                |                | Educational    |                |
-|                |                | researcher,    |                |
-|                |                | 51(8),         |                |
-|                |                | 547-550.       |                |
-+----------------+----------------+----------------+----------------+
-| 7              | October 2      | Park, J. J.,   |                |
-|                |                | Kim, B. H.,    |                |
-|                |                | Wong, N.,      |                |
-|                |                | Zheng, J.,     |                |
-|                |                | Breen, S., Lo, |                |
-|                |                | P., ... &      |                |
-|                |                | Poon, O.       |                |
-|                |                | (2023).        |                |
-|                |                | Inequality     |                |
-|                |                | Beyond S       |                |
-|                |                | tandardized    |                |
-|                |                | Tests: Trends  |                |
-|                |                | in Extr        |                |
-|                |                | acurricular    |                |
-|                |                | Activity       |                |
-|                |                | Reporting in   |                |
-|                |                | College A      |                |
-|                |                | pplications    |                |
-|                |                | Across Race    |                |
-|                |                | and Class.     |                |
-|                |                | Technical      |                |
-|                |                | Report.        |                |
-|                |                | Annenberg      |                |
-|                |                | Institute at   |                |
-|                |                | Brown          |                |
-|                |                | University.    |                |
-|                |                | \<https        |                |
-|                |                | ://edworkin    |                |
-|                |                | gpapers.\>co   |                |
-|                |                | m/ai23-749.    |                |
-+----------------+----------------+----------------+----------------+
-| **8**          | **October 9    | Fischer, C.,   |                |
-|                | (Fall B        | Pardos, Z. A., |                |
-|                | reak)**        | Baker, R. S.,  |                |
-|                |                | Williams, J.   |                |
-|                |                | J., Smyth, P., |                |
-|                |                | Yu, R., \... & |                |
-|                |                | Warschauer, M. |                |
-|                |                | (2020). Mining |                |
-|                |                | big data in    |                |
-|                |                | education:     |                |
-|                |                | Affordances    |                |
-|                |                | and            |                |
-|                |                | challenges.    |                |
-|                |                | Review of      |                |
-|                |                | Research in    |                |
-|                |                | Education,     |                |
-|                |                | 44(1),         |                |
-|                |                | 130-160.       |                |
-|                |                |                |                |
-|                |                | Hakimi, L.,    |                |
-|                |                | Eynon, R., &   |                |
-|                |                | Murphy, V. A.  |                |
-|                |                | (2021). The    |                |
-|                |                | ethics of      |                |
-|                |                | using digital  |                |
-|                |                | trace data in  |                |
-|                |                | education: A   |                |
-|                |                | thematic       |                |
-|                |                | review of the  |                |
-|                |                | research       |                |
-|                |                | landscape.     |                |
-|                |                | Review of      |                |
-|                |                | Educational    |                |
-|                |                | Research,      |                |
-|                |                | 91(5),         |                |
-|                |                | 671-717.       |                |
-+----------------+----------------+----------------+----------------+
-| 9              | October 16     | Kimmons, R., & |                |
-|                |                | V eletsianos,  |                |
-|                |                | G. (2018).     |                |
-|                |                | Public         |                |
-|                |                | internet data  |                |
-|                |                | mining methods |                |
-|                |                | in in          |                |
-|                |                | structional    |                |
-|                |                | design,        |                |
-|                |                | educational    |                |
-|                |                | technology,    |                |
-|                |                | and online     |                |
-|                |                | learning       |                |
-|                |                | research.      |                |
-|                |                | TechTrends,    |                |
-|                |                | 62(5),         |                |
-|                |                | 492-500.       |                |
-|                |                |                |                |
-|                |                | Staudt Willet, |                |
-|                |                | K. B., &       |                |
-|                |                | Carpenter, J.  |                |
-|                |                | P. (2021). A   |                |
-|                |                | tale of two    |                |
-|                |                | subreddits:    |                |
-|                |                | Change and     |                |
-|                |                | continuity in  |                |
-|                |                | t each         |                |
-|                |                | ing‐related    |                |
-|                |                | online spaces. |                |
-|                |                | British        |                |
-|                |                | Journal of     |                |
-|                |                | Educational    |                |
-|                |                | Technology,    |                |
-|                |                | 52(2),         |                |
-|                |                | 714-733.       |                |
-+----------------+----------------+----------------+----------------+
-| 10             | October 23     | D'ignazio, C., |                |
-|                |                | & Klein, L. F. |                |
-|                |                | (2020). Data   |                |
-|                |                | feminism. MIT  |                |
-|                |                | press. Chaper  |                |
-|                |                | 1 (In          |                |
-|                |                | troduction:    |                |
-|                |                | Why Data       |                |
-|                |                | Science Needs  |                |
-|                |                | Feminism)      |                |
-+----------------+----------------+----------------+----------------+
-| 11             | October 30     | Dowell, N. M., |                |
-|                |                | Nixon, T. M.,  |                |
-|                |                | & Graesser, A. |                |
-|                |                | C. (2019).     |                |
-|                |                | Group co       |                |
-|                |                | mmunication    |                |
-|                |                | analysis: A co |                |
-|                |                | mputational    |                |
-|                |                | linguistics    |                |
-|                |                | approach for   |                |
-|                |                | detecting soc  |                |
-|                |                | iocognitive    |                |
-|                |                | roles in       |                |
-|                |                | multiparty in  |                |
-|                |                | teractions.    |                |
-|                |                | Behavior       |                |
-|                |                | Research       |                |
-|                |                | Methods, 51,   |                |
-|                |                | 1007-1041.     |                |
-+----------------+----------------+----------------+----------------+
-| 12             | N ovember 6    | Nguyen, H.,    |                |
-|                |                | Lopez, J.,     |                |
-|                |                | Homer, B.,     |                |
-|                |                | Ali, A., &     |                |
-|                |                | Ahn, J.        |                |
-|                |                | (2023).        |                |
-|                |                | Reminders, r   |                |
-|                |                | eflections,    |                |
-|                |                | and rel        |                |
-|                |                | ationships:    |                |
-|                |                | insights from  |                |
-|                |                | the design of  |                |
-|                |                | a chatbot for  |                |
-|                |                | college        |                |
-|                |                | advising.      |                |
-|                |                | Information    |                |
-|                |                | and Learning   |                |
-|                |                | Sciences,      |                |
-|                |                | 124(3/4),      |                |
-|                |                | 128-146.       |                |
-+----------------+----------------+----------------+----------------+
-| 13             | N ovember 13   | D'Mello, S.    |                |
-|                |                | (2017).        |                |
-|                |                | Emotional      |                |
-|                |                | learning       |                |
-|                |                | analytics.     |                |
-|                |                | Handbook of    |                |
-|                |                | learning       |                |
-|                |                | analytics,     |                |
-|                |                | 115.           |                |
-+----------------+----------------+----------------+----------------+
-| 14             | N ovember 20   | Lucy L.,       |                |
-|                |                | Demszky D.,    |                |
-|                |                | Bromley P.,    |                |
-|                |                | Jurafsky D.    |                |
-|                |                | (2020).        |                |
-|                |                | Content        |                |
-|                |                | analysis of    |                |
-|                |                | textbooks via  |                |
-|                |                | natural        |                |
-|                |                | language       |                |
-|                |                | processing:    |                |
-|                |                | Findings on    |                |
-|                |                | gender, race,  |                |
-|                |                | and ethnicity  |                |
-|                |                | in Texas US    |                |
-|                |                | history        |                |
-|                |                | textbooks.     |                |
-|                |                | AERA Open,     |                |
-|                |                | 6(3). \<<h     |                |
-|                |                | ttps://doi>    |                |
-|                |                | .org           |                |
-|                |                | /10.1177/23    |                |
-|                |                | 32858          |                |
-|                |                | 420940312\>    |                |
-+----------------+----------------+----------------+----------------+
-| 15             | N ovember 27   | Rosenberg, J.  |                |
-|                |                | M., Borchers,  |                |
-|                |                | C., Dyer, E.   |                |
-|                |                | B., Anderson,  |                |
-|                |                | D., & Fischer, |                |
-|                |                | C. (2021). Un  |                |
-|                |                | derstanding    |                |
-|                |                | public         |                |
-|                |                | sentiment      |                |
-|                |                | about          |                |
-|                |                | educational    |                |
-|                |                | reforms: The   |                |
-|                |                | next           |                |
-|                |                | generation     |                |
-|                |                | science        |                |
-|                |                | standards on   |                |
-|                |                | Twitter. AERA  |                |
-|                |                | open, 7, 233   |                |
-|                |                | 2858           |                |
-|                |                | 4211024261.    |                |
-+----------------+----------------+----------------+----------------+
-| 16             | D ecember 4    | N/A            |                |
-+----------------+----------------+----------------+----------------+
++-------------+-------------+-------------+--------------------+
+| *           | -           |             | **Tutorial         |
+| *DaSemester |  \*Date\*\* | **          | Reading(s)**       |
+| Week**      |             | Substantive |                    |
+|             |             | R           |                    |
+|             |             | eading(s)** |                    |
++-------------+-------------+-------------+--------------------+
+| 1           | N/A         | Estrellado, | R Primers:         |
+|             |             | R. A.,      |                    |
+|             |             | Freer, E.   | <                  |
+|             |             | A.,         | https://posit.clou |
+|             |             | Mostipak,   | d/learn/primers/1> |
+|             |             | J.,         |                    |
+|             |             | Rosenberg,  | <                  |
+|             |             | J. M., &    | https://posit.clou |
+|             |             | Velásquez,  | d/learn/primers/2> |
+|             |             | I. C.       |                    |
+|             |             | (2020).     |                    |
+|             |             | Data        |                    |
+|             |             | science in  |                    |
+|             |             | education   |                    |
+|             |             | using R.    |                    |
+|             |             | Routledge.  |                    |
+|             |             | Chapter 3,  |                    |
+|             |             | What does   |                    |
+|             |             | data        |                    |
+|             |             | science in  |                    |
+|             |             | education   |                    |
+|             |             | look like?  |                    |
+|             |             | \<<http     |                    |
+|             |             | s://datasc> |                    |
+|             |             | ienc        |                    |
+|             |             | eineducatio |                    |
+|             |             | n.com       |                    |
+|             |             | /c03.html\> |                    |
+|             |             |             |                    |
+|             |             | McFarland,  |                    |
+|             |             | D. A.,      |                    |
+|             |             | Khanna, S., |                    |
+|             |             | Domingue,   |                    |
+|             |             | B. W., &    |                    |
+|             |             | Pardos, Z.  |                    |
+|             |             | A. (2021).  |                    |
+|             |             | Education   |                    |
+|             |             | data        |                    |
+|             |             | science:    |                    |
+|             |             | Past,       |                    |
+|             |             | present,    |                    |
+|             |             | future.     |                    |
+|             |             | AERA Open,  |                    |
+|             |             | 7, 233 2858 |                    |
+|             |             | 4211052055. |                    |
++-------------+-------------+-------------+--------------------+
+| 2           | August 28   | Salganik,   | Creating and using |
+|             |             | M. J.       | a .Rmd file        |
+|             |             | (2019). Bit |                    |
+|             |             | by bit:     | R for Data         |
+|             |             | Social      | Science, Chapter   |
+|             |             | research in | 2:                 |
+|             |             | the digital | <https:/           |
+|             |             | age.        | /r4ds.hadley.nz/da |
+|             |             | Princeton   | ta-visualize.html> |
+|             |             | University  |                    |
+|             |             | Press.      | Cleaning names     |
+|             |             | Chapters 2  | with Janitor:      |
+|             |             | (Observing  | <htt               |
+|             |             | Behavior)   | ps://bookdown.org/ |
+|             |             | and 3       | aschmi11/RESMHandb |
+|             |             | (Asking     | ook/data-preparati |
+|             |             | Questions). | on-and-cleaning-in |
+|             |             |             | -r.html#cleaning-n |
+|             |             |             | ames-with-janitor> |
++-------------+-------------+-------------+--------------------+
+| 3           | Se ptember  | Lang, C.,   | R 4 Data Science,  |
+|             | 4           | Wise, A.    | Chapter 2 ggplot2  |
+|             |             | F.,         | tutorial:          |
+|             |             | Merceron,   | <ht                |
+|             |             | A.,         | tps://r4ds.hadley. |
+|             |             | Gasevic,    | nz/data-visualize. |
+|             |             | D., &       | html#introduction> |
+|             |             | Siemens, G. |                    |
+|             |             | (2022).     | Data Visualization |
+|             |             | What is     | introduction from  |
+|             |             | learning    | Modern Dive:       |
+|             |             | analytics.  | <ht                |
+|             |             | The         | tps://moderndive.c |
+|             |             | handbook of | om/2-viz.html#viz> |
+|             |             | learning    |                    |
+|             |             | analytics,  |                    |
+|             |             | 8-18.       |                    |
+|             |             |             |                    |
+|             |             | Rutherford, |                    |
+|             |             | T., Duck,   |                    |
+|             |             | K.,         |                    |
+|             |             | Rosenberg,  |                    |
+|             |             | J. M., &    |                    |
+|             |             | Patt, R.    |                    |
+|             |             | (2022).     |                    |
+|             |             | Leveraging  |                    |
+|             |             | mathematics |                    |
+|             |             | software    |                    |
+|             |             | data to     |                    |
+|             |             | understand  |                    |
+|             |             | student     |                    |
+|             |             | learning    |                    |
+|             |             | and         |                    |
+|             |             | motivation  |                    |
+|             |             | during the  |                    |
+|             |             | COVID-19    |                    |
+|             |             | pandemic.   |                    |
+|             |             | Journal of  |                    |
+|             |             | Research on |                    |
+|             |             | Technology  |                    |
+|             |             | in          |                    |
+|             |             | Education,  |                    |
+|             |             | 54(sup1),   |                    |
+|             |             | S94-S131.   |                    |
++-------------+-------------+-------------+--------------------+
+| 4           | Se ptember  | Worsley,    | R 4 Data Science,  |
+|             | 11          | M., Mart    | Chapter 20 joining |
+|             |             | inez        | tables:            |
+|             |             | -Maldonado, | <https://r4ds.had  |
+|             |             | R., &       | ley.nz/joins.html> |
+|             |             | D'Angelo,   |                    |
+|             |             | C. (2021).  | Joining tables     |
+|             |             | A New Era   | tutorial:          |
+|             |             | in          | <h                 |
+|             |             | Multimodal  | ttps://hollyemblem |
+|             |             | Learning    | .medium.com/joinin |
+|             |             | Analytics:  | g-data-with-dplyr- |
+|             |             | Twelve Core | in-r-874698eb8898> |
+|             |             | Commitments |                    |
+|             |             | to Ground   |                    |
+|             |             | and Grow    |                    |
+|             |             | MMLA.       |                    |
+|             |             | Journal of  |                    |
+|             |             | Learning    |                    |
+|             |             | Analytics,  |                    |
+|             |             | 8(3),       |                    |
+|             |             | 10-27.      |                    |
++-------------+-------------+-------------+--------------------+
+| 5           | Se ptember  | Reich, J.   | Query an API using |
+|             | 18          | (2022).     | R:                 |
+|             |             | Learning    |                    |
+|             |             | analytics   | [https://medi      |
+|             |             | and         | um.com/\@traffordD |
+|             |             | learning at | ataLab/querying-ap |
+|             |             | scale.      | is-in-r-39029b73d5 |
+|             |             | Lang, C.,   | f1](https://medium |
+|             |             | Siemens, G. | .com/@traffordData |
+|             |             | Wise, AF,   | Lab/querying-apis- |
+|             |             | Gašević,    | in-r-39029b73d5f1) |
+|             |             | D.,         |                    |
+|             |             | Merceron,   | <http://lab.rady.u |
+|             |             | A.,(eds.)   | csd.edu/sawtooth/b |
+|             |             | Handbook of | usiness_analytics_ |
+|             |             | Learning    | in_r/DataApi.html> |
+|             |             | Analytics,  |                    |
+|             |             | 2nd ed.     |                    |
+|             |             | Vancouver,  |                    |
+|             |             | Canada:     |                    |
+|             |             | SOLAR.      |                    |
+|             |             |             |                    |
+|             |             | White, R.   |                    |
+|             |             | S. (2023).  |                    |
+|             |             | What's in a |                    |
+|             |             | first       |                    |
+|             |             | name?:      |                    |
+|             |             | America's   |                    |
+|             |             | K-12 public |                    |
+|             |             | school      |                    |
+|             |             | district    |                    |
+|             |             | sup         |                    |
+|             |             | erintendent |                    |
+|             |             | gender gap. |                    |
+|             |             | Leadership  |                    |
+|             |             | and Policy  |                    |
+|             |             | in Schools, |                    |
+|             |             | 22(2),      |                    |
+|             |             | 385-401.    |                    |
++-------------+-------------+-------------+--------------------+
+| 6           | Se ptember  | Shelton, C. | Data Science in    |
+|             | 25          | C.,         | Education, Chapter |
+|             |             | Koehler, M. | 6:                 |
+|             |             | J.,         | <htt               |
+|             |             | Greenhalgh, | ps://datasciencein |
+|             |             | S. P., &    | education.com/c06> |
+|             |             | Carpenter,  |                    |
+|             |             | J. P.       | R 4 Data Science,  |
+|             |             | (2022).     | Chapter 4:         |
+|             |             | Lifting the |                    |
+|             |             | veil on     | <ht                |
+|             |             | Teach ersP  | tps://r4ds.hadley. |
+|             |             | ayTeachers. | nz/data-transform> |
+|             |             | com: An in  |                    |
+|             |             | vestigation |                    |
+|             |             | of          |                    |
+|             |             | educational |                    |
+|             |             | marketplace |                    |
+|             |             | offerings   |                    |
+|             |             | and         |                    |
+|             |             | downloads.  |                    |
+|             |             | Learning,   |                    |
+|             |             | Media and   |                    |
+|             |             | Technology, |                    |
+|             |             | 47(2),      |                    |
+|             |             | 268-287.    |                    |
+|             |             |             |                    |
+|             |             | Rosenberg,  |                    |
+|             |             | J. M.,      |                    |
+|             |             | Borchers,   |                    |
+|             |             | C.,         |                    |
+|             |             | Burchfield, |                    |
+|             |             | M. A.,      |                    |
+|             |             | Anderson,   |                    |
+|             |             | D.,         |                    |
+|             |             | Stegenga,   |                    |
+|             |             | S. M., &    |                    |
+|             |             | Fischer, C. |                    |
+|             |             | (2022).     |                    |
+|             |             | Posts about |                    |
+|             |             | students on |                    |
+|             |             | Facebook: a |                    |
+|             |             | data ethics |                    |
+|             |             | p           |                    |
+|             |             | erspective. |                    |
+|             |             | Educational |                    |
+|             |             | researcher, |                    |
+|             |             | 51(8),      |                    |
+|             |             | 547-550.    |                    |
++-------------+-------------+-------------+--------------------+
+| 7           | October 2   | Park, J.    | Data Science in    |
+|             |             | J., Kim, B. | Education, Chapter |
+|             |             | H., Wong,   | 9:                 |
+|             |             | N., Zheng,  | <htt               |
+|             |             | J., Breen,  | ps://datasciencein |
+|             |             | S., Lo, P., | education.com/c09> |
+|             |             | ... & Poon, |                    |
+|             |             | O. (2023).  |                    |
+|             |             | Inequality  |                    |
+|             |             | Beyond S    |                    |
+|             |             | tandardized |                    |
+|             |             | Tests:      |                    |
+|             |             | Trends in   |                    |
+|             |             | Extr        |                    |
+|             |             | acurricular |                    |
+|             |             | Activity    |                    |
+|             |             | Reporting   |                    |
+|             |             | in College  |                    |
+|             |             | A           |                    |
+|             |             | pplications |                    |
+|             |             | Across Race |                    |
+|             |             | and Class.  |                    |
+|             |             | Technical   |                    |
+|             |             | Report.     |                    |
+|             |             | Annenberg   |                    |
+|             |             | Institute   |                    |
+|             |             | at Brown    |                    |
+|             |             | University. |                    |
+|             |             | \<https     |                    |
+|             |             | ://edworkin |                    |
+|             |             | g           |                    |
+|             |             | papers.\>co |                    |
+|             |             | m/ai23-749. |                    |
++-------------+-------------+-------------+--------------------+
+| **8**       | **October 9 | Fischer,    |                    |
+|             | (Fall B     | C., Pardos, |                    |
+|             | reak)**     | Z. A.,      |                    |
+|             |             | Baker, R.   |                    |
+|             |             | S.,         |                    |
+|             |             | Williams,   |                    |
+|             |             | J. J.,      |                    |
+|             |             | Smyth, P.,  |                    |
+|             |             | Yu, R.,     |                    |
+|             |             | \... &      |                    |
+|             |             | Warschauer, |                    |
+|             |             | M. (2020).  |                    |
+|             |             | Mining big  |                    |
+|             |             | data in     |                    |
+|             |             | education:  |                    |
+|             |             | Affordances |                    |
+|             |             | and         |                    |
+|             |             | challenges. |                    |
+|             |             | Review of   |                    |
+|             |             | Research in |                    |
+|             |             | Education,  |                    |
+|             |             | 44(1),      |                    |
+|             |             | 130-160.    |                    |
+|             |             |             |                    |
+|             |             | Hakimi, L., |                    |
+|             |             | Eynon, R.,  |                    |
+|             |             | & Murphy,   |                    |
+|             |             | V. A.       |                    |
+|             |             | (2021). The |                    |
+|             |             | ethics of   |                    |
+|             |             | using       |                    |
+|             |             | digital     |                    |
+|             |             | trace data  |                    |
+|             |             | in          |                    |
+|             |             | education:  |                    |
+|             |             | A thematic  |                    |
+|             |             | review of   |                    |
+|             |             | the         |                    |
+|             |             | research    |                    |
+|             |             | landscape.  |                    |
+|             |             | Review of   |                    |
+|             |             | Educational |                    |
+|             |             | Research,   |                    |
+|             |             | 91(5),      |                    |
+|             |             | 671-717.    |                    |
++-------------+-------------+-------------+--------------------+
+| 9           | October 16  | Kimmons,    | Towards Data       |
+|             |             | R., & V     | Science, Web       |
+|             |             | eletsianos, | Scraping:          |
+|             |             | G. (2018).  | <https://          |
+|             |             | Public      | towardsdatascience |
+|             |             | internet    | .com/scraping-data |
+|             |             | data mining | -from-wikipedia-ta |
+|             |             | methods in  | bles-3efa04c6b53f> |
+|             |             | in          |                    |
+|             |             | structional |                    |
+|             |             | design,     |                    |
+|             |             | educational |                    |
+|             |             | technology, |                    |
+|             |             | and online  |                    |
+|             |             | learning    |                    |
+|             |             | research.   |                    |
+|             |             | TechTrends, |                    |
+|             |             | 62(5),      |                    |
+|             |             | 492-500.    |                    |
+|             |             |             |                    |
+|             |             | Staudt      |                    |
+|             |             | Willet, K.  |                    |
+|             |             | B., &       |                    |
+|             |             | Carpenter,  |                    |
+|             |             | J. P.       |                    |
+|             |             | (2021). A   |                    |
+|             |             | tale of two |                    |
+|             |             | subreddits: |                    |
+|             |             | Change and  |                    |
+|             |             | continuity  |                    |
+|             |             | in t each   |                    |
+|             |             | ing‐related |                    |
+|             |             | online      |                    |
+|             |             | spaces.     |                    |
+|             |             | British     |                    |
+|             |             | Journal of  |                    |
+|             |             | Educational |                    |
+|             |             | Technology, |                    |
+|             |             | 52(2),      |                    |
+|             |             | 714-733.    |                    |
++-------------+-------------+-------------+--------------------+
+| 10          | October 23  | D'ignazio,  | Quarto with R:     |
+|             |             | C., &       | <https://          |
+|             |             | Klein, L.   | quarto.org/docs/co |
+|             |             | F. (2020).  | mputations/r.html> |
+|             |             | Data        |                    |
+|             |             | feminism.   | Creating table     |
+|             |             | MIT press.  | with kable and     |
+|             |             | Chaper 1    | kableExtra:        |
+|             |             | (In         | <https://cran.r-p  |
+|             |             | troduction: | roject.org/web/pac |
+|             |             | Why Data    | kages/kableExtra/v |
+|             |             | Science     | ignettes/awesome_t |
+|             |             | Needs       | able_in_html.html> |
+|             |             | Feminism)   |                    |
++-------------+-------------+-------------+--------------------+
+| 11          | October 30  | Dowell, N.  |                    |
+|             |             | M., Nixon,  |                    |
+|             |             | T. M., &    |                    |
+|             |             | Graesser,   |                    |
+|             |             | A. C.       |                    |
+|             |             | (2019).     |                    |
+|             |             | Group co    |                    |
+|             |             | mmunication |                    |
+|             |             | analysis: A |                    |
+|             |             | co          |                    |
+|             |             | mputational |                    |
+|             |             | linguistics |                    |
+|             |             | approach    |                    |
+|             |             | for         |                    |
+|             |             | detecting   |                    |
+|             |             | soc         |                    |
+|             |             | iocognitive |                    |
+|             |             | roles in    |                    |
+|             |             | multiparty  |                    |
+|             |             | in          |                    |
+|             |             | teractions. |                    |
+|             |             | Behavior    |                    |
+|             |             | Research    |                    |
+|             |             | Methods,    |                    |
+|             |             | 51,         |                    |
+|             |             | 1007-1041.  |                    |
++-------------+-------------+-------------+--------------------+
+| 12          | N ovember 6 | Nguyen, H., |                    |
+|             |             | Lopez, J.,  |                    |
+|             |             | Homer, B.,  |                    |
+|             |             | Ali, A., &  |                    |
+|             |             | Ahn, J.     |                    |
+|             |             | (2023).     |                    |
+|             |             | Reminders,  |                    |
+|             |             | r           |                    |
+|             |             | eflections, |                    |
+|             |             | and rel     |                    |
+|             |             | ationships: |                    |
+|             |             | insights    |                    |
+|             |             | from the    |                    |
+|             |             | design of a |                    |
+|             |             | chatbot for |                    |
+|             |             | college     |                    |
+|             |             | advising.   |                    |
+|             |             | Information |                    |
+|             |             | and         |                    |
+|             |             | Learning    |                    |
+|             |             | Sciences,   |                    |
+|             |             | 124(3/4),   |                    |
+|             |             | 128-146.    |                    |
++-------------+-------------+-------------+--------------------+
+| 13          | N ovember   | D'Mello, S. |                    |
+|             | 13          | (2017).     |                    |
+|             |             | Emotional   |                    |
+|             |             | learning    |                    |
+|             |             | analytics.  |                    |
+|             |             | Handbook of |                    |
+|             |             | learning    |                    |
+|             |             | analytics,  |                    |
+|             |             | 115.        |                    |
++-------------+-------------+-------------+--------------------+
+| 14          | N ovember   | Lucy L.,    |                    |
+|             | 20          | Demszky D., |                    |
+|             |             | Bromley P., |                    |
+|             |             | Jurafsky D. |                    |
+|             |             | (2020).     |                    |
+|             |             | Content     |                    |
+|             |             | analysis of |                    |
+|             |             | textbooks   |                    |
+|             |             | via natural |                    |
+|             |             | language    |                    |
+|             |             | processing: |                    |
+|             |             | Findings on |                    |
+|             |             | gender,     |                    |
+|             |             | race, and   |                    |
+|             |             | ethnicity   |                    |
+|             |             | in Texas US |                    |
+|             |             | history     |                    |
+|             |             | textbooks.  |                    |
+|             |             | AERA Open,  |                    |
+|             |             | 6(3). \<<h  |                    |
+|             |             | ttps://doi> |                    |
+|             |             | .org        |                    |
+|             |             | /10.1177/23 |                    |
+|             |             | 32858       |                    |
+|             |             | 420940312\> |                    |
++-------------+-------------+-------------+--------------------+
+| 15          | N ovember   | Rosenberg,  |                    |
+|             | 27          | J. M.,      |                    |
+|             |             | Borchers,   |                    |
+|             |             | C., Dyer,   |                    |
+|             |             | E. B.,      |                    |
+|             |             | Anderson,   |                    |
+|             |             | D., &       |                    |
+|             |             | Fischer, C. |                    |
+|             |             | (2021). Un  |                    |
+|             |             | derstanding |                    |
+|             |             | public      |                    |
+|             |             | sentiment   |                    |
+|             |             | about       |                    |
+|             |             | educational |                    |
+|             |             | reforms:    |                    |
+|             |             | The next    |                    |
+|             |             | generation  |                    |
+|             |             | science     |                    |
+|             |             | standards   |                    |
+|             |             | on Twitter. |                    |
+|             |             | AERA open,  |                    |
+|             |             | 7, 233 2858 |                    |
+|             |             | 4211024261. |                    |
++-------------+-------------+-------------+--------------------+
+| 16          | D ecember 4 | N/A         |                    |
++-------------+-------------+-------------+--------------------+
 
 ## University Policies
 
