@@ -1,0 +1,192 @@
+---
+title: "Week 1 Slides"
+subtitle: "What's this course about?"
+author: "**Isabella Velásquez and Maryrose Weatherton**"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+output: xaringan::moon_reader
+---
+class: clear, title-slide, inverse, center, top, middle
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r, echo=FALSE}
+# then load all the relevant packages
+pacman::p_load(pacman, knitr, tidyverse, readxl)
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+# these allow any code snippets to be copied to the clipboard so they 
+# can be pasted easily
+htmltools::tagList(
+    xaringanExtra::use_clipboard(
+        button_text = "<i class=\"fa fa-clipboard\"></i>",
+        success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    ),
+    rmarkdown::html_dependency_font_awesome()
+)
+```
+
+---
+
+# Purpose and Agenda
+
+How do we interpret a machine learning model? What else can we say, besides how accurate a model this? This learning lab is intended to help you to answer these questions by examining output from a classification and a regression model. We again use the OULAD, but add an assessment file.
+
+## What we'll do in this presentation
+
+- Discussion 1
+- Key Concept: Accuracy
+- Code-along
+- What's next
+
+---
+
+# Discussion 1
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- We are likely familiar with _accuracy_ and maybe another measure, _Cohen's Kappa_
+- But, you may have heard of other means of determining how good a model is at making predictions: confusion matrices, specificity, sensitivity, recall, AUC-ROC, and others
+- Broadly, these help us to understand _for which cases and types of cases a model is predictively better than others_ in a finer-grained way than accuracy
+
+]
+
+.panel[.panel-name[Getting Started]
+
+Think broadly and not formally (yet): What makes a prediction model a good one?
+
+]
+
+.panel[.panel-name[Digging Deeper]
+
+- After having worked through the first learning lab, have your thoughts on what data you might use for a machine learning study evolved? If so, in what ways? If not, please elaborate on your initial thoughts and plans.
+
+]
+]
+
+---
+
+
+
+# Key Concept: Accuracy
+
+.panelset[
+
+.panel[.panel-name[Accuracy]
+
+Let's start with accuracy and a simple confusion matrix; what is the **Accuracy**?
+
+```{r, echo = FALSE, message = FALSE, out.}
+readr::read_csv("data/sample-table.csv") %>% 
+    slice(1:5) %>% 
+    knitr::kable()
+```
+
+]
+
+.panel[.panel-name[Accuracy]
+
+Use the `tabyl()` function (from {janitor} to calculate the accuracy in the code chunk below.
+
+```{r}
+library(janitor)
+
+data_for_conf_mat <- tibble(Outcome = c(1, 0, 0, 1, 1),
+                            Prediction = c(1, 0, 1, 0, 1)) %>% 
+    mutate_all(as.factor)
+```
+
+```{r, eval = TRUE, echo = TRUE}
+data_for_conf_mat %>% 
+    mutate(correct = Outcome == Prediction) %>% 
+    tabyl(correct)
+```
+
+]
+
+
+
+.panel[.panel-name[Conf Mat]
+
+Now, let's create a confusion matrix based on this data:
+
+.code80.remark-code[
+```{r}
+library(tidymodels)
+
+data_for_conf_mat %>% 
+    conf_mat(Outcome, Prediction)
+```
+]
+]
+
+
+.panel[.panel-name[Conf Mat]
+
+**Accuracy**: Prop. of the sample that is true positive or true negative
+
+**True positive (TP)**: Prop. of the sample that is affected by a condition and correctly tested positive
+
+**True negative (TN)**: Prop. of the sample that is not affected by a condition and correctly tested negative
+
+**False positive (FP)**: Prop. of the sample that is not affected by a condition and incorrectly tested positive
+
+**False negative (FN)**: Prop. of the sample that is affected by a condition and incorrectly tested positive.
+
+]
+
+
+.panel[.panel-name[Conf Mat]
+
+
+![](img/conf-mat-descriptor.png)
+
+]
+
+
+.panel[.panel-name[Metrics]
+
+![](img/interpretation-of-metrics.png)
+
+
+]
+
+
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+
+.panel[.panel-name[Case Study]
+
+- Adding another data source from the [OULAD](https://analyse.kmi.open.ac.uk/open_dataset), assessments data
+- Interpreting each of the metrics in greater detail
+- Using `metric_set`
+
+]
+
+.panel[.panel-name[Other tasks]
+
+- Adding another data source from the [OULAD](https://analyse.kmi.open.ac.uk/open_dataset), assessments data
+- Interpreting each of the metrics in greater detail
+- Using `metric_set`
+
+]
+
+.panel[.panel-name[A look ahead]
+
+- Adding another data source from the [OULAD](https://analyse.kmi.open.ac.uk/open_dataset), assessments data
+- Interpreting each of the metrics in greater detail
+- Using `metric_set`
+
+]
+
+]
