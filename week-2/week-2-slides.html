@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Week 2 Slides</title>
+    <title>Week 1 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
-    <meta name="date" content="2023-08-06" />
+    <meta name="date" content="2023-08-08" />
     <script src="week-2-slides_files/header-attrs-2.22/header-attrs.js"></script>
     <link href="week-2-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="week-2-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
-    <link href="week-2-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
-    <script src="week-2-slides_files/panelset-0.2.6/panelset.js"></script>
     <script src="week-2-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="week-2-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="week-2-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
     <link href="week-2-slides_files/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
     <link href="week-2-slides_files/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
-    <link href="week-2-slides_files/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="week-2-slides_files/tile-view-0.2.6/tile-view.js"></script>
+    <link href="week-2-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-2-slides_files/panelset-0.2.6/panelset.js"></script>
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
 .title[
-# Week 2 Slides
+# Week 1 Slides
 ]
 .subtitle[
 ## What’s this course about?
@@ -33,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
 ]
 .date[
-### August 06, 2023
+### August 08, 2023
 ]
 
 ---
@@ -44,18 +42,25 @@ class: clear, title-slide, inverse, center, top, middle
 
 
 
+
+
+
+
 ---
 
 # Purpose and Agenda
 
-How do we interpret a machine learning model? What else can we say, besides how accurate a model this? This learning lab is intended to help you to answer these questions by examining output from a classification and a regression model. We again use the OULAD, but add an assessment file.
+This week, we answer the following question: What's this course about? We will introduce ourselves, the course, and R and R Studio. You'll complete an assignment that will set you on the course to being a confident R and RStudio user throughout this class. We'll also introduce the readings for this week.
 
 ## What we'll do in this presentation
 
-- Discussion 1
-- Key Concept: Accuracy
+- Discussion
+- Introductions
+- Syllabus
+- Key Concept: R, RStudio, and RMarkdown
+- Key Concept: Foundational Skills
 - Code-along
-- What's next
+- What's next: Assignment(s) and Reading(s)
 
 ---
 
@@ -65,114 +70,112 @@ How do we interpret a machine learning model? What else can we say, besides how 
 
 .panel[.panel-name[Background]
 
-- We are likely familiar with _accuracy_ and maybe another measure, _Cohen's Kappa_
-- But, you may have heard of other means of determining how good a model is at making predictions: confusion matrices, specificity, sensitivity, recall, AUC-ROC, and others
-- Broadly, these help us to understand _for which cases and types of cases a model is predictively better than others_ in a finer-grained way than accuracy
+- Data science is often defined by harkening back to an early definition by [Conway (2013)](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram): analyses and research that draw on the following capabilties:
+    - Math and statistics
+    - Computer science and programming
+    - Knowledge of a specific domain
 
 ]
 
-.panel[.panel-name[Getting Started]
+.panel[.panel-name[Background]
 
-Think broadly and not formally (yet): What makes a prediction model a good one?
+&lt;img src="https://images.squarespace-cdn.com/content/v1/5150aec6e4b0e340ec52710a/1364352051365-HZAS3CLBF7ABLE3F5OBY/Data_Science_VD.png?format=2500w" width="50%" /&gt;
+
+]
+
+.panel[.panel-name[Discussion Question]
+
+- In which of Conway's three areas of capabilities are you _presently most confident_?
+- In which area _do you most want to learn more_?
 
 ]
 
-.panel[.panel-name[Digging Deeper]
+]
 
-- After having worked through the first learning lab, have your thoughts on what data you might use for a machine learning study evolved? If so, in what ways? If not, please elaborate on your initial thoughts and plans.
+
+---
+
+# Introductions
+
+---
+
+# Syllabus
+
+---
+
+# Key Concept: R, RStudio, RMarkdown
+
+.panelset[
+
+.panel[.panel-name[R]
 
 ]
+
+.panel[.panel-name[RStudio]
+
+]
+
+.panel[.panel-name[R Markdown]
+
+]
+
+.panel[.panel-name[Foundational Skills]
+
+]
+
+
 ]
 
 ---
 
-
-
-# Key Concept: Accuracy
+# Key Concept: Foundational Skills
 
 .panelset[
 
-.panel[.panel-name[Accuracy]
-
-Let's start with accuracy and a simple confusion matrix; what is the **Accuracy**?
-
-
-| Outcome| Prediction|Correct? |
-|-------:|----------:|:--------|
-|       1|          1|Yes      |
-|       0|          0|Yes      |
-|       0|          1|No       |
-|       1|          0|No       |
-|       1|          1|Yes      |
+.panel[.panel-name[Data]
 
 ]
 
-.panel[.panel-name[Accuracy]
+.panel[.panel-name[Packages]
 
-Use the `tabyl()` function (from {janitor} to calculate the accuracy in the code chunk below.
+]
 
+.panel[.panel-name[Functions]
 
+]
 
-
-```r
-data_for_conf_mat %&gt;% 
-    mutate(correct = Outcome == Prediction) %&gt;% 
-    tabyl(correct)
-```
-
-```
-##  correct n percent
-##    FALSE 2     0.4
-##     TRUE 3     0.6
-```
+.panel[.panel-name[Projects and File Paths]
 
 ]
 
 
-
-.panel[.panel-name[Conf Mat]
-
-Now, let's create a confusion matrix based on this data:
-
-.code80.remark-code[
-
-```
-##           Truth
-## Prediction 0 1
-##          0 1 1
-##          1 1 2
-```
-]
 ]
 
+---
 
-.panel[.panel-name[Conf Mat]
+# Code-along
 
-**Accuracy**: Prop. of the sample that is true positive or true negative
+.panelset[
 
-**True positive (TP)**: Prop. of the sample that is affected by a condition and correctly tested positive
+.panel[.panel-name[library()]
 
-**True negative (TN)**: Prop. of the sample that is not affected by a condition and correctly tested negative
 
-**False positive (FP)**: Prop. of the sample that is not affected by a condition and incorrectly tested positive
-
-**False negative (FN)**: Prop. of the sample that is affected by a condition and incorrectly tested positive.
 
 ]
 
-
-.panel[.panel-name[Conf Mat]
-
-
-![](img/conf-mat-descriptor.png)
+.panel[.panel-name[read_csv()]
 
 ]
 
+.panel[.panel-name[glimpse()]
 
-.panel[.panel-name[Metrics]
+]
 
-![](img/interpretation-of-metrics.png)
+.panel[.panel-name[view()]
 
+]
+
+.panel[.panel-name[skim()]
 
 ]
 
@@ -186,7 +189,12 @@ Now, let's create a confusion matrix based on this data:
 .panelset[
 
 
-.panel[.panel-name[Case Study]
+.panel[.panel-name[Weekly Assignment]
+
+
+]
+
+.panel[.panel-name[Substantive Reading(s)]
 
 - Adding another data source from the [OULAD](https://analyse.kmi.open.ac.uk/open_dataset), assessments data
 - Interpreting each of the metrics in greater detail
@@ -194,15 +202,7 @@ Now, let's create a confusion matrix based on this data:
 
 ]
 
-.panel[.panel-name[Other tasks]
-
-- Adding another data source from the [OULAD](https://analyse.kmi.open.ac.uk/open_dataset), assessments data
-- Interpreting each of the metrics in greater detail
-- Using `metric_set`
-
-]
-
-.panel[.panel-name[A look ahead]
+.panel[.panel-name[Technical Reading(s)]
 
 - Adding another data source from the [OULAD](https://analyse.kmi.open.ac.uk/open_dataset), assessments data
 - Interpreting each of the metrics in greater detail
