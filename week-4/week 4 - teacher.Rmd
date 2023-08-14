@@ -9,22 +9,40 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+1. Load necessary packages. You may need to download the tidykids package by running `remotes::install_github("jrosen48/tidykids")`.
+```{r}
+library(tidyverse)
+library(tidykids)
+library(janitor)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+2. Save the tidykids and NAEP data frames to your environment.
+```{r}
+tidykids <- tidykids
+naep <- read_csv("naep-data.csv")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+3. Familiarize yourself with the two data frames
+```{r}
+glimpse(tidykids)
+glimpse(naep)
+```
+
+4. Join the two data frames. You will want to preserve as much data as possible. As a reminder, the column you join by must have the same name in each data frame, so you might need to use `rename()`.
+```{r}
+naep <- naep %>% 
+  rename("state" = "Jurisdiction")
+full_df <- full_join(tidykids, naep, "state")
+
+full_df <- clean_names(full_df)
+```
+
+5. Analysis question - use ggplot?
+
+```{r}
+
+```
+
+
+## Questions
+1. Does it matter the order you list data frames in the `full_join()` command?
