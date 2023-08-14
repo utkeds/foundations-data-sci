@@ -1,4 +1,40 @@
-## notes
+# notes
+
+## meeting on 2023-07-26
+
+### logistic things
+
+-   Student *n*s and contact info
+
+-   Canvas
+
+-   GitHub
+
+### syllabus
+
+-   let's discuss
+
+-   activities, data sets, readings
+
+### dev process
+
+-   week-by-week folders on GitHub
+
+    -   slides
+
+    -   student activities
+
+-   readings
+
+-   assignments
+
+### questions that you have and next steps
+
+-   timing
+
+-   next meeting
+
+------------------------------------------------------------------------
 
 ### things to improve
 
