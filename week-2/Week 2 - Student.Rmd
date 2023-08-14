@@ -1,0 +1,77 @@
+---
+title: "Week 2 Assignment"
+author: "Student Name"
+date: "Assignment Due Date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For this assignment, we are going to use data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test. You can read more about it here: <https://www.nationsreportcard.gov/>
+
+Step 1: load necessary packages (you may need to install these packages first using `install.packages("___")`)
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(skimr)
+```
+
+Step 2: load in data. Note: you must name the dataframe before loading it. You may also need to set your working directory.
+
+```{r}
+____ <- read_csv("naep-data.csv")
+```
+
+Step 3: view your data. There are multiple ways to do this. Here are two options.
+
+```{r}
+glimpse(____)
+view(____)
+```
+
+Step 4: clean variable names using the janitor package
+
+```{r}
+# You'll need to use the assignment operator to ensure your clean names save to a dataframe. We suggest using a name that inludes the phrase "clean"
+____ <- ____ %>% 
+  ____()
+```
+
+Step 5: find the mean, standard deviation, quartiles, and more with the `skim()` function
+
+```{r}
+____ %>% 
+  ____()
+```
+
+## Questions
+
+1.  What is the average score for the nation?
+
+-   
+
+2.  What is the average score for your home state?
+
+-   
+
+3.  How does your home state and the nation compare?
+
+-   
+
+4.  What state has the maximum and what is the value? What about the minimum?
+
+-   
+
+## Rubric
+
+|                     | Points Possible | Points Earned |
+|---------------------|-----------------|---------------|
+| File knits          | 5               |               |
+| Code is appropriate | 5               |               |
+| Question 1 answered | 5               |               |
+| Question 2 answered | 5               |               |
+| Question 3 answered | 5               |               |
+| Question 4 answered | 5               |               |

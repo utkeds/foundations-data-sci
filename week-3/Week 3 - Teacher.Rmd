@@ -1,0 +1,49 @@
+---
+title: "Week 3 Assignment"
+author: "Teacher Key"
+date: "Assignment due date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1.  Load necessary packages
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+2.  Load ELSI data
+
+```{r}
+elsi <- read_csv("f23-founds-eds/data/elsi-data.csv", skip = 6)
+```
+
+3.  Explore the data and clean column names as necessary
+
+```{r}
+glimpse(elsi)
+elsi_clean <- clean_names(elsi)
+elsi_clean <- elsi_clean %>% 
+  mutate(total_students_all_grades_excludes_ae_public_school_2021_22 = as.numeric(total_students_all_grades_excludes_ae_public_school_2021_22))
+```
+
+4.   Create a plot comparing multiple groups. Use ggplot2 and `facet_wrap()`.
+```{r}
+elsi_or <- elsi_clean %>% 
+  filter(state_name_public_school_latest_available_year == "Oregon")
+
+elsi_or %>% 
+  ggplot(aes(x = total_students_all_grades_excludes_ae_public_school_2021_22)) +
+    geom_histogram() +
+    facet_wrap(~locale_public_school_2021_22)
+```
+
+## Questions
+1. 
+
+
+
