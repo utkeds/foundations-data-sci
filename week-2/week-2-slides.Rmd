@@ -1,11 +1,10 @@
 ---
-title: "Week 1 Slides"
+title: "Week 2 Slides"
 subtitle: "What's this course about?"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: xaringan::moon_reader
 ---
-class: clear, title-slide, inverse, center, top, middle
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -32,7 +31,7 @@ htmltools::tagList(
 xaringanExtra::use_panelset()
 ```
 
----
+
 
 # Purpose and Agenda
 
@@ -41,6 +40,7 @@ This week, we answer the following question: What's this course about? We will i
 ## What we'll do in this presentation
 
 - Discussion
+- Reading recap
 - Introductions
 - Syllabus
 - Key Concept: R, RStudio, and RMarkdown
@@ -50,7 +50,7 @@ This week, we answer the following question: What's this course about? We will i
 
 ---
 
-# Discussion 1
+# Discussion
 
 .panelset[
 
@@ -83,11 +83,25 @@ knitr::include_graphics("https://images.squarespace-cdn.com/content/v1/5150aec6e
 
 ---
 
+# Reading Recap
+
+
+
+---
+
 # Introductions
+
+Isabella Velásquez  
+
+Maryrose Weatherton 
 
 ---
 
 # Syllabus
+
+Syllabus: https://rpubs.com/jmichaelrosenberg/stem-680-fall-2023-syllabus
+
+And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw0mwEWuz_3m2Sn7TjIVILAv_E/edit
 
 ---
 
@@ -147,7 +161,7 @@ knitr::include_graphics("https://images.squarespace-cdn.com/content/v1/5150aec6e
 
 .panel[.panel-name[library()]
 
-```{r}
+```{r, eval = FALSE}
 library()
 ```
 
@@ -186,17 +200,13 @@ library()
 
 .panel[.panel-name[Substantive Reading(s)]
 
-- Adding another data source from the [OULAD](https://analyse.kmi.open.ac.uk/open_dataset), assessments data
-- Interpreting each of the metrics in greater detail
-- Using `metric_set`
+- 
 
 ]
 
 .panel[.panel-name[Technical Reading(s)]
 
-- Adding another data source from the [OULAD](https://analyse.kmi.open.ac.uk/open_dataset), assessments data
-- Interpreting each of the metrics in greater detail
-- Using `metric_set`
+- 
 
 ]
 
