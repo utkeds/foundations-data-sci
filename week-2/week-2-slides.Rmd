@@ -219,6 +219,10 @@ Projects help organize your work:
 
 # Code-along
 
+*Let's code-along together in an `.R` we'll use just for code-alongs!*
+
+<!-- Walk students through creating an `.R` script -->
+
 .panelset[
 
 .panel[.panel-name[library()]
@@ -274,6 +278,20 @@ glimpse(starwars)
 # install.packages("skim")
 library(skimr)
 skim(starwars)
+```
+
+]
+
+.panel[.panel-name[read_csv()]
+
+<!-- Here, consider saving the NAEP data to the same folder as the R script and show how to read it together -->
+
+- Very often (and in practically all authentic analyses), we read in data from a file
+- A Comma Separated Values (CSV) file is a common file type for data scientists
+- A key consideration has to do with the _path_ of the file
+
+```{r, eval = FALSE, echo = TRUE}
+naep <- read_csv("naep-data.csv")
 ```
 
 ]

@@ -11,7 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 For this assignment, we are going to use data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test. You can read more about it here: <https://www.nationsreportcard.gov/>
 
-Step 1: load necessary packages (you may need to install these packages first using `install.packages("___")`)
+## Step 1
+
+Load necessary packages (you may need to install these packages first using `install.packages("___")`)
 
 ```{r}
 library(tidyverse)
@@ -19,20 +21,26 @@ library(janitor)
 library(skimr)
 ```
 
-Step 2: load in data. Note: you must name the dataframe before loading it. You may also need to set your working directory.
+## Step 2
+
+Load in data. Note: you must name the dataframe before loading it. You may also need to set your working directory.
 
 ```{r}
 ____ <- read_csv("naep-data.csv")
 ```
 
-Step 3: view your data. There are multiple ways to do this. Here are two options.
+## Step 3
+
+View your data. There are multiple ways to do this. Here are two options.
 
 ```{r}
 glimpse(____)
 view(____)
 ```
 
-Step 4: clean variable names using the janitor package
+## Step 4
+
+Clean variable names using the janitor package
 
 ```{r}
 # You'll need to use the assignment operator to ensure your clean names save to a dataframe. We suggest using a name that inludes the phrase "clean"
@@ -40,7 +48,9 @@ ____ <- ____ %>%
   ____()
 ```
 
-Step 5: find the mean, standard deviation, quartiles, and more with the `skim()` function
+## Step 5
+
+Find the mean, standard deviation, quartiles, and more with the `skim()` function
 
 ```{r}
 ____ %>% 
@@ -75,3 +85,13 @@ ____ %>%
 | Question 2 answered | 5               |               |
 | Question 3 answered | 5               |               |
 | Question 4 answered | 5               |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work:
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3. Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!
