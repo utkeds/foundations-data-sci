@@ -26,7 +26,7 @@ specific class dates)
 
 ### Faculty Contact Information
 
-*Dr. Isabella Velasquez,* [add preferred email]
+*Isabella Velásquez,* ivelasq@gmail.com
 
 *Dr. Maryrose Weatherton,* mweath13@vols.utk.edu
 
@@ -47,7 +47,7 @@ programming language R. Course activities focusing on preparing, using,
 and visualizing complex data sources for analysis using the tidyverse
 suite of R packages. Data ethics are foregrounded. Includes an
 introduction to text analysis/Natural Language Processing. No
-pre-requisites or programming experience is required.
+prerequisites or programming experience is required.
 
 A key element of this class is that students will have the opportunity
 to bring their own data from their research projects for use in this
