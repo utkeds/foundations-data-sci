@@ -1,0 +1,213 @@
+---
+title: "Week 2 Slides"
+subtitle: "What's this course about?"
+author: "**Isabella Velásquez and Maryrose Weatherton**"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+output: xaringan::moon_reader
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r, echo=FALSE}
+# then load all the relevant packages
+pacman::p_load(pacman, knitr, tidyverse, readxl)
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+# these allow any code snippets to be copied to the clipboard so they 
+# can be pasted easily
+htmltools::tagList(
+    xaringanExtra::use_clipboard(
+        button_text = "<i class=\"fa fa-clipboard\"></i>",
+        success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    ),
+    rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+
+
+# Purpose and Agenda
+
+This week, we answer the following question: What's this course about? We will introduce ourselves, the course, and R and R Studio. You'll complete an assignment that will set you on the course to being a confident R and RStudio user throughout this class. We'll also introduce the readings for this week.
+
+## What we'll do in this presentation
+
+- Discussion
+- Reading recap
+- Introductions
+- Syllabus
+- Key Concept: R, RStudio, and RMarkdown
+- Key Concept: Foundational Skills
+- Code-along
+- What's next: Assignment(s) and Readings
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- Data science is often defined by harkening back to an early definition by [Conway (2013)](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram): analyses and research that draw on the following capabilties:
+    - Math and statistics
+    - Computer science and programming
+    - Knowledge of a specific domain
+
+]
+
+.panel[.panel-name[Background]
+
+```{r, echo = FALSE, out.width="50%"}
+knitr::include_graphics("https://images.squarespace-cdn.com/content/v1/5150aec6e4b0e340ec52710a/1364352051365-HZAS3CLBF7ABLE3F5OBY/Data_Science_VD.png?format=2500w")
+```
+
+]
+
+.panel[.panel-name[Discussion Question]
+
+- In which of Conway's three areas of capabilities are you _presently most confident_?
+- In which area _do you most want to learn more_?
+
+]
+
+]
+
+
+---
+
+# Reading Recap
+
+
+
+---
+
+# Introductions
+
+Isabella Velásquez  
+
+Maryrose Weatherton 
+
+---
+
+# Syllabus
+
+Syllabus: https://rpubs.com/jmichaelrosenberg/stem-680-fall-2023-syllabus
+
+And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw0mwEWuz_3m2Sn7TjIVILAv_E/edit
+
+---
+
+# Key Concept: R, RStudio, RMarkdown
+
+.panelset[
+
+.panel[.panel-name[R]
+
+]
+
+.panel[.panel-name[RStudio]
+
+]
+
+.panel[.panel-name[R Markdown]
+
+]
+
+.panel[.panel-name[Foundational Skills]
+
+]
+
+
+]
+
+---
+
+# Key Concept: Foundational Skills
+
+.panelset[
+
+.panel[.panel-name[Data]
+
+]
+
+.panel[.panel-name[Packages]
+
+]
+
+.panel[.panel-name[Functions]
+
+]
+
+.panel[.panel-name[Projects and File Paths]
+
+]
+
+
+]
+
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[library()]
+
+```{r, eval = FALSE}
+library()
+```
+
+]
+
+.panel[.panel-name[read_csv()]
+
+]
+
+.panel[.panel-name[glimpse()]
+
+]
+
+.panel[.panel-name[view()]
+
+]
+
+.panel[.panel-name[skim()]
+
+]
+
+
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+
+.panel[.panel-name[Weekly Assignment]
+
+
+]
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- 
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- 
+
+]
+
+]
