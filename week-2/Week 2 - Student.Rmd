@@ -1,6 +1,6 @@
 ---
 title: "Week 2 Assignment"
-author: "Teacher"
+author: "Student Name"
 date: "Assignment Due Date"
 output: html_document
 ---
@@ -22,29 +22,29 @@ library(skimr)
 Step 2: load in data. Note: you must name the dataframe before loading it. You may also need to set your working directory.
 
 ```{r}
-naep <- read_csv("naep-data.csv")
+____ <- read_csv("naep-data.csv")
 ```
 
 Step 3: view your data. There are multiple ways to do this. Here are two options.
 
 ```{r}
-glimpse(naep)
-view(naep)
+glimpse(____)
+view(____)
 ```
 
 Step 4: clean variable names using the janitor package
 
 ```{r}
 # You'll need to use the assignment operator to ensure your clean names save to a dataframe. We suggest using a name that inludes the phrase "clean"
-naep_clean <- naep %>% 
-  clean_names()
+____ <- ____ %>% 
+  ____()
 ```
 
 Step 5: find the mean, standard deviation, quartiles, and more with the `skim()` function
 
 ```{r}
-naep_clean %>% 
-  skim()
+____ %>% 
+  ____()
 ```
 
 ## Questions

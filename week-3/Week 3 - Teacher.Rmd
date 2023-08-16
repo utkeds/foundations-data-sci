@@ -1,0 +1,68 @@
+---
+title: "Week 3 Assignment"
+author: "Teacher Key"
+date: "Assignment due date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1.  Load necessary packages
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+2.  Load ELSI data
+
+```{r}
+elsi <- read_csv("f23-founds-eds/data/elsi-data.csv", skip = 6)
+```
+
+3.  Explore the data and clean column names as necessary
+
+```{r}
+glimpse(elsi)
+elsi_clean <- clean_names(elsi)
+elsi_clean <- elsi_clean %>% 
+  mutate(total_students_all_grades_excludes_ae_public_school_2021_22 = as.numeric(total_students_all_grades_excludes_ae_public_school_2021_22))
+```
+
+4.  Create a plot comparing multiple groups. Use ggplot2 and `facet_wrap()`.
+
+```{r}
+elsi_or <- elsi_clean %>% 
+  filter(state_name_public_school_latest_available_year == "Oregon")
+
+elsi_or %>% 
+  ggplot(aes(x = total_students_all_grades_excludes_ae_public_school_2021_22)) +
+    geom_histogram() +
+    facet_wrap(~locale_public_school_2021_22)
+```
+
+## Questions
+
+1.  What groups did you compare in step 4? What were you able to determine to be the differences between those two groups by looking at your graphs?
+
+-   
+
+2.  How could a policy maker use the information you gathered (or other information contained in this dataset) to suggest changes? Are graphical representations an effective way to do this?
+
+-   
+
+3.  How might you make your graphs look more "publication ready?" You do not need to include code, just a general idea of what could be improved.
+
+-   
+
+## Rubric
+
+|                                 | Points Possible | Points Earned |
+|---------------------------------|-----------------|---------------|
+| File knits                      | 2               |               |
+| Effective use of `facet_wrap()` | 10              |               |
+| Question 1                      | 5               |               |
+| Question 2                      | 8               |               |
+| Question 3                      | 5               |               |
