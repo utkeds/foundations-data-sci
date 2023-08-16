@@ -44,7 +44,7 @@ This week, we answer the following question: What's this course about? We will i
 - Introductions
 - Syllabus
 - Key Concept: R, RStudio, and RMarkdown
-- Key Concept: Foundational Skills
+- Key Concept: Core Skills Framework
 - Code-along
 - What's next: Assignment(s) and Readings
 
@@ -121,16 +121,12 @@ And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw
 
 ]
 
-.panel[.panel-name[Foundational Skills]
-
-]
-
 
 ]
 
 ---
 
-# Key Concept: Foundational Skills
+# Key Concept: Core Skills Framework
 
 .panelset[
 
