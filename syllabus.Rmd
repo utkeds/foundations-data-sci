@@ -151,8 +151,6 @@ other courses: whatever you have will work for this course.
 | Weekly Assignments    | 32.5%           | 30 / week for 13      |
 |                       |                 | weeks = 390 points    |
 |                       |                 |                       |
-|                       |                 | \*no assignment Weeks |
-|                       |                 | 1, 9, and 16          |
 +-----------------------+-----------------+-----------------------+
 | Professional          | 5%              | 60                    |
 | Development Plan      |                 |                       |
