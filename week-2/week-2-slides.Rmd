@@ -229,7 +229,6 @@ Projects help organize your work:
 
 - We have to _first_ install packages before we can _load_ them (with `library()`)
 - We only have to install a package _once_; after that, as long as we're on the same computer, we can load the package **without installing it again**
-
 ```{r, eval = FALSE, echo = TRUE}
 # install.packages("tidyverse")
 library(tidyverse)
@@ -318,23 +317,22 @@ naep <- read_csv("naep-data.csv")
 
 .panel[.panel-name[Substantive Reading(s)]
 
-- There are two substantive readings (two chapters from the same book) for the week ahead:
+- Substantive reading(s) for the week ahead:
 
-> Salganik, M. J. (2019). Bit by bit: Social research in the digital age. Princeton University Press. Chapters 2 (Observing Behavior) and 3 (Asking Questions).
+> Lang, C., Wise, A. F., Merceron, A., Gasevic, D., & Siemens, G. (2022). What is learning analytics. The handbook of learning analytics, 8-18.
 
-This is linked in Canvas.
+This is linked in Canvas. It is associated with a discussion due before the next class.
 
 ]
 
 .panel[.panel-name[Technical Reading(s)]
 
-- There are two technical readings that are about what we'll focus on next week:
+- Technical reading(s) for the week ahead
 
-> R for Data Science, Chapter 8: https://r4ds.hadley.nz/data-import
+> R for Data Science: Chapter 2 - Data Visualization: https://r4ds.hadley.nz/data-visualize.html
+> Data Visualization Introduction from Modern Dive: https://moderndive.com/2-viz.html#viz
 
-> Cleaning names with Janitor: https://bookdown.org/aschmi11/RESMHandbook/data-preparation-and-cleaning-in-r.html#cleaning-names-with-janitor
-
-These are also linked in Canvas.
+This is also linked in Canvas. It is associated with the same discussion due before the next class.
 
 ]
 

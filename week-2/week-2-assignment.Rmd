@@ -9,21 +9,21 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-For this assignment, we are going to use data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test. You can read more about it here: <https://www.nationsreportcard.gov/>
+For this assignment, we are going to use data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test. You can read more about it here: https://www.nationsreportcard.gov/
+
+The NAEP is an important data source in education; read some recent coverage of scores (post-pandemic) here in USA Today: https://www.usatoday.com/story/news/education/2023/06/21/naep-scores-basic-reading-math-13-year-olds/70337312007/
 
 ## Step 1
 
-Load necessary packages (you may need to install these packages first using `install.packages("___")`)
+Load necessary packages (you may need to install these packages first using `install.packages("___")`): tidyverse, janitor, and skimr. Do so in the code chunk below.
 
 ```{r}
-library(tidyverse)
-library(janitor)
-library(skimr)
+
 ```
 
 ## Step 2
 
-Load in data. Note: you must name the dataframe before loading it. You may also need to set your working directory.
+Load in data. *Notes*: you must assign a name to the dataframe before loading it. Ensure that the data is saved _in the same folder_ as this file is saved.
 
 ```{r}
 ____ <- read_csv("naep-data.csv")
@@ -31,7 +31,7 @@ ____ <- read_csv("naep-data.csv")
 
 ## Step 3
 
-View your data. There are multiple ways to do this. Here are two options.
+View your data. There are multiple ways to do this. Here are two options, with some code to get you started
 
 ```{r}
 glimpse(____)
@@ -40,21 +40,30 @@ view(____)
 
 ## Step 4
 
-Clean variable names using the janitor package
+Clean variable names using the janitor package.  You'll need to use the assignment operator to ensure your clean names save to a dataframe. You might consider using a name that includes the phrase "clean" to clarify to you and others what the difference is! 
 
 ```{r}
-# You'll need to use the assignment operator to ensure your clean names save to a dataframe. We suggest using a name that inludes the phrase "clean"
 ____ <- ____ %>% 
   ____()
 ```
 
 ## Step 5
 
-Find the mean, standard deviation, quartiles, and more with the `skim()` function
+Find the mean, standard deviation, quartiles, and more with the `skim()` function and the name of your data frame.
 
 ```{r}
 ____ %>% 
   ____()
+```
+
+Congrats! You're on your way to exploring an authentic data set in R. Onto some questions:
+
+## Step 6 (Reach)
+
+Here's one optional step. Create a plot using either _base R_ or _ggplot2_. Use the code chunk below and add a bullet point or two interpreting your plot below the code you used to create it.
+
+```{r}
+
 ```
 
 ## Questions

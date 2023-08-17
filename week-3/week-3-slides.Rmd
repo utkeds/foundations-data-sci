@@ -1,6 +1,6 @@
 ---
-title: "Week 2 Slides"
-subtitle: "What's this course about?"
+title: "Week 3 Slides"
+subtitle: "What's all the fuss about data science? Doing things we could not easily do without advanced graphics"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: xaringan::moon_reader
@@ -32,7 +32,6 @@ xaringanExtra::use_panelset()
 ```
 
 
-
 # Purpose and Agenda
 
 This week, we answer the following question: What's this course about? We will introduce ourselves, the course, and R and R Studio. You'll complete an assignment that will set you on the course to being a confident R and RStudio user throughout this class. We'll also introduce the readings for this week.
@@ -44,7 +43,7 @@ This week, we answer the following question: What's this course about? We will i
 - Introductions
 - Syllabus
 - Key Concept: R, RStudio, and RMarkdown
-- Key Concept: Foundational Skills
+- Key Concept: Core Skills Framework
 - Code-along
 - What's next: Assignment(s) and Readings
 
@@ -85,16 +84,39 @@ knitr::include_graphics("https://images.squarespace-cdn.com/content/v1/5150aec6e
 
 # Reading Recap
 
+In advance of this class, you were tasked with two readings:
 
+> Estrellado, R. A., Freer, E. A., Mostipak, J., Rosenberg, J. M., & Velásquez, I. C. (2020). Data science in education using R. Routledge. Chapter 3, What does data science in education look like? 
+
+The purpose of this reading was to illustrate the breadth of data science use cases. Do you see yourself in any of these cases? We recognize many of you come from non-education backgrounds!
+
+> McFarland, D. A., Khanna, S., Domingue, B. W., & Pardos, Z. A. (2021). Education data science: Past, present, future. AERA Open, 7, 233 2858 4211052055.
+
+This is the introduction to the first journal special issue on education(al) (*note the title*, terms are still being normed on in the field!) data science field. This introduction gives a sense of research-related use cases for educational data science.
 
 ---
 
 # Introductions
 
+<!-- please feel welcome to use different images here, both! also feel free to add to this slide! -->
+
+.pull-left[
+
 Isabella Velásquez  
 
+```{r, echo = FALSE, out.width="50%"}
+knitr::include_graphics("https://pbs.twimg.com/profile_images/1399221981061451781/aJvNk5sS_400x400.jpg")
+```
+]
+
+.pull-right[
 Maryrose Weatherton 
 
+```{r, echo = FALSE, out.width="50%"}
+knitr::include_graphics("https://i0.wp.com/news.utk.edu/wp-content/uploads/sites/3/2021/04/Weatherton-original.jpg")
+```
+
+]
 ---
 
 # Syllabus
@@ -110,76 +132,166 @@ And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw
 .panelset[
 
 .panel[.panel-name[R]
+**R** is a programming language and environment used for statistical computing and graphics. It is:
+- Open-source
+- Widely used for data analysis and visualization
+- Extendable through packages
+- Supported by a large community
 
 ]
 
 .panel[.panel-name[RStudio]
+**RStudio** is an integrated development environment (IDE) for R. It provides:
+- A console for R code execution
+- A script editor
+- Tools for debugging and package management
+- Integrated RMarkdown support (see more next)
+- A way to view plots, data, and documentation
 
 ]
 
 .panel[.panel-name[R Markdown]
+**R Markdown** is a file format for making dynamic documents with R. With it, you can:
+- Intermingle code and text
+- Generate reports, presentations, and web pages
+- Reproduce analyses easily
+- Display plots, tables, and other outputs directly
+- Convert to multiple output formats like PDF, HTML, and slides
 
 ]
-
-.panel[.panel-name[Foundational Skills]
-
-]
-
 
 ]
 
 ---
 
-# Key Concept: Foundational Skills
+# Key Concept: Core Skills Framework
 
 .panelset[
 
 .panel[.panel-name[Data]
+**Data** in R
+Data in R can come in various types and structures - with the last two being very important!
+
+- **Vectors**: 1-dimensional arrays (numeric, character, logical)
+- **Matrices**: 2-dimensional arrays
+- **Lists**: Can contain different types and structures
+- **Data Frames**: Tabular data, can mix different types
+- **Tibbles**: Modern version of data frames (from the tidyverse)
 
 ]
 
 .panel[.panel-name[Packages]
+**Packages** in R
+Packages are collections of functions and datasets:
+- Extend R's base functionality
+- Contributed by the community
+- Can be installed from CRAN, GitHub, and other sources
+- Examples: `tidyverse`, `ggplot2`, `skimr`
 
 ]
 
 .panel[.panel-name[Functions]
+**Functions** in R
+Functions are blocks of code that perform specific tasks:
+- Can be built-in (e.g., `mean()`, `sum()`) or loaded from a package (e.g., `glimpse()`)
+- Accept arguments (inputs) and return results (outputs)
+- Essential for reusing code and creating complex operations
 
 ]
 
 .panel[.panel-name[Projects and File Paths]
+**Projects and File Paths** in RStudio
+Projects help organize your work:
+- Keep related scripts, data, and outputs together
+- Simplify relative file paths, making it easier to find and load data
+- Ensures reproducibility by setting a consistent working directory
+- We *always* work in projects in this class; **let's create one together now!**
+
+<!-- Walk students through creating a project here -->
 
 ]
 
-
 ]
+
+*These core skills will be the basis of all of our analyses in R.*
 
 ---
 
 # Code-along
 
+*Let's code-along together in an `.R` we'll use just for code-alongs!*
+
+<!-- Walk students through creating an `.R` script -->
+
 .panelset[
 
 .panel[.panel-name[library()]
 
-```{r, eval = FALSE}
-library()
+- We have to _first_ install packages before we can _load_ them (with `library()`)
+- We only have to install a package _once_; after that, as long as we're on the same computer, we can load the package **without installing it again**
+```{r, eval = FALSE, echo = TRUE}
+# install.packages("tidyverse")
+library(tidyverse)
+```
+
+]
+
+.panel[.panel-name[built-in data]
+
+- There is data built into *R* or R packages
+- We can learn a lot about built-in data just by typing its name, like below
+- Starwars data is built into the tidyverse package
+
+```{r, eval = FALSE, echo = TRUE}
+starwars
+```
+
+]
+
+.panel[.panel-name[glimpse()]
+
+- `glimpse()` presents a compact portrait of our data and what it contains
+
+```{r, eval = FALSE, echo = TRUE}
+glimpse(starwars)
+```
+
+]
+
+.panel[.panel-name[view()]
+
+- `view()` is another way, though we generally recommend not using this in R Markdown documents (instead, copying and pasting it into the console) as it will cause an error in an R Markdown document
+- we commented it out for this reason 
+
+```{r, eval = FALSE, echo = TRUE}
+# view(starwars)
+```
+
+]
+
+.panel[.panel-name[skim()]
+
+- `skim()` from the skimr package is another handy way to quickly explore a data set
+
+```{r, eval = FALSE, echo = TRUE}
+# install.packages("skim")
+library(skimr)
+skim(starwars)
 ```
 
 ]
 
 .panel[.panel-name[read_csv()]
 
-]
+<!-- Here, consider saving the NAEP data to the same folder as the R script and show how to read it together -->
 
-.panel[.panel-name[glimpse()]
+- Very often (and in practically all authentic analyses), we read in data from a file
+- A Comma Separated Values (CSV) file is a common file type for data scientists
+- A key consideration has to do with the _path_ of the file
 
-]
-
-.panel[.panel-name[view()]
-
-]
-
-.panel[.panel-name[skim()]
+```{r, eval = FALSE, echo = TRUE}
+naep <- read_csv("naep-data.csv")
+```
 
 ]
 
@@ -195,18 +307,33 @@ library()
 
 .panel[.panel-name[Weekly Assignment]
 
+- This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
+- You can read more about it here: <https://www.nationsreportcard.gov/>
+- For this and all other weekly assignments, you will use an R Markdown document
+- Let's open that file - `week-2-assignment` - together to get you started; please **save this in a week 2 folder in the project you created!**
+- At the end, you will "Knit" the file to an HTML report that you will upload to Canvas for the Week 2 Assignment
 
 ]
 
 .panel[.panel-name[Substantive Reading(s)]
 
-- 
+- There are two substantive readings (two chapters from the same book) for the week ahead:
+
+> Salganik, M. J. (2019). Bit by bit: Social research in the digital age. Princeton University Press. Chapters 2 (Observing Behavior) and 3 (Asking Questions).
+
+This is linked in Canvas.
 
 ]
 
 .panel[.panel-name[Technical Reading(s)]
 
-- 
+- There are two technical readings that are about what we'll focus on next week:
+
+> R for Data Science, Chapter 8: https://r4ds.hadley.nz/data-import
+
+> Cleaning names with Janitor: https://bookdown.org/aschmi11/RESMHandbook/data-preparation-and-cleaning-in-r.html#cleaning-names-with-janitor
+
+These are also linked in Canvas.
 
 ]
 
