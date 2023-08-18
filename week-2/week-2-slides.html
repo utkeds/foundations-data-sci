@@ -4,7 +4,7 @@
     <title>Week 2 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
-    <meta name="date" content="2023-08-17" />
+    <meta name="date" content="2023-08-18" />
     <script src="week-2-slides_files/header-attrs-2.22/header-attrs.js"></script>
     <link href="week-2-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="week-2-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -31,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
 ]
 .date[
-### August 17, 2023
+### August 18, 2023
 ]
 
 ---
@@ -58,7 +58,7 @@ This week, we answer the following question: What's this course about? We will i
 - Syllabus
 - Key Concept: R, RStudio, and RMarkdown
 - Key Concept: Core Skills Framework
-- Code-along
+- Code-along and data
 - What's next: Assignment(s) and Readings
 
 ---
@@ -106,11 +106,13 @@ The purpose of this reading was to illustrate the breadth of data science use ca
 
 This is the introduction to the first journal special issue on education(al) (*note the title*, terms are still being normed on in the field!) data science field. This introduction gives a sense of research-related use cases for educational data science.
 
+???
+
+It may be good to pull out and summarize highlights from students' discussion posts here.
+
 ---
 
 # Introductions
-
-&lt;!-- please feel welcome to use different images here, both! also feel free to add to this slide! --&gt;
 
 .pull-left[
 
@@ -125,6 +127,11 @@ Maryrose Weatherton
 &lt;img src="https://i0.wp.com/news.utk.edu/wp-content/uploads/sites/3/2021/04/Weatherton-original.jpg" width="50%" /&gt;
 
 ]
+
+???
+
+please feel welcome to use different images here, both! also feel free to add to this slide!
+
 ---
 
 # Syllabus
@@ -215,21 +222,21 @@ Projects help organize your work:
 - Ensures reproducibility by setting a consistent working directory
 - We *always* work in projects in this class; **let's create one together now!**
 
-&lt;!-- Walk students through creating a project here --&gt;
-
 ]
 
 ]
 
 *These core skills will be the basis of all of our analyses in R.*
 
+???
+
+Walk students through creating a project for the whole class here
+
 ---
 
 # Code-along
 
 *Let's code-along together in an `.R` we'll use just for code-alongs!*
-
-&lt;!-- Walk students through creating an `.R` script --&gt;
 
 .panelset[
 
@@ -296,8 +303,6 @@ skim(starwars)
 
 .panel[.panel-name[read_csv()]
 
-&lt;!-- Here, consider saving the NAEP data to the same folder as the R script and show how to read it together --&gt;
-
 - Very often (and in practically all authentic analyses), we read in data from a file
 - A Comma Separated Values (CSV) file is a common file type for data scientists
 - A key consideration has to do with the _path_ of the file
@@ -312,21 +317,30 @@ naep &lt;- read_csv("naep-data.csv")
 
 ]
 
+
+???
+
+Walk students through creating a week 2 folder, R script, and saving the ELSI data (in Canvas and GitHub) in anticipation of the weekly assignment.
+
 ---
 
 # What's next?
 
 .panelset[
 
-
 .panel[.panel-name[Weekly Assignment]
 
-- This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
-- You can read more about it here: &lt;https://www.nationsreportcard.gov/&gt;
+
 - For this and all other weekly assignments, you will use an R Markdown document
 - Let's open that file - `week-2-assignment` - together to get you started; please **save this in a week 2 folder in the project you created!**
 - At the end, you will "Knit" the file to an HTML report that you will upload to Canvas for the Week 2 Assignment
 
+]
+
+.panel[.panel-name[Data]
+
+- This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
+- You can read more about it here: &lt;https://www.nationsreportcard.gov/&gt;
 ]
 
 .panel[.panel-name[Substantive Reading(s)]
@@ -351,6 +365,10 @@ This is also linked in Canvas. It is associated with the same discussion due bef
 ]
 
 ]
+
+???
+
+now, students can have time to begin the weekly assignment
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
