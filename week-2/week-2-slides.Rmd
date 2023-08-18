@@ -44,7 +44,7 @@ This week, we answer the following question: What's this course about? We will i
 - Syllabus
 - Key Concept: R, RStudio, and RMarkdown
 - Key Concept: Core Skills Framework
-- Code-along
+- Code-along and data
 - What's next: Assignment(s) and Readings
 
 ---
@@ -94,11 +94,13 @@ The purpose of this reading was to illustrate the breadth of data science use ca
 
 This is the introduction to the first journal special issue on education(al) (*note the title*, terms are still being normed on in the field!) data science field. This introduction gives a sense of research-related use cases for educational data science.
 
+???
+
+It may be good to pull out and summarize highlights from students' discussion posts here.
+
 ---
 
 # Introductions
-
-<!-- please feel welcome to use different images here, both! also feel free to add to this slide! -->
 
 .pull-left[
 
@@ -117,6 +119,11 @@ knitr::include_graphics("https://i0.wp.com/news.utk.edu/wp-content/uploads/sites
 ```
 
 ]
+
+???
+
+please feel welcome to use different images here, both! also feel free to add to this slide!
+
 ---
 
 # Syllabus
@@ -207,21 +214,21 @@ Projects help organize your work:
 - Ensures reproducibility by setting a consistent working directory
 - We *always* work in projects in this class; **let's create one together now!**
 
-<!-- Walk students through creating a project here -->
-
 ]
 
 ]
 
 *These core skills will be the basis of all of our analyses in R.*
 
+???
+
+Walk students through creating a project for the whole class here
+
 ---
 
 # Code-along
 
 *Let's code-along together in an `.R` we'll use just for code-alongs!*
-
-<!-- Walk students through creating an `.R` script -->
 
 .panelset[
 
@@ -283,8 +290,6 @@ skim(starwars)
 
 .panel[.panel-name[read_csv()]
 
-<!-- Here, consider saving the NAEP data to the same folder as the R script and show how to read it together -->
-
 - Very often (and in practically all authentic analyses), we read in data from a file
 - A Comma Separated Values (CSV) file is a common file type for data scientists
 - A key consideration has to do with the _path_ of the file
@@ -298,21 +303,30 @@ naep <- read_csv("naep-data.csv")
 
 ]
 
+
+???
+
+Walk students through creating a week 2 folder, R script, and saving the ELSI data (in Canvas and GitHub) in anticipation of the weekly assignment.
+
 ---
 
 # What's next?
 
 .panelset[
 
-
 .panel[.panel-name[Weekly Assignment]
 
-- This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
-- You can read more about it here: <https://www.nationsreportcard.gov/>
+
 - For this and all other weekly assignments, you will use an R Markdown document
 - Let's open that file - `week-2-assignment` - together to get you started; please **save this in a week 2 folder in the project you created!**
 - At the end, you will "Knit" the file to an HTML report that you will upload to Canvas for the Week 2 Assignment
 
+]
+
+.panel[.panel-name[Data]
+
+- This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
+- You can read more about it here: <https://www.nationsreportcard.gov/>
 ]
 
 .panel[.panel-name[Substantive Reading(s)]
@@ -337,3 +351,7 @@ This is also linked in Canvas. It is associated with the same discussion due bef
 ]
 
 ]
+
+???
+
+now, students can have time to begin the weekly assignment
