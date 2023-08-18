@@ -34,7 +34,7 @@ xaringanExtra::use_panelset()
 
 # Purpose and Agenda
 
-This week, we answer the following question: What's this course about? We will introduce ourselves, the course, and R and R Studio. You'll complete an assignment that will set you on the course to being a confident R and RStudio user throughout this class. We'll also introduce the readings for this week.
+This week, we answer the following question: What's all the fuss about data science? We will dive into data viz as 
 
 ## What we'll do in this presentation
 

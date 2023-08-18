@@ -145,8 +145,6 @@ other courses: whatever you have will work for this course.
 | Readings              | 12.5%           | 10 / week for 15      |
 |                       |                 | weeks = 150 points    |
 |                       |                 |                       |
-|                       |                 | \*no reading in Week  |
-|                       |                 | 16                    |
 +-----------------------+-----------------+-----------------------+
 | Weekly Assignments    | 32.5%           | 30 / week for 13      |
 |                       |                 | weeks = 390 points    |

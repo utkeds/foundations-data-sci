@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-1.  Load necessary packages
+## Step 1Load necessary packages
 
 ```{r}
 library(tidyverse)

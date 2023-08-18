@@ -31,7 +31,7 @@ ____ <- read_csv("naep-data.csv")
 
 ## Step 3
 
-View your data. There are multiple ways to do this. Here are two options, with some code to get you started
+View your data. There are multiple ways to do this. Here are two options, with some code to get you started.
 
 ```{r}
 glimpse(____)
@@ -42,6 +42,8 @@ view(____)
 
 Clean variable names using the janitor package.  You'll need to use the assignment operator to ensure your clean names save to a dataframe. You might consider using a name that includes the phrase "clean" to clarify to you and others what the difference is! 
 
+Before doing so, take a peak at some of the handy functions that janitor provides, focusing on the `clean_names()` example: https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html
+
 ```{r}
 ____ <- ____ %>% 
   ____()
@@ -49,7 +51,7 @@ ____ <- ____ %>%
 
 ## Step 5
 
-Find the mean, standard deviation, quartiles, and more with the `skim()` function and the name of your data frame.
+Find the mean, standard deviation, quartiles, and more with the `skim()` function and the name of your data frame. Please first read a bit about skimr - how it works and what its benefits are - here: https://cloud.r-project.org/web/packages/skimr/vignettes/skimr.html
 
 ```{r}
 ____ %>% 
