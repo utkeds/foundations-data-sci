@@ -52,37 +52,32 @@ What's so useful about coding? That question is the focus of this class. We'll f
 
 .panel[.panel-name[Background]
 
-
+- Often, the data we want to analyze are in multiple files (e.g., CSV, or Excel files) or databases (e.g., a SQL database)
+- The _key_ to combining data is to ensure that the data we are joining share a common . . . _key_!
 
 ]
 
 .panel[.panel-name[Discussion Question]
 
--
+- What are some use cases for your research (past or planned) that involve multiple data files? And, why might it be important to join those files together? Please be as specific as possible regarding these reasons why.
 
 ]
 
 ]
-
-???
-
-This discussion can serve as an opening to discussing what ggplot2's strengths are relative to the above two tools.
 
 ---
 
 # Reading Recap
 
-> Lang, C., Wise, A. F., Merceron, A., Gasevic, D., & Siemens, G. (2022). What is learning analytics. The handbook of learning analytics, 8-18.
+Substantive reading(s):
 
-This was meant to introduce you to perhaps the most prominent data science adjacent field in education, the learning analytics community. The SOLAR community and LAK conference support learning analytics researchers. 
+> Reich, J. (2022). Learning analytics and learning at scale. Lang, C., Siemens, G. Wise, AF, Gašević, D., Merceron, A.,(eds.) Handbook of Learning Analytics, 2nd ed. Vancouver, Canada: SOLAR.
 
-Additionally, there were two technical readings:
+> White, R. S. (2023). Ceilings Made of Glass and Leaving En Masse? Examining Superintendent Gender Gaps and Turnover Over Time Across the United States. Educational Researcher, 0013189X231163139.
 
-> [R for Data Science: Chapter 2 - Data Visualization](https://r4ds.hadley.nz/data-visualize.html)
+Technical reading(s):
 
-
-
-> [Data Visualization Introduction from Modern Dive](https://moderndive.com/2-viz.html#viz)
+> Introducing educationdata, https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html (also, check out other pages on this website)
 
 ???
 
@@ -321,8 +316,9 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
 
 - Substantive reading(s) for the week ahead:
 
-> Reich, J. (2022). Learning analytics and learning at scale. Lang, C., Siemens, G. Wise, AF, Gašević, D., Merceron, A.,(eds.) Handbook of Learning Analytics, 2nd ed. Vancouver, Canada: SOLAR.
-> White, R. S. (2023). What's in a first name?: America's K-12 public school district sup erintendent gender gap. Leadership and Policy in Schools, 22(2), 385-401.
+> Shelton, C. C., Koehler, M. J., Greenhalgh, S. P., & Carpenter, J. P. (2022). Lifting the veil on Teach ersP ayTeachers. com: An in vestigation of educational marketplace offerings and downloads. Learning, Media and Technology, 47(2), 268-287.
+
+> Rosenberg, J. M., Borchers, C., Burchfield, M. A., Anderson, D., Stegenga, S. M., & Fischer, C. (2022). Posts about students on Facebook: a data ethics p erspective. Educational researcher, 51(8), 547-550.
 
 Linked in Canvas.
 
@@ -332,9 +328,7 @@ Linked in Canvas.
 
 - Technical reading(s) for the week ahead:
 
-> R for Data Science, Chapter 8: https://r4ds.hadley.nz/data-import
-
-> Cleaning names with Janitor: https://bookdown.org/aschmi11/RESMHandbook/data-preparation-and-cleaning-in-r.html#cleaning-names-with-janitor
+> R for Data Science, Data Transformation: https://r4ds.hadley.nz/data-transform
 
 Also linked in Canvas.
 

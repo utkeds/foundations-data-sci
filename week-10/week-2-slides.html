@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 2 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
+    <meta name="date" content="2023-08-18" />
+    <script src="week-2-slides_files/header-attrs-2.22/header-attrs.js"></script>
+    <link href="week-2-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="week-2-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="week-2-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-2-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-2-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-2-slides_files/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="week-2-slides_files/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-2-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-2-slides_files/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 2 Slides
+]
+.subtitle[
+## What’s this course about? And what’s R about?
+]
+.author[
+### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
+]
+.date[
+### August 18, 2023
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+This week, we answer the following question: What's this course about? We will introduce ourselves, the course, and R and R Studio. You'll complete an assignment that will set you on the course to being a confident R and RStudio user throughout this class. We'll also introduce the readings for this week.
+
+## What we'll do in this presentation
+
+- Discussion
+- Reading recap
+- Introductions
+- Syllabus
+- Key Concept: R, RStudio, and RMarkdown
+- Key Concept: Core Skills Framework
+- Code-along and data
+- What's next: Assignment(s) and Readings
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- Data science is often defined by harkening back to an early definition by [Conway (2013)](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram): analyses and research that draw on the following capabilties:
+    - Math and statistics
+    - Computer science and programming
+    - Knowledge of a specific domain
+
+]
+
+.panel[.panel-name[Background]
+
+&lt;img src="https://images.squarespace-cdn.com/content/v1/5150aec6e4b0e340ec52710a/1364352051365-HZAS3CLBF7ABLE3F5OBY/Data_Science_VD.png?format=2500w" width="50%" /&gt;
+
+]
+
+.panel[.panel-name[Discussion Question]
+
+- In which of Conway's three areas of capabilities are you _presently most confident_?
+- In which area _do you most want to learn more_?
+
+]
+
+]
+
+
+---
+
+# Reading Recap
+
+In advance of this class, you were tasked with two readings:
+
+&gt; Estrellado, R. A., Freer, E. A., Mostipak, J., Rosenberg, J. M., &amp; Velásquez, I. C. (2020). Data science in education using R. Routledge. Chapter 3, What does data science in education look like? 
+
+The purpose of this reading was to illustrate the breadth of data science use cases. Do you see yourself in any of these cases? We recognize many of you come from non-education backgrounds!
+
+&gt; McFarland, D. A., Khanna, S., Domingue, B. W., &amp; Pardos, Z. A. (2021). Education data science: Past, present, future. AERA Open, 7, 233 2858 4211052055.
+
+This is the introduction to the first journal special issue on education(al) (*note the title*, terms are still being normed on in the field!) data science field. This introduction gives a sense of research-related use cases for educational data science.
+
+???
+
+It may be good to pull out and summarize highlights from students' discussion posts here.
+
+---
+
+# Introductions
+
+.pull-left[
+
+Isabella Velásquez  
+
+&lt;img src="https://pbs.twimg.com/profile_images/1399221981061451781/aJvNk5sS_400x400.jpg" width="50%" /&gt;
+]
+
+.pull-right[
+Maryrose Weatherton 
+
+&lt;img src="https://i0.wp.com/news.utk.edu/wp-content/uploads/sites/3/2021/04/Weatherton-original.jpg" width="50%" /&gt;
+
+]
+
+???
+
+please feel welcome to use different images here, both! also feel free to add to this slide!
+
+---
+
+# Syllabus
+
+Syllabus: https://rpubs.com/jmichaelrosenberg/stem-680-fall-2023-syllabus
+
+And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw0mwEWuz_3m2Sn7TjIVILAv_E/edit
+
+---
+
+# Key Concept: R, RStudio, RMarkdown
+
+.panelset[
+
+.panel[.panel-name[R]
+**R** is a programming language and environment used for statistical computing and graphics. It is:
+- Open-source
+- Widely used for data analysis and visualization
+- Extendable through packages
+- Supported by a large community
+
+]
+
+.panel[.panel-name[RStudio]
+**RStudio** is an integrated development environment (IDE) for R. It provides:
+- A console for R code execution
+- A script editor
+- Tools for debugging and package management
+- Integrated RMarkdown support (see more next)
+- A way to view plots, data, and documentation
+
+]
+
+.panel[.panel-name[R Markdown]
+**R Markdown** is a file format for making dynamic documents with R. With it, you can:
+- Intermingle code and text
+- Generate reports, presentations, and web pages
+- Reproduce analyses easily
+- Display plots, tables, and other outputs directly
+- Convert to multiple output formats like PDF, HTML, and slides
+
+]
+
+]
+
+---
+
+# Key Concept: Core Skills Framework
+
+.panelset[
+
+.panel[.panel-name[Data]
+**Data** in R
+Data in R can come in various types and structures - with the last two being very important!
+
+- **Vectors**: 1-dimensional arrays (numeric, character, logical)
+- **Matrices**: 2-dimensional arrays
+- **Lists**: Can contain different types and structures
+- **Data Frames**: Tabular data, can mix different types
+- **Tibbles**: Modern version of data frames (from the tidyverse)
+
+]
+
+.panel[.panel-name[Packages]
+**Packages** in R
+Packages are collections of functions and datasets:
+- Extend R's base functionality
+- Contributed by the community
+- Can be installed from CRAN, GitHub, and other sources
+- Examples: `tidyverse`, `ggplot2`, `skimr`
+
+]
+
+.panel[.panel-name[Functions]
+**Functions** in R
+Functions are blocks of code that perform specific tasks:
+- Can be built-in (e.g., `mean()`, `sum()`) or loaded from a package (e.g., `glimpse()`)
+- Accept arguments (inputs) and return results (outputs)
+- Essential for reusing code and creating complex operations
+
+]
+
+.panel[.panel-name[Projects and File Paths]
+**Projects and File Paths** in RStudio
+Projects help organize your work:
+- Keep related scripts, data, and outputs together
+- Simplify relative file paths, making it easier to find and load data
+- Ensures reproducibility by setting a consistent working directory
+- We *always* work in projects in this class; **let's create one together now!**
+
+]
+
+]
+
+*These core skills will be the basis of all of our analyses in R.*
+
+???
+
+Walk students through creating a project for the whole class here
+
+---
+
+# Code-along
+
+*Let's code-along together in an `.R` we'll use just for code-alongs!*
+
+.panelset[
+
+.panel[.panel-name[library()]
+
+- We have to _first_ install packages before we can _load_ them (with `library()`)
+- We only have to install a package _once_; after that, as long as we're on the same computer, we can load the package **without installing it again**
+
+```r
+# install.packages("tidyverse")
+library(tidyverse)
+```
+
+]
+
+.panel[.panel-name[built-in data]
+
+- There is data built into *R* or R packages
+- We can learn a lot about built-in data just by typing its name, like below
+- Starwars data is built into the tidyverse package
+
+
+```r
+starwars
+```
+
+]
+
+.panel[.panel-name[glimpse()]
+
+- `glimpse()` presents a compact portrait of our data and what it contains
+
+
+```r
+glimpse(starwars)
+```
+
+]
+
+.panel[.panel-name[view()]
+
+- `view()` is another way, though we generally recommend not using this in R Markdown documents (instead, copying and pasting it into the console) as it will cause an error in an R Markdown document
+- we commented it out for this reason 
+
+
+```r
+# view(starwars)
+```
+
+]
+
+.panel[.panel-name[skim()]
+
+- `skim()` from the skimr package is another handy way to quickly explore a data set
+
+
+```r
+# install.packages("skim")
+library(skimr)
+skim(starwars)
+```
+
+]
+
+.panel[.panel-name[read_csv()]
+
+- Very often (and in practically all authentic analyses), we read in data from a file
+- A Comma Separated Values (CSV) file is a common file type for data scientists
+- A key consideration has to do with the _path_ of the file
+
+
+```r
+naep &lt;- read_csv("naep-data.csv")
+```
+
+]
+
+
+]
+
+
+???
+
+Walk students through creating a week 2 folder, R script, and saving the ELSI data (in Canvas and GitHub) in anticipation of the weekly assignment.
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+
+- For this and all other weekly assignments, you will use an R Markdown document
+- Let's open that file - `week-2-assignment` - together to get you started; please **save this in a week 2 folder in the project you created!**
+- At the end, you will "Knit" the file to an HTML report that you will upload to Canvas for the Week 2 Assignment
+
+]
+
+.panel[.panel-name[Data]
+
+- This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
+- You can read more about it here: &lt;https://www.nationsreportcard.gov/&gt;
+]
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- Substantive reading(s) for the week ahead:
+
+&gt; Lang, C., Wise, A. F., Merceron, A., Gasevic, D., &amp; Siemens, G. (2022). What is learning analytics. The handbook of learning analytics, 8-18.
+
+This is linked in Canvas. It is associated with a discussion due before the next class.
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s) for the week ahead
+
+&gt; R for Data Science: Chapter 2 - Data Visualization: https://r4ds.hadley.nz/data-visualize.html
+&gt; Data Visualization Introduction from Modern Dive: https://moderndive.com/2-viz.html#viz
+
+This is also linked in Canvas. It is associated with the same discussion due before the next class.
+
+]
+
+]
+
+???
+
+it may be important to walk students through how to download files from GitHub; the assignment links to the page for them, but one more step is easy (it should be pretty clear for most, but still may be helpful to talk through), e.g. this data file https://github.com/utkeds/f23-founds-eds/blob/main/data/elsi-data.csv
+
+now, students can have time to begin the weekly assignment
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -123,7 +123,7 @@ Create a scatterplot to examine the relationship between a variable originally i
 
 Use the `joined_left` dataframe for this exercise. 
 
-We note that you can choose among any of the NAEP variables.
+We note that you can choose among any of the NAEP variables. We ask you to please defend your choice when interpreting your analysis.
 
 You must specify both the x- and y- variables when using `geom_point()`. You may also want to add another geom on a new line, `geom_smooth(method = "lm", se = FALSE)` and `geom_text(aes(label = state))`.
 
