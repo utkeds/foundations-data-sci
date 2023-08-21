@@ -158,7 +158,7 @@ We encourage you to change the theme, color, and other aesethetics of the plot. 
 
 ## Knit and Submit
 
-Complete the following steps to knit and publish your work:
+Complete the following steps to knit and publish your work (note - we'll remove these steps after this week, as we know you're becoming quite familiar with it!):
 
 1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
 
