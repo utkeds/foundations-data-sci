@@ -154,7 +154,7 @@ We encourage you to change the theme, color, and other aesethetics of the plot. 
 | Code is accurately filled in for all 5 steps. | 10              |               |
 | Step 3 Question                               | 3               |               |
 | Step 4 Questions                              | 8               |               |
-| Step 5 Question                               | 7               |               |
+| Step 5 Questions                              | 7               |               |
 
 ## Knit and Submit
 
