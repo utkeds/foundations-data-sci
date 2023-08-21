@@ -354,4 +354,6 @@ This is also linked in Canvas. It is associated with the same discussion due bef
 
 ???
 
+it may be important to walk students through how to download files from GitHub; the assignment links to the page for them, but one more step is easy (it should be pretty clear for most, but still may be helpful to talk through), e.g. this data file https://github.com/utkeds/f23-founds-eds/blob/main/data/elsi-data.csv
+
 now, students can have time to begin the weekly assignment

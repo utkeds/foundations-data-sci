@@ -34,17 +34,16 @@ xaringanExtra::use_panelset()
 
 # Purpose and Agenda
 
-This week, we answer the following question: What's this course about? We will introduce ourselves, the course, and R and R Studio. You'll complete an assignment that will set you on the course to being a confident R and RStudio user throughout this class. We'll also introduce the readings for this week.
+What's so useful about coding? That question is the focus of this class.
+
 
 ## What we'll do in this presentation
 
 - Discussion
-- Reading recap
-- Introductions
-- Syllabus
-- Key Concept: R, RStudio, and RMarkdown
-- Key Concept: Core Skills Framework
-- Code-along
+- Course Logistics
+- Key Concept: ggplot2 and advanced graphics
+- Key Concept: Revisiting the Core Skills Framework
+- Code-along and data
 - What's next: Assignment(s) and Readings
 
 ---
@@ -55,126 +54,115 @@ This week, we answer the following question: What's this course about? We will i
 
 .panel[.panel-name[Background]
 
-- Data science is often defined by harkening back to an early definition by [Conway (2013)](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram): analyses and research that draw on the following capabilties:
-    - Math and statistics
-    - Computer science and programming
-    - Knowledge of a specific domain
-
-]
-
-.panel[.panel-name[Background]
-
-```{r, echo = FALSE, out.width="50%"}
-knitr::include_graphics("https://images.squarespace-cdn.com/content/v1/5150aec6e4b0e340ec52710a/1364352051365-HZAS3CLBF7ABLE3F5OBY/Data_Science_VD.png?format=2500w")
-```
+Data visualizations can be used to communicate with a range of audiences, including _readers_ (or interpreters) of your visualizations and you and your collaborators as you seak to understand your data.
 
 ]
 
 .panel[.panel-name[Discussion Question]
 
-- In which of Conway's three areas of capabilities are you _presently most confident_?
-- In which area _do you most want to learn more_?
+- What is easy or straightforward to do regarding visualizing data with Microsoft Excel or Google Sheets?
+- What is more challenging to do with these tools?
 
 ]
 
 ]
 
+???
+
+This discussion can serve as an opening to discussing what ggplot2's strengths are relative to the above two tools.
 
 ---
 
 # Reading Recap
 
-In advance of this class, you were tasked with two readings:
+> Lang, C., Wise, A. F., Merceron, A., Gasevic, D., & Siemens, G. (2022). What is learning analytics. The handbook of learning analytics, 8-18.
 
-> Estrellado, R. A., Freer, E. A., Mostipak, J., Rosenberg, J. M., & Velásquez, I. C. (2020). Data science in education using R. Routledge. Chapter 3, What does data science in education look like? 
+This was meant to introduce you to perhaps the most prominent data science adjacent field in education, the learning analytics community. The SOLAR community and LAK conference support learning analytics researchers. 
 
-The purpose of this reading was to illustrate the breadth of data science use cases. Do you see yourself in any of these cases? We recognize many of you come from non-education backgrounds!
+Additionally, there were two technical readings:
 
-> McFarland, D. A., Khanna, S., Domingue, B. W., & Pardos, Z. A. (2021). Education data science: Past, present, future. AERA Open, 7, 233 2858 4211052055.
+> [R for Data Science: Chapter 2 - Data Visualization](https://r4ds.hadley.nz/data-visualize.html)
 
-This is the introduction to the first journal special issue on education(al) (*note the title*, terms are still being normed on in the field!) data science field. This introduction gives a sense of research-related use cases for educational data science.
+
+
+> [Data Visualization Introduction from Modern Dive](https://moderndive.com/2-viz.html#viz)
+
+???
+
+As in the first week, it may be good to pull out and summarize highlights from students' discussion posts here.
 
 ---
 
-# Introductions
+# Course Logistics
 
-<!-- please feel welcome to use different images here, both! also feel free to add to this slide! -->
-
-.pull-left[
-
-Isabella Velásquez  
-
-```{r, echo = FALSE, out.width="50%"}
-knitr::include_graphics("https://pbs.twimg.com/profile_images/1399221981061451781/aJvNk5sS_400x400.jpg")
-```
-]
-
-.pull-right[
-Maryrose Weatherton 
-
-```{r, echo = FALSE, out.width="50%"}
-knitr::include_graphics("https://i0.wp.com/news.utk.edu/wp-content/uploads/sites/3/2021/04/Weatherton-original.jpg")
-```
-
-]
----
-
-# Syllabus
+We're now two weeks into class! What has gone well? What issues have you had? What questions do you have?
 
 Syllabus: https://rpubs.com/jmichaelrosenberg/stem-680-fall-2023-syllabus
 
 And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw0mwEWuz_3m2Sn7TjIVILAv_E/edit
 
+???
+
+May be a chance to return to the syllabus and schedule and answer any questions that have arisen.
+
 ---
 
-# Key Concept: R, RStudio, RMarkdown
+.title[Key Concept: ggplot2]
 
 .panelset[
 
-.panel[.panel-name[R]
-**R** is a programming language and environment used for statistical computing and graphics. It is:
-- Open-source
-- Widely used for data analysis and visualization
-- Extendable through packages
-- Supported by a large community
+.panel[.panel-name[ggplot2]
+**ggplot2**: 
+- An R package for data visualization
+- Based on the *Grammar of Graphics*
+- Created by Hadley Wickham
+- Part of the `tidyverse`, a suite of R packages for data science
 
 ]
 
-.panel[.panel-name[RStudio]
-**RStudio** is an integrated development environment (IDE) for R. It provides:
-- A console for R code execution
-- A script editor
-- Tools for debugging and package management
-- Integrated RMarkdown support (see more next)
-- A way to view plots, data, and documentation
+.panel[.panel-name[the grammar of graphics]
+**The Grammar of Graphics**:
+- A systematic way to describe and build graphs
+- Focuses on layers of visualizations
+- Elements include:
+  - **Data**: What you want to plot
+  - **Aesthetics**: How data is mapped to visuals
+  - **Geoms**: Geometric objects like points, lines, bars
+  - **Stats**: Statistical transformations, e.g., smoothing
+  - **Facets**: Ways to split data into subsets for multiple plots
 
 ]
 
-.panel[.panel-name[R Markdown]
-**R Markdown** is a file format for making dynamic documents with R. With it, you can:
-- Intermingle code and text
-- Generate reports, presentations, and web pages
-- Reproduce analyses easily
-- Display plots, tables, and other outputs directly
-- Convert to multiple output formats like PDF, HTML, and slides
+.panel[.panel-name[Example ggplot2 code]
+**Example ggplot2 code**:
+
+```{r, }
+library(tidyverse) # note, this loads the ggplot2 package
+
+ggplot(data = mtcars, aes(x = mpg, y = wt)) +
+  geom_point(aes(color = cyl)) +
+  labs(title = "MPG vs. Weight", 
+       x = "Miles per Gallon", 
+       y = "Weight (in 1000s of lbs)",
+       color = "Number of Cylinders")
+```
 
 ]
-
 ]
 
 ---
 
-# Key Concept: Core Skills Framework
+# Key Concept: Revisiting the Core Skills Framework
+
+*Let's quickly revisit the core skills we discussed last week*
 
 .panelset[
 
 .panel[.panel-name[Data]
 **Data** in R
-Data in R can come in various types and structures - with the last two being very important!
 
-- **Vectors**: 1-dimensional arrays (numeric, character, logical)
-- **Matrices**: 2-dimensional arrays
-- **Lists**: Can contain different types and structures
+We have focused on these two data structures, though others you will encounter later on include vectors, matrices, and lists:
+
 - **Data Frames**: Tabular data, can mix different types
 - **Tibbles**: Modern version of data frames (from the tidyverse)
 
@@ -182,20 +170,20 @@ Data in R can come in various types and structures - with the last two being ver
 
 .panel[.panel-name[Packages]
 **Packages** in R
-Packages are collections of functions and datasets:
-- Extend R's base functionality
-- Contributed by the community
-- Can be installed from CRAN, GitHub, and other sources
-- Examples: `tidyverse`, `ggplot2`, `skimr`
+Packages are collections of functions and datasets that extend R:
+
+- You have used tidyverse, skimr, and janitor so far
+- This week, we're focusing on ggplot2
+- We'll use many others throughout the semester
+- You might start exploring packages related to interests you have now! There are tens of thousands to do nearly anything with data (and order pizza, too; seriously!)
 
 ]
 
 .panel[.panel-name[Functions]
 **Functions** in R
-Functions are blocks of code that perform specific tasks:
+Functions are made up of code that perform specific tasks:
 - Can be built-in (e.g., `mean()`, `sum()`) or loaded from a package (e.g., `glimpse()`)
-- Accept arguments (inputs) and return results (outputs)
-- Essential for reusing code and creating complex operations
+- You can write your own function! We'll discuss this at another point in this class
 
 ]
 
@@ -203,98 +191,110 @@ Functions are blocks of code that perform specific tasks:
 **Projects and File Paths** in RStudio
 Projects help organize your work:
 - Keep related scripts, data, and outputs together
-- Simplify relative file paths, making it easier to find and load data
-- Ensures reproducibility by setting a consistent working directory
-- We *always* work in projects in this class; **let's create one together now!**
-
-<!-- Walk students through creating a project here -->
+- We *always* work in projects in this class
 
 ]
 
 ]
 
-*These core skills will be the basis of all of our analyses in R.*
+*Again, these core skills will be the basis of all of our analyses in R.*
 
 ---
 
 # Code-along
 
-*Let's code-along together in an `.R` we'll use just for code-alongs!*
-
-<!-- Walk students through creating an `.R` script -->
+*Let's code-along together in an `.R` we'll use---just like we did last week*
 
 .panelset[
 
-.panel[.panel-name[library()]
+.panel[.panel-name[ggplot()]
 
-- We have to _first_ install packages before we can _load_ them (with `library()`)
-- We only have to install a package _once_; after that, as long as we're on the same computer, we can load the package **without installing it again**
+- we use `ggplot()` to start our plotting of the built-in `penguins` dataset from the palmerpenguins package
+
 ```{r, eval = FALSE, echo = TRUE}
-# install.packages("tidyverse")
-library(tidyverse)
+library(tidyverse) # let's load the tidyverse, loading ggplot2 & other packages
+library(palmerpenguins) # make sure to install with install.packages() first
+
+ggplot(penguins)
 ```
+
+*This won't do... much (yet!)*
 
 ]
 
-.panel[.panel-name[built-in data]
+.panel[.panel-name[aes()]
 
-- There is data built into *R* or R packages
-- We can learn a lot about built-in data just by typing its name, like below
-- Starwars data is built into the tidyverse package
+- add on to our initial code by specifying the _aesthetic mapping_ with `aes()`
+- specfically, let's tell R what the *x* variable is - let's pick _any_ numeric variable from the data set
 
 ```{r, eval = FALSE, echo = TRUE}
-starwars
+glimpse(penguins) # to see which variables are numeric
+
+ggplot(penguins, aes(x = body_mass_g) # can change to another!
 ```
+
+**Still not doing much!**
 
 ]
 
-.panel[.panel-name[glimpse()]
+.panel[.panel-name[geom_histogram]
 
-- `glimpse()` presents a compact portrait of our data and what it contains
+- Last, specify the geometric object you want to use to represent the variable you mapped to an aesthetic
+- Let's try a histogram!
+- We always add *layers* onto ggplot2 plots with the `+` operator
 
 ```{r, eval = FALSE, echo = TRUE}
-glimpse(starwars)
+ggplot(penguins, aes(x = body_mass_g) +
+           geom_histogram()
 ```
+
+*Voilà!*
 
 ]
 
-.panel[.panel-name[view()]
+.panel[.panel-name[geom_point]
 
-- `view()` is another way, though we generally recommend not using this in R Markdown documents (instead, copying and pasting it into the console) as it will cause an error in an R Markdown document
-- we commented it out for this reason 
+- Let's expand on what we've done by examining _two_ variables, one we "map" to *x*, another to *y*
+- We'll see how the bill length and depth of penguins relate, using a different geom to do so with a scatterplot
 
 ```{r, eval = FALSE, echo = TRUE}
-# view(starwars)
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm) +
+           geom_point()
 ```
+
+*Voilà (take two)!*
 
 ]
 
-.panel[.panel-name[skim()]
+.panel[.panel-name[A 3rd variable]
 
-- `skim()` from the skimr package is another handy way to quickly explore a data set
+- Part of the joy of ggplot2 is the flexibility you have in how you can modify a plot
+- What if we want to visualize a third variable? 
+    - We have several aesthetic features we can "map" this third variable to, including the size, shape, and color of points
 
 ```{r, eval = FALSE, echo = TRUE}
-# install.packages("skim")
-library(skimr)
-skim(starwars)
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species) +
+           geom_point()
 ```
+
+*Voilà (take three)!*
 
 ]
 
-.panel[.panel-name[read_csv()]
+.panel[.panel-name[More additions]
 
-<!-- Here, consider saving the NAEP data to the same folder as the R script and show how to read it together -->
-
-- Very often (and in practically all authentic analyses), we read in data from a file
-- A Comma Separated Values (CSV) file is a common file type for data scientists
-- A key consideration has to do with the _path_ of the file
+- The sky is the limit! 
+- We can also add other geoms to our plot, like one representing the _slope_ of the relation between *x* and *y*
+- Furthermore, we can easily _theme_ out plot
 
 ```{r, eval = FALSE, echo = TRUE}
-naep <- read_csv("naep-data.csv")
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+           geom_point() +
+           geom_smooth(method = "lm") +
+    theme_bw()
 ```
 
 ]
-
 
 ]
 
@@ -307,33 +307,39 @@ naep <- read_csv("naep-data.csv")
 
 .panel[.panel-name[Weekly Assignment]
 
-- This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
-- You can read more about it here: <https://www.nationsreportcard.gov/>
-- For this and all other weekly assignments, you will use an R Markdown document
-- Let's open that file - `week-2-assignment` - together to get you started; please **save this in a week 2 folder in the project you created!**
-- At the end, you will "Knit" the file to an HTML report that you will upload to Canvas for the Week 2 Assignment
+- We'll be doing more with ggplot2 in this lab, while returning back to some of the functions we used last week
+- We'll be faceting our plots using a _layer_ we can add, `facet_wrap()`
+
+]
+
+.panel[.panel-name[Data]
+
+- We'll be using a large, complex dataset from the United States Department of Education
+- Specifically, we'll use data from the [Elementary/Secondary Information System (ElSi)](https://nces.ed.gov/ccd/elsi/), a data collection system that includes information on the more than 100,000 schools and more than 8,000 school districts in the country
+- Note: Even though this data is alrge and complex, it is _not_ cleaned, and one slightly unusual thing we'll need to do is _skip_ the first six rows of the CSV file accessed through the ElSi, because they're blank!
 
 ]
 
 .panel[.panel-name[Substantive Reading(s)]
 
-- There are two substantive readings (two chapters from the same book) for the week ahead:
+- Substantive reading(s) for the week ahead:
 
-> Salganik, M. J. (2019). Bit by bit: Social research in the digital age. Princeton University Press. Chapters 2 (Observing Behavior) and 3 (Asking Questions).
+> Reich, J. (2022). Learning analytics and learning at scale. Lang, C., Siemens, G. Wise, AF, Gašević, D., Merceron, A.,(eds.) Handbook of Learning Analytics, 2nd ed. Vancouver, Canada: SOLAR.
+> White, R. S. (2023). What's in a first name?: America's K-12 public school district sup erintendent gender gap. Leadership and Policy in Schools, 22(2), 385-401.
 
-This is linked in Canvas.
+Linked in Canvas.
 
 ]
 
 .panel[.panel-name[Technical Reading(s)]
 
-- There are two technical readings that are about what we'll focus on next week:
+- Technical reading(s) for the week ahead:
 
 > R for Data Science, Chapter 8: https://r4ds.hadley.nz/data-import
 
 > Cleaning names with Janitor: https://bookdown.org/aschmi11/RESMHandbook/data-preparation-and-cleaning-in-r.html#cleaning-names-with-janitor
 
-These are also linked in Canvas.
+Also linked in Canvas.
 
 ]
 

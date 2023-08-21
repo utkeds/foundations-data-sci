@@ -72,8 +72,6 @@ This discussion can serve as an opening to discussing what ggplot2's strengths a
 
 ---
 
-# Course Descrition
-
 # Reading Recap
 
 In advance of this class, you were tasked with one substantive reading:
