@@ -1,0 +1,133 @@
+---
+title: "Week 4 - Teacher"
+author: "Teacher"
+date: "Assignment Due Date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Step 1
+
+Load necessary packages (tidyverse, tidykids, and janitor). Before loading tidykids, you may need to download the package by running `remotes::install_github("jrosen48/tidykids")`.
+
+```{r}
+library(tidyverse)
+library(tidykids)
+library(janitor)
+```
+
+## Step 2
+
+Save the tidykids and NAEP data frames to your environment.
+
+```{r}
+tidykids <- tidykids
+naep <- read_csv("naep-data.csv")
+```
+
+## Step 3
+
+Familiarize yourself with the two data frames
+
+```{r}
+glimpse(tidykids)
+glimpse(naep)
+```
+
+What is one interesting piece of information you learned about the two datasets from your exploration?
+
+```         
+- 
+```
+
+## Step 4
+
+Now we will practice joining the two dataframes together based on the column that refers to the state. As a reminder, the column you join by must have the same name in each data frame, so you will need to use `rename()`.
+
+```{r}
+naep <- naep %>% 
+  rename("state" = "Jurisdiction")
+```
+
+Now that there is a column in each dataframe with a matching name, let's practice joining. First, let's use `right_join()`.
+
+```{r}
+joined_right_1 <- right_join(tidykids, naep, "state")
+
+joined_right_2 <- right_join(naep, tidykids, "state")
+```
+
+What do you notice about these two new dataframes? Is there anything different between `joined_right_1` and `joined_right_2`?
+
+-   
+
+-   
+
+You can also use `left_join()`.
+
+```{r}
+joined_left_1 <- left_join(tidykids, naep, "state")
+```
+
+What do you notice are the differences between `right_join()` and `left_join()`? Would there be a time you would need to use one over the other?
+
+-   
+
+-   
+
+Finally, we can join the two dataframes with `full_join()`. Explore what happens when you list the tidykids and NAEP datasets in different orders.
+
+```{r}
+full_df <- full_join(tidykids, naep, "state") # Note for instructor: this is the preferred join. 
+
+full_df <- full_join(naep, tidykids, "state")
+```
+
+How does `full_join()` compare to the other two joins you practiced? What would be the value in using `full_join()` over the other joins? For these two datasets, is there one order that makes sense over the other to use?
+
+-   
+
+-   
+
+-   
+
+## Step 5
+
+Create a scatterplot to examine the relationship between a variable originally in the tidykids dataset and a variable originally in the NAEP dataset. Use the full_join dataframe for this exercise. You must specify both the x- and y- variables when using `geom_point()`. We encourage you to change the theme and color of the plot. 
+
+```{r}
+
+```
+
+What interesting relationship (if any) did you find?
+
+-   
+
+## Reach
+
+This portion of the assignment is optional but offers you a chance to push your skills further.
+
+- 
+
+## Rubric
+
+|                                               | Points Possible | Points Earned |
+|-----------------------------------------------|-----------------|---------------|
+| File knits                                    | 2               |               |
+| Code is accurately filled in for all 5 steps. | 10              |               |
+| Step 3 Question                               | 3               |               |
+| Step 4 Questions                              | 8               |               |
+| Step 5 Question                               | 7               |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work:
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3.  Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!
