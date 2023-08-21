@@ -11,30 +11,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Step 1
 
-Load necessary packages (tidyverse, tidykids, and janitor). Before loading tidykids, you may need to download the package by running `remotes::install_github("jrosen48/tidykids")`.
+Load the tidyverse and janitor packages.
 
 ```{r}
-library(tidyverse)
-library(tidykids)
-library(janitor)
+
 ```
 
 ## Step 2
 
-Save the tidykids and NAEP data frames to your environment.
+Read the tidykids and NAEP data frames to your environment.
 
 ```{r}
-tidykids <- tidykids
-naep <- read_csv("naep-data.csv")
+
 ```
 
 ## Step 3
 
-Familiarize yourself with the two data frames
+Familiarize yourself with the two data frames using functions we've used before to do so.
 
 ```{r}
-glimpse(tidykids)
-glimpse(naep)
+
 ```
 
 What is one interesting piece of information you learned about the two datasets from your exploration?
@@ -43,21 +39,60 @@ What is one interesting piece of information you learned about the two datasets 
 - 
 ```
 
+One thing we noticed is that the tidykids data is quite big relative to the NAEP data! 
+
+With the naep data, we have *only a single row per state*, whereas the tidykids data has *many rows per state*. The reason is the tidykids data is by *year* and *variable* (category of spending on kids). To make our lives a bit easier, let's filter the tidykids data to be only from the most recent year, 2016.
+
+```{r}
+# the code below filters the rows of the tidykids data frame to only include those for which the year is equivalent to 2016, and then (re)assigns the name tidykids to the resulting output
+
+tidykids <- tidykids %>% 
+    filter(year == 2016)
+
+tidykids
+```
+
+Looking better, with one step to go - if we were to `count()` `variable`, we'd see that each state has one row per variable. Thus, we can consider this data to be in **long form**, something we will discuss around week 10 of the class. For now, we'll show how to transform this data to be in a form that is more appropriate for our aim of joining together this and the NAEP data. This relates to a concept we will introduce now and dive more deeply into later--tidy data.
+
+Run the code chunk below to see a representation of tidy data (from the presentation) that follows from applying two simple rules:
+
+- Rule 1: Put each dataset in a tibble
+- Rule 2: Put each variable in a column
+
+Take another look at tidykids. Which of the two above rules is broken in the tidykids dataset in its present form? Add your answer and a brief explanation for why after the bullet point below:
+
+- 
+
+Fortunately, we can address this issue relatively straightforwardly. For now, run the code below; the key at this time is to begin to recognize data that isn't tidy. We'll dive deeper into the mechanics of how to transform data so that it is tidy later on.
+
+```{r}
+tidykids_widened <- tidykids %>% 
+    select(state, variable, inf_adj_perchild) %>% # select just the three variables we need
+    pivot_wider(names_from = "variable", values_from = "inf_adj_perchild") # specify how we want the names of the variables and their values to be created
+
+tidykids_widened
+```
+
+Do the two data frames have the same observations (in this case, states)? Note the number of rows; why is there one additional row in one dataset?
+
+- 
+
+At this point, we are ready to move on to joining our data.
+
 ## Step 4
 
 Now we will practice joining the two dataframes together based on the column that refers to the state. As a reminder, the column you join by must have the same name in each data frame, so you will need to use `rename()`.
 
 ```{r}
-naep <- naep %>% 
-  rename("state" = "Jurisdiction")
+
 ```
 
 Now that there is a column in each dataframe with a matching name, let's practice joining. First, let's use `right_join()`.
 
 ```{r}
-joined_right_1 <- right_join(tidykids, naep, "state")
+joined_right_1 <- right_join(tidykids_widened, naep, "state")
 
-joined_right_2 <- right_join(naep, tidykids, "state")
+joined_right_2 <- right_join(naep, tidykids_widened, "state")
 ```
 
 What do you notice about these two new dataframes? Is there anything different between `joined_right_1` and `joined_right_2`?
@@ -66,51 +101,50 @@ What do you notice about these two new dataframes? Is there anything different b
 
 -   
 
-You can also use `left_join()`.
+You can also use `left_join()`. As you likely garnered from above, right join joins all of the rows in the "right" (named second) data frame with matching rows in the "left" (named first data frame). Left join flips this. Use `left_join()` below, naming `naep` first and `tidykids_widened` second. Specify "state" as the key and name the resulting output `joined_left`.
 
 ```{r}
-joined_left_1 <- left_join(tidykids, naep, "state")
+
 ```
 
-What do you notice are the differences between `right_join()` and `left_join()`? Would there be a time you would need to use one over the other?
+Generally, left join is more common than right join, perhaps because it's a little more intuitive to name the data frame with all of the rows you want to keep first. Let's proceed with `joined_left`, using this for our next analyses.
 
--   
-
--   
-
-Finally, we can join the two dataframes with `full_join()`. Explore what happens when you list the tidykids and NAEP datasets in different orders.
+Before we proceed, let's use the clean_names() function from the janitor package we have used earlier with `joined_left`. Be sure to assign that name back to the resulting output!
 
 ```{r}
-full_df <- full_join(tidykids, naep, "state") # Note for instructor: this is the preferred join. 
 
-full_df <- full_join(naep, tidykids, "state")
 ```
-
-How does `full_join()` compare to the other two joins you practiced? What would be the value in using `full_join()` over the other joins? For these two datasets, is there one order that makes sense over the other to use?
-
--   
-
--   
-
--   
 
 ## Step 5
 
-Create a scatterplot to examine the relationship between a variable originally in the tidykids dataset and a variable originally in the NAEP dataset. Use the full_join dataframe for this exercise. You must specify both the x- and y- variables when using `geom_point()`. We encourage you to change the theme and color of the plot. 
+We're finally ready to analyze our joined data.
+
+Create a scatterplot to examine the relationship between a variable originally in the tidykids dataset and a variable originally in the NAEP dataset (e.g., PK12ed, or others - consider changing this out and exploring several!). See a description of all of the codes here: https://jrosen48.github.io/tidykids/
+
+Use the `joined_left` dataframe for this exercise. 
+
+We note that you can choose among any of the NAEP variables.
+
+You must specify both the x- and y- variables when using `geom_point()`. You may also want to add another geom on a new line, `geom_smooth(method = "lm", se = FALSE)` and `geom_text(aes(label = state))`.
 
 ```{r}
 
 ```
 
-What interesting relationship (if any) did you find?
+What interesting relationship (if any) did you find? Add a few notes below. Also, share ideas on what you could do to extend this analysis.
 
 -   
+- 
 
 ## Reach
 
 This portion of the assignment is optional but offers you a chance to push your skills further.
 
-- 
+We encourage you to change the theme, color, and other aesethetics of the plot. Do so by copying your code above and extending your graph. Also, consider visualizing a different variable's relations with achievement.
+
+```{r}
+
+```
 
 ## Rubric
 

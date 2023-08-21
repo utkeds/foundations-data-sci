@@ -34,15 +34,13 @@ xaringanExtra::use_panelset()
 
 # Purpose and Agenda
 
-What's so useful about coding? That question is the focus of this class.
-
+What's so useful about coding? That question is the focus of this class. We'll focus on _joining_ two data sets, something that is relatively straightforward to do in R. We'll again use the NAEP data, joining data on spending on kids to understand whether there are any clear relations between spending and academic achievement.
 
 ## What we'll do in this presentation
 
 - Discussion
-- Course Logistics
-- Key Concept: ggplot2 and advanced graphics
-- Key Concept: Revisiting the Core Skills Framework
+- Key Concept: Joining
+- Key Concept: Doing more with ggplot2
 - Code-along and data
 - What's next: Assignment(s) and Readings
 
@@ -54,14 +52,13 @@ What's so useful about coding? That question is the focus of this class.
 
 .panel[.panel-name[Background]
 
-Data visualizations can be used to communicate with a range of audiences, including _readers_ (or interpreters) of your visualizations and you and your collaborators as you seak to understand your data.
+
 
 ]
 
 .panel[.panel-name[Discussion Question]
 
-- What is easy or straightforward to do regarding visualizing data with Microsoft Excel or Google Sheets?
-- What is more challenging to do with these tools?
+-
 
 ]
 

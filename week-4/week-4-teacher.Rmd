@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Step 1
 
-Load the: tidyverse and janitor.
+Load the tidyverse and janitor packages.
 
 ```{r}
 library(tidyverse)
@@ -57,14 +57,10 @@ tidykids
 
 Looking better, with one step to go - if we were to `count()` `variable`, we'd see that each state has one row per variable. Thus, we can consider this data to be in **long form**, something we will discuss around week 10 of the class. For now, we'll show how to transform this data to be in a form that is more appropriate for our aim of joining together this and the NAEP data. This relates to a concept we will introduce now and dive more deeply into later--tidy data.
 
-Run the code chunk below to see a representation of tidy data that follows from applying two simple rules:
+Run the code chunk below to see a representation of tidy data (from the presentation) that follows from applying two simple rules:
 
 - Rule 1: Put each dataset in a tibble
 - Rule 2: Put each variable in a column
-
-```{r, echo = FALSE}
-knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png")
-```
 
 Take another look at tidykids. Which of the two above rules is broken in the tidykids dataset in its present form? Add your answer and a brief explanation for why after the bullet point below:
 
@@ -132,21 +128,27 @@ Create a scatterplot to examine the relationship between a variable originally i
 
 Use the `joined_left` dataframe for this exercise. 
 
-You must specify both the x- and y- variables when using `geom_point()`. 
+We note that you can choose among any of the NAEP variables.
+
+You must specify both the x- and y- variables when using `geom_point()`. You may also want to add another geom on a new line, `geom_smooth(method = "lm", se = FALSE)` and `geom_text(aes(label = state))`.
 
 ```{r}
-ggplot(joined_left, aes(x = PK12ed, y = )
+ggplot(joined_left, aes(x = pk12ed, y = average_score_0_500)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE) +
+    geom_text(aes(label = state))
 ```
 
-What interesting relationship (if any) did you find?
+What interesting relationship (if any) did you find? Add a few notes below. Also, share ideas on what you could do to extend this analysis.
 
 -   
+- 
 
 ## Reach
 
 This portion of the assignment is optional but offers you a chance to push your skills further.
 
-We encourage you to change the theme, color, and other aesethetics of the plot. Do so by copying your code above and extending your graph.
+We encourage you to change the theme, color, and other aesethetics of the plot. Do so by copying your code above and extending your graph. Also, consider visualizing a different variable's relations with achievement.
 
 ```{r}
 
