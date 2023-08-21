@@ -269,7 +269,7 @@ band_members %>% left_join(band_instruments, by = c("name", "band"))
 
 ???
 
-May want to demonstate some of the new ggplot2 code, too (geom_smooth, maybe?)
+May want to demonstrate some of the new ggplot2 code, too (geom_smooth, maybe?)
 
 ---
 
@@ -281,14 +281,14 @@ May want to demonstate some of the new ggplot2 code, too (geom_smooth, maybe?)
 .panel[.panel-name[Weekly Assignment]
 
 - We'll be joining together two files and conducting an authentic analysis about what relates to student academic achievement
-- The analysis will take the form of a scatterplot with a fitted line --- effectively, a visual represention of a simple (one variable) linear regression model
+- The analysis will take the form of a scatterplot with a fitted line --- effectively, a visual representation of a simple (one variable) linear regression model
 
 ]
 
 .panel[.panel-name[Data]
 
 - We'll again be using NAEP data
-- In addition, we'l be using data on state-by-state spending on children; read about the data [here](https://jrosen48.github.io/tidykids/articles/tidykids-codebook.html)
+- In addition, we'll be using data on state-by-state spending on children; read about the data [here](https://jrosen48.github.io/tidykids/articles/tidykids-codebook.html)
 
 ]
 
