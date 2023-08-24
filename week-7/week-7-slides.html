@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Week 5 Slides</title>
+    <title>Week 7 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
-    <meta name="date" content="2023-08-24" />
-    <script src="week-5-slides_files/header-attrs-2.22/header-attrs.js"></script>
-    <script src="week-5-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
-    <link href="week-5-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
-    <script src="week-5-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script src="week-7-slides_files/header-attrs-2.22/header-attrs.js"></script>
+    <script src="week-7-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-7-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-7-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
-    <link href="week-5-slides_files/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
-    <link href="week-5-slides_files/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
-    <link href="week-5-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
-    <script src="week-5-slides_files/panelset-0.2.6/panelset.js"></script>
+    <link href="week-7-slides_files/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="week-7-slides_files/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-7-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-7-slides_files/panelset-0.2.6/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -21,16 +20,13 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Week 5 Slides
+# Week 7 Slides
 ]
 .subtitle[
-## How do I access and describe data? Using an R package and an API
+## How do I preparing data for analysis: Foundational skills, Part 2
 ]
 .author[
 ### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
-]
-.date[
-### August 24, 2023
 ]
 
 ---
@@ -50,14 +46,13 @@ class: center, middle, inverse, title-slide
 
 # Purpose and Agenda
 
-Data scientists often talk about "digital data" and "log-trace" data. How do I access such data? This week, we explore ways to do that through Application Programming Interfaces (APIs)---specifically, through the educationdata R package.
-
+How do you deal with trickier aspects of data wrangling? This week builds on the last focused on core skills. You work toward building a better college rating system, working toward a preliminary product of our work from the past three weeks.
 ## What we'll do in this presentation
 
 - Discussion
 - Reading Recap
-- Key Concept: Log-trace data and Application Programming Interfaces (APIs)
-- Key Concept: The educationdata package
+- Key Concept: mutate, case_when, if_else, stringr
+- Key Concept: Pulling it all together
 - Code-along and data
 - What's next: Assignment(s) and Readings
 
@@ -75,24 +70,29 @@ Data scientists often talk about "digital data" and "log-trace" data. How do I a
 
 .panel[.panel-name[Discussion Question]
 
+-
 
 ]
 
 ]
+
+???
+
+This discussion can serve as an opening to discussing what ggplot2's strengths are relative to the above two tools.
 
 ---
 
 # Reading Recap
 
-Substantive reading(s):
+&gt; Park, J. J., Kim, B. H., Wong, N., Zheng, J., Breen, S., Lo, P., … &amp; Poon, O. (2023). Inequality Beyond S tandardized Tests: Trends in Extr acurricular Activity Reporting in College A pplications Across Race and Class. Technical Report. Annenberg Institute at Brown University. &lt;https ://edworkin g papers.&gt;co m/ai23-749.
 
-&gt; Reich, J. (2022). Learning analytics and learning at scale. Lang, C., Siemens, G. Wise, AF, Gašević, D., Merceron, A.,(eds.) Handbook of Learning Analytics, 2nd ed. Vancouver, Canada: SOLAR.
+This was meant to introduce you to perhaps the most prominent data science adjacent field in education, the learning analytics community. The SOLAR community and LAK conference support learning analytics researchers. 
 
-&gt; White, R. S. (2023). Ceilings Made of Glass and Leaving En Masse? Examining Superintendent Gender Gaps and Turnover Over Time Across the United States. Educational Researcher, 0013189X231163139.
+Additionally, there were two technical readings:
 
-Technical reading(s):
+&gt; Data Science in Education Using R, Using School-Level Aggregate Data to Illuminate Educational Inequities: https://datascienceineducation.com/c09
 
-&gt; Introducing educationdata, https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html (also, check out other pages on this website)
+&gt; R For Data Science, Strings: https://r4ds.had.co.nz/strings.html
 
 ???
 
@@ -100,7 +100,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 ---
 
-.title[Key Concept: log-trace data and APIs]
+# Key Concept: mutate, if_else, case_when, stringr
 
 .panelset[
 
@@ -121,7 +121,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 ---
 
-# Key Concept: educationdata]
+# Key Concept: Pulling it all together
 
 .panelset[
 
@@ -146,7 +146,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 .panelset[
 
-.panel[.panel-name[xxxx]
+.panel[.panel-name[mutate]
 
 - yyy
 -zzz
@@ -155,7 +155,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 ]
 
-.panel[.panel-name[xxxx]
+.panel[.panel-name[if_else]
 
 - yyy
 -zzz
@@ -164,7 +164,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 ]
 
-.panel[.panel-name[xxxx]
+.panel[.panel-name[case_when]
 
 - yyy
 -zzz
@@ -172,6 +172,25 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 
 ]
+
+.panel[.panel-name[stringr]
+
+- yyy
+-zzz
+
+
+
+]
+
+.panel[.panel-name[rankings]
+
+- yyy
+-zzz
+
+
+
+]
+
 
 ]
 
@@ -180,6 +199,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 # What's next?
 
 .panelset[
+
 
 .panel[.panel-name[Weekly Assignment]
 
@@ -198,9 +218,9 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 - Substantive reading(s) for the week ahead:
 
-&gt; Shelton, C. C., Koehler, M. J., Greenhalgh, S. P., &amp; Carpenter, J. P. (2022). Lifting the veil on Teach ersP ayTeachers. com: An in vestigation of educational marketplace offerings and downloads. Learning, Media and Technology, 47(2), 268-287.
+&gt; Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... &amp; Warschauer, M. (2020). Mining big data in education: Affordances and challenges. Review of Research in Education, 44(1), 130-160.
 
-&gt; Rosenberg, J. M., Borchers, C., Burchfield, M. A., Anderson, D., Stegenga, S. M., &amp; Fischer, C. (2022). Posts about students on Facebook: a data ethics p erspective. Educational researcher, 51(8), 547-550.
+&gt; Hakimi, L., Eynon, R., &amp; Murphy, V. A. (2021). The ethics of using digital trace data in education: A thematic review of the research landscape. Review of Educational Research, 91(5), 671-717.
 
 Linked in Canvas.
 
@@ -210,7 +230,7 @@ Linked in Canvas.
 
 - Technical reading(s) for the week ahead:
 
-&gt; R for Data Science, Data Transformation: https://r4ds.hadley.nz/data-transform
+&gt; gganimate package: https://gganimate.com/articles/gganimate.html
 
 Also linked in Canvas.
 

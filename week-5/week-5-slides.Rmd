@@ -99,21 +99,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 ---
 
-# Course Logistics
-
-We're now two weeks into class! What has gone well? What issues have you had? What questions do you have?
-
-Syllabus: https://rpubs.com/jmichaelrosenberg/stem-680-fall-2023-syllabus
-
-And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw0mwEWuz_3m2Sn7TjIVILAv_E/edit
-
-???
-
-May be a chance to return to the syllabus and schedule and answer any questions that have arisen.
-
----
-
-.title[Key Concept: ggplot2]
+.title[Key Concept: log-trace data and APIs]
 
 .panelset[
 
@@ -134,103 +120,60 @@ May be a chance to return to the syllabus and schedule and answer any questions 
 
 ---
 
-# Key Concept: 
+# Key Concept: educationdata]
+
+.panelset[
+
+.panel[.panel-name[xxx]
 
 
+]
+
+.panel[.panel-name[yyyy]
+
+
+]
+
+.panel[.panel-name[zzz]
+
+]
+]
 
 ---
 
 # Code-along
 
-*Let's code-along together in an `.R` we'll use---just like we did last week*
-
 .panelset[
 
-.panel[.panel-name[ggplot()]
+.panel[.panel-name[xxxx]
 
-- we use `ggplot()` to start our plotting of the built-in `penguins` dataset from the palmerpenguins package
+- yyy
+-zzz
 
 ```{r, eval = FALSE, echo = TRUE}
-library(tidyverse) # let's load the tidyverse, loading ggplot2 & other packages
-library(palmerpenguins) # make sure to install with install.packages() first
 
-ggplot(penguins)
 ```
-
-*This won't do... much (yet!)*
 
 ]
 
-.panel[.panel-name[aes()]
+.panel[.panel-name[xxxx]
 
-- add on to our initial code by specifying the _aesthetic mapping_ with `aes()`
-- specfically, let's tell R what the *x* variable is - let's pick _any_ numeric variable from the data set
+- yyy
+-zzz
 
 ```{r, eval = FALSE, echo = TRUE}
-glimpse(penguins) # to see which variables are numeric
 
-ggplot(penguins, aes(x = body_mass_g) # can change to another!
 ```
-
-**Still not doing much!**
 
 ]
 
-.panel[.panel-name[geom_histogram]
+.panel[.panel-name[xxxx]
 
-- Last, specify the geometric object you want to use to represent the variable you mapped to an aesthetic
-- Let's try a histogram!
-- We always add *layers* onto ggplot2 plots with the `+` operator
-
-```{r, eval = FALSE, echo = TRUE}
-ggplot(penguins, aes(x = body_mass_g) +
-           geom_histogram()
-```
-
-*Voilà!*
-
-]
-
-.panel[.panel-name[geom_point]
-
-- Let's expand on what we've done by examining _two_ variables, one we "map" to *x*, another to *y*
-- We'll see how the bill length and depth of penguins relate, using a different geom to do so with a scatterplot
+- yyy
+-zzz
 
 ```{r, eval = FALSE, echo = TRUE}
-ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm) +
-           geom_point()
-```
 
-*Voilà (take two)!*
-
-]
-
-.panel[.panel-name[A 3rd variable]
-
-- Part of the joy of ggplot2 is the flexibility you have in how you can modify a plot
-- What if we want to visualize a third variable? 
-    - We have several aesthetic features we can "map" this third variable to, including the size, shape, and color of points
-
-```{r, eval = FALSE, echo = TRUE}
-ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species) +
-           geom_point()
-```
-
-*Voilà (take three)!*
-
-]
-
-.panel[.panel-name[More additions]
-
-- The sky is the limit! 
-- We can also add other geoms to our plot, like one representing the _slope_ of the relation between *x* and *y*
-- Furthermore, we can easily _theme_ out plot
-
-```{r, eval = FALSE, echo = TRUE}
-ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
-           geom_point() +
-           geom_smooth(method = "lm") +
-    theme_bw()
 ```
 
 ]
@@ -243,19 +186,16 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
 
 .panelset[
 
-
 .panel[.panel-name[Weekly Assignment]
 
-- We'll be doing more with ggplot2 in this lab, while returning back to some of the functions we used last week
-- We'll be faceting our plots using a _layer_ we can add, `facet_wrap()`
+- 
+- 
 
 ]
 
 .panel[.panel-name[Data]
 
-- We'll be using a large, complex dataset from the United States Department of Education
-- Specifically, we'll use data from the [Elementary/Secondary Information System (ElSi)](https://nces.ed.gov/ccd/elsi/), a data collection system that includes information on the more than 100,000 schools and more than 8,000 school districts in the country
-- Note: Even though this data is alrge and complex, it is _not_ cleaned, and one slightly unusual thing we'll need to do is _skip_ the first six rows of the CSV file accessed through the ElSi, because they're blank!
+- We'll be using data from the educationdata package, specifically
 
 ]
 
