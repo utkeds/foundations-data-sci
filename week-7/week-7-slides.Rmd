@@ -1,10 +1,24 @@
 ---
-title: "Week 4 Slides"
-subtitle: "What's all the fuss about data science? Doing things we could not easily do without coding"
+title: "Week 7 Slides"
+subtitle: "How do I preparing data for analysis  Foundational skills, Part 2"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
-date: '`r format(Sys.time(), "%B %d, %Y")`'
-output: xaringan::moon_reader
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
 ---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_duo_accent(primary_color = "#FF8200",
+                 secondary_color = "#58595B",
+                 title_slide_text_color = "#222943",
+                 title_slide_background_color = "#ededed",
+                 title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
+                 title_slide_background_position = "bottom",
+                 title_slide_background_size = "30%")
+```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)

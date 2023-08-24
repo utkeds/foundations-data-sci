@@ -2,9 +2,22 @@
 title: "Week 2 Slides"
 subtitle: "What's this course about? And what's R about?"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
-date: '`r format(Sys.time(), "%B %d, %Y")`'
-output: xaringan::moon_reader
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
 ---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_duo_accent(primary_color = "#FF8200",
+                 secondary_color = "#58595B",
+                 title_slide_text_color = "#222943",
+                 title_slide_background_color = "#ededed",
+                 title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
+                 title_slide_background_position = "bottom",
+                 title_slide_background_size = "30%")
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -39,8 +52,8 @@ This week, we answer the following question: What's this course about? We will i
 ## What we'll do in this presentation
 
 - Discussion
-- Reading recap
 - Introductions
+- Reading recap
 - Syllabus
 - Key Concept: R, RStudio, and RMarkdown
 - Key Concept: Core Skills Framework
@@ -56,9 +69,9 @@ This week, we answer the following question: What's this course about? We will i
 .panel[.panel-name[Background]
 
 - Data science is often defined by harkening back to an early definition by [Conway (2013)](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram): analyses and research that draw on the following capabilties:
-    - Math and statistics
-    - Computer science and programming
-    - Knowledge of a specific domain
+- Math and statistics
+- Computer science and programming
+- Knowledge of a specific domain
 
 ]
 
@@ -82,23 +95,6 @@ knitr::include_graphics("https://images.squarespace-cdn.com/content/v1/5150aec6e
 
 ---
 
-# Reading Recap
-
-In advance of this class, you were tasked with two readings:
-
-> Estrellado, R. A., Freer, E. A., Mostipak, J., Rosenberg, J. M., & Velásquez, I. C. (2020). Data science in education using R. Routledge. Chapter 3, What does data science in education look like? 
-
-The purpose of this reading was to illustrate the breadth of data science use cases. Do you see yourself in any of these cases? We recognize many of you come from non-education backgrounds!
-
-> McFarland, D. A., Khanna, S., Domingue, B. W., & Pardos, Z. A. (2021). Education data science: Past, present, future. AERA Open, 7, 233 2858 4211052055.
-
-This is the introduction to the first journal special issue on education(al) (*note the title*, terms are still being normed on in the field!) data science field. This introduction gives a sense of research-related use cases for educational data science.
-
-???
-
-It may be good to pull out and summarize highlights from students' discussion posts here.
-
----
 
 # Introductions
 
@@ -123,6 +119,24 @@ knitr::include_graphics("https://i0.wp.com/news.utk.edu/wp-content/uploads/sites
 ???
 
 please feel welcome to use different images here, both! also feel free to add to this slide!
+
+---
+
+# Reading Recap
+
+In advance of this class, you were tasked with two readings:
+
+> Estrellado, R. A., Freer, E. A., Mostipak, J., Rosenberg, J. M., & Velásquez, I. C. (2020). Data science in education using R. Routledge. Chapter 3, What does data science in education look like? 
+
+The purpose of this reading was to illustrate the breadth of data science use cases. Do you see yourself in any of these cases? We recognize many of you come from non-education backgrounds!
+
+> McFarland, D. A., Khanna, S., Domingue, B. W., & Pardos, Z. A. (2021). Education data science: Past, present, future. AERA Open, 7, 233 2858 4211052055.
+
+This is the introduction to the first journal special issue on education(al) (*note the title*, terms are still being normed on in the field!) data science field. This introduction gives a sense of research-related use cases for educational data science.
+
+???
+
+It may be good to pull out and summarize highlights from students' discussion posts here.
 
 ---
 

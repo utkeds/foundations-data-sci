@@ -4,10 +4,7 @@
     <title>Week 4 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
-    <meta name="date" content="2023-08-21" />
-    <script src="week-4-slides_files/header-attrs-2.24/header-attrs.js"></script>
-    <link href="week-4-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="week-4-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="week-4-slides_files/header-attrs-2.22/header-attrs.js"></script>
     <script src="week-4-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="week-4-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="week-4-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -16,6 +13,7 @@
     <link href="week-4-slides_files/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
     <link href="week-4-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
     <script src="week-4-slides_files/panelset-0.2.6/panelset.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -30,11 +28,11 @@ class: center, middle, inverse, title-slide
 .author[
 ### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
 ]
-.date[
-### August 21, 2023
-]
 
 ---
+
+
+
 
 
 
@@ -53,9 +51,10 @@ What's so useful about coding? That question is the focus of this class. We'll f
 ## What we'll do in this presentation
 
 - Discussion
+- Reading Recap
 - Key Concept: Joining
 - Key Concept: Doing more with ggplot2
-- Code-along and data
+- Code-along
 - What's next: Assignment(s) and Readings
 
 ---
@@ -138,7 +137,7 @@ Example using `left_join`:
 
 .panel[.panel-name[other details]
 **Other Important Details**:
-- If the key columns have different names in each data frame, use the syntax `by = column_in_first == column_in_second)`.
+- If the key columns have different names in each data frame, use the syntax `by = column_in_first == column_in_second` within the join function.
 - Beware of duplicate rows: Ensure that the key column(s) uniquely identify rows, or you may get unintended repeats.
 - If joining by multiple columns, provide them as a vector, e.g., `by = c("col1", "col2")`.
 
@@ -153,7 +152,7 @@ Example using `left_join`:
 .panelset[
 
 .panel[.panel-name[geom_point()]
-**geom_point()**: 
+**A quick refresher on geom_point()**: 
 - Used for creating scatterplots.
 - Great for visualizing relationships between two numeric variables.
 
@@ -161,7 +160,7 @@ Example:
 
 ```r
 ggplot(data = mtcars, aes(x = mpg, y = wt)) +
-  geom_point()
+  geom_point() # consider swapping out with geom_jitter(); what does this do?
 ```
 
 ]
@@ -233,8 +232,6 @@ ggplot(data = mtcars, aes(x = mpg, y = wt)) +
 ---
 
 # Code-along
-
-*Let's code-along together in an `.R` file.*
 
 .panelset[
 

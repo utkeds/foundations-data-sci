@@ -2,9 +2,22 @@
 title: "Week 3 Slides"
 subtitle: "What's all the fuss about data science? Doing things we could not easily do without advanced graphics"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
-date: '`r format(Sys.time(), "%B %d, %Y")`'
-output: xaringan::moon_reader
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
 ---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_duo_accent(primary_color = "#FF8200",
+                 secondary_color = "#58595B",
+                 title_slide_text_color = "#222943",
+                 title_slide_background_color = "#ededed",
+                 title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
+                 title_slide_background_position = "bottom",
+                 title_slide_background_size = "30%")
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -39,6 +52,7 @@ This week, we answer the following question: What's all the fuss about data scie
 ## What we'll do in this presentation
 
 - Discussion
+- Reading Recap
 - Course Logistics
 - Key Concept: ggplot2 and advanced graphics
 - Key Concept: Revisiting the Core Skills Framework
@@ -106,7 +120,7 @@ May be a chance to return to the syllabus and schedule and answer any questions 
 
 ---
 
-.title[Key Concept: ggplot2]
+# Key Concept: ggplot2
 
 .panelset[
 
@@ -135,7 +149,7 @@ May be a chance to return to the syllabus and schedule and answer any questions 
 .panel[.panel-name[Example ggplot2 code]
 **Example ggplot2 code**:
 
-```{r, }
+```{r, eval = FALSE, echo = TRUE}
 library(tidyverse) # note, this loads the ggplot2 package
 
 ggplot(data = mtcars, aes(x = mpg, y = wt)) +
@@ -151,7 +165,7 @@ ggplot(data = mtcars, aes(x = mpg, y = wt)) +
 
 ---
 
-# Key Concept: Revisiting the Core Skills Framework
+# Key Concept: Revisiting the Core
 
 *Let's quickly revisit the core skills we discussed last week*
 
@@ -202,8 +216,6 @@ Projects help organize your work:
 
 # Code-along
 
-*Let's code-along together in an `.R` we'll use---just like we did last week*
-
 .panelset[
 
 .panel[.panel-name[ggplot()]
@@ -236,7 +248,7 @@ ggplot(penguins, aes(x = body_mass_g) # can change to another!
 
 ]
 
-.panel[.panel-name[geom_histogram]
+.panel[.panel-name[geom_*]
 
 - Last, specify the geometric object you want to use to represent the variable you mapped to an aesthetic
 - Let's try a histogram!
@@ -251,7 +263,7 @@ ggplot(penguins, aes(x = body_mass_g) +
 
 ]
 
-.panel[.panel-name[geom_point]
+.panel[.panel-name[geom_*]
 
 - Let's expand on what we've done by examining _two_ variables, one we "map" to *x*, another to *y*
 - We'll see how the bill length and depth of penguins relate, using a different geom to do so with a scatterplot
@@ -265,7 +277,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm) +
 
 ]
 
-.panel[.panel-name[A 3rd variable]
+.panel[.panel-name[a 3rd variable]
 
 - Part of the joy of ggplot2 is the flexibility you have in how you can modify a plot
 - What if we want to visualize a third variable? 

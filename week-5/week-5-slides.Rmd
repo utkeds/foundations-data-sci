@@ -1,10 +1,25 @@
 ---
-title: "Week 4 Slides"
-subtitle: "What's all the fuss about data science? Doing things we could not easily do without coding"
+title: "Week 5 Slides"
+subtitle: "How do I access and describe data? Using an R package and an API"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
-output: xaringan::moon_reader
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
 ---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_duo_accent(primary_color = "#FF8200",
+                 secondary_color = "#58595B",
+                 title_slide_text_color = "#222943",
+                 title_slide_background_color = "#ededed",
+                 title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
+                 title_slide_background_position = "bottom",
+                 title_slide_background_size = "30%")
+```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -34,13 +49,14 @@ xaringanExtra::use_panelset()
 
 # Purpose and Agenda
 
-What's so useful about coding? That question is the focus of this class. We'll focus on _joining_ two data sets, something that is relatively straightforward to do in R. We'll again use the NAEP data, joining data on spending on kids to understand whether there are any clear relations between spending and academic achievement.
+Data scientists often talk about "digital data" and "log-trace" data. How do I access such data? This week, we explore ways to do that through Application Programming Interfaces (APIs)---specifically, through the educationdata R package.
 
 ## What we'll do in this presentation
 
 - Discussion
-- Key Concept: Joining
-- Key Concept: Doing more with ggplot2
+- Reading Recap
+- Key Concept: Log-trace data and Application Programming Interfaces (APIs)
+- Key Concept: The educationdata package
 - Code-along and data
 - What's next: Assignment(s) and Readings
 
@@ -52,14 +68,12 @@ What's so useful about coding? That question is the focus of this class. We'll f
 
 .panel[.panel-name[Background]
 
-- Often, the data we want to analyze are in multiple files (e.g., CSV, or Excel files) or databases (e.g., a SQL database)
-- The _key_ to combining data is to ensure that the data we are joining share a common . . . _key_!
+
 
 ]
 
 .panel[.panel-name[Discussion Question]
 
-- What are some use cases for your research (past or planned) that involve multiple data files? And, why might it be important to join those files together? Please be as specific as possible regarding these reasons why.
 
 ]
 
@@ -103,93 +117,26 @@ May be a chance to return to the syllabus and schedule and answer any questions 
 
 .panelset[
 
-.panel[.panel-name[ggplot2]
-**ggplot2**: 
-- An R package for data visualization
-- Based on the *Grammar of Graphics*
-- Created by Hadley Wickham
-- Part of the `tidyverse`, a suite of R packages for data science
+.panel[.panel-name[xxx]
+
 
 ]
 
-.panel[.panel-name[the grammar of graphics]
-**The Grammar of Graphics**:
-- A systematic way to describe and build graphs
-- Focuses on layers of visualizations
-- Elements include:
-  - **Data**: What you want to plot
-  - **Aesthetics**: How data is mapped to visuals
-  - **Geoms**: Geometric objects like points, lines, bars
-  - **Stats**: Statistical transformations, e.g., smoothing
-  - **Facets**: Ways to split data into subsets for multiple plots
+.panel[.panel-name[yyyy]
+
 
 ]
 
-.panel[.panel-name[Example ggplot2 code]
-**Example ggplot2 code**:
-
-```{r, }
-library(tidyverse) # note, this loads the ggplot2 package
-
-ggplot(data = mtcars, aes(x = mpg, y = wt)) +
-  geom_point(aes(color = cyl)) +
-  labs(title = "MPG vs. Weight", 
-       x = "Miles per Gallon", 
-       y = "Weight (in 1000s of lbs)",
-       color = "Number of Cylinders")
-```
+.panel[.panel-name[zzz]
 
 ]
 ]
 
 ---
 
-# Key Concept: Revisiting the Core Skills Framework
+# Key Concept: 
 
-*Let's quickly revisit the core skills we discussed last week*
 
-.panelset[
-
-.panel[.panel-name[Data]
-**Data** in R
-
-We have focused on these two data structures, though others you will encounter later on include vectors, matrices, and lists:
-
-- **Data Frames**: Tabular data, can mix different types
-- **Tibbles**: Modern version of data frames (from the tidyverse)
-
-]
-
-.panel[.panel-name[Packages]
-**Packages** in R
-Packages are collections of functions and datasets that extend R:
-
-- You have used tidyverse, skimr, and janitor so far
-- This week, we're focusing on ggplot2
-- We'll use many others throughout the semester
-- You might start exploring packages related to interests you have now! There are tens of thousands to do nearly anything with data (and order pizza, too; seriously!)
-
-]
-
-.panel[.panel-name[Functions]
-**Functions** in R
-Functions are made up of code that perform specific tasks:
-- Can be built-in (e.g., `mean()`, `sum()`) or loaded from a package (e.g., `glimpse()`)
-- You can write your own function! We'll discuss this at another point in this class
-
-]
-
-.panel[.panel-name[Projects and File Paths]
-**Projects and File Paths** in RStudio
-Projects help organize your work:
-- Keep related scripts, data, and outputs together
-- We *always* work in projects in this class
-
-]
-
-]
-
-*Again, these core skills will be the basis of all of our analyses in R.*
 
 ---
 
