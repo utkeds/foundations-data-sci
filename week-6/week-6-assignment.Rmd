@@ -1,5 +1,5 @@
 ---
-title: "Week 4 - Teacher"
+title: "Week 6 - Teacher"
 author: "Teacher"
 date: "Assignment Due Date"
 output: html_document
@@ -11,136 +11,93 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Step 1
 
-Load the tidyverse and janitor packages.
+Load the tidyverse and educaitondata packages.
 
 ```{r}
-
+library(tidyverse)
+library(educationdata)
 ```
 
 ## Step 2
 
-Read the tidykids and NAEP data frames to your environment.
+Let's begin by looking at the endowments of some institutions across the United States by querying the educationdata API. For now, let's use the year 2020.
 
 ```{r}
-
+endowment <- get_education_data(level = "college-university",
+                         source = "nacubo",
+                         topic = "endowments",
+                         filter = list(year = 2020))
 ```
+
+How many institutions are included in this data frame?
+
+-   
 
 ## Step 3
 
-Familiarize yourself with the two data frames using functions we've used before to do so.
+Using the endowment data frame from Step 2, let's practice our foundational skills from the week.
+
+First, rename the institution name column to something that is more user friendly
 
 ```{r}
-
+endowment <- endowment %>% 
+    rename(uni_name = inst_name_nacubo)
 ```
 
-What is one interesting piece of information you learned about the two datasets from your exploration?
-
-```         
-- 
-```
-
-One thing we noticed is that the tidykids data is quite big relative to the NAEP data! 
-
-With the naep data, we have *only a single row per state*, whereas the tidykids data has *many rows per state*. The reason is the tidykids data is by *year* and *variable* (category of spending on kids). To make our lives a bit easier, let's filter the tidykids data to be only from the most recent year, 2016.
+Next, arrange the endowments from greatest to least.
 
 ```{r}
-# the code below filters the rows of the tidykids data frame to only include those for which the year is equivalent to 2016, and then (re)assigns the name tidykids to the resulting output
-
-tidykids <- tidykids %>% 
-    filter(year == 2016)
-
-tidykids
+endowment <- endowment %>% 
+    arrange(desc(endow_total))
 ```
 
-Looking better, with one step to go - if we were to `count()` `variable`, we'd see that each state has one row per variable. Thus, we can consider this data to be in **long form**, something we will discuss around week 10 of the class. For now, we'll show how to transform this data to be in a form that is more appropriate for our aim of joining together this and the NAEP data. This relates to a concept we will introduce now and dive more deeply into later--tidy data.
+Which institutions comprise the top 3 endowments in this list?
 
-Run the code chunk below to see a representation of tidy data (from the presentation) that follows from applying two simple rules:
+-   
 
-- Rule 1: Put each dataset in a tibble
-- Rule 2: Put each variable in a column
-
-Take another look at tidykids. Which of the two above rules is broken in the tidykids dataset in its present form? Add your answer and a brief explanation for why after the bullet point below:
-
-- 
-
-Fortunately, we can address this issue relatively straightforwardly. For now, run the code below; the key at this time is to begin to recognize data that isn't tidy. We'll dive deeper into the mechanics of how to transform data so that it is tidy later on.
+Next, filter institutions such that only institutions with endowments per full-time employee larger than $750,000 are included.
 
 ```{r}
-tidykids_widened <- tidykids %>% 
-    select(state, variable, inf_adj_perchild) %>% # select just the three variables we need
-    pivot_wider(names_from = "variable", values_from = "inf_adj_perchild") # specify how we want the names of the variables and their values to be created
-
-tidykids_widened
+endowment_filter <- endowment %>% 
+    filter(endow_per_fte >= 750000)
 ```
 
-Do the two data frames have the same observations (in this case, states)? Note the number of rows; why is there one additional row in one dataset?
+Do you find that institutions with the highest endowment also have the highest endowment per full-time employee?
 
-- 
+-   
 
-At this point, we are ready to move on to joining our data.
+Finally, select the year, institution name, and the market value change of the endowment and arrange the change in market value of endowment in descending order.
+
+```{r}
+endowment_mkt <- endowment %>% 
+    select("year", "uni_name", "endow_chg_mktval") %>% 
+    arrange(desc(endow_chg_mktval))
+```
 
 ## Step 4
 
-Now we will practice joining the two dataframes together based on the column that refers to the state. As a reminder, the column you join by must have the same name in each data frame, so you will need to use `rename()`.
+US News and Rankings has tasked you with creating a better college ranking system. You are allowed to use any data available from the educationdata package. The focus for this week is to identify 3-4 variables you think would make a better ranking system and create the data frames with said variables. 
 
+What are the 3-4 variables you plan to include? It might be helpful to look at the educationdata GitHub page to see what is available.
+
+-
+
+Now, gather the 3-4 *individual* data frames from the educationdata API. 
 ```{r}
 
 ```
 
-Now that there is a column in each dataframe with a matching name, let's practice joining. First, let's use `right_join()`.
-
-```{r}
-joined_right_1 <- right_join(tidykids_widened, naep, "state")
-
-joined_right_2 <- right_join(naep, tidykids_widened, "state")
-```
-
-What do you notice about these two new dataframes? Is there anything different between `joined_right_1` and `joined_right_2`?
-
--   
-
--   
-
-You can also use `left_join()`. As you likely garnered from above, right join joins all of the rows in the "right" (named second) data frame with matching rows in the "left" (named first data frame). Left join flips this. Use `left_join()` below, naming `naep` first and `tidykids_widened` second. Specify "state" as the key and name the resulting output `joined_left`.
-
+Next week, we will be joining these data frames together into one single data frame. Remember, you must have a common "key" across each data frame to join on. That is, there must be a column with the same name for each data frame. We suggest using the institution name as your key. In this step, use `rename()` to create that key. 
 ```{r}
 
 ```
 
-Generally, left join is more common than right join, perhaps because it's a little more intuitive to name the data frame with all of the rows you want to keep first. Let's proceed with `joined_left`, using this for our next analyses.
-
-Before we proceed, let's use the clean_names() function from the janitor package we have used earlier with `joined_left`. Be sure to assign that name back to the resulting output!
-
+You may not want to include all variables educationdata pulls. In this step, use `select()` to include the variables of interest in each data frame. 
 ```{r}
 
 ```
 
-## Step 5
-
-We're finally ready to analyze our joined data.
-
-Create a scatterplot to examine the relationship between a variable originally in the tidykids dataset and a variable originally in the NAEP dataset (e.g., PK12ed, or others - consider changing this out and exploring several!). See a description of all of the codes here: https://jrosen48.github.io/tidykids/
-
-Use the `joined_left` dataframe for this exercise. 
-
-We note that you can choose among any of the NAEP variables.
-
-You must specify both the x- and y- variables when using `geom_point()`. You may also want to add another geom on a new line, `geom_smooth(method = "lm", se = FALSE)` and `geom_text(aes(label = state))`.
-
-```{r}
-
-```
-
-What interesting relationship (if any) did you find? Add a few notes below. Also, share ideas on what you could do to extend this analysis.
-
--   
-- 
-
-## Reach
-
-This portion of the assignment is optional but offers you a chance to push your skills further.
-
-We encourage you to change the theme, color, and other aesethetics of the plot. Do so by copying your code above and extending your graph. Also, consider visualizing a different variable's relations with achievement.
+Now that you have cleaned your data a bit, it is time to save each data frame as a .csv so you can access them next week.
 
 ```{r}
 
@@ -149,12 +106,12 @@ We encourage you to change the theme, color, and other aesethetics of the plot. 
 ## Rubric
 
 |                                               | Points Possible | Points Earned |
-|-----------------------------------------------|-----------------|---------------|
+|--------------------------------------|-----------------|-----------------|
 | File knits                                    | 2               |               |
-| Code is accurately filled in for all 5 steps. | 10              |               |
-| Step 3 Question                               | 3               |               |
-| Step 4 Questions                              | 8               |               |
-| Step 5 Question                               | 7               |               |
+| Code is accurately filled in for all 4 steps. | 10              |               |
+| Step 2 Question                               | 3               |               |
+| Step 3 Questions                              | 6               |               |
+| Step 4 Code and Question                      | 9               |               |
 
 ## Knit and Submit
 
