@@ -133,7 +133,7 @@ In advance of this class, you were tasked with two readings:
 
 > Estrellado, R. A., Freer, E. A., Mostipak, J., Rosenberg, J. M., & Velásquez, I. C. (2020). Data science in education using R. Routledge. Chapter 3, What does data science in education look like? 
 
-The purpose of this reading was to illustrate the breadth of data science use cases. Do you see yourself in any of these cases? We recognize many of you come from non-education backgrounds!
+The purpose of this reading was to illustrate the breadth of data science use cases.
 
 > McFarland, D. A., Khanna, S., Domingue, B. W., & Pardos, Z. A. (2021). Education data science: Past, present, future. AERA Open, 7, 233 2858 4211052055.
 
@@ -142,6 +142,33 @@ This is the introduction to the first journal special issue on education(al) (*n
 ???
 
 It may be good to pull out and summarize highlights from students' discussion posts here.
+
+---
+
+# Reading Recap
+
+> "Data Science is not a one size fits all." -- Jeannette
+
+
+> "Novel data and novel methods in EDS continue to reinforce one another and contribute to the growth of EDS as a whole." -- Bailey
+
+
+> "Data ethics and responsibility must be central in the work we do as opposed to something just tacked on the end of a project." -- William 
+
+---
+
+# Reading Recap - Discussion
+
+- Say hello!
+
+Possible discussion questions:
+
+- Do you see yourself in any of these cases? We recognize many of you come from non-education backgrounds!
+- There is the potential for education data science to address educational equity gaps. How can data analysis contribute to identifying and addressing disparities in educational outcomes?
+- What are some of the challenges associated with working in education data science, both from a technical and ethical standpoint? 
+- What kind of skill sets and educational backgrounds do you think are most valuable for individuals aspiring to work in educational data science?
+
+*Please designate one person to share one highlight from your discussion.*
 
 ---
 
