@@ -13,6 +13,12 @@ For this assignment, we are going to use data from the National Assessment of Ed
 
 The NAEP is an important data source in education; read some recent coverage of scores (post-pandemic) here in USA Today: https://www.usatoday.com/story/news/education/2023/06/21/naep-scores-basic-reading-math-13-year-olds/70337312007/
 
+In order to be able to run this document, you may have to install the {rmarkdown} package. Uncomment the code below (by deleting the `#`) and then click the green arrow on the right-hand side:
+
+```{r}
+# install.packages("rmarkdown")
+```
+
 ## Step 1
 
 Load necessary packages (you may need to install these packages first using `install.packages("___")`): tidyverse, janitor, and skimr. Do so in the code chunk below.
