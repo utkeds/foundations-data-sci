@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Step 1
 
-Load the tidyverse and educaitondata packages.
+Load the tidyverse and educationdata packages. You may need to install the educationdata package before loading. 
 
 ```{r}
 library(tidyverse)
@@ -20,84 +20,68 @@ library(educationdata)
 
 ## Step 2
 
-Let's begin by looking at the endowments of some institutions across the United States by querying the educationdata API. For now, let's use the year 2020.
+Query the educationdata API to create a data frame that includes fall enrollment for colleges and universities broken down by race and sex for the years 1990, 2000, 2010, and 2020 in the state of Tennessee.
 
 ```{r}
-endowment <- get_education_data(level = "college-university",
-                         source = "nacubo",
-                         topic = "endowments",
-                         filter = list(year = 2020))
+#Before I can get this to run, I need the 'ncessch' value (or whatever number is used for colleges because it seems ncessch is for K12). I looked online but I can't figure out how to find it. In the R documentation on GitHub, they have the ncessch value for New Jersey but don't document where they got that from. On the website https://educationdata.urban.org/data-explorer/explorer you can also explore just UTK data. If you know how we can filter 
+
+enroll_race <- get_education_data(level = 'college-university',
+                                  source = 'ipeds',
+                                  topic = 'fall-enrollment',
+                                  subtopic = list('race', 'sex'),
+                                  filters = list(year = c(1990, 2000, 2010, 2020),
+                                                 ncessch = ___),
+                                  add_labels = TRUE)
 ```
-
-How many institutions are included in this data frame?
-
--   
 
 ## Step 3
 
-Using the endowment data frame from Step 2, let's practice our foundational skills from the week.
-
-First, rename the institution name column to something that is more user friendly
+Create a faceted plot comparing enrollemnt over the four selected years. 
 
 ```{r}
-endowment <- endowment %>% 
-    rename(uni_name = inst_name_nacubo)
+
 ```
 
-Next, arrange the endowments from greatest to least.
+What is one interesting piece of information you learned about college enrollment in Tennessee from your exploration?
 
-```{r}
-endowment <- endowment %>% 
-    arrange(desc(endow_total))
-```
-
-Which institutions comprise the top 3 endowments in this list?
-
--   
-
-Next, filter institutions such that only institutions with endowments per full-time employee larger than $750,000 are included.
-
-```{r}
-endowment_filter <- endowment %>% 
-    filter(endow_per_fte >= 750000)
-```
-
-Do you find that institutions with the highest endowment also have the highest endowment per full-time employee?
-
--   
-
-Finally, select the year, institution name, and the market value change of the endowment and arrange the change in market value of endowment in descending order.
-
-```{r}
-endowment_mkt <- endowment %>% 
-    select("year", "uni_name", "endow_chg_mktval") %>% 
-    arrange(desc(endow_chg_mktval))
-```
+- 
 
 ## Step 4
 
-US News and Rankings has tasked you with creating a better college ranking system. You are allowed to use any data available from the educationdata package. The focus for this week is to identify 3-4 variables you think would make a better ranking system and create the data frames with said variables. 
+Create your own data frame! Examine the options available on the educationdata GitHub (https://github.com/UrbanInstitute/education-data-package-r). 
 
-What are the 3-4 variables you plan to include? It might be helpful to look at the educationdata GitHub page to see what is available.
-
--
-
-Now, gather the 3-4 *individual* data frames from the educationdata API. 
 ```{r}
 
 ```
 
-Next week, we will be joining these data frames together into one single data frame. Remember, you must have a common "key" across each data frame to join on. That is, there must be a column with the same name for each data frame. We suggest using the institution name as your key. In this step, use `rename()` to create that key. 
+Why did you select the variables you selected?
+
+- 
+
+What analysis (graphing, summary statistics, etc.) could you perform to glean meaningful information?
+
+- 
+
+## Step 5
+
+Complete your analysis described in the previous step! If your analysis is too complicated, you can perform a scaled version. 
+
 ```{r}
 
 ```
 
-You may not want to include all variables educationdata pulls. In this step, use `select()` to include the variables of interest in each data frame. 
-```{r}
+What information did you learn from your analysis? Were there any results that surprised you?
 
-```
+- 
 
-Now that you have cleaned your data a bit, it is time to save each data frame as a .csv so you can access them next week.
+- 
+
+
+## Reach
+
+This portion of the assignment is optional but offers you a chance to push your skills further.
+
+Think of an issue Donde Plowman might be interested in. Create a new data frame that could be presented to Donde Plowman to address this interest. Complete a simple analysis to hep Donde understand what the data is saying. 
 
 ```{r}
 
@@ -106,12 +90,12 @@ Now that you have cleaned your data a bit, it is time to save each data frame as
 ## Rubric
 
 |                                               | Points Possible | Points Earned |
-|--------------------------------------|-----------------|-----------------|
+|-----------------------------------------------|-----------------|---------------|
 | File knits                                    | 2               |               |
-| Code is accurately filled in for all 4 steps. | 10              |               |
-| Step 2 Question                               | 3               |               |
-| Step 3 Questions                              | 6               |               |
-| Step 4 Code and Question                      | 9               |               |
+| Code is accurately filled in for all 5 steps. | 10              |               |
+| Step 3 Question                               | 3               |               |
+| Step 4 Questions                              | 8               |               |
+| Step 5 Question                               | 7               |               |
 
 ## Knit and Submit
 

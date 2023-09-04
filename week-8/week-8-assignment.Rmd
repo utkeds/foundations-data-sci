@@ -1,0 +1,72 @@
+---
+title: "Week 8 - Teacher"
+author: "Teacher"
+date: "Assignment Due Date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Step 1
+
+Load the tidyverse package.
+
+```{r}
+
+```
+
+## Step 2
+
+Read the data frames you created last week.
+
+```{r}
+
+```
+
+## Step 3
+
+Join all data frames from last week into one data frame.
+
+```{r}
+
+```
+
+
+## Step 4
+
+Now that you have one data frame, we will use the four functions from this week to create a metric to find the best college. As a reminder, the four functions you must use are `mutate()`, `case_when()`, and `if_else()`.
+
+```{r}
+
+```
+
+## Reach
+
+This portion of the assignment is optional but offers you a chance to push your skills further.
+
+
+```{r}
+
+```
+
+## Rubric
+
+|                                               | Points Possible | Points Earned |
+|-----------------------------------------------|-----------------|---------------|
+| File knits                                    | 2               |               |
+| Code is accurately filled in for all 5 steps. | 10              |               |
+| Step 3 Question                               | 3               |               |
+| Step 4 Questions                              | 8               |               |
+| Step 5 Question                               | 7               |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work:
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3.  Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!
