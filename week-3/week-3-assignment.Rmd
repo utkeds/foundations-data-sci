@@ -133,7 +133,7 @@ The output of Step 3 and 4 above are data frames. If we want to use R Markdown t
 When you knit the file, the sentences below should populate with the data!
 
 * The state with the maximum average score is `r naep_data_clean %>% slice_max(average_score_0_500) %>% pull(jurisdiction)` with an average score of `r naep_data_clean %>% slice_max(average_score_0_500) %>% pull(average_score_0_500)`
-* The state with the minimum average score is r naep_data_clean %>% `r slice_min(average_score_0_500) %>% pull(jurisdiction)` with an average score of `r naep_data_clean %>% slice_min(average_score_0_500) %>% pull(average_score_0_500)`.
+* The state with the minimum average score is `r naep_data_clean %>% `r slice_min(average_score_0_500) %>% pull(jurisdiction)` with an average score of `r naep_data_clean %>% slice_min(average_score_0_500) %>% pull(average_score_0_500)`.
 
 This feature is very helpful when writing reports. Using code to display results reduces errors (no manual copying and pasting) and enhances reproducibility (others can see the steps you took to obtain your results).
 
