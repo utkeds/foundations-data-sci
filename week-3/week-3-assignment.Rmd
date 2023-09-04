@@ -1,7 +1,7 @@
 ---
 title: "Week 3 Assignment"
 author: "Student Name"
-date: "Assignment due date"
+date: "Assignment Due Date"
 output: html_document
 ---
 
@@ -9,136 +9,154 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Step 1  
+For this assignment, we will continue using data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card."
 
-Load necessary packages: tidyverse and janitor
+We are going to go through functions from the tidyverse. If you need a refresher on `filter()` and `select()`, take a look at the Work with Data primer from Week 1, available here: https://posit.cloud/learn/primers/2
+
+We'll also introduce two new tidyverse functions, `pull()` and `slice()`, to expand your set of R functions!
+
+## Step 1
+
+Let's go through the first few steps of your last assignment. In the code chunk below, (1) load your packages, (2) read in `naep-data.csv`, (3) use janitor's `clean_names()` to clean the column names, and (4) assign the clean dataset to an object. Ensure that the NAEP data is saved _in the same folder_ as this file is saved.
 
 ```{r}
-library(___)
-library(___)
+# Load your packages
+_______(tidyverse)
+_______(janitor)
+
+naep_data_clean <- ________(________) %>% # Read in the naep-data.csv
+    clean_names() # Clean the column names using the janitor package
 ```
+
+Last week we asked you four questions. Here are three of them:
+
+* What is the average score for the nation?
+* What is the average score for your home state?
+* What state has the maximum and what is the value? What about the minimum?
+
+The `glimpse()` and `skim()` functions are great exploratory tools. They allow us to quickly see the dataset's contents and summary statistics. However, what if we want to use R to answer these questions?
+
+Let's go through some examples of how to approach answering these questions using code.
 
 ## Step 2
 
-Load ELSI data. You will need to give the dataframe a name to make R "store" it for later use.
+The `pull()` function from the tidyverse allows us to extract a single column. Use the `pull()` function below to see what the extracted `average_score_0_500` column looks like:
 
 ```{r}
-___ <- read_csv(___, skip = 6)
-
-# This .csv has 6 rows of information before the data starts. We must tell R to skip the 6 rows of information in order for the data to import correctly. To do this, we include "skip = 6" after the file name. 
+naep_data_clean %>% 
+    ____(average_score_0_500) # Extract the `average_score_0_500` column
 ```
+
+Now, we want to calculate the average, or mean, of the `average_score_0_500` column. Recall that the pipe `%>%` passes the last output into the next function. We can pipe the `average_score_0_500` column into the `mean()` function to calculate the average for that column. We can leave the parenthesis inside of `mean()` empty here because the pipe is already passing the column values into `mean()`.
+
+```{r}
+naep_data_clean %>% 
+    pull(average_score_0_500) %>% 
+    ___() # Calculate the average
+```
+
+With that, you should get the result for the `average_score_0_500` column.
 
 ## Step 3
 
-Explore the data and clean column names as necessary using `clean_names()`
+The `pull()` function works great when we want information from a *single* column. But the next questions ask for information from two columns, `jurisdiction` and `average_score_0_500`.
+
+If we want to answer "What is the average score for your home state?", let's filter our dataset to just our home state. The  `filter()` function keeps rows that match a certain condition.
+
+My home state is Illinois. Can you use the `filter()` function to only keep the rows where jurisdiction is equivalent (`==`) to Illinois?
 
 ```{r}
-glimpse(___)
-print(___)
-
-___ <- clean_names(___) # Rename the clean names version of the dataframe. It can be the same name or something new. 
+naep_data_clean %>%
+  ____(jurisdiction == "Illinois")
 ```
 
-## Step 4a
-
-Create a bar plot looking at the number of Title 1 schools in the 2021-22 school year. *Notes*: the value of 1 means the school is a Title 1 school and the value of 2 means the school is not a Title 1 school. Also, we are using a bar graph becuase the data is categorical -- either a school is Title 1 or it is not.  
+How about for your home state (or adopted state)?
 
 ```{r}
-___ %>% 
-  ggplot(aes(x = ___)) +
-    geom_bar() 
+naep_data_clean %>%
+  filter(jurisdiction == _______)
 ```
 
-- Approximately how many schools were Title 1? How many were not?
-
-## Step 4b
-
-We can also change the theme of the plot and make the colors a bit more interesting.
+Notice that this provides *all* of the columns of the dataset, not just `average_score_0_500`. If we want to just show the columns `jurisdiction` and `average_score_0_500`, we can use the `select()` function. `select()` keeps or drops columns using their names and types.
 
 ```{r}
-elsi_clean %>% 
-  ggplot(aes(x = school_wide_title_i_public_school_2021_22)) +
-    geom_bar(fill = "darkseagreen", color = "black") +
-    theme_minimal()
-
-# Notes: fill changes the "inside" color of the bars while color changes the border color of the bars.
-# There are many themes you can select (https://ggplot2.tidyverse.org/reference/ggtheme.html). 
-# There are many colors you can select (https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/)
+naep_data_clean %>%
+    filter(jurisdiction == "Illinois") %>%
+    select(_______, _______) # Keep only jurisdiction and average score columns
 ```
 
-## Step 5
+## Step 4
 
-Create a histogram to examine the total number of students in schools for the 2021-22 school year. 
+Finally, let's learn a new function, `slice()`. While `select()` keeps or drops columns, `slice()` keeps or drops *rows* based on certain conditions.
+
+Let's say we want the first row of our dataset. We can use `slice(1)` to select only the first row.
+
+Can you select the 5th row of the dataset?
 
 ```{r}
-___ %>% 
-    ggplot(aes(x = ___)) +
-      ___()
+naep_data_clean %>% 
+    ________(_)
 ```
 
-With the default bin width and the maximum x-value of 20,000, the plot is not very interesting. We can change these two defaults quite easily:
+`slice()` also has special functions for common use cases:
+
+* `slice_head()` and `slice_tail()` select the first or last rows.
+* `slice_sample()` randomly selects rows.
+* `slice_min()` and `slice_max()` select rows with highest or lowest values of a variable.
+
+There are many things that `slice()` can do. Check out the documentation to see even more application: https://dplyr.tidyverse.org/reference/slice.html
+
+Returning to our question, "What state has the maximum and what is the value? What about the minimum?", we can use our new function `slice()`.
+
+To find the row with the maximum `average_score_0_500`, use `slice_max()`:
 
 ```{r}
-___ %>% 
-    ggplot(aes(x = total_students_all_grades_excludes_ae_public_school_2021_22)) +
-      geom_histogram(binwidth = ___) +
-      xlim(0, 5000)
-
-# You should select a bin width that best tells the story of your data. 
+naep_data_clean %>% 
+    ______(_________)
 ```
 
-## Step 5b
-
-Just as we did with the bar chart, we can also change the theme and colors of the histogram. 
+And for the minimum, use `slice_min()`:
 
 ```{r}
-___ %>% 
-    ggplot(aes(x = total_students_all_grades_excludes_ae_public_school_2021_22)) +
-      geom_histogram(fill = ___, binwidth = ___) +
-      theme_minimal() +
-      xlim(0, 5000)
+naep_data_clean %>% 
+    ______(_________)
 ```
 
-## Step 6
+## Step 5 (reach)
 
-Create a histogram comparing multiple groups. Use ggplot2 and `facet_wrap()`.
+One unique feature of R Markdown is that you can embed R code *inside* your text by starting a line with `r`. If you include code within a single line of text, the file will display the result when you knit it! For example, when you knit this file, you will see the answers at the end of the sentences.
 
-```{r}
-___ %>% 
-  ggplot(aes(___ = ___)) +
-    ___() +
-    facet_wrap(___)
-```
+* The average score for the nation is `r naep_data_clean %>% pull(average_score_0_500) %>% mean()`.
 
-## Reach
+The output of Step 3 and 4 above are data frames. If we want to use R Markdown to report our numbers, we'll have to use the handy `pull()` function to isolate each of the values.
 
-This portion of the assignment is optional but offers you a chance to push your skills further. 
+When you knit the file, the sentences below should populate with the data!
 
-- Change the theme and color for your graphs in Step 6. Can you color each graph by the variable you are faceting on? 
+* The average score for my home state of `r naep_data_clean %>% filter(jurisdiction == "Illinois") %>% pull(jurisdiction)` is `r naep_data_clean %>% filter(jurisdiction == "Illinois") %>% pull(average_score_0_500)`.
+
+Using code to display results reduces errors (no manual copying and pasting) and enhances reproducibility (others can see the steps you took to obtain your results). Can you use this feature to answer the questions below using code?
+
+* The state with the maximum average score is _______________ with an average score of _______________.
+* The state with the maximum average score is _______________ with an average score of _______________.
+
+## Step 6 (reach)
+
+What's great about R is that there are multiple ways to solve problems. Can you come up with other ways to use R code for answering the questions mentioned earlier?
 
 ## Questions
 
-1.  What groups did you compare in step 6? What were you able to determine to be the differences between those two groups by looking at your graphs?
+1. How many rows are in `naep_data_clean` where `average_score_0_500` is greater than 230?
 
--   
-
-2.  How could a policy maker use the information you gathered (or other information contained in this dataset) to suggest changes? Are graphical representations an effective way to do this?
-
--   
-
-3.  How might you make your graphs look more "publication ready?" You do not need to include code, just a general idea of what could be improved.
-
--   
+2. Write a code chunk placing a negative sign before a column name when using `select()`. What does a negative sign before a column name do?
 
 ## Rubric
 
-|                                 | Points Possible | Points Earned |
-|---------------------------------|-----------------|---------------|
-| File knits                      | 2               |               |
-| Effective use of `facet_wrap()` | 10              |               |
-| Question 1                      | 5               |               |
-| Question 2                      | 8               |               |
-| Question 3                      | 5               |               |
+|                     | Points Possible | Points Earned |
+|---------------------|-----------------|---------------|
+| File knits          | 5               |               |
+| Code is appropriate | 5               |               |
+| Question 1 answered | 5               |               |
+| Question 2 answered | 5               |               |
 
 ## Knit and Submit
 
