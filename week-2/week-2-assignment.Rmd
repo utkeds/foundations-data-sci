@@ -15,10 +15,10 @@ The NAEP is an important data source in education; read some recent coverage of 
 
 ## Step 1
 
-Load necessary packages (you may need to install these packages first using `install.packages("___")`): tidyverse, janitor, and skimr. Do so in the code chunk below.
+Load necessary packages (you may need to install these packages first using `install.packages("___")`): rmarkdown, tidyverse, janitor, and skimr. Do so in the code chunk below. Be sure to comment (add a `#` as the first character) these lines after you have installed the packages; otherwise, R Markdown may run into issues when you try to knit the file.
 
 ```{r}
-
+# Install packages below
 ```
 
 ## Step 2

@@ -1,7 +1,8 @@
 ---
 title: "Week 6 Slides"
-subtitle: "How do I preparing data for analysis: Foundational skills, Part 1"
+subtitle: "How do I access and describe data? Using an R package and an API"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -18,6 +19,7 @@ style_duo_accent(primary_color = "#FF8200",
                  title_slide_background_position = "bottom",
                  title_slide_background_size = "30%")
 ```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -47,14 +49,14 @@ xaringanExtra::use_panelset()
 
 # Purpose and Agenda
 
-What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the first of four weeks that equip you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
+Data scientists often talk about "digital data" and "log-trace" data. How do I access such data? This week, we explore ways to do that through Application Programming Interfaces (APIs)---specifically, through the educationdata R package.
 
 ## What we'll do in this presentation
 
 - Discussion
 - Reading Recap
-- Key Concept: select, rename, filter, arrange
-- Key Concept: Ratings and rankings
+- Key Concept: Log-trace data and Application Programming Interfaces (APIs)
+- Key Concept: The educationdata package
 - Code-along and data
 - What's next: Assignment(s) and Readings
 
@@ -72,15 +74,10 @@ What do you need to be able to work with a range of datasets? This week focuses 
 
 .panel[.panel-name[Discussion Question]
 
--
 
 ]
 
 ]
-
-???
-
-This discussion can serve as an opening to discussing what ggplot2's strengths are relative to the above two tools.
 
 ---
 
@@ -88,13 +85,13 @@ This discussion can serve as an opening to discussing what ggplot2's strengths a
 
 Substantive reading(s):
 
-> Shelton, C. C., Koehler, M. J., Greenhalgh, S. P., & Carpenter, J. P. (2022). Lifting the veil on Teach ersP ayTeachers. com: An in vestigation of educational marketplace offerings and downloads. Learning, Media and Technology, 47(2), 268-287.
+> Reich, J. (2022). Learning analytics and learning at scale. Lang, C., Siemens, G. Wise, AF, Gašević, D., Merceron, A.,(eds.) Handbook of Learning Analytics, 2nd ed. Vancouver, Canada: SOLAR.
 
-> Rosenberg, J. M., Borchers, C., Burchfield, M. A., Anderson, D., Stegenga, S. M., & Fischer, C. (2022). Posts about students on Facebook: a data ethics p erspective. Educational researcher, 51(8), 547-550.
+> White, R. S. (2023). Ceilings Made of Glass and Leaving En Masse? Examining Superintendent Gender Gaps and Turnover Over Time Across the United States. Educational Researcher, 0013189X231163139.
 
 Technical reading(s):
 
-> R for Data Science, Data Transformation: https://r4ds.hadley.nz/data-transform
+> Introducing educationdata, https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html (also, check out other pages on this website)
 
 ???
 
@@ -102,7 +99,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 ---
 
-.title[Key Concept: select, rename, filter, arrange
+.title[Key Concept: log-trace data and APIs]
 
 .panelset[
 
@@ -123,7 +120,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 ---
 
-# Key Concept: Ratings and rankings
+# Key Concept: educationdata]
 
 .panelset[
 
@@ -148,19 +145,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 .panelset[
 
-.panel[.panel-name[select]
-
-- and rename!
-- yyy
--zzz
-
-```{r, eval = FALSE, echo = TRUE}
-
-```
-
-]
-
-.panel[.panel-name[filter]
+.panel[.panel-name[xxxx]
 
 - yyy
 -zzz
@@ -171,7 +156,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 ]
 
-.panel[.panel-name[arrange]
+.panel[.panel-name[xxxx]
 
 - yyy
 -zzz
@@ -182,7 +167,7 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 ]
 
-.panel[.panel-name[EDA]
+.panel[.panel-name[xxxx]
 
 - yyy
 -zzz
@@ -201,7 +186,6 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 .panelset[
 
-
 .panel[.panel-name[Weekly Assignment]
 
 - 
@@ -219,7 +203,9 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 - Substantive reading(s) for the week ahead:
 
-> Park, J. J., Kim, B. H., Wong, N., Zheng, J., Breen, S., Lo, P., … & Poon, O. (2023). Inequality Beyond S tandardized Tests: Trends in Extr acurricular Activity Reporting in College A pplications Across Race and Class. Technical Report. Annenberg Institute at Brown University. <https ://edworkin g papers.>co m/ai23-749.
+> Shelton, C. C., Koehler, M. J., Greenhalgh, S. P., & Carpenter, J. P. (2022). Lifting the veil on Teach ersP ayTeachers. com: An in vestigation of educational marketplace offerings and downloads. Learning, Media and Technology, 47(2), 268-287.
+
+> Rosenberg, J. M., Borchers, C., Burchfield, M. A., Anderson, D., Stegenga, S. M., & Fischer, C. (2022). Posts about students on Facebook: a data ethics p erspective. Educational researcher, 51(8), 547-550.
 
 Linked in Canvas.
 
@@ -229,9 +215,7 @@ Linked in Canvas.
 
 - Technical reading(s) for the week ahead:
 
-> Data Science in Education Using R, Using School-Level Aggregate Data to Illuminate Educational Inequities: https://datascienceineducation.com/c09
-
-> R For Data Science, Strings: https://r4ds.had.co.nz/strings.html
+> R for Data Science, Data Transformation: https://r4ds.hadley.nz/data-transform
 
 Also linked in Canvas.
 

@@ -1,6 +1,6 @@
 ---
 title: "Week 4 Slides"
-subtitle: "What's all the fuss about data science? Doing things we could not easily do without coding"
+subtitle: "What's all the fuss about data science? Doing things we could not easily do without advanced graphics"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
 output:
   xaringan::moon_reader:
@@ -18,7 +18,6 @@ style_duo_accent(primary_color = "#FF8200",
                  title_slide_background_position = "bottom",
                  title_slide_background_size = "30%")
 ```
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -48,15 +47,16 @@ xaringanExtra::use_panelset()
 
 # Purpose and Agenda
 
-What's so useful about coding? That question is the focus of this class. We'll focus on _joining_ two data sets, something that is relatively straightforward to do in R. We'll again use the NAEP data, joining data on spending on kids to understand whether there are any clear relations between spending and academic achievement.
+This week, we answer the following question: What's all the fuss about data science? We will dive into data viz as 
 
 ## What we'll do in this presentation
 
 - Discussion
 - Reading Recap
-- Key Concept: Joining
-- Key Concept: Doing more with ggplot2
-- Code-along
+- Course Logistics
+- Key Concept: ggplot2 and advanced graphics
+- Key Concept: Revisiting the Core Skills Framework
+- Code-along and data
 - What's next: Assignment(s) and Readings
 
 ---
@@ -67,18 +67,22 @@ What's so useful about coding? That question is the focus of this class. We'll f
 
 .panel[.panel-name[Background]
 
-- Often, the data we want to analyze are in multiple files (e.g., CSV, or Excel files) or databases (e.g., a SQL database)
-- The _key_ to combining data is to ensure that the data we are joining share a common . . . _key_!
+Data visualizations can be used to communicate with a range of audiences, including _readers_ (or interpreters) of your visualizations and you and your collaborators as you seek to understand your data.
 
 ]
 
 .panel[.panel-name[Discussion Question]
 
-- What are some use cases for your research (past or planned) that involve multiple data files? And, why might it be important to join those files together? Please be as specific as possible regarding these reasons why.
+- What is easy or straightforward to do regarding visualizing data with Microsoft Excel or Google Sheets?
+- What is more challenging to do with these tools?
 
 ]
 
 ]
+
+???
+
+This discussion can serve as an opening to discussing what ggplot2's strengths are relative to the above two tools.
 
 ---
 
@@ -86,150 +90,127 @@ What's so useful about coding? That question is the focus of this class. We'll f
 
 Substantive reading(s):
 
-> Worsley, M., Martinez -Maldonado, R., & D'Angelo, C. (2021). A New Era in Multimodal Learning Analytics: Twelve Core Commitments to Ground and Grow MMLA. *Journal of Learning Analytics, 8*(3), 10-27.
+> Lang, C., Wise, A. F., Merceron, A., Gasevic, D., & Siemens, G. (2022). What is learning analytics. The handbook of learning analytics, 8-18.
+
+This was meant to introduce you to perhaps the most prominent data science adjacent field in education, the learning analytics community. The SOLAR community and LAK conference support learning analytics researchers. 
 
 Technical reading(s):
 
-> R for Data Science, Joins: https://r4ds.hadley.nz/joins.html
+> R for Data Science, Data Import: https://r4ds.hadley.nz/data-import
 
-> Joining data with dplyr: https://hollyemblem.medium.com/joining-data-with-dplyr-in-r-874698eb8898
+> RESM Handbook, Cleaning names with Janitor: https://bookdown.org/aschmi11/RESMHandbook/data-preparation-and-cleaning-in-r.html#cleaning-names-with-janitor
 
 ???
 
-Share some notes from the discussion here
+As in the first week, it may be good to pull out and summarize highlights from students' discussion posts here.
 
 ---
 
-# Key Concept: Joins
+# Course Logistics
+
+We're now two weeks into class! What has gone well? What issues have you had? What questions do you have?
+
+Syllabus: https://rpubs.com/jmichaelrosenberg/stem-680-fall-2023-syllabus
+
+And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw0mwEWuz_3m2Sn7TjIVILAv_E/edit
+
+???
+
+May be a chance to return to the syllabus and schedule and answer any questions that have arisen.
+
+---
+
+# Key Concept: ggplot2
 
 .panelset[
 
-.panel[.panel-name[two data frames]
-**Working with Two Data Frames**: 
-- The join functions in `dplyr` work with two data frames.
-- **Data frames**: Tabular structures in R with rows and columns.
-- Can be thought of as results from loading two distinct files into R.
+.panel[.panel-name[ggplot2]
+**ggplot2**: 
+- An R package for data visualization
+- Based on the *Grammar of Graphics*
+- Created by Hadley Wickham
+- Part of the `tidyverse`, a suite of R packages for data science
 
-```{r, eval=FALSE}
-my_first_data_frame <- read_csv("dataset-1.csv")
-my_second_data_frame <- read_csv("dataset-2.csv")
+]
+
+.panel[.panel-name[the grammar of graphics]
+**The Grammar of Graphics**:
+- A systematic way to describe and build graphs
+- Focuses on layers of visualizations
+- Elements include:
+  - **Data**: What you want to plot
+  - **Aesthetics**: How data is mapped to visuals
+  - **Geoms**: Geometric objects like points, lines, bars
+  - **Stats**: Statistical transformations, e.g., smoothing
+  - **Facets**: Ways to split data into subsets for multiple plots
+
+]
+
+.panel[.panel-name[Example ggplot2 code]
+**Example ggplot2 code**:
+
+```{r, eval = FALSE, echo = TRUE}
+library(tidyverse) # note, this loads the ggplot2 package
+
+ggplot(data = mtcars, aes(x = mpg, y = wt)) +
+  geom_point(aes(color = cyl)) +
+  labs(title = "MPG vs. Weight", 
+       x = "Miles per Gallon", 
+       y = "Weight (in 1000s of lbs)",
+       color = "Number of Cylinders")
 ```
 
 ]
-
-.panel[.panel-name[types of dplyr joins]
-**Types of `dplyr` Joins**:
-- **Inner Join**: Returns only rows that have matching values in both data frames.
-- **Left Join**: Returns all rows from the left data frame, and the matched rows from the right data frame.
-- **Right Join**: Opposite of left join.
-- **Full Join**: Returns all rows when there is a match in either the left or right data frame.
-
-There are also two filtering joins that we won't discuss further at this time: `anti_join()` and `semi_join()`
-
-]
-
-.panel[.panel-name[how to]
-**How to Use `dplyr` Joins**:
-
-Example using `left_join`:
-
-```{r, eval=FALSE}
-joined_data <- left_join(my_first_data_frame, my_second_data_frame, by = "key_column")
-```
-
-- `left_join()` is perhaps the most common function
-- The `by` argument specifies which column(s) to use for joining.
-
-]
-
-.panel[.panel-name[other details]
-**Other Important Details**:
-- If the key columns have different names in each data frame, use the syntax `by = column_in_first == column_in_second` within the join function.
-- Beware of duplicate rows: Ensure that the key column(s) uniquely identify rows, or you may get unintended repeats.
-- If joining by multiple columns, provide them as a vector, e.g., `by = c("col1", "col2")`.
-
-]
-
 ]
 
 ---
 
-# Key Concept: More EDA with ggplot2
+# Key Concept: Revisiting the Core
+
+*Let's quickly revisit the core skills we discussed last week*
 
 .panelset[
 
-.panel[.panel-name[geom_point()]
-**A quick refresher on geom_point()**: 
-- Used for creating scatterplots.
-- Great for visualizing relationships between two numeric variables.
+.panel[.panel-name[Data]
+**Data** in R
 
-Example:
-```{r, eval=FALSE, echo = TRUE}
-ggplot(data = mtcars, aes(x = mpg, y = wt)) +
-  geom_point() # consider swapping out with geom_jitter(); what does this do?
-```
+We have focused on these two data structures, though others you will encounter later on include vectors, matrices, and lists:
+
+- **Data Frames**: Tabular data, can mix different types
+- **Tibbles**: Modern version of data frames (from the tidyverse)
 
 ]
 
-.panel[.panel-name[points' colors]
-**Changing Points' Colors**:
-- Colors can provide additional information about data points.
-- Use the `color` aesthetic in `aes()` to assign colors based on a variable.
+.panel[.panel-name[Packages]
+**Packages** in R
+Packages are collections of functions and datasets that extend R:
 
-Example:
-```{r, eval=FALSE, echo = TRUE}
-ggplot(data = mtcars, aes(x = mpg, y = wt, color = cyl)) +
-  geom_point()
-```
-]
-
-.panel[.panel-name[geom_smooth()]
-**geom_smooth()**: 
-- Adds a smoothed line to the plot.
-- Useful for spotting trends or patterns in scatterplots.
-- Can also add a straight regression line with `method = "lm"`.
-
-Example:
-```{r, eval=FALSE, echo = TRUE}
-ggplot(data = mtcars, aes(x = mpg, y = wt)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE)
-```
+- You have used tidyverse, skimr, and janitor so far
+- This week, we're focusing on ggplot2
+- We'll use many others throughout the semester
+- You might start exploring packages related to interests you have now! There are tens of thousands to do nearly anything with data (and order pizza, too; seriously!)
 
 ]
 
-.panel[.panel-name[themes]
-**Themes in ggplot2**:
-- Themes control the appearance of the plot.
-- They dictate elements like background color, gridlines, and font sizes.
-- `ggplot2` has several built-in themes, e.g., `theme_minimal()`, `theme_dark()`, and `theme_bw()`
-- other packages (e.g., [ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)) add _many_ more themes
-
-Example:
-```{r, eval=FALSE, echo = TRUE}
-ggplot(data = mtcars, aes(x = mpg, y = wt)) +
-  geom_point() +
-  theme_minimal()
-```
-]
-
-.panel[.panel-name[labels]
-**Adding Labels**:
-- Provide context and clarity to your plots.
-- Functions like `labs()`, `xlab()`, `ylab()`, and `ggtitle()` allow for adding or modifying labels.
-
-Example:
-```{r, eval=FALSE, echo = TRUE}
-ggplot(data = mtcars, aes(x = mpg, y = wt)) +
-  geom_point() +
-  labs(title = "MPG vs. Weight", x = "Miles per Gallon", y = "Weight (1000s lbs)")
-```
+.panel[.panel-name[Functions]
+**Functions** in R
+Functions are made up of code that perform specific tasks:
+- Can be built-in (e.g., `mean()`, `sum()`) or loaded from a package (e.g., `glimpse()`)
+- You can write your own function! We'll discuss this at another point in this class
 
 ]
 
-
+.panel[.panel-name[Projects and File Paths]
+**Projects and File Paths** in RStudio
+Projects help organize your work:
+- Keep related scripts, data, and outputs together
+- We *always* work in projects in this class
 
 ]
+
+]
+
+*Again, these core skills will be the basis of all of our analyses in R.*
 
 ---
 
@@ -237,52 +218,96 @@ ggplot(data = mtcars, aes(x = mpg, y = wt)) +
 
 .panelset[
 
-.panel[.panel-name[left_join()]
+.panel[.panel-name[ggplot()]
+
+- we use `ggplot()` to start our plotting of the built-in `penguins` dataset from the palmerpenguins package
 
 ```{r, eval = FALSE, echo = TRUE}
-band_members %>% left_join(band_instruments, by = "name")
-# also try right_join!
+library(tidyverse) # let's load the tidyverse, loading ggplot2 & other packages
+library(palmerpenguins) # make sure to install with install.packages() first
+
+ggplot(penguins)
+```
+
+*This won't do... much (yet!)*
+
+]
+
+.panel[.panel-name[aes()]
+
+- add on to our initial code by specifying the _aesthetic mapping_ with `aes()`
+- specifically, let's tell R what the *x* variable is - let's pick _any_ numeric variable from the data set
+
+```{r, eval = FALSE, echo = TRUE}
+glimpse(penguins) # to see which variables are numeric
+
+ggplot(penguins, aes(x = body_mass_g) # can change to another!
+```
+
+**Still not doing much!**
+
+]
+
+.panel[.panel-name[geom_*]
+
+- Last, specify the geometric object you want to use to represent the variable you mapped to an aesthetic
+- Let's try a histogram!
+- We always add *layers* onto ggplot2 plots with the `+` operator
+
+```{r, eval = FALSE, echo = TRUE}
+ggplot(penguins, aes(x = body_mass_g) +
+           geom_histogram()
+```
+
+*Voilà!*
+
+]
+
+.panel[.panel-name[geom_*]
+
+- Let's expand on what we've done by examining _two_ variables, one we "map" to *x*, another to *y*
+- We'll see how the bill length and depth of penguins relate, using a different geom to do so with a scatterplot
+
+```{r, eval = FALSE, echo = TRUE}
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm) +
+           geom_point()
+```
+
+*Voilà (take two)!*
+
+]
+
+.panel[.panel-name[a 3rd variable]
+
+- Part of the joy of ggplot2 is the flexibility you have in how you can modify a plot
+- What if we want to visualize a third variable? 
+    - We have several aesthetic features we can "map" this third variable to, including the size, shape, and color of points
+
+```{r, eval = FALSE, echo = TRUE}
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species) +
+           geom_point()
+```
+
+*Voilà (take three)!*
+
+]
+
+.panel[.panel-name[More additions]
+
+- The sky is the limit! 
+- We can also add other geoms to our plot, like one representing the _slope_ of the relation between *x* and *y*
+- Furthermore, we can easily _theme_ out plot
+
+```{r, eval = FALSE, echo = TRUE}
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+           geom_point() +
+           geom_smooth(method = "lm") +
+    theme_bw()
 ```
 
 ]
 
-.panel[.panel-name[full_join()]
-
-```{r, eval = FALSE, echo = TRUE}
-band_members %>% full_join(band_instruments,  by = "name")
-# also try semi_join()!
-```
-
 ]
-
-.panel[.panel-name[different keys]
-
-```{r, eval = FALSE, echo = TRUE}
-band_members
-band_instruments2
-
-band_members %>% full_join(band_instruments2, by = join_by(name == artist))
-```
-
-]
-
-.panel[.panel-name[multiple keys]
-
-```{r, eval = FALSE, echo = TRUE}
-band_members
-# what if the Paul in Paul instruments is from another band?
-band_instruments <- band_instruments %>% mutate(band = c("Beatles", "Porcupines", "Stones")) 
-# we can then join on both name *and* band
-band_members %>% left_join(band_instruments, by = c("name", "band"))
-```
-
-]
-
-]
-
-???
-
-May want to demonstrate some of the new ggplot2 code, too (geom_smooth, maybe?)
 
 ---
 
@@ -293,15 +318,16 @@ May want to demonstrate some of the new ggplot2 code, too (geom_smooth, maybe?)
 
 .panel[.panel-name[Weekly Assignment]
 
-- We'll be joining together two files and conducting an authentic analysis about what relates to student academic achievement
-- The analysis will take the form of a scatterplot with a fitted line --- effectively, a visual representation of a simple (one variable) linear regression model
+- We'll be doing more with ggplot2 in this lab, while returning back to some of the functions we used last week
+- We'll be faceting our plots using a _layer_ we can add, `facet_wrap()`
 
 ]
 
 .panel[.panel-name[Data]
 
-- We'll again be using NAEP data
-- In addition, we'll be using data on state-by-state spending on children; read about the data [here](https://jrosen48.github.io/tidykids/articles/tidykids-codebook.html)
+- We'll be using a large, complex dataset from the United States Department of Education
+- Specifically, we'll use data from the [Elementary/Secondary Information System (ElSi)](https://nces.ed.gov/ccd/elsi/), a data collection system that includes information on the more than 100,000 schools and more than 8,000 school districts in the country
+- Note: Even though this data is large and complex, it is _not_ cleaned, and one slightly unusual thing we'll need to do is _skip_ the first six rows of the CSV file accessed through the ElSi, because they're blank!
 
 ]
 
@@ -309,9 +335,7 @@ May want to demonstrate some of the new ggplot2 code, too (geom_smooth, maybe?)
 
 - Substantive reading(s) for the week ahead:
 
-> Reich, J. (2022). Learning analytics and learning at scale. Lang, C., Siemens, G. Wise, AF, Gašević, D., Merceron, A.,(eds.) Handbook of Learning Analytics, 2nd ed. Vancouver, Canada: SOLAR.
-
-> White, R. S. (2023). Ceilings Made of Glass and Leaving En Masse? Examining Superintendent Gender Gaps and Turnover Over Time Across the United States. Educational Researcher, 0013189X231163139.
+> Worsley, M., Martinez -Maldonado, R., & D'Angelo, C. (2021). A New Era in Multimodal Learning Analytics: Twelve Core Commitments to Ground and Grow MMLA. *Journal of Learning Analytics, 8*(3), 10-27.
 
 Linked in Canvas.
 
@@ -321,7 +345,9 @@ Linked in Canvas.
 
 - Technical reading(s) for the week ahead:
 
-> Introducing educationdata, https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html (also, check out other pages on this website)
+> R for Data Science, Joins: https://r4ds.hadley.nz/joins.html
+
+> Joining data with dplyr: https://hollyemblem.medium.com/joining-data-with-dplyr-in-r-874698eb8898
 
 Also linked in Canvas.
 
