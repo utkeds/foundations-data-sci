@@ -75,7 +75,7 @@ Weekly schedule: https://bit.ly/F23-Weekly-Schedule
 
 **New** R programming tips & tricks discussion board on Canvas
 
-- Q&A document (linked in dicussion board)
+- Q&A document (linked in discussion board)
 
 ???
 
@@ -350,6 +350,12 @@ ggplot(data = mtcars, aes(x = mpg, y = wt)) +
 
 ]
 ]
+
+---
+
+# Key Concept: ggplot2
+
+![](examples.png)
 
 ---
 
