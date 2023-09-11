@@ -1,0 +1,65 @@
+## Assignment Recap: Why use inline code?
+
+Let's say we're writing a report using the `mtcars` data to report on the Toyota Corolla. In R Markdown, we include R code by inserting code chunks then write our text inside/outside of the chunks.
+
+```{r}
+#| message: false
+library(tidyverse)
+
+mtcars %>% 
+    as_tibble(rownames = "cars") %>% 
+    filter(cars == "Toyota Corolla")
+```
+
+So in our R Markdown document, we write: 
+
+The Toyota Corolla gets 33.9 mpg, has 4 cyl, 71.1 disp, 65 hp...
+
+But what if our code changes? Say we get a new dataset, `mtcars2` with updated data on the Toyota Corolla to use in our report.
+
+We could:
+
+* Load the new `mtcars2` dataset
+* Rerun the calculation
+* Based on the new output, edit our sentence to say "The Toyota Corolla gets X mpg, has A cyl, B disp, C hp..."
+
+But this can cause some issues!
+
+* What if we forget to update our sentence after using the new data?
+* What if we write the wrong numbers in our sentence?
+* What if we are reporting on many variables?
+
+```md
+The Toyota Corolla gets...
+The Porsche 914-2 gets... 
+The Camaro Z28 gets... 
+The AMC Javelina gets... 
+The Ferrari Dino gets... 
+The Maserati Bora gets... 
+```
+
+To display the result of a calculation in your R Markdown document, you can use inline code, which is enclosed in backticks (```) and preceded by an "r", making it indistinguishable from the surrounding text.
+
+`r 1 + 1`
+
+However, your output has to be a single value! Otherwise, R won't know what to print. This is where `pull()` comes in! The `pull()` function is used to extract a single column from a data frame or tibble.
+
+```{r}
+#| echo: true
+mtcars %>%
+    as_tibble(rownames = "cars") %>%
+    filter(cars == "Toyota Corolla") %>%
+    pull(mpg)
+```
+
+
+So instead of "hardcoding" the numbers in the sentence, we could write:
+
+The Toyota Corolla gets `r mtcars %>% as_tibble(rownames = "cars") %>% filter(cars == "Toyota Corolla") %>% pull(mpg)` mpg...
+
+Some tips:
+
+- The inline code must be in the same line (i.e., no breaks)
+- If you are running into issues, copy the part of the code after the `r` and put it in a code chunk.
+    - Does the code run?
+    - Is it a single value?
