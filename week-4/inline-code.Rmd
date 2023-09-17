@@ -45,7 +45,6 @@ To display the result of a calculation in your R Markdown document, you can use 
 However, your output has to be a single value! Otherwise, R won't know what to print. This is where `pull()` comes in! The `pull()` function is used to extract a single column from a data frame or tibble.
 
 ```{r}
-#| echo: true
 mtcars %>%
     as_tibble(rownames = "cars") %>%
     filter(cars == "Toyota Corolla") %>%

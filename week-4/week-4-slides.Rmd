@@ -494,7 +494,7 @@ ggplot(penguins,
 
 - Substantive reading(s) for the week ahead:
 
-> Worsley, M., Martinez -Maldonado, R., & D'Angelo, C. (2021). A New Era in Multimodal Learning Analytics: Twelve Core Commitments to Ground and Grow MMLA. *Journal of Learning Analytics, 8*(3), 10-27.
+> Lang, C., Wise, A. F., Merceron, A., Gasevic, D., & Siemens, G. (2022). What is learning analytics. The handbook of learning analytics, 8-18.
 
 Linked in Canvas.
 
@@ -504,9 +504,9 @@ Linked in Canvas.
 
 - Technical reading(s) for the week ahead:
 
-> R for Data Science, Joins: https://r4ds.hadley.nz/joins.html
+> R for Data Science, Chapter 2 ggplot2 tutorial 
+> Data Visualization introduction from Modern Dive
 
-> Joining data with dplyr: https://hollyemblem.medium.com/joining-data-with-dplyr-in-r-874698eb8898
 
 Also linked in Canvas.
 
