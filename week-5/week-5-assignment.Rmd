@@ -41,7 +41,7 @@ What is one interesting piece of information you learned about the two datasets 
 
 One thing we noticed is that the tidykids data is quite big relative to the NAEP data! 
 
-With the naep data, we have *only a single row per state*, whereas the tidykids data has *many rows per state*. The reason is the tidykids data is by *year* and *variable* (category of spending on kids). To make our lives a bit easier, let's filter the tidykids data to be only from the most recent year, 2016.
+With the NAEP data, we have *only a single row per state*, whereas the tidykids data has *many rows per state*. The reason is the tidykids data is by *year* and *variable* (category of spending on kids). To make our lives a bit easier, let's filter the tidykids data to be only from the most recent year, 2016.
 
 ```{r}
 # the code below filters the rows of the tidykids data frame to only include those for which the year is equivalent to 2016, and then (re)assigns the name tidykids to the resulting output

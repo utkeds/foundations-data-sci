@@ -9,9 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+For this assignment, we are going to use data from the Elementary/Secondary Information System (ElSi). ELSi simplifies downloading data from the Common Core of Data (CCD) and Private School Survey (PSS).
+
 ## Step 1  
 
-Load necessary packages: tidyverse and janitor
+Load the necessary packages: tidyverse and janitor
 
 ```{r}
 library(___)
@@ -44,8 +46,8 @@ ___ <- clean_names(___) # Rename the clean names version of the dataframe. It ca
 Create a bar plot looking at the number of Title 1 schools in the 2021-22 school year. *Notes*: the value of 1 means the school is a Title 1 school and the value of 2 means the school is not a Title 1 school. Also, we are using a bar graph becuase the data is categorical -- either a school is Title 1 or it is not.  
 
 ```{r}
-___ %>% 
-  ggplot(aes(x = ___)) +
+___ %>%
+    ggplot(aes(x = ___)) +
     geom_bar() 
 ```
 
@@ -56,8 +58,8 @@ ___ %>%
 We can also change the theme of the plot and make the colors a bit more interesting.
 
 ```{r}
-elsi_clean %>% 
-  ggplot(aes(x = school_wide_title_i_public_school_2021_22)) +
+elsi_clean %>%
+    ggplot(aes(x = school_wide_title_i_public_school_2021_22)) +
     geom_bar(fill = "darkseagreen", color = "black") +
     theme_minimal()
 
@@ -79,10 +81,10 @@ ___ %>%
 With the default bin width and the maximum x-value of 20,000, the plot is not very interesting. We can change these two defaults quite easily:
 
 ```{r}
-___ %>% 
+___ %>%
     ggplot(aes(x = total_students_all_grades_excludes_ae_public_school_2021_22)) +
-      geom_histogram(binwidth = ___) +
-      xlim(0, 5000)
+    geom_histogram(binwidth = ___) +
+    xlim(0, 5000)
 
 # You should select a bin width that best tells the story of your data. 
 ```
@@ -92,11 +94,11 @@ ___ %>%
 Just as we did with the bar chart, we can also change the theme and colors of the histogram. 
 
 ```{r}
-___ %>% 
+___ %>%
     ggplot(aes(x = total_students_all_grades_excludes_ae_public_school_2021_22)) +
-      geom_histogram(fill = ___, binwidth = ___) +
-      theme_minimal() +
-      xlim(0, 5000)
+    geom_histogram(fill = ___, binwidth = ___) +
+    theme_minimal() +
+    xlim(0, 5000)
 ```
 
 ## Step 6
@@ -104,8 +106,8 @@ ___ %>%
 Create a histogram comparing multiple groups. Use ggplot2 and `facet_wrap()`.
 
 ```{r}
-___ %>% 
-  ggplot(aes(___ = ___)) +
+___ %>%
+    ggplot(aes(___ = ___)) +
     ___() +
     facet_wrap(___)
 ```
