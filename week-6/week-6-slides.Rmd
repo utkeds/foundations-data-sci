@@ -190,10 +190,10 @@ df <- get_education_data(level = 'schools',
 
 ]
 
-.panel[.panel-name[Advantanges]
+.panel[.panel-name[Advantages]
 
 - The code on the last slide addresses three issues with the URL-based method:
-- We can specify the parameters as arguments for the function --- rather than as differenet parts of a URL
+- We can specify the parameters as arguments for the function --- rather than as different parts of a URL
 - We receive a data frame as output --- rather than JSON
 - We can change the function call to access different data
 
