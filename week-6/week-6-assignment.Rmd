@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Step 1
 
-Load the tidyverse and educationdata packages. You may need to install the educationdata package before loading. 
+Load the tidyverse and educationdata packages. Like all packages, you will need to install the educationdata package before loading it for the first time.
 
 ```{r}
 library(tidyverse)
@@ -20,23 +20,21 @@ library(educationdata)
 
 ## Step 2
 
-Query the educationdata API to create a data frame that includes fall enrollment for colleges and universities broken down by race and sex for the years 1990, 2000, 2010, and 2020 in the state of Tennessee.
+Next, we'll query the educationdata API to create a data frame that includes fall enrollment for colleges and universities broken down by race and sex for the years 1990, 2000, 2010, and 2020 in the state of Tennessee.
 
 ```{r}
-#Before I can get this to run, I need the 'ncessch' value (or whatever number is used for colleges because it seems ncessch is for K12). I looked online but I can't figure out how to find it. In the R documentation on GitHub, they have the ncessch value for New Jersey but don't document where they got that from. On the website https://educationdata.urban.org/data-explorer/explorer you can also explore just UTK data. If you know how we can filter 
-
 enroll_race <- get_education_data(level = 'college-university',
                                   source = 'ipeds',
                                   topic = 'fall-enrollment',
                                   subtopic = list('race', 'sex'),
-                                  filters = list(year = c(1990, 2000, 2010, 2020),
-                                                 ncessch = ___),
-                                  add_labels = TRUE)
+                                  filters = list(year = c(1990, 2000, 2010, 2020)),
+                                  add_labels = TRUE,
+                                  csv = TRUE)
 ```
 
 ## Step 3
 
-Create a faceted plot comparing enrollemnt over the four selected years. 
+Create a faceted plot comparing enrollment over the four selected years. 
 
 ```{r}
 
@@ -48,7 +46,9 @@ What is one interesting piece of information you learned about college enrollmen
 
 ## Step 4
 
-Create your own data frame! Examine the options available on the educationdata GitHub (https://github.com/UrbanInstitute/education-data-package-r). 
+Create your own data frame *using a different variable of your choosing*. Examine the options available on the educationdata GitHub: https://github.com/UrbanInstitute/education-data-package-r. Also, consider reviewing the EDP documentation: https://educationdata.urban.org/documentation/index.html. 
+
+At this stage, we are focused on becoming familiar with accessing data from the API, so don't worry too much about the specifics of your selection.
 
 ```{r}
 
@@ -64,7 +64,7 @@ What analysis (graphing, summary statistics, etc.) could you perform to glean me
 
 ## Step 5
 
-Complete your analysis described in the previous step! If your analysis is too complicated, you can perform a scaled version. 
+Complete your analysis described in the previous step! If your analysis is too complicated, you can perform a scaled-down version; recall again that the purpose of this step is to get familiar with accessing data from the API.
 
 ```{r}
 

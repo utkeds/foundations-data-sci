@@ -82,17 +82,20 @@ What are the 3-4 variables you plan to include? It might be helpful to look at t
 
 -
 
-Now, gather the 3-4 *individual* data frames from the educationdata API. 
+Now, list the 3-4 *individual* data frames from the educationdata API. 
+
 ```{r}
 
 ```
 
 Next week, we will be joining these data frames together into one single data frame. Remember, you must have a common "key" across each data frame to join on. That is, there must be a column with the same name for each data frame. We suggest using the institution name as your key. In this step, use `rename()` to create that key. 
+
 ```{r}
 
 ```
 
 You may not want to include all variables educationdata pulls. In this step, use `select()` to include the variables of interest in each data frame. 
+
 ```{r}
 
 ```
