@@ -14,7 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 Load the tidyverse and educationdata packages. Like all packages, you will need to install the educationdata package before loading it for the first time.
 
 ```{r}
-
+library(tidyverse)
+library(educationdata)
 ```
 
 ## Step 2
@@ -35,7 +36,7 @@ df <- as_tibble(df)
 In the next code chunk, please glimpse the data you accessed.
 
 ```{r}
-
+df %>% glimpse()
 ```
 
 You may notice that instead of College or University names, you have an identifier that is a number, `unitid`. You can look up their names here: https://nces.ed.gov/ipeds/datacenter/InstitutionByName.aspx?stepId=1&sid=fb7e4c13-4a9e-43a5-89eb-dfead5e01d78&rtid=6
@@ -51,7 +52,7 @@ df %>% filter(unitid == 221759)
 How many colleges/universities are there in the data set? Please count up the number of unique colleges/universities with code in the next code chunk. 
 
 ```{r}
-
+df %>% count(unitid)
 ```
 
 ## Step 4
@@ -69,7 +70,10 @@ Then, create a histogram of the headcount variable _after_ you have filtered the
 Read about geom_histogram() here: https://ggplot2.tidyverse.org/reference/geom_histogram.html
 
 ```{r}
-
+df %>% 
+    filter(race == 99 & age == 99) %>% 
+    ggplot(aes(x = headcount)) +
+    geom_histogram()
 ```
 
 Please interpret the graph you created. What do you notice? What does this tell you?
