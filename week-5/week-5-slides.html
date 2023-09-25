@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 5 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
+    <script src="week-5-slides_files/header-attrs-2.24/header-attrs.js"></script>
+    <script src="week-5-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-5-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-5-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-5-slides_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-5-slides_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-5-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-5-slides_files/panelset-0.2.6/panelset.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 5 Slides
+]
+.subtitle[
+## What’s all the fuss about data science? Doing things we could not easily do without coding
+]
+.author[
+### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+What's so useful about coding? That question is the focus of this class. We'll focus on _joining_ two data sets in R. We'll use the NAEP data, joining data on spending on kids to understand whether there are any clear relationships between spending and academic achievement.
+
+## What we'll do in this presentation
+
+- Key Concept: More ggplot2 fun(ctions)
+- Reading Recap
+- Discussion
+- Break
+- Key Concept: Joining
+- Code-along
+- What's next: Assignment(s) and Readings
+
+---
+
+# Key Concept: More exploratory data analysis (EDA) with ggplot2
+
+.panelset[
+
+.panel[.panel-name[geom_point()]
+**A quick refresher on geom_point()**: 
+- Used for creating scatterplots.
+- Great for visualizing relationships between two numeric variables.
+
+
+Example:
+
+```r
+ggplot(data = mtcars, aes(x = mpg, y = wt)) +
+    geom_point() # consider swapping out with geom_jitter(); what does this do?
+```
+
+]
+
+.panel[.panel-name[points colors]
+**Changing Points Colors**:
+- Colors can provide additional information about data points.
+- Use the `color` aesthetic in `aes()` to assign colors based on a variable.
+
+Example:
+
+```r
+ggplot(data = mtcars, aes(x = mpg, y = wt, color = cyl)) +
+    geom_point()
+```
+]
+
+.panel[.panel-name[geom_smooth()]
+**geom_smooth()**: 
+- Adds a smoothed line to the plot.
+- Useful for spotting trends or patterns in scatterplots.
+- Can also add a straight regression line with `method = "lm"`.
+
+Example:
+
+```r
+ggplot(data = mtcars, aes(x = mpg, y = wt)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE)
+```
+
+]
+
+.panel[.panel-name[themes]
+**Themes in ggplot2**:
+- Themes control the appearance of the plot.
+- They dictate elements like background color, gridlines, and font sizes.
+- `ggplot2` has several built-in themes, e.g., `theme_minimal()`, `theme_dark()`, and `theme_bw()`
+- other packages (e.g., [ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)) add _many_ more themes
+
+Example:
+
+```r
+ggplot(data = mtcars, aes(x = mpg, y = wt)) +
+    geom_point() +
+    theme_minimal()
+```
+]
+
+.panel[.panel-name[labels]
+**Adding Labels**:
+- Provide context and clarity to your plots.
+- Functions like `labs()`, `xlab()`, `ylab()`, and `ggtitle()` allow for adding or modifying labels.
+
+Example:
+
+```r
+ggplot(data = mtcars, aes(x = mpg, y = wt)) +
+    geom_point() +
+    labs(title = "MPG vs. Weight",
+         x = "Miles per Gallon",
+         y = "Weight (1000s lbs)")
+```
+
+]
+
+]
+
+---
+
+# Key Concept: More ggplot2 fun(ctions)
+
+* Reading error messages for information
+* `ggsave()` for exporting plots
+* `scale_color_colorblind()` for colorblind accessibility
+* `alpha` for transparency of geoms when there is overplotting
+
+---
+
+# Expanding our knowledge of ggplot2
+
+&gt; I am curious to learn about how I might be able to color subsets of my visualizations. For example, if I have a side-by-side barchart, how could I make 3 out of the 8 bars a different color than the rest (nested variable).
+
+---
+
+# Reading Recap
+
+Substantive reading(s):
+
+&gt; Worsley, M., Martinez -Maldonado, R., &amp; D'Angelo, C. (2021). A New Era in Multimodal Learning Analytics: Twelve Core Commitments to Ground and Grow MMLA. *Journal of Learning Analytics, 8*(3), 10-27.
+
+???
+
+Share some notes from the discussion here
+
+---
+
+# Reading Recap
+
+Lang et al. (2022) adopt a comprehensive approach to defining learning analytics (LA), viewing it through four distinct lenses: (1) as a concern, (2) as an opportunity, (3) as a field of study, and (4) as a community. 
+
+- Is this a definition or ways that it can be used?
+
+&gt; Lang et al.’s (2022) definition does distinguish LA to some extent from broader fields like data science, computer science, and educational research by emphasizing its context within education, focus on insights into learning processes, identity as a field of inquiry, and community aspect. -- Angela
+
+&gt; These definitions do not draw a clear line between learning analytics and other related fields, and indeed Lang et al. readily acknowledge the extensive overlap between learning analytics and other disciplines, communities, and fields of research. -- Ruth
+
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- Often, the data we want to analyze are in multiple files (e.g., CSV, or Excel files) or databases (e.g., a SQL database)
+- The _key_ to combining data is to ensure that the data we are joining share a common . . . _key_!
+
+.pull-left[
+
+```r
+x
+```
+
+```
+## # A tibble: 3 × 2
+##     key x    
+##   &lt;int&gt; &lt;chr&gt;
+## 1     1 x1   
+## 2     2 x2   
+## 3     3 x3
+```
+
+]
+
+.pull-right[
+
+
+```r
+y
+```
+
+```
+## # A tibble: 3 × 2
+##     key y    
+##   &lt;int&gt; &lt;chr&gt;
+## 1     1 y1   
+## 2     2 y2   
+## 3     4 y4
+```
+
+]
+
+]
+
+.panel[.panel-name[Discussion Question]
+
+- What are some use cases for your research (past or planned) that involve multiple data files? And, why might it be important to join those files together?
+- How do you think the integration of diverse data sources can improve the educational experience for students?
+-  What challenges or issues do you anticipate when combining data from various sources for fields such as learning analytics?
+
+]
+
+]
+
+---
+
+# Key Concept: Joins
+
+.panelset[
+
+.panel[.panel-name[two data frames]
+**Working with Two Data Frames**: 
+- **Data frames**: Tabular structures in R with rows and columns.
+- Can be thought of as results from loading two distinct files into R.
+- The join functions in `dplyr` work with two data frames.
+
+.pull-left[
+
+```r
+x
+```
+
+```
+## # A tibble: 3 × 2
+##     key x    
+##   &lt;int&gt; &lt;chr&gt;
+## 1     1 x1   
+## 2     2 x2   
+## 3     3 x3
+```
+
+]
+
+.pull-right[
+
+
+```r
+y
+```
+
+```
+## # A tibble: 3 × 2
+##     key y    
+##   &lt;int&gt; &lt;chr&gt;
+## 1     1 y1   
+## 2     2 y2   
+## 3     4 y4
+```
+
+]
+]
+
+.panel[.panel-name[visualizing two data frames]
+
+&lt;img src="images/original-dfs.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+Source: https://www.garrickadenbuie.com/project/tidyexplain/
+
+]
+]
+
+---
+
+# Types of dplyr joins: Inner join
+
+.panelset[
+
+.panel[.panel-name[Definition]
+
+&gt; Keep all rows from `x` where there are matching values in `y`, and all columns from `x` and `y`.
+
+&lt;img src="images/inner-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[R syntax]
+
+
+```r
+inner_join(x, y, by = "key")
+```
+
+```
+## # A tibble: 2 × 3
+##     key x     y    
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2
+```
+
+]
+]
+
+---
+
+# Types of dplyr joins: Left join
+
+.panelset[
+
+.panel[.panel-name[Definition]
+
+&gt; Keep all rows from `x`, and all columns from `x` and `y`. Rows in `x` with no match in `y` will have `NA` values in the new columns.
+
+&lt;img src="images/left-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[R syntax]
+
+
+```r
+left_join(x, y, by = "key")
+```
+
+```
+## # A tibble: 3 × 3
+##     key x     y    
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2   
+## 3     3 x3    &lt;NA&gt;
+```
+
+]
+
+.panel[.panel-name[Extra rows in y]
+
+&gt; ... If there are multiple matches between x and y, all combinations of the matches are returned.
+
+&lt;img src="images/left-join-extra.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[y_extra]
+
+`y_extra` has multiple rows with the key from `x`
+
+
+```r
+y_extra
+```
+
+```
+## # A tibble: 4 × 2
+##     key y    
+##   &lt;int&gt; &lt;chr&gt;
+## 1     1 y1   
+## 2     2 y2   
+## 3     4 y4   
+## 4     2 y5
+```
+
+]
+
+.panel[.panel-name[R syntax]
+
+
+```r
+left_join(x, y_extra, by = "key")
+```
+
+```
+## # A tibble: 4 × 3
+##     key x     y    
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2   
+## 3     2 x2    y5   
+## 4     3 x3    &lt;NA&gt;
+```
+
+]
+
+]
+
+---
+
+# Types of dplyr joins: Right join
+
+.panelset[
+
+.panel[.panel-name[Definition]
+
+&gt; Keep all rows from `y`, and all columns from `x` and `y`. Rows in `y` with no match in `x` will have `NA` values in the new columns.
+
+&lt;img src="images/right-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[R syntax]
+
+
+```r
+right_join(x, y, by = "key")
+```
+
+```
+## # A tibble: 3 × 3
+##     key x     y    
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2   
+## 3     4 &lt;NA&gt;  y4
+```
+
+]
+]
+
+---
+
+# Types of dplyr joins: Full join
+
+.panelset[
+
+.panel[.panel-name[Definition]
+
+&gt; Keep all rows and all columns from both `x` and `y`. Where there are not matching values, returns `NA` for the ones missing.
+
+&lt;img src="images/full-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[R syntax]
+
+
+```r
+full_join(x, y, by = "key")
+```
+
+```
+## # A tibble: 4 × 3
+##     key x     y    
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2   
+## 3     3 x3    &lt;NA&gt; 
+## 4     4 &lt;NA&gt;  y4
+```
+
+]
+]
+
+---
+
+# Types of dplyr joins: Anti join and semi join
+
+There are also two filtering joins that we won't discuss further at this time: `anti_join()` and `semi_join()`.
+
+---
+
+# Important notes
+
+- If the key columns have different names in each data frame, use the syntax `by = join_by(key1 == key2)` within the join function.
+
+
+```r
+full_join(a, b, by = join_by(key == id))
+```
+
+- If joining by multiple columns, provide them as a vector `by = join_by(key1, key2)`.
+
+
+```r
+full_join(m, n, by = join_by(key, id))
+```
+
+- Beware of duplicate rows: Ensure that the key column(s) uniquely identify rows, or you may get unintended repeats.
+
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[left_join()]
+
+
+```r
+band_members %&gt;% 
+    left_join(band_instruments, by = "name")
+# also try right_join!
+```
+
+]
+
+.panel[.panel-name[full_join()]
+
+
+```r
+band_members %&gt;% 
+    full_join(band_instruments,  by = "name")
+```
+
+]
+
+.panel[.panel-name[different keys]
+
+
+```r
+band_members
+band_instruments2
+
+band_members %&gt;% 
+    full_join(band_instruments2, by = join_by(name == artist))
+```
+
+]
+
+.panel[.panel-name[multiple keys]
+
+
+```r
+band_members
+# what if the Paul in instruments is from another band?
+band_instruments &lt;- 
+    band_instruments %&gt;% mutate(band = c("Beatles", "Porcupines", "Stones")) 
+# we can then join on both name *and* band
+band_members %&gt;% 
+    left_join(band_instruments, by = join_by(name, band))
+```
+
+]
+
+]
+
+???
+
+May want to demonstrate some of the new ggplot2 code, too (geom_smooth, maybe?)
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+- We'll be joining together two files and conducting an authentic analysis about what relates to student academic achievement
+- The analysis will take the form of a scatterplot with a fitted line --- effectively, a visual representation of a simple (one variable) linear regression model
+
+]
+
+.panel[.panel-name[Data]
+
+- We'll be using NAEP data again
+- In addition, we'll be using data on state-by-state spending on children; read about the data [here](https://jrosen48.github.io/tidykids/articles/tidykids-codebook.html)
+
+]
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- Substantive reading(s) for the week ahead:
+
+&gt; Reich, J. (2022). Learning analytics and learning at scale. Lang, C., Siemens, G. Wise, AF, Gašević, D., Merceron, A.,(eds.) Handbook of Learning Analytics, 2nd ed. Vancouver, Canada: SOLAR.
+
+&gt; White, R. S. (2023). Ceilings Made of Glass and Leaving En Masse? Examining Superintendent Gender Gaps and Turnover Over Time Across the United States. Educational Researcher, 0013189X231163139.
+
+Linked in Canvas.
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s) for the week ahead:
+
+&gt; R for Data Science, Chapter 20, Joining tables
+
+&gt; Joining tables tutorial
+
+Also linked in Canvas.
+
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
