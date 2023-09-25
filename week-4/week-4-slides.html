@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 4 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
+    <script src="week-4-slides_files/header-attrs-2.24/header-attrs.js"></script>
+    <script src="week-4-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-4-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-4-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-4-slides_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-4-slides_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-4-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-4-slides_files/panelset-0.2.6/panelset.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 4 Slides
+]
+.subtitle[
+## What’s all the fuss about data science? Doing things we could not easily do without advanced graphics
+]
+.author[
+### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+This week, we answer the following question: What's all the fuss about data science? We will dive into data visualization as a way to make data easy to understand and use.
+
+## What we'll do in this presentation
+
+- Course Logistics
+- Recap
+- Discussion
+- Reading Recap
+- Course Logistics
+- Key Concept: ggplot2 and advanced graphics
+- Key Concept: Revisiting the Core Skills Framework
+- Code-along and data
+- What's next: Assignment(s) and Readings
+- Questions and answers
+
+---
+
+# Course Logistics
+
+We're already in the second week of September!
+
+Syllabus: https://bit.ly/F23-Syllabus-GH
+
+Weekly schedule: https://bit.ly/F23-Weekly-Schedule
+
+**New** R programming tips &amp; tricks discussion board on Canvas
+
+- Q&amp;A document (linked in discussion board)
+
+???
+
+May be a chance to return to the syllabus and schedule and answer any questions that have arisen.
+
+---
+
+# Recap
+
+.pull-left[
+**Recap from Last Class**
+
+In Week 2, we covered:
+
+- Data Science Venn Diagram
+- An intro to R, RStudio, the tidyverse, and tidy data
+- R's data structures
+- Functions, packages, and projects
+]
+
+.pull-right[
+**Recap from Labor Day Week**
+
+We covered:
+
+- More functions: `filter()`, `select()`, `slice()`, and `pull()`
+- Making data visualization that stands out
+- Data visualization and equity
+- Reproducibility
+]
+
+---
+
+# Functions Recap
+
+**tidyverse functions covered:**
+
+- `read_csv()` - Read a CSV file into a tibble
+- `glimpse()` - Get a glimpse of your data
+- `view()` - View an object
+- `filter()` - Keep rows that match a condition
+- `select()` - Keep or drop columns using their names and types
+- `slice()` - Subset rows using their positions
+- `pull()` - Extract a single column
+
+**Other functions covered:**
+
+- `janitor::clean_names()` - Clean the names of an object
+- `skimr::skim()` - Skim a data frame, getting useful summary statistics
+
+---
+
+# Discussion from the assignments
+
+Question: Can we talk about the logic of the programming language?
+
+- The tidyverse focuses on data manipulation
+- We apply functions like they are 'verbs', where each verb does something
+
+.pull-left[
+```r
+data %&gt;% 
+    dplyr_verb(stuff-to-do)
+```
+]
+
+.pull-right[
+```r
+dplyr_verb(data, stuff-to-do)
+```
+]
+
+```r
+# in this case, the stuff-to-do is a logical test
+mtcars %&gt;% 
+    filter(mpg &gt; 30) 
+```
+
+```r
+# in this case, the stuff-to-do is specifying the column to keep
+mtcars %&gt;% 
+    select(mpg)
+```
+
+---
+
+# Discussion from the assignments
+
+Question: Can we use multiple functions together?
+
+Answer: **Yes!** With the pipe `%&gt;%`, we can send the output of one operation into another. This saves time and space and can make our code easier to read.
+
+```r
+mtcars %&gt;%
+    filter(mpg &gt; 30) %&gt;% 
+    select(mpg)
+```
+
+---
+
+# Discussion from the assignments
+
+Question: How do I know what the `stuff-to-do` should be?
+
+Answer: The documentation!
+
+- Google search your verb, such as "dplyr select"
+- In RStudio, search `??dplyr::select` in the console
+
+**How else have others found the right syntax for their code?**
+
+---
+
+# Reading Recap - Week 2
+
+Substantive reading(s):
+
+&gt; Salganik, M. J. (2019). Bit by bit: Social research in the digital age. Princeton University Press. Chapters 2 (Observing Behavior) and 3 (Asking Questions).
+
+The digital age creates new opportunities and challenges for social research. This reading covers some of the ways we can approach using big data in our projects and specific considerations due to its size.
+
+Technical reading(s):
+
+&gt; R for Data Science, Data Import: https://r4ds.hadley.nz/data-import
+
+&gt; RESM Handbook, Cleaning names with Janitor: https://bookdown.org/aschmi11/RESMHandbook/data-preparation-and-cleaning-in-r.html#cleaning-names-with-janitor
+
+???
+
+As in the first week, it may be good to pull out and summarize highlights from students' discussion posts here.
+
+---
+
+# Reading Recap - Week 2
+
+&gt; In the age of facing so much big data, the integrity and accessibility of the data itself is important, but what seems to be more important is the fact that in the face of all this data you can find meaningful research questions to focus on and interesting entry points for your research instead, which is one of the strengths of being able to sustainably deal with large amounts of data. -- Wei
+
+&gt; While the digital age opens new opportunities, "analog" tools such as surveys will be valuable and transform to match the new tools (i.e., big data does not eliminate the need to ask people questions). -- Miranda
+
+&gt; Seeing bias in big data is important. Some people may say big data is justice because the sample size is big enough.  -- Hanhui
+
+---
+
+# Reading Recap - Week 2
+
+Substantive reading(s):
+
+&gt; McCandless, D. (2010). The beauty of data visualization.
+
+&gt; Schwabish, J., Feng, A. Do No Harm Guide: Applying Equity Awareness in Data Visualization (summary only)
+
+&gt; Spreadsheet error led to Edinburgh hospital opening delay
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+Data visualizations can be used as an effective means of communication across a variety of audiences.
+
+This includes not only those who interpret your visualizations, but also you and your collaborators as you strive to gain a deeper understanding of your data.
+
+]
+
+.panel[.panel-name[Discussion Question]
+
+- What's a simple and straightforward way to visualize data using Microsoft Excel or Google Sheets?
+- What are some common challenges or limitations you've identified in these tools?
+- Have you tried out ggplot2? If so, what do you know about it? If not, what are your expectations or assumptions about it based on our discussion?
+]
+]
+
+???
+
+This discussion can serve as an opening to discussing what ggplot2's strengths are relative to the above two tools.
+
+---
+
+# Key Concept: Revisiting the Core
+
+*Let's quickly revisit the core skills we discussed last time*
+
+.panelset[
+
+.panel[.panel-name[Data]
+**Data** in R
+
+We have focused on these two data structures, though others you will encounter later on include vectors, matrices, and lists:
+
+- **Data Frames**: Tabular data, can mix different types
+- **Tibbles**: Modern version of data frames (from the tidyverse)
+
+]
+
+.panel[.panel-name[Packages]
+**Packages** in R
+Packages are collections of functions and datasets that extend R:
+
+- You have used tidyverse, skimr, and janitor so far
+- This week, we're focusing on ggplot2
+- We'll use many others throughout the semester
+- You might start exploring packages related to interests you have now! There are tens of thousands to do nearly anything with data (and order pizza, too; seriously!)
+
+]
+
+.panel[.panel-name[Functions]
+**Functions** in R
+Functions are made up of code that perform specific tasks:
+- Can be built-in (e.g., `mean()`, `sum()`) or loaded from a package (e.g., `glimpse()`)
+- You can write your own function! We'll discuss this at another point in this class
+
+]
+
+.panel[.panel-name[Projects and File Paths]
+**Projects and File Paths** in RStudio
+Projects help organize your work:
+- Keep related scripts, data, and outputs together
+- We *always* work in projects in this class
+
+]
+
+]
+
+*Again, these core skills will be the basis of all of our analyses in R.*
+
+---
+
+# Key Concept: ggplot2
+
+.panelset[
+
+.panel[.panel-name[ggplot2]
+**ggplot2**: 
+- An R package for data visualization
+- Based on the *Grammar of Graphics*
+- Created by Hadley Wickham
+- Part of the `tidyverse`, a suite of R packages for data science
+
+]
+
+.panel[.panel-name[the grammar of graphics]
+**The Grammar of Graphics**:
+- A systematic way to describe and build graphs
+- Focuses on layers of visualizations
+- Elements include:
+  - **Data**: What you want to plot
+  - **Aesthetics**: How data is mapped to visuals
+  - **Geoms**: Geometric objects like points, lines, bars
+  - **Stats**: Statistical transformations, e.g., smoothing
+  - **Facets**: Ways to split data into subsets for multiple plots
+
+]
+
+.panel[.panel-name[Example ggplot2 code]
+**Example ggplot2 code**:
+
+
+```r
+library(tidyverse) # note, this loads the ggplot2 package
+
+ggplot(data = mtcars, aes(x = mpg, y = wt)) +
+    geom_point(aes(color = cyl)) +
+    labs(
+        title = "MPG vs. Weight",
+        x = "Miles per Gallon",
+        y = "Weight (in 1000s of lbs)",
+        color = "Number of Cylinders"
+    )
+```
+
+]
+]
+
+---
+
+# Key Concept: ggplot2
+
+![](examples.png)
+
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[ggplot()]
+
+- we use `ggplot()` to start our plotting of the built-in `penguins` dataset from the palmerpenguins package
+
+
+```r
+library(tidyverse) # let's load the tidyverse, loading ggplot2 &amp; other packages
+library(palmerpenguins) # make sure to install with install.packages() first
+
+ggplot(penguins)
+```
+
+or 
+
+
+```r
+penguins %&gt;% 
+    ggplot()
+```
+
+*This won't do... much (yet!)*
+
+]
+
+.panel[.panel-name[aes()]
+
+- add on to our initial code by specifying the _aesthetic mapping_ with `aes()`
+- specifically, let's tell R what the *x* variable is - let's pick _any_ numeric variable from the data set
+
+
+```r
+glimpse(penguins) # to see which variables are numeric
+
+ggplot(penguins, aes(x = body_mass_g) # can change to another!
+```
+
+**Still not doing much!**
+
+]
+
+.panel[.panel-name[geom_*]
+
+- Last, specify the geometric object you want to use to represent the variable you mapped to an aesthetic
+- Let's try a histogram!
+- We always add *layers* onto ggplot2 plots with the `+` operator
+
+
+```r
+ggplot(penguins, aes(x = body_mass_g) +
+           geom_histogram()
+```
+
+*Voilà!*
+
+]
+
+.panel[.panel-name[geom_*]
+
+- Let's expand on what we've done by examining _two_ variables, one we "map" to *x*, another to *y*
+- We'll see how the bill length and depth of penguins relate, using a different geom to do so with a scatterplot
+
+
+```r
+ggplot(penguins, aes(x = bill_length_mm, 
+                     y = bill_depth_mm) +
+           geom_point()
+```
+
+*Voilà (take two)!*
+
+]
+
+.panel[.panel-name[a 3rd variable]
+
+- Part of the joy of ggplot2 is the flexibility you have in how you can modify a plot
+- What if we want to visualize a third variable? 
+    - We have several aesthetic features we can "map" this third variable to, including the size, shape, and color of points
+
+
+```r
+ggplot(penguins,
+       aes(x = bill_length_mm,
+           y = bill_depth_mm,
+           color = species) +
+           geom_point()
+```
+
+*Voilà (take three)!*
+
+]
+
+.panel[.panel-name[More additions]
+
+- The sky is the limit! 
+- We can also add other geoms to our plot, like one representing the _slope_ of the relation between *x* and *y*
+- Furthermore, we can easily _theme_ out plot
+
+
+```r
+ggplot(penguins,
+       aes(x = bill_length_mm,
+           y = bill_depth_mm,
+           color = species)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    theme_bw()
+```
+
+]
+
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+
+.panel[.panel-name[Weekly Assignment]
+
+- We'll be doing more with ggplot2 in this lab, while returning back to some of the functions we used last week
+- We'll be faceting our plots using a _layer_ we can add, `facet_wrap()`
+
+]
+
+.panel[.panel-name[Data]
+
+- We'll be using a large, complex dataset from the United States Department of Education
+- Specifically, we'll use data from the [Elementary/Secondary Information System (ElSi)](https://nces.ed.gov/ccd/elsi/), a data collection system that includes information on the more than 100,000 schools and more than 8,000 school districts in the country
+- Note: Even though this data is large and complex, it is _not_ cleaned, and one slightly unusual thing we'll need to do is _skip_ the first six rows of the CSV file accessed through the ElSi, because they're blank!
+
+]
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- Substantive reading(s) for the week ahead:
+
+&gt; Lang, C., Wise, A. F., Merceron, A., Gasevic, D., &amp; Siemens, G. (2022). What is learning analytics. The handbook of learning analytics, 8-18.
+
+Linked in Canvas.
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s) for the week ahead:
+
+&gt; R for Data Science, Chapter 2 ggplot2 tutorial 
+&gt; Data Visualization introduction from Modern Dive
+
+
+Also linked in Canvas.
+
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
