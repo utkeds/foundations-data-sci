@@ -1,3 +1,5 @@
+library(ggplot2)
+
 mtcars %>% 
     ggplot(aes(x = as.factor(cyl), y = mpg)) +
     geom_bar(stat = "identity")
