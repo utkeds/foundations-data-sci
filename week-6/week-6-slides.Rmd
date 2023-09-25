@@ -388,7 +388,7 @@ df_3 <- get_education_data(level = "school-districts",
 
 df_3 <- as_tibble(df_3)
 
-df_3 %>% skim(ncessch) # how many schools in the U.S.
+df_3 %>% skim(leaid) # how many districts in the U.S.
 df_3 %>% skim(state_location) # number of schools by state
 ```
 
