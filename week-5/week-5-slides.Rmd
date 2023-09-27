@@ -72,7 +72,7 @@ y_extra <- tibble::tribble(
 
 # Purpose and Agenda
 
-What's so useful about coding? That question is the focus of this class. We'll focus on _joining_ two data sets in R. We'll again use the NAEP data, joining data on spending on kids to understand whether there are any clear relationships between spending and academic achievement.
+What's so useful about coding? That question is the focus of this class. We'll focus on _joining_ two data sets in R. We'll use the NAEP data, joining data on spending on kids to understand whether there are any clear relationships between spending and academic achievement.
 
 ## What we'll do in this presentation
 
@@ -194,6 +194,15 @@ Share some notes from the discussion here
 ---
 
 # Reading Recap
+
+Lang et al. (2022) adopt a comprehensive approach to defining learning analytics (LA), viewing it through four distinct lenses: (1) as a concern, (2) as an opportunity, (3) as a field of study, and (4) as a community. 
+
+- Is this a definition or ways that it can be used?
+
+> Lang et al.’s (2022) definition does distinguish LA to some extent from broader fields like data science, computer science, and educational research by emphasizing its context within education, focus on insights into learning processes, identity as a field of inquiry, and community aspect. -- Angela
+
+> These definitions do not draw a clear line between learning analytics and other related fields, and indeed Lang et al. readily acknowledge the extensive overlap between learning analytics and other disciplines, communities, and fields of research. -- Ruth
+
 
 ---
 

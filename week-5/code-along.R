@@ -1,3 +1,5 @@
+library(tidyverse)
+
 # First dataset ("left")
 band_members
 
@@ -6,7 +8,7 @@ band_instruments
 
 # Inner join - guess which rows will remain!
 band_members %>% 
-    inner_join(band_instruments)
+    inner_join(band_instruments, by = "name")
 
 # Left join - guess which rows will remain!
 band_members %>% 
@@ -16,8 +18,12 @@ band_members %>%
 band_instruments2
 
 # Full join with different keys
+
 band_members %>% 
     full_join(band_instruments2, by = join_by(name == artist))
+
+# equivalent to:
+full_join(band_members, band_instruments2, by = join_by(name == artist))
 
 # What if the Paul in instruments is from another band?
 band_instruments <- 
@@ -27,4 +33,3 @@ band_instruments <-
 # We can then join on both name *and* band
 band_members %>% 
     left_join(band_instruments, by = join_by(name, band))
-

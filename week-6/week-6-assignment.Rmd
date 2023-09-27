@@ -24,10 +24,12 @@ Next, we'll query the educationdata API to create a data frame that includes fal
 *Note -- this may take a few minutes (or more) to run! If it stops running, you may need to try again. If you have tried several times and cannot access the data, please message the instructors.*
 
 ```{r}
-df <- get_education_data(level = "college-university",
+df <- get_education_data(
+    level = "college-university",
     source = "ipeds",
     topic = "enrollment-headcount",
-    filters = list(year = c(2018), level_of_study = "undergraduate"))
+    filters = list(year = c(2018), level_of_study = "undergraduate")
+)
 
 df <- as_tibble(df)
 ```
@@ -48,7 +50,7 @@ df %>% filter(unitid == 221759)
 
 ## Step 3
 
-How many colleges/universities are there in the data set? Please count up the number of unique colleges/universities with code in the next code chunk. 
+How many colleges/universities are there in the data set? Please count up the number of unique colleges/universities using the tidyverse/tidyverse functions in the next code chunk. 
 
 ```{r}
 
