@@ -284,6 +284,7 @@ df_3 %>% count(state_location) # number of schools by state
 - Whereas in the code-along we focused on school and school district data, we'll be using college-level data for the weekly assignment
 - Your task this week is to access data from a few variables, preparing for the following two weeks in which _you will construct a college rating like those created by the U.S. News and World Report_ (but, don't worry about this yet - we'll introduce that task in detail next week)
 - One note: **Accessing data from APIs can be tricky!** You often need to run queries multiple times to get them to work; and, you often need to carefully consult the codebook to understand the data that is returned. Stick with it!
+- Another note: **Please review the technical reading this week for tips on using the `filter()` function!s**
 
 ]
 
