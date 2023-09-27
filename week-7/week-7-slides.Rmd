@@ -20,7 +20,7 @@ style_duo_accent(primary_color = "#FF8200",
 ```
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, eval = FALSE, echo = TRUE)
 ```
 
 ```{r, echo=FALSE}
@@ -122,6 +122,10 @@ Technical reading(s):
 
 ]
 
+.panel[.panel-name[mutate]
+
+]
+
 
 ]
 
@@ -162,11 +166,12 @@ df <- get_education_data(level = "schools",
 
 .panel[.panel-name[Ranking]
 
-- Creating a ranking involves 1) _accessing data_, 2) _standardizing_ different variables, and then 3) _combining_ them into a single score or rank
+- Creating a ranking involves 1) _accessing data_, 2) _preparing_ different variables, 3) _combining_ them into a single score or rank and 4) _interpreting_ the output
 - This will likely involve several dplyr functions:
     - `mutate()`
     - `row_number()`
     - `scale()`
+    - `arrange()`
 
 ]
 
@@ -194,9 +199,11 @@ df <- get_education_data(level = "schools",
 
 ```{r, eval = FALSE, echo = TRUE}
 library(educationdata)
-tuition <- get_education_data(level = "college-university",
+library(tidyverse)
+
+ratio <- get_education_data(level = "college-university",
     source = "ipeds",
-    topic = "academic-year-tuition",
+    topic = "student-faculty-ratio",
     filters = list(year = 2020))
 
 retention <- get_education_data(level = "college-university",
@@ -207,34 +214,68 @@ retention <- get_education_data(level = "college-university",
 
 ]
 
-.panel[.panel-name[2. Standardizing]
+.panel[.panel-name[2. Preparing]
 
 ```{r, eval = FALSE, echo = TRUE}
-tuition
-retention
+ratio <- as_tibble(ratio)
+
+ratio <- ratio %>% 
+    select(unitid, student_faculty_ratio) # to simply the data
+
+```
+
+```{r}
+retention <- as_tibble(retention)
+
+retention <- retention %>% 
+    filter(ftpt == 99) %>% # let's look at the total of both full (1) and part-time (2) students
+    select(unitid, retention_rate) # to simply the data
 ```
 
 ]
 
 .panel[.panel-name[3. Combining]
 
-- yyy
--zzz
+- As the variables are on different scales, calculating _ranks_ may be helpful -- `min_rank()`, which assigns tied ranks to equivalent values
+
+```{r}
+x <- c(5, 1, 3, 2, 2, NA)
+min_rank(x)
+```
 
 ```{r, eval = FALSE, echo = TRUE}
-combined_data %>% 
-    mutate()
+combined_data <- inner_join(ratio, retention, by = c("unitid"))
+
+combined_data <- combined_data %>% 
+    mutate(student_faculty_ratio_rank = min_rank(student_faculty_ratio),
+           retention_rate_rank = min_rank(retention_rate)) %>% 
+    select(unitid, student_faculty_ratio_rank, retention_rate_rank)
+
+final_ranks <- combined_data %>% 
+    mutate(total_rank = (student_faculty_ratio_rank + retention_rate_rank) / 2) %>% 
+    arrange(total_rank)
+
+final_ranks
 ```
 
 ]
 
-.panel[.panel-name[EDA]
+.panel[.panel-name[4. Interpreting]
 
-- yyy
--zzz
+- We need to know the names of the institutions to be able to present and interpret our results.
+- We can access that data, too
+```{r}
+directory <- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "directory",
+    filters = list(year = 2020))
 
-```{r, eval = FALSE, echo = TRUE}
+directory <- directory %>% 
+    select(unitid, inst_name)
 
+final_ranks %>% 
+    left_join(directory) %>% 
+    select(inst_name, total_rank)
 ```
 
 ]
@@ -250,14 +291,23 @@ combined_data %>%
 
 .panel[.panel-name[Weekly Assignment]
 
-- 
-- 
+- In the weekly assignment, you will expand on what we did in the code-along in several ways:
+    - Researching how _other ranking systems_ work
+    - Planning out your approach_
+    - Adding at least three _other_ variables (more is fine!)
+    - Considering the _size_ or _type_ of school in your analysis
+    - Suggesting possible improvements in the context of your interpretation of your results
 
 ]
 
 .panel[.panel-name[Data]
 
-- We'll be using data from the educationdata package, specifically
+- We'll again be using data from the educationdata package --- any of the college-related data: https://educationdata.urban.org/documentation/colleges.html#ipeds_directory
+- Again, these four sources available via educationdata are likely to be particularly helpful:
+    - IPEDS
+    - College Scorecard
+    - Federal Student Aid
+    - National Association of College and University Business Officers
 
 ]
 
@@ -265,7 +315,7 @@ combined_data %>%
 
 - Substantive reading(s) for the week ahead:
 
-> Park, J. J., Kim, B. H., Wong, N., Zheng, J., Breen, S., Lo, P., … & Poon, O. (2023). Inequality Beyond S tandardized Tests: Trends in Extr acurricular Activity Reporting in College A pplications Across Race and Class. Technical Report. Annenberg Institute at Brown University. <https ://edworkin g papers.>co m/ai23-749.
+> Park, J. J., Kim, B. H., Wong, N., Zheng, J., Breen, S., Lo, P., … & Poon, O. (2023). Inequality Beyond Standardized Tests: Trends in Extracurricular Activity Reporting in College Applications Across Race and Class. Technical Report. Annenberg Institute at Brown University. https://edworkingpapers.com/sites/default/files/ai23-749.pdf
 
 Linked in Canvas.
 
@@ -276,8 +326,6 @@ Linked in Canvas.
 - Technical reading(s) for the week ahead:
 
 > Data Science in Education Using R, Using School-Level Aggregate Data to Illuminate Educational Inequities: https://datascienceineducation.com/c09
-
-> R For Data Science, Strings: https://r4ds.had.co.nz/strings.html
 
 Also linked in Canvas.
 
