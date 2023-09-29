@@ -1,6 +1,6 @@
 ---
 title: "Week 7 Slides"
-subtitle: "How do I preparing data for analysis: Foundational skills, Part 1"
+subtitle: "Creating a Good College Ranking System"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
 output:
   xaringan::moon_reader:
@@ -19,8 +19,9 @@ style_duo_accent(primary_color = "#FF8200",
                  title_slide_background_size = "30%")
 ```
 
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, eval = FALSE, echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
 ```{r, echo=FALSE}
@@ -32,10 +33,8 @@ pacman::p_load(pacman, knitr, tidyverse, readxl)
 # these allow any code snippets to be copied to the clipboard so they 
 # can be pasted easily
 htmltools::tagList(
-    xaringanExtra::use_clipboard(
-        button_text = "<i class=\"fa fa-clipboard\"></i>",
-        success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
-    ),
+    xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",),
     rmarkdown::html_dependency_font_awesome()
 )
 ```
@@ -96,7 +95,7 @@ Technical reading(s):
 
 ---
 
-.title[Key Concept: select, rename, filter, arrange
+# Key Concept: dplyr "verbs"
 
 .panelset[
 
@@ -224,7 +223,7 @@ ratio <- ratio %>%
 
 ```
 
-```{r}
+```{r, eval = FALSE, echo = TRUE}
 retention <- as_tibble(retention)
 
 retention <- retention %>% 
@@ -264,7 +263,8 @@ final_ranks
 
 - We need to know the names of the institutions to be able to present and interpret our results.
 - We can access that data, too
-```{r}
+
+```{r, eval = FALSE, echo = TRUE}
 directory <- get_education_data(level = "college-university",
     source = "ipeds",
     topic = "directory",
@@ -287,7 +287,6 @@ final_ranks %>%
 # What's next?
 
 .panelset[
-
 
 .panel[.panel-name[Weekly Assignment]
 
@@ -313,9 +312,17 @@ final_ranks %>%
 
 .panel[.panel-name[Substantive Reading(s)]
 
-- Substantive reading(s) for the week ahead:
+- Substantive reading(s) for the week ahead (**note: there are three plus an optional reading, but the three required readings are brief!***:
 
-> Park, J. J., Kim, B. H., Wong, N., Zheng, J., Breen, S., Lo, P., … & Poon, O. (2023). Inequality Beyond Standardized Tests: Trends in Extracurricular Activity Reporting in College Applications Across Race and Class. Technical Report. Annenberg Institute at Brown University. https://edworkingpapers.com/sites/default/files/ai23-749.pdf
+> Morse, R., and & Brooks, E. (2023). How U.S. News Calculated the 2024 Best Colleges Rankings. https://www.usnews.com/education/best-colleges/articles/how-us-news-calculated-the-rankings
+
+> Wolfe, R. (2023). A different kind of college ranking. *Washington Monthly.* https://washingtonmonthly.com/2023/08/27/a-different-kind-of-college-ranking-2/
+
+> Blinder, A. (2023). With a New Formula, U.S. News  Rankings Boost Some State Universities. *New York Times*. https://www.nytimes.com/2023/09/18/us/us-news-college-ranking.html
+
+- Optional reading: 
+
+> Esposito, E., & Stark, D. (2019). What's Observed in a Rating? Rankings as Orientation in the Face of Uncertainty. *Theory, Culture & Society, 36*(4), 3-26.
 
 Linked in Canvas.
 

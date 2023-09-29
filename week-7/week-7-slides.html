@@ -5,6 +5,14 @@
     <meta charset="utf-8" />
     <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
     <script src="week-7-slides_files/header-attrs-2.24/header-attrs.js"></script>
+    <script src="week-7-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-7-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-7-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-7-slides_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-7-slides_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-7-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-7-slides_files/panelset-0.2.6/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -15,13 +23,14 @@ class: center, middle, inverse, title-slide
 # Week 7 Slides
 ]
 .subtitle[
-## How do I preparing data for analysis: Foundational skills, Part 1
+## Creating a Good College Ranking System
 ]
 .author[
 ### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
 ]
 
 ---
+
 
 
 
@@ -86,7 +95,7 @@ Technical reading(s):
 
 ---
 
-.title[Key Concept: select, rename, filter, arrange
+# Key Concept: dplyr "verbs"
 
 .panelset[
 
@@ -232,9 +241,8 @@ retention &lt;- retention %&gt;%
 - As the variables are on different scales, calculating _ranks_ may be helpful -- `min_rank()`, which assigns tied ranks to equivalent values
 
 
-```r
-x &lt;- c(5, 1, 3, 2, 2, NA)
-min_rank(x)
+```
+## [1]  5  1  4  2  2 NA
 ```
 
 
@@ -260,6 +268,7 @@ final_ranks
 - We need to know the names of the institutions to be able to present and interpret our results.
 - We can access that data, too
 
+
 ```r
 directory &lt;- get_education_data(level = "college-university",
     source = "ipeds",
@@ -283,7 +292,6 @@ final_ranks %&gt;%
 # What's next?
 
 .panelset[
-
 
 .panel[.panel-name[Weekly Assignment]
 
@@ -309,9 +317,17 @@ final_ranks %&gt;%
 
 .panel[.panel-name[Substantive Reading(s)]
 
-- Substantive reading(s) for the week ahead:
+- Substantive reading(s) for the week ahead (**note: there are three plus an optional reading, but the three required readings are brief!***:
 
-&gt; Park, J. J., Kim, B. H., Wong, N., Zheng, J., Breen, S., Lo, P., … &amp; Poon, O. (2023). Inequality Beyond Standardized Tests: Trends in Extracurricular Activity Reporting in College Applications Across Race and Class. Technical Report. Annenberg Institute at Brown University. https://edworkingpapers.com/sites/default/files/ai23-749.pdf
+&gt; Morse, R., and &amp; Brooks, E. (2023). How U.S. News Calculated the 2024 Best Colleges Rankings. https://www.usnews.com/education/best-colleges/articles/how-us-news-calculated-the-rankings
+
+&gt; Wolfe, R. (2023). A different kind of college ranking. *Washington Monthly.* https://washingtonmonthly.com/2023/08/27/a-different-kind-of-college-ranking-2/
+
+&gt; Blinder, A. (2023). With a New Formula, U.S. News  Rankings Boost Some State Universities. *New York Times*. https://www.nytimes.com/2023/09/18/us/us-news-college-ranking.html
+
+- Optional reading: 
+
+&gt; Esposito, E., &amp; Stark, D. (2019). What's Observed in a Rating? Rankings as Orientation in the Face of Uncertainty. *Theory, Culture &amp; Society, 36*(4), 3-26.
 
 Linked in Canvas.
 
