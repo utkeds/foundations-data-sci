@@ -101,30 +101,111 @@ Technical reading(s):
 
 .panel[.panel-name[dplyr "verbs"]
 
-
+- There are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses
+- These are all "verbs": words used to describe an action, state, or occurrence ([OxfordLanguage](https://languages.oup.com/google-dictionary-en/))
+- The core dplyr "verbs" are select, rename, filter, arrange, and mutate
 ]
 
 .panel[.panel-name[select]
 
+- Select is used to choose particular variables from a data frame (or tibble)
+- It works through your specifying of the variables you want to choose
+
+
+```r
+library(dplyr)
+data &lt;- tibble(ID = c(1, 2, 3),
+                   Name = c("Alice", "Bob", "Charlie", "Stefanie"),
+                   Age = c(25, 30, 22, 39),
+                   State = c("TN", "NC", "CA", "TN"))
+
+selected_data &lt;- data %&gt;%
+  select(Name, Age)
+```
+
+- *Important note and point of emphasis*: if we don't assign the output a new name (`selected_data &lt;-`), the results of our use of a dplyr "verb" won't be saved
 
 ]
 
 .panel[.panel-name[rename]
 
+- Rename changes the names of variables
+
+
+```r
+selected_renamed_data &lt;- selected_data %&gt;%
+  rename(name = Name, age = Age)
+```
+
+- *Note*: You can _select_ and _rename_ in a single step using `select()`:
+
+
+```r
+selected_and_renamed &lt;- data %&gt;% 
+    select(name = Name, age = Age) # selects Name and Age and renames them at the same time
+```
+
+Because select can be used to rename, rename is rarely used in practice.
+
+Learn more about select and rename [here](https://dplyr.tidyverse.org/reference/select.html), including handy "select helpers"
+
 ]
 
 .panel[.panel-name[filter]
+
+- Filter reduces the rows of your data based on _logical conditions_ that you specify
+
+
+```r
+filtered_data &lt;- data %&gt;% 
+    filter(Age &gt;= 25)
+```
+
+
+```r
+filtered_data &lt;- data %&gt;% 
+    filter(State == "TN")
+```
+
+Learn more about filter [here](https://dplyr.tidyverse.org/reference/filter.html)
 
 ]
 
 .panel[.panel-name[arrange]
 
+- Arrange sorts the rows of your data frame based on numeric or alpha-numeric values
+
+
+```r
+arranged_data &lt;- data %&gt;% 
+    arrange(Name)
+```
+
+You can reverse the order with `desc()`:
+
+
+```r
+arranged_data &lt;- data %&gt;% 
+    arrange(desc(Name))
+```
+
+Learn more about arrange [here](https://dplyr.tidyverse.org/reference/arrange.html)
+
 ]
 
 .panel[.panel-name[mutate]
 
-]
+- Mutate creates new variables
 
+
+```r
+mutated_data &lt;- data %&gt;% 
+    mutate(age_next_year = Age + 1)
+```
+
+Learn more about mutate [here](https://dplyr.tidyverse.org/reference/mutate.html)
+
+]
 
 ]
 
@@ -160,8 +241,7 @@ df &lt;- get_education_data(level = "schools",
     - College Scorecard
     - Federal Student Aid
     - National Association of College and University Business Officers
-    
-- 
+
 ]
 
 .panel[.panel-name[Ranking]
@@ -297,11 +377,10 @@ final_ranks %&gt;%
 
 - In the weekly assignment, you will expand on what we did in the code-along in several ways:
     - Researching how _other ranking systems_ work
-    - Planning out your approach_
-    - Adding at least three _other_ variables (more is fine!)
-    - Considering the _size_ or _type_ of school in your analysis
+    - Planning out your approach in terms of _three principles you want to adhere to_ in your analysis
+    - Adding at least _three variables to use in your analysis_
     - Suggesting possible improvements in the context of your interpretation of your results
-
+- Big picture, this is challenging: **the goal is to use this as an opportunity to practice all of the skills you have developed through this point in an authentic task**, but it will be challenging, and try to not let the good become the enemy of the perfect 
 ]
 
 .panel[.panel-name[Data]

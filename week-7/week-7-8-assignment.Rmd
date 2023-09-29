@@ -1,7 +1,7 @@
 ---
-title: "Week 7 - Teacher"
-author: "Teacher"
-date: "Assignment Due Date"
+title: "Week 7-8 Assignment"
+author: ""
+date: ""
 output: html_document
 ---
 
@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Step 1
 
-Load the tidyverse and educaitondata packages.
+Here, please load the tidyverse and educationdata packages.
 
 ```{r}
 library(tidyverse)
@@ -20,53 +20,69 @@ library(educationdata)
 
 ## Step 2
 
-US News and Rankings has tasked you with creating a better college ranking system. You are allowed to use any data available from the educationdata package. The focus for this week is to identify 3-4 variables you think would make a better ranking system and create the data frames with said variables. 
+The American Association of University Professors is frustrated with the extant ranking systems. They have tasked you as a data analyst to generate a better ranking system. First, please lay out *three or more principles or goals* you wish to achieve with your ranking system. For example, one such principle or goal could be to give greater value to how much universities support lower-income students to graduate; you can imagine dozens of such principles! 
 
-What are the 3-4 variables you plan to include? It might be helpful to look at the educationdata GitHub page to see what is available.
+Based on the readings you completed this week and your values and vision as an individual, please briefly (one sentence or fewer) describe the three or more principles you plan to use to guide the ranking system you will create in this assignment below the three dashes. Please note: you may not completely adhere to these principles as you actually access and prepare the data and create your ranking system --- and that's okay, as there are (always) limitations to the data we can access and use as variables! You'll have a chance to reflect on how much you adhered to your principles at the end of this assignment.
+
+- 
+- 
+- 
+
+## Step 3
+ 
+For your ranking system, you are permitted to use any data available from the educationdata package. Though you may wish to add other data, for this assignment, please limit yourself to data from the package. The focus for this step is to identify the three or more variables you think would make a better ranking system and create the data frames with said variables. 
+
+Building from the three principles you described in the prior step, what are three or more variables you could include? You may plan to include more than three variables; that is fine, but *only three are required* for the assignment. Please find these three or more variables here: https://educationdata.urban.org/documentation/colleges.html
 
 -
-
-Now, list the 3-4 *individual* data frames from the educationdata API. 
-
-```{r}
-
-```
-
-## Step 3
-
-Next week, we will be joining these data frames together into one single data frame. Remember, you must have a common "key" across each data frame to join on. That is, there must be a column with the same name for each data frame. We suggest using the institution name as your key. In this step, use `rename()` to create that key. 
-
-```{r}
-
-```
-
-You may not want to include all variables educationdata pulls. In this step, use `select()` to include the variables of interest in each data frame. 
-
-```{r}
-
-```
-
-## Step 3
-
-Join all data frames from last week into one data frame.
-
-```{r}
-
-```
-
+- 
+-
 
 ## Step 4
 
-Now that you have one data frame, we will use the four functions from this week to create a metric to find the best college. As a reminder, the four functions you must use are `mutate()`, `case_when()`, and `if_else()`.
+Now, we are ready to return to coding. Please write code to access data for the three or more variables you identified in the previous step. Be sure to assign the output different names, as you'll later be joining this data frames together. 
+
+Please note: it may take multiple attempts to download precisely the data you want. Recall that the above-linked webpage with documentation includes R code you can copy, paste, and modify. Pay attention to the year and other variables you can filter on.
+  
+```{r}
+
+```
+
+## Step 5
+
+In this step, you'll further process the data prior to joining the data frames together. Recall how last week we had to filter the data to only include rows associated with the total values we were interested in; the data you accessed is likely disaggregated by different variables, and in this step you'll dive into the specifics of the data you accessed so that you have precisely the variable in the form you want it to be in to include in your ranking. Refer to our code-along for this week for some tips, but note that the steps you must take may differ depending on the variable(s) you chose. Perfect isn't the goal! Try to work toward having a variable you understand and can interpret, rather than having the absolutely perfect format for your variable(s) of choice at this stage.
 
 ```{r}
 
 ```
 
+## Step 6
+
+In this step, please join the data frames together to create a single data frame. Again, refer to our code-along for this last week for some tips.
+
+```{r}
+
+
+```
+
+## Step 7
+
+Finally ready to create the ranking! Now that you have one data frame from the last step, we will use the four functions from this week to create a metric to find the best college. Considering using `mutate()` as well as the other functions we used in the code-along this last week.
+
+```{r}
+
+```
+
+## Step 8
+
+Finally, please interpret the top ten colleges based on your ranking. Note how this was done in the code-along. What did you find? What do you think of your rankings? And, reflect back on the principles you laid out earlier. Which were you able to adhere to, and which were challenging given the availability or nature of the data in the educationdata package and the Education Data Portal API? Please add two or more notes in response to these prompts to below.
+
+- 
+- 
+
 ## Reach
 
-This portion of the assignment is optional but offers you a chance to push your skills further.
-
+One thing you may have noticed is that by including all schools (not only those of a certain type, e.g. four-year colleges or universities or colleges or universities that offer advanced degrees), some unexpected universities may come out as top in your output. For this strictly optional reach, consider filtering the data you use to create the rankings to only include certain schools --- those of a certain type or minimum size, for instance. 
 
 ```{r}
 
@@ -75,12 +91,9 @@ This portion of the assignment is optional but offers you a chance to push your 
 ## Rubric
 
 |                                               | Points Possible | Points Earned |
-|--------------------------------------|-----------------|-----------------|
-| File knits                                    | 2               |               |
-| Code is accurately filled in for all 4 steps. | 10              |               |
-| Step 2 Question                               | 3               |               |
-| Step 3 Questions                              | 6               |               |
-| Step 4 Code and Question                      | 9               |               |
+|-----------------------------------------------|-----------------|---------------|
+| The three reflective steps (2, 3, 8) complete | 7.5 each        |               |
+| Coding steps (1, 4, 5, 6, 7) complete         | 7.5 each.       |               |
 
 ## Knit and Submit
 
