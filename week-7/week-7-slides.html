@@ -43,41 +43,18 @@ class: center, middle, inverse, title-slide
 
 
 
-
 # Purpose and Agenda
 
 What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the first of four weeks that equip you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
 
 ## What we'll do in this presentation
 
-- Discussion
 - Reading Recap
+- Discussion
 - Key Concept: select, rename, filter, arrange
 - Key Concept: Ratings and rankings
 - Code-along and data
 - What's next: Assignment(s) and Readings
-
----
-
-# Discussion
-
-.panelset[
-
-.panel[.panel-name[Background]
-
-- APIs can be very powerful, affording access to large data sets in a convenient manner
-- However, they can occasionally be difficult to use to due: a) technical issues, b) challenges around the size or amount of the data being accessed, c) the degree of documentation, among others. 
-
-]
-
-.panel[.panel-name[Discussion Question]
-
-- What issues, if any, did you encounter in the last week using the Education Data Portal API via the educationdata R package? How did you overcome them---or try to overcome them?
-- What went well in the last week?
-
-]
-
-]
 
 ---
 
@@ -95,6 +72,89 @@ Technical reading(s):
 
 ---
 
+# Reading Recap
+
+Your fellow classmates have used data from:
+
+- Administrative records
+- APIs
+- Student surveys
+- Lesson plans
+- Web scraping
+- Publicly available datasets
+- Meta-analysis from papers
+- &amp; more!
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- APIs can be very powerful, affording access to large data sets in a convenient manner
+- However, they can occasionally be difficult to use due to:
+
+- Technical issues
+- Challenges around the size or amount of the data being accessed
+- The degree of documentation, among others
+
+]
+
+.panel[.panel-name[Discussion Questions]
+
+- What new data did you pull in the second half of the assignment?
+- Did you find anything interesting and how would you extend your analysis?
+- What went well in the last week?
+- What issues, if any, did you encounter in the last week using the Education Data Portal API via the educationdata R package? How did you overcome them---or try to overcome them?
+
+]
+
+]
+
+---
+
+# Key Concept: dplyr "verbs"
+
+&lt;img src="dplyr-verbs_table_v2.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Key Concept: dplyr "verbs"
+
+&lt;img src="dplyr-verb_general-syntax-explanation.png" width="60%" style="display: block; margin: auto;" /&gt;&lt;img src="dplyr-pipe-syntax_simple.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Key Concept: dplyr "verbs"
+
+
+```r
+library(dplyr)
+
+dat &lt;- tibble(
+    ID = c(1, 2, 3, 4),
+    Name = c("Alice", "Bob", "Charlie", "Stefanie"),
+    Age = c(25, 30, 22, 39),
+    State = c("TN", "NC", "CA", "TN")
+)
+
+dat
+```
+
+```
+## # A tibble: 4 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     1 Alice       25 TN   
+## 2     2 Bob         30 NC   
+## 3     3 Charlie     22 CA   
+## 4     4 Stefanie    39 TN
+```
+
+---
+
 # Key Concept: dplyr "verbs"
 
 .panelset[
@@ -103,24 +163,30 @@ Technical reading(s):
 
 - There are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses
 - These are all "verbs": words used to describe an action, state, or occurrence ([OxfordLanguage](https://languages.oup.com/google-dictionary-en/))
-- The core dplyr "verbs" are select, rename, filter, arrange, and mutate
+- The core dplyr "verbs" are `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
 ]
 
 .panel[.panel-name[select]
 
-- Select is used to choose particular variables from a data frame (or tibble)
-- It works through your specifying of the variables you want to choose
+- `select()` is used to choose particular columns from a data frame (or tibble)
+- It works by specifying the variables you want to keep or remove
 
 
 ```r
-library(dplyr)
-data &lt;- tibble(ID = c(1, 2, 3),
-                   Name = c("Alice", "Bob", "Charlie", "Stefanie"),
-                   Age = c(25, 30, 22, 39),
-                   State = c("TN", "NC", "CA", "TN"))
+selected_data &lt;- dat %&gt;%
+    select(Name, Age)
 
-selected_data &lt;- data %&gt;%
-  select(Name, Age)
+selected_data
+```
+
+```
+## # A tibble: 4 × 2
+##   Name       Age
+##   &lt;chr&gt;    &lt;dbl&gt;
+## 1 Alice       25
+## 2 Bob         30
+## 3 Charlie     22
+## 4 Stefanie    39
 ```
 
 - *Important note and point of emphasis*: if we don't assign the output a new name (`selected_data &lt;-`), the results of our use of a dplyr "verb" won't be saved
@@ -129,81 +195,167 @@ selected_data &lt;- data %&gt;%
 
 .panel[.panel-name[rename]
 
-- Rename changes the names of variables
+- `rename()` changes the names of variables
 
 
 ```r
-selected_renamed_data &lt;- selected_data %&gt;%
-  rename(name = Name, age = Age)
+selected_renamed_data &lt;- 
+    selected_data %&gt;%
+    rename(name = Name, age = Age)
+
+selected_renamed_data
+```
+
+```
+## # A tibble: 4 × 2
+##   name       age
+##   &lt;chr&gt;    &lt;dbl&gt;
+## 1 Alice       25
+## 2 Bob         30
+## 3 Charlie     22
+## 4 Stefanie    39
 ```
 
 - *Note*: You can _select_ and _rename_ in a single step using `select()`:
 
 
 ```r
-selected_and_renamed &lt;- data %&gt;% 
+selected_and_renamed &lt;- 
+    dat %&gt;%
     select(name = Name, age = Age) # selects Name and Age and renames them at the same time
 ```
 
-Because select can be used to rename, rename is rarely used in practice.
+Because `select()` can be used to rename, `rename()` is rarely used in practice.
 
-Learn more about select and rename [here](https://dplyr.tidyverse.org/reference/select.html), including handy "select helpers"
+Learn more about `select()` and `rename()` [here](https://dplyr.tidyverse.org/reference/select.html), including handy "select helpers"
 
 ]
 
 .panel[.panel-name[filter]
 
-- Filter reduces the rows of your data based on _logical conditions_ that you specify
+- `filter()` keeps or removes the rows of your data based on _logical conditions_ that you specify
 
 
 ```r
-filtered_data &lt;- data %&gt;% 
+filtered_data &lt;- dat %&gt;%
     filter(Age &gt;= 25)
+
+filtered_data
 ```
+
+```
+## # A tibble: 3 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     1 Alice       25 TN   
+## 2     2 Bob         30 NC   
+## 3     4 Stefanie    39 TN
+```
+
+]
+
+.panel[.panel-name[filter]
 
 
 ```r
-filtered_data &lt;- data %&gt;% 
+filtered_data &lt;- dat %&gt;% 
     filter(State == "TN")
+
+filtered_data
 ```
 
-Learn more about filter [here](https://dplyr.tidyverse.org/reference/filter.html)
+```
+## # A tibble: 2 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     1 Alice       25 TN   
+## 2     4 Stefanie    39 TN
+```
+
+Learn more about `filter()` [here](https://dplyr.tidyverse.org/reference/filter.html)
+
+]
+]
+
+---
+
+# Key Concept: dplyr "verbs"
+
+.panelset[
+
+.panel[.panel-name[arrange]
+
+- `arrange()` sorts the rows of your data frame based on numeric or alpha-numeric values
+
+
+```r
+arranged_data &lt;- dat %&gt;% 
+    arrange(Name)
+
+arranged_data
+```
+
+```
+## # A tibble: 4 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     1 Alice       25 TN   
+## 2     2 Bob         30 NC   
+## 3     3 Charlie     22 CA   
+## 4     4 Stefanie    39 TN
+```
 
 ]
 
 .panel[.panel-name[arrange]
 
-- Arrange sorts the rows of your data frame based on numeric or alpha-numeric values
-
-
-```r
-arranged_data &lt;- data %&gt;% 
-    arrange(Name)
-```
-
 You can reverse the order with `desc()`:
 
 
 ```r
-arranged_data &lt;- data %&gt;% 
+arranged_data &lt;- dat %&gt;% 
     arrange(desc(Name))
+
+arranged_data
 ```
 
-Learn more about arrange [here](https://dplyr.tidyverse.org/reference/arrange.html)
+```
+## # A tibble: 4 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     4 Stefanie    39 TN   
+## 2     3 Charlie     22 CA   
+## 3     2 Bob         30 NC   
+## 4     1 Alice       25 TN
+```
+
+Learn more about `arrange()` [here](https://dplyr.tidyverse.org/reference/arrange.html)
 
 ]
 
 .panel[.panel-name[mutate]
 
-- Mutate creates new variables
+- `mutate()` creates new variables
 
 
 ```r
-mutated_data &lt;- data %&gt;% 
+mutated_data &lt;- dat %&gt;%
     mutate(age_next_year = Age + 1)
+
+mutated_data
 ```
 
-Learn more about mutate [here](https://dplyr.tidyverse.org/reference/mutate.html)
+```
+## # A tibble: 4 × 5
+##      ID Name       Age State age_next_year
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
+## 1     1 Alice       25 TN               26
+## 2     2 Bob         30 NC               31
+## 3     3 Charlie     22 CA               23
+## 4     4 Stefanie    39 TN               40
+```
+
+Learn more about `mutate()` [here](https://dplyr.tidyverse.org/reference/mutate.html)
 
 ]
 
@@ -221,10 +373,12 @@ Learn more about mutate [here](https://dplyr.tidyverse.org/reference/mutate.html
 
 
 ```r
-df &lt;- get_education_data(level = "schools",
-                         source = "ccd",
-                         topic = "enrollment",
-                         filters = list(year = 2021, grade = 12))
+df &lt;- get_education_data(
+    level = "schools",
+    source = "ccd",
+    topic = "enrollment",
+    filters = list(year = 2021, grade = 12)
+)
 ```
 
 *Documentation:*
@@ -270,7 +424,7 @@ df &lt;- get_education_data(level = "schools",
 
 .panelset[
 
-.panel[.panel-name[1. Accessing]
+.panel[.panel-name[Accessing]
 
 - Tuition and fees and fall retention rates
 - We'll have to access data on each, standardize them, and combine them to create a ranking
@@ -295,7 +449,7 @@ retention &lt;- get_education_data(level = "college-university",
 
 ]
 
-.panel[.panel-name[2. Preparing]
+.panel[.panel-name[Preparing]
 
 
 ```r
@@ -316,7 +470,7 @@ retention &lt;- retention %&gt;%
 
 ]
 
-.panel[.panel-name[3. Combining]
+.panel[.panel-name[Combining]
 
 - As the variables are on different scales, calculating _ranks_ may be helpful -- `min_rank()`, which assigns tied ranks to equivalent values
 
@@ -343,7 +497,7 @@ final_ranks
 
 ]
 
-.panel[.panel-name[4. Interpreting]
+.panel[.panel-name[Interpreting]
 
 - We need to know the names of the institutions to be able to present and interpret our results.
 - We can access that data, too
@@ -404,7 +558,9 @@ final_ranks %&gt;%
 
 &gt; Blinder, A. (2023). With a New Formula, U.S. News  Rankings Boost Some State Universities. *New York Times*. https://www.nytimes.com/2023/09/18/us/us-news-college-ranking.html
 
-- Optional reading: 
+]
+
+.panel[.panel-name[Optional Reading]
 
 &gt; Esposito, E., &amp; Stark, D. (2019). What's Observed in a Rating? Rankings as Orientation in the Face of Uncertainty. *Theory, Culture &amp; Society, 36*(4), 3-26.
 

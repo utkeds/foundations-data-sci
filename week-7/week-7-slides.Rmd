@@ -10,13 +10,15 @@ output:
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 
-style_duo_accent(primary_color = "#FF8200",
-                 secondary_color = "#58595B",
-                 title_slide_text_color = "#222943",
-                 title_slide_background_color = "#ededed",
-                 title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
-                 title_slide_background_position = "bottom",
-                 title_slide_background_size = "30%")
+style_duo_accent(
+    primary_color = "#FF8200",
+    secondary_color = "#58595B",
+    title_slide_text_color = "#222943",
+    title_slide_background_color = "#ededed",
+    title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
+    title_slide_background_position = "bottom",
+    title_slide_background_size = "30%"
+)
 ```
 
 
@@ -34,7 +36,7 @@ pacman::p_load(pacman, knitr, tidyverse, readxl)
 # can be pasted easily
 htmltools::tagList(
     xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
-                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",),
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>", ),
     rmarkdown::html_dependency_font_awesome()
 )
 ```
@@ -43,41 +45,18 @@ htmltools::tagList(
 xaringanExtra::use_panelset()
 ```
 
-
 # Purpose and Agenda
 
 What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the first of four weeks that equip you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
 
 ## What we'll do in this presentation
 
-- Discussion
 - Reading Recap
+- Discussion
 - Key Concept: select, rename, filter, arrange
 - Key Concept: Ratings and rankings
 - Code-along and data
 - What's next: Assignment(s) and Readings
-
----
-
-# Discussion
-
-.panelset[
-
-.panel[.panel-name[Background]
-
-- APIs can be very powerful, affording access to large data sets in a convenient manner
-- However, they can occasionally be difficult to use to due: a) technical issues, b) challenges around the size or amount of the data being accessed, c) the degree of documentation, among others. 
-
-]
-
-.panel[.panel-name[Discussion Question]
-
-- What issues, if any, did you encounter in the last week using the Education Data Portal API via the educationdata R package? How did you overcome them---or try to overcome them?
-- What went well in the last week?
-
-]
-
-]
 
 ---
 
@@ -95,6 +74,89 @@ Technical reading(s):
 
 ---
 
+# Reading Recap
+
+Your fellow classmates have used data from:
+
+- Administrative records
+- APIs
+- Student surveys
+- Lesson plans
+- Web scraping
+- Publicly available datasets
+- Meta-analysis from papers
+- & more!
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- APIs can be very powerful, affording access to large data sets in a convenient manner
+- However, they can occasionally be difficult to use due to:
+
+- Technical issues
+- Challenges around the size or amount of the data being accessed
+- The degree of documentation, among others
+
+]
+
+.panel[.panel-name[Discussion Questions]
+
+- What new data did you pull in the second half of the assignment?
+- Did you find anything interesting and how would you extend your analysis?
+- What went well in the last week?
+- What issues, if any, did you encounter in the last week using the Education Data Portal API via the educationdata R package? How did you overcome them---or try to overcome them?
+
+]
+
+]
+
+---
+
+# Key Concept: dplyr "verbs"
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("dplyr-verbs_table_v2.png")
+```
+
+---
+
+# Key Concept: dplyr "verbs"
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("dplyr-verb_general-syntax-explanation.png")
+
+knitr::include_graphics("dplyr-pipe-syntax_simple.png")
+```
+
+---
+
+# Key Concept: dplyr "verbs"
+
+```{r}
+#| echo: true
+library(dplyr)
+
+dat <- tibble(
+    ID = c(1, 2, 3, 4),
+    Name = c("Alice", "Bob", "Charlie", "Stefanie"),
+    Age = c(25, 30, 22, 39),
+    State = c("TN", "NC", "CA", "TN")
+)
+
+dat
+```
+
+---
+
 # Key Concept: dplyr "verbs"
 
 .panelset[
@@ -103,23 +165,19 @@ Technical reading(s):
 
 - There are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses
 - These are all "verbs": words used to describe an action, state, or occurrence ([OxfordLanguage](https://languages.oup.com/google-dictionary-en/))
-- The core dplyr "verbs" are select, rename, filter, arrange, and mutate
+- The core dplyr "verbs" are `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
 ]
 
 .panel[.panel-name[select]
 
-- Select is used to choose particular variables from a data frame (or tibble)
-- It works through your specifying of the variables you want to choose
+- `select()` is used to choose particular columns from a data frame (or tibble)
+- It works by specifying the variables you want to keep or remove
 
-```{r, eval = FALSE, echo = TRUE}
-library(dplyr)
-data <- tibble(ID = c(1, 2, 3),
-                   Name = c("Alice", "Bob", "Charlie", "Stefanie"),
-                   Age = c(25, 30, 22, 39),
-                   State = c("TN", "NC", "CA", "TN"))
+```{r, echo = TRUE}
+selected_data <- dat %>%
+    select(Name, Age)
 
-selected_data <- data %>%
-  select(Name, Age)
+selected_data
 ```
 
 - *Important note and point of emphasis*: if we don't assign the output a new name (`selected_data <-`), the results of our use of a dplyr "verb" won't be saved
@@ -128,74 +186,103 @@ selected_data <- data %>%
 
 .panel[.panel-name[rename]
 
-- Rename changes the names of variables
+- `rename()` changes the names of variables
 
-```{r, eval = FALSE, echo = TRUE}
-selected_renamed_data <- selected_data %>%
-  rename(name = Name, age = Age)
+```{r, echo = TRUE}
+selected_renamed_data <- 
+    selected_data %>%
+    rename(name = Name, age = Age)
+
+selected_renamed_data
 ```
 
 - *Note*: You can _select_ and _rename_ in a single step using `select()`:
 
-```{r, eval = FALSE, echo = TRUE}
-selected_and_renamed <- data %>% 
+```{r, echo = TRUE}
+selected_and_renamed <- 
+    dat %>%
     select(name = Name, age = Age) # selects Name and Age and renames them at the same time
 ```
 
-Because select can be used to rename, rename is rarely used in practice.
+Because `select()` can be used to rename, `rename()` is rarely used in practice.
 
-Learn more about select and rename [here](https://dplyr.tidyverse.org/reference/select.html), including handy "select helpers"
+Learn more about `select()` and `rename()` [here](https://dplyr.tidyverse.org/reference/select.html), including handy "select helpers"
 
 ]
 
 .panel[.panel-name[filter]
 
-- Filter reduces the rows of your data based on _logical conditions_ that you specify
+- `filter()` keeps or removes the rows of your data based on _logical conditions_ that you specify
 
-```{r, eval = FALSE, echo = TRUE}
-filtered_data <- data %>% 
+```{r, echo = TRUE}
+filtered_data <- dat %>%
     filter(Age >= 25)
+
+filtered_data
 ```
 
-```{r, eval = FALSE, echo = TRUE}
-filtered_data <- data %>% 
+]
+
+.panel[.panel-name[filter]
+
+```{r, echo = TRUE}
+filtered_data <- dat %>% 
     filter(State == "TN")
+
+filtered_data
 ```
 
-Learn more about filter [here](https://dplyr.tidyverse.org/reference/filter.html)
+Learn more about `filter()` [here](https://dplyr.tidyverse.org/reference/filter.html)
+
+]
+]
+
+---
+
+# Key Concept: dplyr "verbs"
+
+.panelset[
+
+.panel[.panel-name[arrange]
+
+- `arrange()` sorts the rows of your data frame based on numeric or alpha-numeric values
+
+```{r, echo = TRUE}
+arranged_data <- dat %>% 
+    arrange(Name)
+
+arranged_data
+```
 
 ]
 
 .panel[.panel-name[arrange]
 
-- Arrange sorts the rows of your data frame based on numeric or alpha-numeric values
-
-```{r, eval = FALSE, echo = TRUE}
-arranged_data <- data %>% 
-    arrange(Name)
-```
-
 You can reverse the order with `desc()`:
 
-```{r, eval = FALSE, echo = TRUE}
-arranged_data <- data %>% 
+```{r, echo = TRUE}
+arranged_data <- dat %>% 
     arrange(desc(Name))
+
+arranged_data
 ```
 
-Learn more about arrange [here](https://dplyr.tidyverse.org/reference/arrange.html)
+Learn more about `arrange()` [here](https://dplyr.tidyverse.org/reference/arrange.html)
 
 ]
 
 .panel[.panel-name[mutate]
 
-- Mutate creates new variables
+- `mutate()` creates new variables
 
-```{r, eval = FALSE, echo = TRUE}
-mutated_data <- data %>% 
+```{r, echo = TRUE}
+mutated_data <- dat %>%
     mutate(age_next_year = Age + 1)
+
+mutated_data
 ```
 
-Learn more about mutate [here](https://dplyr.tidyverse.org/reference/mutate.html)
+Learn more about `mutate()` [here](https://dplyr.tidyverse.org/reference/mutate.html)
 
 ]
 
@@ -212,10 +299,12 @@ Learn more about mutate [here](https://dplyr.tidyverse.org/reference/mutate.html
 - Reminder: The [educationdata R package](https://urbaninstitute.github.io/education-data-package-r/index.html) facilitates access to the [Education Data Portal's API](https://educationdata.urban.org/documentation/index.html)
 
 ```{r, eval = FALSE, echo = TRUE}
-df <- get_education_data(level = "schools",
-                         source = "ccd",
-                         topic = "enrollment",
-                         filters = list(year = 2021, grade = 12))
+df <- get_education_data(
+    level = "schools",
+    source = "ccd",
+    topic = "enrollment",
+    filters = list(year = 2021, grade = 12)
+)
 ```
 
 *Documentation:*
@@ -261,7 +350,7 @@ df <- get_education_data(level = "schools",
 
 .panelset[
 
-.panel[.panel-name[1. Accessing]
+.panel[.panel-name[Accessing]
 
 - Tuition and fees and fall retention rates
 - We'll have to access data on each, standardize them, and combine them to create a ranking
@@ -285,14 +374,13 @@ retention <- get_education_data(level = "college-university",
 
 ]
 
-.panel[.panel-name[2. Preparing]
+.panel[.panel-name[Preparing]
 
 ```{r, eval = FALSE, echo = TRUE}
 ratio <- as_tibble(ratio)
 
 ratio <- ratio %>% 
     select(unitid, student_faculty_ratio) # to simply the data
-
 ```
 
 ```{r, eval = FALSE, echo = TRUE}
@@ -305,7 +393,7 @@ retention <- retention %>%
 
 ]
 
-.panel[.panel-name[3. Combining]
+.panel[.panel-name[Combining]
 
 - As the variables are on different scales, calculating _ranks_ may be helpful -- `min_rank()`, which assigns tied ranks to equivalent values
 
@@ -331,7 +419,7 @@ final_ranks
 
 ]
 
-.panel[.panel-name[4. Interpreting]
+.panel[.panel-name[Interpreting]
 
 - We need to know the names of the institutions to be able to present and interpret our results.
 - We can access that data, too
@@ -391,7 +479,9 @@ final_ranks %>%
 
 > Blinder, A. (2023). With a New Formula, U.S. News  Rankings Boost Some State Universities. *New York Times*. https://www.nytimes.com/2023/09/18/us/us-news-college-ranking.html
 
-- Optional reading: 
+]
+
+.panel[.panel-name[Optional Reading]
 
 > Esposito, E., & Stark, D. (2019). What's Observed in a Rating? Rankings as Orientation in the Face of Uncertainty. *Theory, Culture & Society, 36*(4), 3-26.
 
