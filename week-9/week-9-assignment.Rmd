@@ -1,0 +1,42 @@
+---
+title: "Week 9 Assignment"
+author: ""
+date: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Step 1
+
+Here, please load the tidyverse and educationdata packages.
+
+```{r}
+library(tidyverse)
+library(educationdata)
+```
+
+## Step 2
+
+```{r}
+
+```
+
+
+
+|                                               | Points Possible | Points Earned |
+|-----------------------------------------------|-----------------|---------------|
+| The three reflective steps (2, 3, 8) complete | 7.5 each        |               |
+| Coding steps (1, 4, 5, 6, 7) complete         | 7.5 each.       |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work:
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3.  Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!

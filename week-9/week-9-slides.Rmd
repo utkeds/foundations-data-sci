@@ -1,0 +1,477 @@
+---
+title: "Week 9 Slides"
+subtitle: "Group By and Summarize"
+author: "**Isabella Velásquez and Maryrose Weatherton**"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_duo_accent(
+    primary_color = "#FF8200",
+    secondary_color = "#58595B",
+    title_slide_text_color = "#222943",
+    title_slide_background_color = "#ededed",
+    title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
+    title_slide_background_position = "bottom",
+    title_slide_background_size = "30%"
+)
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r, echo=FALSE}
+# then load all the relevant packages
+pacman::p_load(pacman, knitr, tidyverse, readxl)
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+# these allow any code snippets to be copied to the clipboard so they 
+# can be pasted easily
+htmltools::tagList(
+    xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>", ),
+    rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+# Purpose and Agenda
+
+What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the first of four weeks that equip you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
+
+## What we'll do in this presentation
+
+- Reading Recap
+- Discussion
+- Key Concept: Group by and summarize
+- Code-along and data
+- What's next: Assignment(s) and Readings
+
+---
+
+# Reading Recap
+
+Substantive reading(s):
+
+> Morse, R., and & Brooks, E. (2023). How U.S. News Calculated the 2024 Best Colleges Rankings. https://www.usnews.com/education/best-colleges/articles/how-us-news-calculated-the-rankings
+
+> Wolfe, R. (2023). A different kind of college ranking. *Washington Monthly.* https://washingtonmonthly.com/2023/08/27/a-different-kind-of-college-ranking-2/
+
+> Blinder, A. (2023). With a New Formula, U.S. News  Rankings Boost Some State Universities. *New York Times*. https://www.nytimes.com/2023/09/18/us/us-news-college-ranking.html
+
+Technical reading(s):
+
+> Esposito, E., & Stark, D. (2019). What's Observed in a Rating? Rankings as Orientation in the Face of Uncertainty. *Theory, Culture & Society, 36*(4), 3-26.
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- One way we can think about _large and complex_ data sets is whether the data is aggregated---or not
+- In education data, it is highly common to aggregate raw data (e.g., individual student assessments) at multiple levels:
+
+- Multiple assessments at the **student level**
+- Multiple students at the **teacher level**
+- Multiple teachers at the **subject level** and **school level**
+- Multiple schools at the **district level**
+- Multiple districts at the **state level**
+
+]
+
+.panel[.panel-name[Discussion Questions]
+
+- What counts as raw and aggregated data differs for each field---and even for each research question!
+- For your research-related area of interest, what are one or more levels at which raw data is aggregated?
+- For which purposes might **raw data** me more useful? For which purposes might aggregate data be useful?
+
+]
+
+]
+
+---
+
+# Key Concept: Group by and summarize
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("dplyr-verbs_table_v2.png")
+```
+
+---
+
+# Key Concept: dplyr "verbs"
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("dplyr-verb_general-syntax-explanation.png")
+
+knitr::include_graphics("dplyr-pipe-syntax_simple.png")
+```
+
+---
+
+# Key Concept: dplyr "verbs"
+
+```{r}
+#| echo: true
+library(dplyr)
+
+dat <- tibble(
+    ID = c(1, 2, 3, 4),
+    Name = c("Alice", "Bob", "Charlie", "Stefanie"),
+    Age = c(25, 30, 22, 39),
+    State = c("TN", "NC", "CA", "TN")
+)
+
+dat
+```
+
+---
+
+# Key Concept: dplyr "verbs"
+
+.panelset[
+
+.panel[.panel-name[dplyr "verbs"]
+
+- There are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses
+- These are all "verbs": words used to describe an action, state, or occurrence ([OxfordLanguage](https://languages.oup.com/google-dictionary-en/))
+- The core dplyr "verbs" are `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
+]
+
+.panel[.panel-name[select]
+
+- `select()` is used to choose particular columns from a data frame (or tibble)
+- It works by specifying the variables you want to keep or remove
+
+```{r, echo = TRUE}
+selected_data <- dat %>%
+    select(Name, Age)
+
+selected_data
+```
+
+- *Important note and point of emphasis*: if we don't assign the output a new name (`selected_data <-`), the results of our use of a dplyr "verb" won't be saved
+
+]
+
+.panel[.panel-name[rename]
+
+- `rename()` changes the names of variables
+
+```{r, echo = TRUE}
+selected_renamed_data <- 
+    selected_data %>%
+    rename(name = Name, age = Age)
+
+selected_renamed_data
+```
+
+- *Note*: You can _select_ and _rename_ in a single step using `select()`:
+
+```{r, echo = TRUE}
+selected_and_renamed <- 
+    dat %>%
+    select(name = Name, age = Age) # selects Name and Age and renames them at the same time
+```
+
+Because `select()` can be used to rename, `rename()` is rarely used in practice.
+
+Learn more about `select()` and `rename()` [here](https://dplyr.tidyverse.org/reference/select.html), including handy "select helpers"
+
+]
+
+.panel[.panel-name[filter]
+
+- `filter()` keeps or removes the rows of your data based on _logical conditions_ that you specify
+
+```{r, echo = TRUE}
+filtered_data <- dat %>%
+    filter(Age >= 25)
+
+filtered_data
+```
+
+]
+
+.panel[.panel-name[filter]
+
+```{r, echo = TRUE}
+filtered_data <- dat %>% 
+    filter(State == "TN")
+
+filtered_data
+```
+
+Learn more about `filter()` [here](https://dplyr.tidyverse.org/reference/filter.html)
+
+]
+]
+
+---
+
+# Key Concept: dplyr "verbs"
+
+.panelset[
+
+.panel[.panel-name[arrange]
+
+- `arrange()` sorts the rows of your data frame based on numeric or alpha-numeric values
+
+```{r, echo = TRUE}
+arranged_data <- dat %>% 
+    arrange(Name)
+
+arranged_data
+```
+
+]
+
+.panel[.panel-name[arrange]
+
+You can reverse the order with `desc()`:
+
+```{r, echo = TRUE}
+arranged_data <- dat %>% 
+    arrange(desc(Name))
+
+arranged_data
+```
+
+Learn more about `arrange()` [here](https://dplyr.tidyverse.org/reference/arrange.html)
+
+]
+
+.panel[.panel-name[mutate]
+
+- `mutate()` creates new variables
+
+```{r, echo = TRUE}
+mutated_data <- dat %>%
+    mutate(age_next_year = Age + 1)
+
+mutated_data
+```
+
+Learn more about `mutate()` [here](https://dplyr.tidyverse.org/reference/mutate.html)
+
+]
+
+]
+
+---
+
+# Key Concept: Ratings and rankings
+
+.panelset[
+
+.panel[.panel-name[educationdata]
+
+- Reminder: The [educationdata R package](https://urbaninstitute.github.io/education-data-package-r/index.html) facilitates access to the [Education Data Portal's API](https://educationdata.urban.org/documentation/index.html)
+
+```{r, eval = FALSE, echo = TRUE}
+df <- get_education_data(
+    level = "schools",
+    source = "ccd",
+    topic = "enrollment",
+    filters = list(year = 2021, grade = 12)
+)
+```
+
+*Documentation:*
+
+1. The [R package documentation](https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html)
+2. The [EDP API documentation](https://educationdata.urban.org/documentation/index.html)
+]
+
+.panel[.panel-name[Variables]
+
+- Any data on *colleges*: https://educationdata.urban.org/documentation/colleges.html
+- These four sources available via educationdata are likely to be particularly helpful:
+    - IPEDS
+    - College Scorecard
+    - Federal Student Aid
+    - National Association of College and University Business Officers
+
+]
+
+.panel[.panel-name[Ranking]
+
+- Creating a ranking involves 1) _accessing data_, 2) _preparing_ different variables, 3) _combining_ them into a single score or rank and 4) _interpreting_ the output
+- This will likely involve several dplyr functions:
+    - `mutate()`
+    - `row_number()`
+    - `scale()`
+    - `arrange()`
+
+]
+
+.panel[.panel-name[Process]
+
+- Week 7, *this week*: Access and standardize data
+- Week 8, *next week (fall break)*: Combine data and present and interpret rankings
+
+]
+
+]
+
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[Accessing]
+
+- Tuition and fees and fall retention rates
+- We'll have to access data on each, standardize them, and combine them to create a ranking
+
+- Let's access the data
+
+```{r, eval = FALSE, echo = TRUE}
+library(educationdata)
+library(tidyverse)
+
+ratio <- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "student-faculty-ratio",
+    filters = list(year = 2020))
+
+retention <- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "fall-retention",
+    filters = list(year = 2020))
+```
+
+]
+
+.panel[.panel-name[Preparing]
+
+```{r, eval = FALSE, echo = TRUE}
+ratio <- as_tibble(ratio)
+
+ratio <- ratio %>% 
+    select(unitid, student_faculty_ratio) # to simply the data
+```
+
+```{r, eval = FALSE, echo = TRUE}
+retention <- as_tibble(retention)
+
+retention <- retention %>% 
+    filter(ftpt == 99) %>% # let's look at the total of both full (1) and part-time (2) students
+    select(unitid, retention_rate) # to simply the data
+```
+
+]
+
+.panel[.panel-name[Combining]
+
+- As the variables are on different scales, calculating _ranks_ may be helpful -- `min_rank()`, which assigns tied ranks to equivalent values
+
+```{r}
+x <- c(5, 1, 3, 2, 2, NA)
+min_rank(x)
+```
+
+```{r, eval = FALSE, echo = TRUE}
+combined_data <- inner_join(ratio, retention, by = c("unitid"))
+
+combined_data <- combined_data %>% 
+    mutate(student_faculty_ratio_rank = min_rank(student_faculty_ratio),
+           retention_rate_rank = min_rank(retention_rate)) %>% 
+    select(unitid, student_faculty_ratio_rank, retention_rate_rank)
+
+final_ranks <- combined_data %>% 
+    mutate(total_rank = (student_faculty_ratio_rank + retention_rate_rank) / 2) %>% 
+    arrange(total_rank)
+
+final_ranks
+```
+
+]
+
+.panel[.panel-name[Interpreting]
+
+- We need to know the names of the institutions to be able to present and interpret our results.
+- We can access that data, too
+
+```{r, eval = FALSE, echo = TRUE}
+directory <- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "directory",
+    filters = list(year = 2020))
+
+directory <- directory %>% 
+    select(unitid, inst_name)
+
+final_ranks %>% 
+    left_join(directory) %>% 
+    select(inst_name, total_rank)
+```
+
+]
+
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+- In the weekly assignment, you will xx
+
+]
+
+.panel[.panel-name[Final Project Planning]
+
+
+
+]
+
+
+.panel[.panel-name[Data]
+
+- We'll be using data from XX
+
+]
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- Substantive reading(s) for the week ahead:
+
+> Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... & Warschauer, M. (2020). Mining big data in education: Affordances and challenges. *Review of Research in Education, 44*(1), 130-160.
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s) for the week ahead:
+
+> Summarizing Data by Groups: https://r-graphics.org/recipe-dataprep-summarize
+
+> Data Transformation: https://r4ds.hadley.nz/data-transform (please review section 4.5 from this reading from last week)
+
+Also linked in Canvas.
+
+]
+
+]
