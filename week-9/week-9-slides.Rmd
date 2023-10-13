@@ -24,6 +24,8 @@ style_duo_accent(
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(palmerpenguins)
 ```
 
 ```{r, echo=FALSE}
@@ -90,11 +92,12 @@ Technical reading(s):
 - Multiple schools at the **district level**
 - Multiple districts at the **state level**
 
+- What counts as raw and aggregated data differs for each field---and even for each research question!
+
 ]
 
 .panel[.panel-name[Discussion Questions]
 
-- What counts as raw and aggregated data differs for each field---and even for each research question!
 - For your research-related area of interest, what are one or more levels at which raw data is aggregated?
 - For which purposes might **raw data** me more useful? For which purposes might aggregate data be useful?
 
@@ -104,135 +107,79 @@ Technical reading(s):
 
 ---
 
-# Key Concept: Group by and summarize
+# Key Concept: Aggregating
+
 
 .panelset[
 
 .panel[.panel-name[dplyr "verbs"]
 
-- There are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses
-- These are all "verbs": words used to describe an action, state, or occurrence ([OxfordLanguage](https://languages.oup.com/google-dictionary-en/))
-- The core dplyr "verbs" are `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
+- As we discussed in our last class (for weeks 7-8), there are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses: `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
+- Several additional "verbs" are also very useful and are the focus of this and the next week: `group_by()`, `summarize()`, `pivot_longer()`, and `pivot_wider()`
+- We focus on the first two of these additional "verbs" this week
+- We use the term "aggregating" to refer to grouping and summarizing - specifying groups in our data and summarizing them
 ]
 
-.panel[.panel-name[select]
+.panel[.panel-name[group_by]
 
-- `select()` is used to choose particular columns from a data frame (or tibble)
+- `group_by()` is used to specify the group or groups in a a data frame (or tibble)
 - It works by specifying the variables you want to keep or remove
+- Let's imagine we're using school-level data on the number of students enrolled
 
-```{r, echo = TRUE}
-selected_data <- dat %>%
-    select(Name, Age)
+```{r, echo = TRUE, eval = FALSE}
+grouped_data <- dat %>%
+    group_by(district_name)
 
-selected_data
+grouped_data # the data is now "grouped" by district_name
 ```
 
-- *Important note and point of emphasis*: if we don't assign the output a new name (`selected_data <-`), the results of our use of a dplyr "verb" won't be saved
+- *Important reminder from last week!*: if we don't assign the output a new name (`selected_data <-`), the results of our use of a dplyr "verb" won't be saved
 
 ]
 
-.panel[.panel-name[rename]
+.panel[.panel-name[multiple groups]
 
-- `rename()` changes the names of variables
+- Importantly, we can specify multiple groups; typically, groups are a character string or factor, but they can be any unique identifiers
 
-```{r, echo = TRUE}
-selected_renamed_data <- 
-    selected_data %>%
-    rename(name = Name, age = Age)
+```{r, echo = TRUE, eval = FALSE}
+grouped_data_2 <- dat %>%
+    group_by(district_name, state_name)
 
-selected_renamed_data
+grouped_data_2 # the data is now "grouped" by school *and* district both
 ```
 
-- *Note*: You can _select_ and _rename_ in a single step using `select()`:
-
-```{r, echo = TRUE}
-selected_and_renamed <- 
-    dat %>%
-    select(name = Name, age = Age) # selects Name and Age and renames them at the same time
-```
-
-Because `select()` can be used to rename, `rename()` is rarely used in practice.
-
-Learn more about `select()` and `rename()` [here](https://dplyr.tidyverse.org/reference/select.html), including handy "select helpers"
+What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific schools within specific districts and states, even if the schools share the same name)
 
 ]
 
-.panel[.panel-name[filter]
+.panel[.panel-name[summarize]
 
-- `filter()` keeps or removes the rows of your data based on _logical conditions_ that you specify
+- Once we have specified groups, we can then calculate summary statistics
+- The first part of the `summarize()` function is simply the name of our summary statistic --- whatever we want it to be!
+- The second part, following the `=` symbol, is the formula for how your summary statistic is calculated (as long as it returns a single value per group, it is a valid summary statistic!)
+- This sounds pretty abstract, but it can also be pretty straightforward, as in the following:
 
-```{r, echo = TRUE}
-filtered_data <- dat %>%
-    filter(Age >= 25)
+```{r, echo = TRUE, eval = FALSE}
+grouped_data %>% 
+    summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled)) 
+```
+]
 
-filtered_data
+.panel[.panel-name[piping it!]
+
+- We can use the pipe operator to link together these functions in a single block of code
+- We can also change our summary statistic or add multiple summary statistics, as below
+- Practically always, summary statistics are calculated for numeric variables
+
+```{r, echo = TRUE, eval = FALSE}
+dat %>% 
+    group_by(district_name, state_name) %>% 
+    summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled),
+              max_number_of_students_enrolled = max(number_of_students_enrolled),
+              range_number_of_students_enrolled = range(number_of_students_enrolled)) 
 ```
 
 ]
-
-.panel[.panel-name[filter]
-
-```{r, echo = TRUE}
-filtered_data <- dat %>% 
-    filter(State == "TN")
-
-filtered_data
-```
-
-Learn more about `filter()` [here](https://dplyr.tidyverse.org/reference/filter.html)
-
-]
-]
-
----
-
-# Key Concept: dplyr "verbs"
-
-.panelset[
-
-.panel[.panel-name[arrange]
-
-- `arrange()` sorts the rows of your data frame based on numeric or alpha-numeric values
-
-```{r, echo = TRUE}
-arranged_data <- dat %>% 
-    arrange(Name)
-
-arranged_data
-```
-
-]
-
-.panel[.panel-name[arrange]
-
-You can reverse the order with `desc()`:
-
-```{r, echo = TRUE}
-arranged_data <- dat %>% 
-    arrange(desc(Name))
-
-arranged_data
-```
-
-Learn more about `arrange()` [here](https://dplyr.tidyverse.org/reference/arrange.html)
-
-]
-
-.panel[.panel-name[mutate]
-
-- `mutate()` creates new variables
-
-```{r, echo = TRUE}
-mutated_data <- dat %>%
-    mutate(age_next_year = Age + 1)
-
-mutated_data
-```
-
-Learn more about `mutate()` [here](https://dplyr.tidyverse.org/reference/mutate.html)
-
-]
-
 ]
 
 ---
@@ -241,42 +188,75 @@ Learn more about `mutate()` [here](https://dplyr.tidyverse.org/reference/mutate.
 
 .panelset[
 
-.panel[.panel-name[The basics]
+.panel[.panel-name[grouping]
 
 ```{r, eval = FALSE, echo = TRUE}
-library(educationdata)
+library(palmerpenguins)
 library(tidyverse)
+
+grouped_data <- penguins %>%
+    group_by(species)
+
+grouped_data # the data is now "grouped" by species
+```
+
+]
+
+.panel[.panel-name[Multiple groups]
+
+```{r, eval = FALSE, echo = TRUE}
+grouped_data_2 <- penguins %>%
+    group_by(species, island)
+
+grouped_data # the data is now "grouped" by species and island
+```
+
+]
+
+.panel[.panel-name[summarize]
+
+```{r, eval = FALSE, echo = TRUE}
+grouped_data %>% 
+    summarize(mean_body_weight_g = mean(body_weight_g))
+
+# note: often, we need to add na.rm = TRUE to remove rows with missing values
+# can you replace mean with a different measure of central tendency? what do you find?
+
+grouped_data_2 %>% 
+    summarize(mean_body_weight_g = mean(body_weight_g)) # what is different in this output?
+
+grouped_data_2 %>% 
+    summarize(mean_body_weight_g = mean(body_weight_g),
+              max_body_weight_g = max(body_weight_g),
+              n = n()) # n() is a helpful summary function that returns the number of rows per group
 
 ```
 
 ]
 
-.panel[.panel-name[Different groups]
+.panel[.panel-name[Doing more]
+
+- There are some helpful extensions of summarize that may prove useful
+- Imagine you want to find the mean for _all_ of the numeric variables in your data, after you have gruped by species and island
+- Let's start from the raw data, building this up step-by-step, and assigning the output a new name
 
 ```{r, eval = FALSE, echo = TRUE}
-library(educationdata)
-library(tidyverse)
+mean_vals_for_penguins <- penguins %>% 
+    group_by(species, island) %>% 
+    summarize_if(is.numeric, mean, na.rm = TRUE) # what if we don't add na.rm = TRUE? try this out!
 
+mean_vals_for_penguins
 ```
 
-]
+- What if we wanted to remove year? We can use select to remove it --- or, try out `summarize_at()`:
 
-.panel[.panel-name[Different variables]
+```{r}
+mean_vals_for_penguins <- penguins %>% 
+    group_by(species, island) %>% 
+    summarize_at(vars(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g), mean, na.rm = TRUE)
 
-```{r, eval = FALSE, echo = TRUE}
-library(educationdata)
-library(tidyverse)
 
-```
-
-]
-
-.panel[.panel-name[Different summary statistics]
-
-```{r, eval = FALSE, echo = TRUE}
-library(educationdata)
-library(tidyverse)
-
+mean_vals_for_penguins
 ```
 
 ]
@@ -312,6 +292,7 @@ library(tidyverse)
 
 - There is an additional assignment this week: Final Project Planning
 - In this assignment, you will read a bit about the final project, and share some _initial, preliminary ideas_ (not final plans!) to receive early feedback (and to get your gears turning regarding what you will do)
+- Since this is also due in the next week, the assignment and reading discussion are a slightly more brief than that those you have recently completed; be sure to budget time to start to think about your final project
 
 ]
 

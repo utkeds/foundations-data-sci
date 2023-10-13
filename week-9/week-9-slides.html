@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 9 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
+    <script src="week-9-slides_files/header-attrs-2.24/header-attrs.js"></script>
+    <script src="week-9-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-9-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-9-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-9-slides_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-9-slides_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-9-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-9-slides_files/panelset-0.2.6/panelset.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 9 Slides
+]
+.subtitle[
+## Group By and Summarize
+]
+.author[
+### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the first of four weeks that equip you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
+
+## What we'll do in this presentation
+
+- Reading Recap
+- Discussion
+- Key Concept: Group by and summarize
+- Code-along and data
+- What's next: Assignment(s) and Readings
+
+---
+
+# Reading Recap
+
+Substantive reading(s):
+
+&gt; Morse, R., and &amp; Brooks, E. (2023). How U.S. News Calculated the 2024 Best Colleges Rankings. https://www.usnews.com/education/best-colleges/articles/how-us-news-calculated-the-rankings
+
+&gt; Wolfe, R. (2023). A different kind of college ranking. *Washington Monthly.* https://washingtonmonthly.com/2023/08/27/a-different-kind-of-college-ranking-2/
+
+&gt; Blinder, A. (2023). With a New Formula, U.S. News  Rankings Boost Some State Universities. *New York Times*. https://www.nytimes.com/2023/09/18/us/us-news-college-ranking.html
+
+Technical reading(s):
+
+&gt; Esposito, E., &amp; Stark, D. (2019). What's Observed in a Rating? Rankings as Orientation in the Face of Uncertainty. *Theory, Culture &amp; Society, 36*(4), 3-26.
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- One way we can think about _large and complex_ data sets is whether the data is aggregated---or not
+- In education data, it is highly common to aggregate raw data (e.g., individual student assessments) at multiple levels:
+
+- Multiple assessments at the **student level**
+- Multiple students at the **teacher level**
+- Multiple teachers at the **subject level** and **school level**
+- Multiple schools at the **district level**
+- Multiple districts at the **state level**
+
+- What counts as raw and aggregated data differs for each field---and even for each research question!
+
+]
+
+.panel[.panel-name[Discussion Questions]
+
+- For your research-related area of interest, what are one or more levels at which raw data is aggregated?
+- For which purposes might **raw data** me more useful? For which purposes might aggregate data be useful?
+
+]
+
+]
+
+---
+
+# Key Concept: Aggregating
+
+
+.panelset[
+
+.panel[.panel-name[dplyr "verbs"]
+
+- As we discussed in our last class (for weeks 7-8), there are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses: `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
+- Several additional "verbs" are also very useful and are the focus of this and the next week: `group_by()`, `summarize()`, `pivot_longer()`, and `pivot_wider()`
+- We focus on the first two of these additional "verbs" this week
+- We use the term "aggregating" to refer to grouping and summarizing - specifying groups in our data and summarizing them
+]
+
+.panel[.panel-name[group_by]
+
+- `group_by()` is used to specify the group or groups in a a data frame (or tibble)
+- It works by specifying the variables you want to keep or remove
+- Let's imagine we're using school-level data on the number of students enrolled
+
+
+```r
+grouped_data &lt;- dat %&gt;%
+    group_by(district_name)
+
+grouped_data # the data is now "grouped" by district_name
+```
+
+- *Important reminder from last week!*: if we don't assign the output a new name (`selected_data &lt;-`), the results of our use of a dplyr "verb" won't be saved
+
+]
+
+.panel[.panel-name[multiple groups]
+
+- Importantly, we can specify multiple groups; typically, groups are a character string or factor, but they can be any unique identifiers
+
+
+```r
+grouped_data_2 &lt;- dat %&gt;%
+    group_by(district_name, state_name)
+
+grouped_data_2 # the data is now "grouped" by school *and* district both
+```
+
+What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific schools within specific districts and states, even if the schools share the same name)
+
+]
+
+.panel[.panel-name[summarize]
+
+- Once we have specified groups, we can then calculate summary statistics
+- The first part of the `summarize()` function is simply the name of our summary statistic --- whatever we want it to be!
+- The second part, following the `=` symbol, is the formula for how your summary statistic is calculated (as long as it returns a single value per group, it is a valid summary statistic!)
+- This sounds pretty abstract, but it can also be pretty straightforward, as in the following:
+
+
+```r
+grouped_data %&gt;% 
+    summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled)) 
+```
+]
+
+.panel[.panel-name[piping it!]
+
+- We can use the pipe operator to link together these functions in a single block of code
+- We can also change our summary statistic or add multiple summary statistics, as below
+- Practically always, summary statistics are calculated for numeric variables
+
+
+```r
+dat %&gt;% 
+    group_by(district_name, state_name) %&gt;% 
+    summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled),
+              max_number_of_students_enrolled = max(number_of_students_enrolled),
+              range_number_of_students_enrolled = range(number_of_students_enrolled)) 
+```
+
+]
+]
+
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[grouping]
+
+
+```r
+library(palmerpenguins)
+library(tidyverse)
+
+grouped_data &lt;- penguins %&gt;%
+    group_by(species)
+
+grouped_data # the data is now "grouped" by species
+```
+
+]
+
+.panel[.panel-name[Multiple groups]
+
+
+```r
+grouped_data_2 &lt;- penguins %&gt;%
+    group_by(species, island)
+
+grouped_data # the data is now "grouped" by species and island
+```
+
+]
+
+.panel[.panel-name[summarize]
+
+
+```r
+grouped_data %&gt;% 
+    summarize(mean_body_weight_g = mean(body_weight_g))
+
+# note: often, we need to add na.rm = TRUE to remove rows with missing values
+# can you replace mean with a different measure of central tendency? what do you find?
+
+grouped_data_2 %&gt;% 
+    summarize(mean_body_weight_g = mean(body_weight_g)) # what is different in this output?
+
+grouped_data_2 %&gt;% 
+    summarize(mean_body_weight_g = mean(body_weight_g),
+              max_body_weight_g = max(body_weight_g),
+              n = n()) # n() is a helpful summary function that returns the number of rows per group
+```
+
+]
+
+.panel[.panel-name[Doing more]
+
+- There are some helpful extensions of summarize that may prove useful
+- Imagine you want to find the mean for _all_ of the numeric variables in your data, after you have gruped by species and island
+- Let's start from the raw data, building this up step-by-step, and assigning the output a new name
+
+
+```r
+mean_vals_for_penguins &lt;- penguins %&gt;% 
+    group_by(species, island) %&gt;% 
+    summarize_if(is.numeric, mean, na.rm = TRUE) # what if we don't add na.rm = TRUE? try this out!
+
+mean_vals_for_penguins
+```
+
+- What if we wanted to remove year? We can use select to remove it --- or, try out `summarize_at()`:
+
+
+```
+## # A tibble: 5 × 6
+## # Groups:   species [3]
+##   species   island  bill_length_mm bill_depth_mm flipper_length_mm
+##   &lt;fct&gt;     &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;
+## 1 Adelie    Biscoe            39.0          18.4              189.
+## 2 Adelie    Dream             38.5          18.3              190.
+## 3 Adelie    Torger…           39.0          18.4              191.
+## 4 Chinstrap Dream             48.8          18.4              196.
+## 5 Gentoo    Biscoe            47.5          15.0              217.
+## # ℹ 1 more variable: body_mass_g &lt;dbl&gt;
+```
+
+]
+
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+- In the weekly assignment, you will group and summarize school-level data on enrollments, practicing aggregating in three ways:
+
+1. at different levels (groups)
+2. for different variables
+3. with different summary statistics
+
+]
+
+
+.panel[.panel-name[Data]
+
+- We'll be using an already-saved version of data we accessed via the educationdata package on school-level enrollments
+- The data will be fairly large and complex --- thus suggesting the importance of grouping and summarizing as exploratory data analysis steps
+
+]
+
+
+.panel[.panel-name[Final Project Planning]
+
+- There is an additional assignment this week: Final Project Planning
+- In this assignment, you will read a bit about the final project, and share some _initial, preliminary ideas_ (not final plans!) to receive early feedback (and to get your gears turning regarding what you will do)
+- Since this is also due in the next week, the assignment and reading discussion are a slightly more brief than that those you have recently completed; be sure to budget time to start to think about your final project
+
+]
+
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- Substantive reading(s) for the week ahead:
+
+&gt; Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... &amp; Warschauer, M. (2020). Mining big data in education: Affordances and challenges. *Review of Research in Education, 44*(1), 130-160.
+
+*In this reading, focus on the complexity of data used in education (or your field) and how and why data mining can involve data at different levels or groups**
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s) for the week ahead:
+
+&gt; Summarizing Data by Groups: https://r-graphics.org/recipe-dataprep-summarize
+
+&gt; Data Transformation: https://r4ds.hadley.nz/data-transform
+
+For the second reading, please review section 4.5 (from this reading that we already completed)
+
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

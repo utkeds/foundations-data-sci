@@ -11,11 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Step 1
 
-Here, please load the tidyverse and educationdata packages.
+Here, please load the tidyverse package.
 
 ```{r}
 library(tidyverse)
-library(educationdata)
 ```
 
 ## Step 2
