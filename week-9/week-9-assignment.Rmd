@@ -19,16 +19,93 @@ library(tidyverse)
 
 ## Step 2
 
+As noted in this week's class, we will be using data similar to that we accessed from the educationdata R package. For simplicity and to focus more on grouping and summarizing, we've provided a CSV with the data on GitHub; you can read it as follows:
+
+```{r}
+elsi_data <- read_csv("https://github.com/utkeds/f23-founds-eds/blob/main/data/ELSI_csv_export_6383262475806903427192.csv?raw=true", skip = 6)
+```
+You'll notice the variables names are very lengthy and difficult to type: a problem to be solved with janitor! We'll use a little trick you may not have used yet. It is a way to use a single function from a package, by using the `::` syntax preceded by the name of the package with the function you want to use, as below:
+
+```{r}
+elsi_data <- janitor::clean_names(elsi_data)
+```
+
+## Step 3
+
+In the next code chunk, please use `glimpse()` to get a sense for the data we are using.
+
 ```{r}
 
 ```
 
+Write down two or more observations about the data (just from a glimpse of it) below:
 
+- 
+- 
+
+## Step 4
+
+One common issue encountered when reading data into R is that the variables are the wrong type; the fourth, fifth, and sixth variables in our data look like numbers, but were read into R as "chr" (character) variables. We can change those using mutate. We'll get you started by changing the fourth - `full_time_equivalent_fte_teachers_public_school_2021_22` - and fifth - `pupil_teacher_ratio_public_school_2021_22` variables. Can you do the same for the sixth by adding on to the mutate function?
+
+```{r}
+elsi_data <- elsi_data %>% 
+    mutate(full_time_equivalent_fte_teachers_public_school_2021_22 = as.double(full_time_equivalent_fte_teachers_public_school_2021_22)) %>% 
+    mutate(pupil_teacher_ratio_public_school_2021_22 = as.double(pupil_teacher_ratio_public_school_2021_22))
+```
+
+## Step 5
+
+In this step, let's start with a grouping operation --- simply grouping the data by district. In our data, the district is identified by the variable "`agency_id_nces_assigned_public_school_latest_available_year`. Please use `group_by()` to group the data by that variable in the code chunk below. Be sure to assign a name to the resulting output so we can use our grouped data in the next step!
+
+```{r}
+
+```
+
+## Step 6
+
+Now, let's calculate the average - the *mean* - number of students in each district using our grouped data. Refer back to the slides from this week if you need a pointer on how to do this! Please note that the variable indicating the number of students in each school is `total_students_all_grades_excludes_ae_public_school_2021_22`.
+
+```{r}
+
+```
+
+Once complete, you've done the core steps involved in grouping and summarizing! The rest only fills in some details on the use of these helpful dplyr "verbs".
+
+## Step 7
+
+In this step, please group the data by a _different_ (not another) group, specifically either the variable indicating the **locale** of the school, its title I status, participation in a school lunch program, or the type of district it is. In other words, instead of grouping the data by district, group by one of these last four variables in the data set. Then, calculate the same summary statistic you calculated in step 6.
+
+```{r}
+
+```
+
+## Step 8
+
+Now, please group by *any two variables of your choosing*, and calculate the same summary statistic as in the last two steps. Additionally, please use the `arrange()` function we used in weeks 7-8 to sort the rows of your data based on the summary statistic you calculated.
+
+```{r}
+
+```
+
+## Step 9
+
+Lastly, please *group by one or more variables of your choosing*, and calculate *three or more summary statistics*. 
+
+```{r}
+
+```
+
+## Step 10
+
+Based on your work in step 9, please add a few notes to interpret your aggregation of schools by district. What do you notice about your summary statistics? It may be helpful to use `arrange()` to sort the rows of your data frame. Additionally, it may be helpful to lookup the names of districts; you can do that at the following URL:
+
+https://nces.ed.gov/ccd/districtsearch/
 
 |                                               | Points Possible | Points Earned |
 |-----------------------------------------------|-----------------|---------------|
-| The three reflective steps (2, 3, 8) complete | 7.5 each        |               |
-| Coding steps (1, 4, 5, 6, 7) complete         | 7.5 each.       |               |
+| The seven coding steps (3-9) complete.        | 3 points each   |               |
+| Interpretation of analysis complete           | 4 points        |               |
+| File knits                                    | 5 points        |               |
 
 ## Knit and Submit
 

@@ -148,6 +148,8 @@ grouped_data_2 # the data is now "grouped" by school *and* district both
 
 What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific schools within specific districts and states, even if the schools share the same name)
 
+Learn more about group_by [here](https://dplyr.tidyverse.org/reference/group_by.html)
+
 ]
 
 .panel[.panel-name[summarize]
@@ -162,6 +164,8 @@ What this grouping means is that **summary statistics will be calculated for eac
 grouped_data %&gt;% 
     summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled)) 
 ```
+Learn more about summarize [here](https://dplyr.tidyverse.org/reference/summarize.html)
+
 ]
 
 .panel[.panel-name[piping it!]
@@ -239,7 +243,7 @@ grouped_data_2 %&gt;%
 .panel[.panel-name[Doing more]
 
 - There are some helpful extensions of summarize that may prove useful
-- Imagine you want to find the mean for _all_ of the numeric variables in your data, after you have gruped by species and island
+- Imagine you want to find the mean for _all_ of the numeric variables in your data, after you have grouped by species and island
 - Let's start from the raw data, building this up step-by-step, and assigning the output a new name
 
 
@@ -250,6 +254,9 @@ mean_vals_for_penguins &lt;- penguins %&gt;%
 
 mean_vals_for_penguins
 ```
+]
+
+.panel[.panel-name[And more!]
 
 - What if we wanted to remove year? We can use select to remove it --- or, try out `summarize_at()`:
 
@@ -257,14 +264,13 @@ mean_vals_for_penguins
 ```
 ## # A tibble: 5 × 6
 ## # Groups:   species [3]
-##   species   island  bill_length_mm bill_depth_mm flipper_length_mm
-##   &lt;fct&gt;     &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;
-## 1 Adelie    Biscoe            39.0          18.4              189.
-## 2 Adelie    Dream             38.5          18.3              190.
-## 3 Adelie    Torger…           39.0          18.4              191.
-## 4 Chinstrap Dream             48.8          18.4              196.
-## 5 Gentoo    Biscoe            47.5          15.0              217.
-## # ℹ 1 more variable: body_mass_g &lt;dbl&gt;
+##   species   island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##   &lt;fct&gt;     &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Adelie    Biscoe              39.0          18.4              189.       3710.
+## 2 Adelie    Dream               38.5          18.3              190.       3688.
+## 3 Adelie    Torgersen           39.0          18.4              191.       3706.
+## 4 Chinstrap Dream               48.8          18.4              196.       3733.
+## 5 Gentoo    Biscoe              47.5          15.0              217.       5076.
 ```
 
 ]

@@ -150,6 +150,8 @@ grouped_data_2 # the data is now "grouped" by school *and* district both
 
 What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific schools within specific districts and states, even if the schools share the same name)
 
+Learn more about group_by [here](https://dplyr.tidyverse.org/reference/group_by.html)
+
 ]
 
 .panel[.panel-name[summarize]
@@ -163,6 +165,8 @@ What this grouping means is that **summary statistics will be calculated for eac
 grouped_data %>% 
     summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled)) 
 ```
+Learn more about summarize [here](https://dplyr.tidyverse.org/reference/summarize.html)
+
 ]
 
 .panel[.panel-name[piping it!]
@@ -237,7 +241,7 @@ grouped_data_2 %>%
 .panel[.panel-name[Doing more]
 
 - There are some helpful extensions of summarize that may prove useful
-- Imagine you want to find the mean for _all_ of the numeric variables in your data, after you have gruped by species and island
+- Imagine you want to find the mean for _all_ of the numeric variables in your data, after you have grouped by species and island
 - Let's start from the raw data, building this up step-by-step, and assigning the output a new name
 
 ```{r, eval = FALSE, echo = TRUE}
@@ -247,6 +251,9 @@ mean_vals_for_penguins <- penguins %>%
 
 mean_vals_for_penguins
 ```
+]
+
+.panel[.panel-name[And more!]
 
 - What if we wanted to remove year? We can use select to remove it --- or, try out `summarize_at()`:
 
