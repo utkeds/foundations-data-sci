@@ -106,46 +106,6 @@ Technical reading(s):
 
 # Key Concept: Group by and summarize
 
-```{r}
-#| out.width: 60%
-#| fig-align: center
-knitr::include_graphics("dplyr-verbs_table_v2.png")
-```
-
----
-
-# Key Concept: dplyr "verbs"
-
-```{r}
-#| out.width: 60%
-#| fig-align: center
-knitr::include_graphics("dplyr-verb_general-syntax-explanation.png")
-
-knitr::include_graphics("dplyr-pipe-syntax_simple.png")
-```
-
----
-
-# Key Concept: dplyr "verbs"
-
-```{r}
-#| echo: true
-library(dplyr)
-
-dat <- tibble(
-    ID = c(1, 2, 3, 4),
-    Name = c("Alice", "Bob", "Charlie", "Stefanie"),
-    Age = c(25, 30, 22, 39),
-    State = c("TN", "NC", "CA", "TN")
-)
-
-dat
-```
-
----
-
-# Key Concept: dplyr "verbs"
-
 .panelset[
 
 .panel[.panel-name[dplyr "verbs"]
@@ -277,152 +237,46 @@ Learn more about `mutate()` [here](https://dplyr.tidyverse.org/reference/mutate.
 
 ---
 
-# Key Concept: Ratings and rankings
-
-.panelset[
-
-.panel[.panel-name[educationdata]
-
-- Reminder: The [educationdata R package](https://urbaninstitute.github.io/education-data-package-r/index.html) facilitates access to the [Education Data Portal's API](https://educationdata.urban.org/documentation/index.html)
-
-```{r, eval = FALSE, echo = TRUE}
-df <- get_education_data(
-    level = "schools",
-    source = "ccd",
-    topic = "enrollment",
-    filters = list(year = 2021, grade = 12)
-)
-```
-
-*Documentation:*
-
-1. The [R package documentation](https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html)
-2. The [EDP API documentation](https://educationdata.urban.org/documentation/index.html)
-]
-
-.panel[.panel-name[Variables]
-
-- Any data on *colleges*: https://educationdata.urban.org/documentation/colleges.html
-- These four sources available via educationdata are likely to be particularly helpful:
-    - IPEDS
-    - College Scorecard
-    - Federal Student Aid
-    - National Association of College and University Business Officers
-
-]
-
-.panel[.panel-name[Ranking]
-
-- Creating a ranking involves 1) _accessing data_, 2) _preparing_ different variables, 3) _combining_ them into a single score or rank and 4) _interpreting_ the output
-- This will likely involve several dplyr functions:
-    - `mutate()`
-    - `row_number()`
-    - `scale()`
-    - `arrange()`
-
-]
-
-.panel[.panel-name[Process]
-
-- Week 7, *this week*: Access and standardize data
-- Week 8, *next week (fall break)*: Combine data and present and interpret rankings
-
-]
-
-]
-
----
-
 # Code-along
 
 .panelset[
 
-.panel[.panel-name[Accessing]
-
-- Tuition and fees and fall retention rates
-- We'll have to access data on each, standardize them, and combine them to create a ranking
-
-- Let's access the data
+.panel[.panel-name[The basics]
 
 ```{r, eval = FALSE, echo = TRUE}
 library(educationdata)
 library(tidyverse)
 
-ratio <- get_education_data(level = "college-university",
-    source = "ipeds",
-    topic = "student-faculty-ratio",
-    filters = list(year = 2020))
-
-retention <- get_education_data(level = "college-university",
-    source = "ipeds",
-    topic = "fall-retention",
-    filters = list(year = 2020))
 ```
 
 ]
 
-.panel[.panel-name[Preparing]
+.panel[.panel-name[Different groups]
 
 ```{r, eval = FALSE, echo = TRUE}
-ratio <- as_tibble(ratio)
+library(educationdata)
+library(tidyverse)
 
-ratio <- ratio %>% 
-    select(unitid, student_faculty_ratio) # to simply the data
-```
-
-```{r, eval = FALSE, echo = TRUE}
-retention <- as_tibble(retention)
-
-retention <- retention %>% 
-    filter(ftpt == 99) %>% # let's look at the total of both full (1) and part-time (2) students
-    select(unitid, retention_rate) # to simply the data
 ```
 
 ]
 
-.panel[.panel-name[Combining]
-
-- As the variables are on different scales, calculating _ranks_ may be helpful -- `min_rank()`, which assigns tied ranks to equivalent values
-
-```{r}
-x <- c(5, 1, 3, 2, 2, NA)
-min_rank(x)
-```
+.panel[.panel-name[Different variables]
 
 ```{r, eval = FALSE, echo = TRUE}
-combined_data <- inner_join(ratio, retention, by = c("unitid"))
+library(educationdata)
+library(tidyverse)
 
-combined_data <- combined_data %>% 
-    mutate(student_faculty_ratio_rank = min_rank(student_faculty_ratio),
-           retention_rate_rank = min_rank(retention_rate)) %>% 
-    select(unitid, student_faculty_ratio_rank, retention_rate_rank)
-
-final_ranks <- combined_data %>% 
-    mutate(total_rank = (student_faculty_ratio_rank + retention_rate_rank) / 2) %>% 
-    arrange(total_rank)
-
-final_ranks
 ```
 
 ]
 
-.panel[.panel-name[Interpreting]
-
-- We need to know the names of the institutions to be able to present and interpret our results.
-- We can access that data, too
+.panel[.panel-name[Different summary statistics]
 
 ```{r, eval = FALSE, echo = TRUE}
-directory <- get_education_data(level = "college-university",
-    source = "ipeds",
-    topic = "directory",
-    filters = list(year = 2020))
+library(educationdata)
+library(tidyverse)
 
-directory <- directory %>% 
-    select(unitid, inst_name)
-
-final_ranks %>% 
-    left_join(directory) %>% 
-    select(inst_name, total_rank)
 ```
 
 ]
@@ -437,28 +291,38 @@ final_ranks %>%
 
 .panel[.panel-name[Weekly Assignment]
 
-- In the weekly assignment, you will xx
+- In the weekly assignment, you will group and summarize school-level data on enrollments, practicing aggregating in three ways:
 
-]
-
-.panel[.panel-name[Final Project Planning]
-
-
+1. at different levels (groups)
+2. for different variables
+3. with different summary statistics
 
 ]
 
 
 .panel[.panel-name[Data]
 
-- We'll be using data from XX
+- We'll be using an already-saved version of data we accessed via the educationdata package on school-level enrollments
+- The data will be fairly large and complex --- thus suggesting the importance of grouping and summarizing as exploratory data analysis steps
 
 ]
+
+
+.panel[.panel-name[Final Project Planning]
+
+- There is an additional assignment this week: Final Project Planning
+- In this assignment, you will read a bit about the final project, and share some _initial, preliminary ideas_ (not final plans!) to receive early feedback (and to get your gears turning regarding what you will do)
+
+]
+
 
 .panel[.panel-name[Substantive Reading(s)]
 
 - Substantive reading(s) for the week ahead:
 
 > Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... & Warschauer, M. (2020). Mining big data in education: Affordances and challenges. *Review of Research in Education, 44*(1), 130-160.
+
+*In this reading, focus on the complexity of data used in education (or your field) and how and why data mining can involve data at different levels or groups**
 
 ]
 
@@ -468,9 +332,9 @@ final_ranks %>%
 
 > Summarizing Data by Groups: https://r-graphics.org/recipe-dataprep-summarize
 
-> Data Transformation: https://r4ds.hadley.nz/data-transform (please review section 4.5 from this reading from last week)
+> Data Transformation: https://r4ds.hadley.nz/data-transform
 
-Also linked in Canvas.
+For the second reading, please review section 4.5 (from this reading that we already completed)
 
 ]
 
