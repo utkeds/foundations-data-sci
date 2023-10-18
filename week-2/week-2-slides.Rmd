@@ -55,46 +55,13 @@ This week, we answer the following question: What's this course about? We will i
 - Introductions
 - Reading recap
 - Syllabus
-- Key Concept: R, RStudio, and RMarkdown
-- Key Concept: Core Skills Framework
-- Code-along and data
+- Key Concepts: R, RStudio, and RMarkdown
+- Data Structures
+- Core Skills Framework
+- Code along and data
 - What's next: Assignment(s) and Readings
 
 ---
-
-# Discussion
-
-.panelset[
-
-.panel[.panel-name[Background]
-
-- Data science is often defined by harkening back to an early definition by [Conway (2013)](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram): analyses and research that draw on the following capabilties:
-- Math and statistics
-- Computer science and programming
-- Knowledge of a specific domain
-
-]
-
-.panel[.panel-name[Background]
-
-```{r, echo = FALSE, out.width="50%"}
-knitr::include_graphics("https://images.squarespace-cdn.com/content/v1/5150aec6e4b0e340ec52710a/1364352051365-HZAS3CLBF7ABLE3F5OBY/Data_Science_VD.png?format=2500w")
-```
-
-]
-
-.panel[.panel-name[Discussion Question]
-
-- In which of Conway's three areas of capabilities are you _presently most confident_?
-- In which area _do you most want to learn more_?
-
-]
-
-]
-
-
----
-
 
 # Introductions
 
@@ -122,13 +89,62 @@ please feel welcome to use different images here, both! also feel free to add to
 
 ---
 
+# Syllabus
+
+Syllabus:
+
+- GitHub: [bit.ly/F23-Syllabus-GH](https://bit.ly/F23-Syllabus-GH)
+- Available as a PDF on Canvas
+
+And the weekly schedule: [bit.ly/F23-Weekly-Schedule](https://bit.ly/F23-Weekly-Schedule)
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- Data science is often defined by harkening back to an early definition by [Conway (2013)](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram): analyses and research that draw on the following capabilities:
+    - Math and statistics
+    - Programming skills
+    - Knowledge of a specific domain
+
+]
+
+.panel[.panel-name[Data Science Venn Diagram]
+
+```{r, echo = FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("https://images.squarespace-cdn.com/content/v1/5150aec6e4b0e340ec52710a/1364352051365-HZAS3CLBF7ABLE3F5OBY/Data_Science_VD.png?format=2500w")
+```
+
+]
+
+.panel[.panel-name[Discussion Questions]
+
+Math and statistics | Programming Skills | Knowledge of a specific domain
+
+- In which of Conway's three areas of capabilities are you _presently most confident_?
+- In which area _do you most want to learn more_?
+
+]
+
+]
+
+.footnote[
+Source: http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram
+]
+
+---
+
 # Reading Recap
 
 In advance of this class, you were tasked with two readings:
 
 > Estrellado, R. A., Freer, E. A., Mostipak, J., Rosenberg, J. M., & Velásquez, I. C. (2020). Data science in education using R. Routledge. Chapter 3, What does data science in education look like? 
 
-The purpose of this reading was to illustrate the breadth of data science use cases. Do you see yourself in any of these cases? We recognize many of you come from non-education backgrounds!
+The purpose of this reading was to illustrate the breadth of data science use cases.
 
 > McFarland, D. A., Khanna, S., Domingue, B. W., & Pardos, Z. A. (2021). Education data science: Past, present, future. AERA Open, 7, 233 2858 4211052055.
 
@@ -140,15 +156,34 @@ It may be good to pull out and summarize highlights from students' discussion po
 
 ---
 
-# Syllabus
+# Reading Recap
 
-Syllabus: https://rpubs.com/jmichaelrosenberg/stem-680-fall-2023-syllabus
+> "Data Science is not a one size fits all." -- Jeannette
 
-And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw0mwEWuz_3m2Sn7TjIVILAv_E/edit
+
+> "Novel data and novel methods in EDS continue to reinforce one another and contribute to the growth of EDS as a whole." -- Bailey
+
+
+> "Data ethics and responsibility must be central in the work we do as opposed to something just tacked on the end of a project." -- William 
 
 ---
 
-# Key Concept: R, RStudio, RMarkdown
+# Reading Recap - Discussion
+
+- Say hello!
+
+Possible discussion questions:
+
+- Do you see yourself in any of these cases? We recognize many of you come from non-education backgrounds!
+- There is the potential for education data science to address educational equity gaps. How can data analysis contribute to identifying and addressing disparities in educational outcomes?
+- What are some of the challenges associated with working in education data science, both from a technical and ethical standpoint? 
+- What kind of skill sets and educational backgrounds do you think are most valuable for individuals aspiring to work in educational data science?
+
+*Please designate one person to share one highlight from your discussion.*
+
+---
+
+# Key Concept: R, RStudio, R Markdown, tidyverse
 
 .panelset[
 
@@ -166,8 +201,12 @@ And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw
 - A console for R code execution
 - A script editor
 - Tools for debugging and package management
-- Integrated RMarkdown support (see more next)
+- Integrated R Markdown support (see more next)
 - A way to view plots, data, and documentation
+
+Install RStudio: [posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/)
+
+Posit Cloud Project (requires account): [posit.cloud/content/6386146](https://posit.cloud/content/6386146)
 
 ]
 
@@ -179,53 +218,127 @@ And the weekly schedule: https://docs.google.com/document/d/1cUrX_bpHFNdqvSZU_cw
 - Display plots, tables, and other outputs directly
 - Convert to multiple output formats like PDF, HTML, and slides
 
+Three main components: YAML, code chunks, and Markdown
+
+We will be using R Markdown for our assignments!
+
+]
+
+.panel[.panel-name[tidyverse]
+
+- The tidyverse is a collection of R packages designed to make data analysis easier and more intuitive
+- Tidyverse packages, like dplyr and ggplot2, work together to provide tools for data manipulation, visualization, and more
+- The pipe `%>%` is a key element in the tidyverse
+
+```r
+data %>%
+    filter(condition) %>%
+    mutate(new_variable = some_calculation) %>%
+    ggplot(aes(x = variable, y = new_variable)) +
+    geom_point()
+```
+]
+
+.panel[.panel-name[Tidy data]
+- Tidy data is a structured way of organizing information in a dataset to make analysis and manipulation straightforward
+    - Columns: Each column holds a different type of information.
+    - Rows: Each row represents an individual observation or case.
+    - Tables: Each table focuses on one type of observational unit.
+    
+```r
+Name    Age   FavoriteColor
+Alice   25    Blue
+Bob     30    Red
+Charlie 22    Green
+```
+
 ]
 
 ]
 
 ---
 
-# Key Concept: Core Skills Framework
+# Data Structures
 
 .panelset[
 
-.panel[.panel-name[Data]
-**Data** in R
-Data in R can come in various types and structures - with the last two being very important!
+.panel[.panel-name[Basic Data Structures]
+**Data** in R can come in various types and structures:
 
-- **Vectors**: 1-dimensional arrays (numeric, character, logical)
-- **Matrices**: 2-dimensional arrays
-- **Lists**: Can contain different types and structures
+- **Vectors** are 1-dimensional arrays (numeric, character, logical): `c(1, 2)`
+- **Matrices** are 2-dimensional arrays: `matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)`
+- **Lists** can contain different types and structures: `list("Red", 23)`
+
+]
+
+.panel[.panel-name[Data Frames]
 - **Data Frames**: Tabular data, can mix different types
+
+```{r}
+#| echo: true
+data.frame(
+  Name = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 22),
+  FavoriteColor = c("Blue", "Red", "Green")
+)
+```
+
+]
+
+.panel[.panel-name[Tibbles]
 - **Tibbles**: Modern version of data frames (from the tidyverse)
+
+```{r}
+#| echo: true
+library(tidyverse)
+
+tibble(
+  Name = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 22),
+  FavoriteColor = c("Blue", "Red", "Green")
+)
+```
+]
+]
+
+---
+
+# Core Skills Framework
+
+.panelset[
+
+.panel[.panel-name[Functions]
+**Functions** in R are blocks of code that perform specific tasks:
+- Can be built-in (e.g., `mean()`, `sum()`), loaded from a package (e.g., `glimpse()`), or user defined (as shown below)
+- Accept arguments (inputs) and return results (outputs)
+- Essential for reusing code and creating complex operations
+
+```r
+add_numbers <- function(x, y) {
+  result <- x + y
+  return(result)
+}
+
+# "Call" the function
+add_numbers(5, 3)
+```
 
 ]
 
 .panel[.panel-name[Packages]
-**Packages** in R
-Packages are collections of functions and datasets:
+**Packages** in R are collections of functions and datasets:
 - Extend R's base functionality
 - Contributed by the community
 - Can be installed from CRAN, GitHub, and other sources
-- Examples: `tidyverse`, `ggplot2`, `skimr`
-
-]
-
-.panel[.panel-name[Functions]
-**Functions** in R
-Functions are blocks of code that perform specific tasks:
-- Can be built-in (e.g., `mean()`, `sum()`) or loaded from a package (e.g., `glimpse()`)
-- Accept arguments (inputs) and return results (outputs)
-- Essential for reusing code and creating complex operations
+- Examples: tidyverse, {ggplot2}, {skimr}
 
 ]
 
 .panel[.panel-name[Projects and File Paths]
-**Projects and File Paths** in RStudio
-Projects help organize your work:
+**Projects and File Paths** in RStudio help organize your work:
 - Keep related scripts, data, and outputs together
 - Simplify relative file paths, making it easier to find and load data
-- Ensures reproducibility by setting a consistent working directory
+- Ensure reproducibility by setting a consistent working directory
 - We *always* work in projects in this class; **let's create one together now!**
 
 ]
@@ -242,16 +355,17 @@ Walk students through creating a project for the whole class here
 
 # Code-along
 
-*Let's code-along together in an `.R` we'll use just for code-alongs!*
+*Let's code-along together in an `.R` script we'll use just for code-alongs!*
 
 .panelset[
 
-.panel[.panel-name[library()]
+.panel[.panel-name[`library()`]
 
-- We have to _first_ install packages before we can _load_ them (with `library()`)
-- We only have to install a package _once_; after that, as long as we're on the same computer, we can load the package **without installing it again**
+- We have to _first_ install packages before we can _load_ them (with `install.packages()` then `library()`)
+- We only have to install a package _once_; after that, as long as we're on the same computer and using the same version of R, we can load the package **without installing it again**
+
 ```{r, eval = FALSE, echo = TRUE}
-# install.packages("tidyverse")
+install.packages("tidyverse")
 library(tidyverse)
 ```
 
@@ -260,8 +374,8 @@ library(tidyverse)
 .panel[.panel-name[built-in data]
 
 - There is data built into *R* or R packages
-- We can learn a lot about built-in data just by typing its name, like below
-- Starwars data is built into the tidyverse package
+- We can learn a lot about built-in data just by typing its name and clicking "Run" (shortcut: `Ctrl + Enter`/`Cmd + Return`)
+- `starwars` data is built into the tidyverse
 
 ```{r, eval = FALSE, echo = TRUE}
 starwars
@@ -281,8 +395,8 @@ glimpse(starwars)
 
 .panel[.panel-name[view()]
 
-- `view()` is another way, though we generally recommend not using this in R Markdown documents (instead, copying and pasting it into the console) as it will cause an error in an R Markdown document
-- we commented it out for this reason 
+- `view()` is another way to see the data, though we generally recommend not using this in R Markdown documents (instead, copying and pasting it into the console) as it will cause an error in an R Markdown document
+- We commented it out for this reason 
 
 ```{r, eval = FALSE, echo = TRUE}
 # view(starwars)
@@ -302,7 +416,58 @@ skim(starwars)
 
 ]
 
-.panel[.panel-name[read_csv()]
+.panel[.panel-name[`%>%`]
+- The magrittr pipe `%>%` passes your code smoothly from one step to another, like passing things along in a pipeline
+- It takes the result from one command and sends it as the first argument to the next command
+- Instead of nesting functions inside each other, you see a clear sequence of steps
+
+```{r, eval = FALSE, echo = TRUE}
+starwars %>%
+    skim()
+```
+
+]
+
+.panel[.panel-name[`<-`]
+
+* The assignment operator `<-` is a way to give (or assigning) a name to a value or an object
+* Put the name you want on the left side, and the value or expression you want to assign on the right side
+* Use meaningful names that make your code more understandable
+
+```r
+starwars2 <- starwars
+```
+]
+]
+
+---
+
+# Assignment Prep
+
+.panelset[
+
+.panel[.panel-name[R Markdown documents]
+
+- As mentioned above, R Markdown documents contain a YAML heading, code chunks, and markdown text
+- You may need to install the {rmarkdown} package if you do not already have it installed
+- Run individual code chunks by clicking 'Run' > 'Run Current Chunk'
+- "Knit" the document to create the final output (HTML, PDF, Word)
+
+````md
+---
+title: "Title here"
+---
+
+This is some [markdown text](https://www.markdownguide.org/basic-syntax/).
+
+`r ''````{r}
+starwars
+```
+````
+
+]
+
+.panel[.panel-name[`read_csv()`]
 
 - Very often (and in practically all authentic analyses), we read in data from a file
 - A Comma Separated Values (CSV) file is a common file type for data scientists
@@ -313,8 +478,6 @@ naep <- read_csv("naep-data.csv")
 ```
 
 ]
-
-
 ]
 
 
@@ -328,19 +491,11 @@ Walk students through creating a week 2 folder, R script, and saving the ELSI da
 
 .panelset[
 
-.panel[.panel-name[Weekly Assignment]
+.panel[.panel-name[Install RStudio]
 
+- Head to posit.co and install RStudio Desktop: https://posit.co/download/rstudio-desktop/
+- You will need to install R first: https://cran.rstudio.com/
 
-- For this and all other weekly assignments, you will use an R Markdown document
-- Let's open that file - `week-2-assignment` - together to get you started; please **save this in a week 2 folder in the project you created!**
-- At the end, you will "Knit" the file to an HTML report that you will upload to Canvas for the Week 2 Assignment
-
-]
-
-.panel[.panel-name[Data]
-
-- This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
-- You can read more about it here: <https://www.nationsreportcard.gov/>
 ]
 
 .panel[.panel-name[Substantive Reading(s)]
@@ -362,6 +517,21 @@ This is linked in Canvas. It is associated with a discussion due before the next
 >RESM Handbook, Cleaning names with Janitor: https://bookdown.org/aschmi11/RESMHandbook/data-preparation-and-cleaning-in-r.html#cleaning-names-with-janitor
 
 This is also linked in Canvas. It is associated with the same discussion due before the next class.
+
+]
+
+.panel[.panel-name[Weekly Assignment]
+
+- For this and all other weekly assignments, you will use an R Markdown document
+- At the end, you will "Knit" the file to an HTML report that you will upload to Canvas for the Week 2 Assignment
+
+]
+
+.panel[.panel-name[Data]
+
+- This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
+- You can read more about it here: <https://www.nationsreportcard.gov/>
+- Let's open the R Markdown file - `week-2-assignment` - and the data -  `naep-data.csv` - from Canvas to get you started; please **save this in a week 2 folder in the project you created!**
 
 ]
 

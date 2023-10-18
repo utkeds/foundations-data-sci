@@ -4,13 +4,14 @@
     <title>Week 6 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
-    <script src="week-6-slides_files/header-attrs-2.22/header-attrs.js"></script>
+    <meta name="date" content="2023-09-27" />
+    <script src="week-6-slides_files/header-attrs-2.24/header-attrs.js"></script>
     <script src="week-6-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="week-6-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="week-6-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
-    <link href="week-6-slides_files/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
-    <link href="week-6-slides_files/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-6-slides_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-6-slides_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
     <link href="week-6-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
     <script src="week-6-slides_files/panelset-0.2.6/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -23,10 +24,13 @@ class: center, middle, inverse, title-slide
 # Week 6 Slides
 ]
 .subtitle[
-## How do I preparing data for analysis: Foundational skills, Part 1
+## How do I access and describe data? Using an R package and an API
 ]
 .author[
 ### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
+]
+.date[
+### September 27, 2023
 ]
 
 ---
@@ -45,40 +49,69 @@ class: center, middle, inverse, title-slide
 
 # Purpose and Agenda
 
-What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the first of four weeks that equip you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
+Data scientists often talk about "log trace" or "real-time" data. How do we access such data? This week, we explore ways to do that through Application Programming Interfaces, or **APIs**. We'll use the educationdata package to access the Education Data Portal API created by the Urban Institute.
 
 ## What we'll do in this presentation
 
-- Discussion
+- Brief Review
 - Reading Recap
-- Key Concept: select, rename, filter, arrange
-- Key Concept: Ratings and rankings
+- Discussion
+- Key Concept: Log trace data and Application Programming Interfaces (APIs)
+- Key Concept: The educationdata package
 - Code-along and data
 - What's next: Assignment(s) and Readings
 
 ---
 
-# Discussion
+# Quick question!
+
+What type of join is this?
+
+&lt;img src="images/example-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Brief Review of Joins
 
 .panelset[
 
-.panel[.panel-name[Background]
+.panel[.panel-name[Inner Join]
 
-
-
-]
-
-.panel[.panel-name[Discussion Question]
-
--
+&lt;img src="images/inner-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 ]
 
+
+.panel[.panel-name[Left Join]
+
+&lt;img src="images/left-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
 ]
 
-???
+.panel[.panel-name[Right Join]
 
-This discussion can serve as an opening to discussing what ggplot2's strengths are relative to the above two tools.
+&lt;img src="images/right-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[Full Join]
+
+&lt;img src="images/full-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[Things to look out for]
+
+- Data cleaning, format, limitations
+- Can they even be joined?
+- Type of join
+- Primary key
+- Visualizing the join
+- Analyzing the joined dataset
+
+]
+
+]
 
 ---
 
@@ -86,56 +119,191 @@ This discussion can serve as an opening to discussing what ggplot2's strengths a
 
 Substantive reading(s):
 
-&gt; Shelton, C. C., Koehler, M. J., Greenhalgh, S. P., &amp; Carpenter, J. P. (2022). Lifting the veil on Teach ersP ayTeachers. com: An in vestigation of educational marketplace offerings and downloads. Learning, Media and Technology, 47(2), 268-287.
+&gt; Reich, J. (2022). Learning analytics and learning at scale. Lang, C., Siemens, G. Wise, AF, Gašević, D., Merceron, A.,(eds.) Handbook of Learning Analytics, 2nd ed. Vancouver, Canada: SOLAR.
 
-&gt; Rosenberg, J. M., Borchers, C., Burchfield, M. A., Anderson, D., Stegenga, S. M., &amp; Fischer, C. (2022). Posts about students on Facebook: a data ethics p erspective. Educational researcher, 51(8), 547-550.
+&gt; White, R. S. (2023). Ceilings Made of Glass and Leaving En Masse? Examining Superintendent Gender Gaps and Turnover Over Time Across the United States. Educational Researcher, 0013189X231163139.
 
 Technical reading(s):
 
-&gt; R for Data Science, Data Transformation: https://r4ds.hadley.nz/data-transform
+&gt; Introducing educationdata, https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html (also, check out other pages on this website)
+
+---
+
+# Accessing data
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+A variety of services on the Internet allow people -- including _researchers_ -- to access data from those services
+
+- There are many services, including:
+
+    - **Social media**: Instagram, Facebook, Pinterest
+    - **Work-related**: Canvas
+    - **Government**: NOAA for weather data, U.S. census data
+    - **Personal**: Garmin, Nest thermostats
+
+]
+
+.panel[.panel-name[Chat Question]
+
+What is an Internet-based service or organization that provides data that could be of interest to you, either for research or just curiosity? 
+
+- Think broadly and consider doing a bit of research, searching for a service of interest plus the term "API"
+- Paste your response in the chat (entity + an example of data they provide + whether they have an API)
+
+]
+
+]
+
+---
+
+## Key Concept: Log trace data and APIs
+
+.panelset[
+
+.panel[.panel-name[Log trace data]
+
+- Different researchers use a variety of terms to refer to *data generated by peoples' interactions with digital services*:
+    - "Log file data" or "log data" (see [Wise et al., 2012](https://www.sciencedirect.com/science/article/pii/S1096751611000911) and [Rutherford et al., 2022)](https://www.tandfonline.com/doi/pdf/10.1080/15391523.2021.1920520): interactions with learning management systems and educational games
+    - "Trace data" (see [Winneh et al., 2017](https://escholarship.mcgill.ca/concern/articles/v692tb17v)): interactions with a tool intended to support studying
+    - "Digital traces" (see [Greenhalgh &amp; Koehler, 2017](https://link.springer.com/article/10.1007/s11528-016-0142-4)): tweets
+    
+- We use the term **log trace data** to refer to this kind of data
+
+]
+
+.panel[.panel-name[APIs]
+
+- Researchers can access log trace in a variety of ways, including by collaborating with individuals working at educational technology organizations or developing a tool that generates data
+- For larger companies or sources of data that are of wider interest, Application Programming Interfaces (APIs) are more common
+    - **API**: A set of rules, protocols, and tools that allows software applications (and *programming languages*, like R!) to communicate with each other
+    
+&lt;img src="api-analogy.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[Web-based APIs]
+
+- We will focus on a particular type of API referred to as **web-based APIs**, though there are others, including APIs to access databases, messages and emails, and user authentication
+- Web-based APIs have _rules_, _protocols_, and _tools_ that make it easier to use software and programming languages to access data
+
+&lt;img src="api-request.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[Why use APIs?]
+
+* **Data accessibility**: APIs provide researchers with direct access to a wealth of educational data that may not be readily available through other means
+* **Real-time data**: Many educational APIs offer real-time or near-real-time data updates
+* **Efficiency**: APIs allow researchers to automate data retrieval and analysis processes
+* **Interdisciplinary collaboration**: APIs can facilitate collaboration between researchers from various fields
+
+]
+]
+
+---
+
+# Education Data Portal
+
+.panelset[
+
+.panel[.panel-name[Education Data Portal]
+
+The Education Data Portal (EDP) provides ready access to a range of education-related data sources:
+
+&gt; Every year, the federal government releases large amounts of data on U.S. schools, school districts, and colleges. But this information is scattered across multiple datasets that are often difficult to access, and changes in data structure complicate efforts to measure change over time.
+
+&gt; To make these data more accessible, our website is organized by the institutions to which the information pertains: schools, school districts, and colleges. We’ve harmonized variables and documentation across datasets and time to make it easier to look at trends over time and combine data from different sources.
+
+]
+
+.panel[.panel-name[Example]
+
+Here is an example of an API from the Education Data Portal:
+
+`https://educationdata.urban.org/api/v1/schools/ccd/enrollment/2013/grade-3/?charter=1&amp;fips=47`
+
+- The URL specifies our request by stating we want to:
+    1. **access the API**, specifically **version 1**
+    2. **request data on schools**, specifically **from the Common Core of Data** data source
+    3. even more specifically, we want **enrollment data** for **2013**
+    4. for students in **third grade** in **charter schools** in a particular state, **Tennessee**
+- See other examples [here](https://educationdata.urban.org/documentation/schools.html)
+- Can you _manually_ (by typing out the URL) create another request?
+
+]
+
+
+.panel[.panel-name[Discussion question]
+
+What are some potential advantages and disadvantages of accessing data by editing the URL?
+
+]
+
+.panel[.panel-name[Potential issues]
+
+There are several issues with what we've just done:
+
+- *First*, specifying the requests manually (by typing out the URL) is a bit difficult
+- *Second*, the data is returned in JSON format, which we can't directly use in R
+- *Third*, what if we want to make several - or very many - requests in series? It is hard to do this through the browser
+- The educationdata R package addresses each of these issues with accessing data from the Education Data Portal API
+
+]
+
+
+]
 
 ???
 
-As in the first week, it may be good to pull out and summarize highlights from students' discussion posts here.
+it may be worth checking out those other examples
 
 ---
 
-.title[Key Concept: select, rename, filter, arrange
+# Key Concept: educationdata
 
 .panelset[
 
-.panel[.panel-name[xxx]
+.panel[.panel-name[The educationdata R package]
+
+- The [educationdata R package](https://urbaninstitute.github.io/education-data-package-r/index.html) facilitates access to the [Education Data Portal's API](https://educationdata.urban.org/documentation/index.html)
+- Example code that replicates what we earlier accessed via URL:
 
 
-]
+```r
+# install.packages("educationdata") # be sure to run this, first
 
-.panel[.panel-name[yyyy]
-
-
-]
-
-.panel[.panel-name[zzz]
-
-]
-]
-
----
-
-# Key Concept: Ratings and rankings
-
-.panelset[
-
-.panel[.panel-name[xxx]
-
+df &lt;- get_education_data(level = 'schools', 
+                         source = 'ccd', 
+                         topic = 'enrollment', 
+                         subtopic = list('race', 'sex'),
+                         filters = list(year = 2013,
+                                        grade = 3),
+                         csv = TRUE) # this makes accessing large data sets faster
+```
 
 ]
 
-.panel[.panel-name[yyyy]
+.panel[.panel-name[Advantages]
 
+- The code on the last slide addresses three issues with the URL-based method:
+
+    - We can specify the parameters as arguments for the function --- rather than as different parts of a URL
+    - We receive a data frame as output --- rather than JSON
+    - We can change the function call to access different data
 
 ]
 
-.panel[.panel-name[zzz]
+.panel[.panel-name[Documentation]
+
+Two sources of documentation are key for this week and the following weeks:
+
+1. The [R package documentation](https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html)
+2. The [EDP API documentation](https://educationdata.urban.org/documentation/index.html)
+
+**Review these both, seeing how you can access various data sources from the API, noting that the EDP API documentation provides example R code to access any variable in any of the available data sets**
 
 ]
 ]
@@ -146,40 +314,60 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 .panelset[
 
-.panel[.panel-name[select]
+.panel[.panel-name[Start small]
 
-- and rename!
-- yyy
--zzz
+Let's look at 12th-grade enrollment in U.S. schools for 2021
 
 
+```r
+df &lt;- get_education_data(level = "schools",
+                         source = "ccd",
+                         topic = "enrollment",
+                         filters = list(year = 2021, grade = 12))
 
-]
+df &lt;- df %&gt;% as_tibble() # to make inspecting the df easier
 
-.panel[.panel-name[filter]
-
-- yyy
--zzz
-
-
-
-]
-
-.panel[.panel-name[arrange]
-
-- yyy
--zzz
-
-
+df %&gt;% 
+    skim(ncessch) # how many schools are there in the data?
+```
 
 ]
 
-.panel[.panel-name[EDA]
+.panel[.panel-name[Expanding]
 
-- yyy
--zzz
+Let's look at _directory_ data to find out how many schools there are in the U.S.
 
 
+```r
+df_2 &lt;- get_education_data(level = "schools",
+                           source = "ccd",
+                           topic = "directory",
+                           filters = list(year = 2021))
+
+df_2 &lt;- df_2 %&gt;% as_tibble() # to make inspecting the df easier
+
+df_2 %&gt;% skim(ncessch) # how many schools in the U.S.
+df_2 %&gt;% skim(state_location) # number of schools by state
+```
+
+]
+
+.panel[.panel-name[District data]
+
+Let's do the same for school districts---groups of schools that serve an important role in the U.S. educational system
+
+
+```r
+df_3 &lt;- get_education_data(level = "school-districts",
+    source = "ccd",
+    topic = "directory",
+    filters = list(year = 2021))
+
+df_3 &lt;- as_tibble(df_3)
+
+df_3 %&gt;% skim(leaid) # how many districts in the U.S.
+df_3 %&gt;% skim(state_location) # number of schools by state
+```
 
 ]
 
@@ -191,17 +379,20 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 .panelset[
 
+.panel[.panel-name[Assignment]
 
-.panel[.panel-name[Weekly Assignment]
-
-- 
-- 
+- Whereas in the code-along we focused on school and school district data, we'll be using college-level data for the weekly assignment
+- Your task this week is to access data from a few variables, preparing for the following two weeks in which _you will construct a college rating like those created by the U.S. News and World Report_ (but, don't worry about this yet - we'll introduce that task in detail next week)
+- One note: **Accessing data from APIs can be tricky!** You often need to run queries multiple times to get them to work; and, you often need to carefully consult the codebook to understand the data that is returned. Stick with it!
+- Another note: **Please review the technical reading this week for tips on using the `filter()` function!s**
 
 ]
 
 .panel[.panel-name[Data]
 
-- We'll be using data from the educationdata package, specifically
+- We'll be using data from the educationdata package, specifically college-related data
+- This webpage will be very helpful for this: https://educationdata.urban.org/documentation/colleges.html
+    - Specifically, review the variables that are available and click over to the "R" tab to get code that you can copy-paste and run
 
 ]
 
@@ -209,7 +400,9 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 - Substantive reading(s) for the week ahead:
 
-&gt; Park, J. J., Kim, B. H., Wong, N., Zheng, J., Breen, S., Lo, P., … &amp; Poon, O. (2023). Inequality Beyond S tandardized Tests: Trends in Extr acurricular Activity Reporting in College A pplications Across Race and Class. Technical Report. Annenberg Institute at Brown University. &lt;https ://edworkin g papers.&gt;co m/ai23-749.
+&gt; Rutherford, T., Duck, K., Rosenberg, J. M., &amp; Patt, R. (2022). Leveraging mathematics software data to understand student learning and motivation during the COVID-19 pandemic. Journal of Research on Technology in Education, 54(sup1), S94-S131.
+
+&gt; Rosenberg, J. M., Borchers, C., Burchfield, M. A., Anderson, D., Stegenga, S. M., &amp; Fischer, C. (2022). Posts about students on Facebook: a data ethics perspective. *Educational Researcher, 51*(8), 547-550.
 
 Linked in Canvas.
 
@@ -219,9 +412,7 @@ Linked in Canvas.
 
 - Technical reading(s) for the week ahead:
 
-&gt; Data Science in Education Using R, Using School-Level Aggregate Data to Illuminate Educational Inequities: https://datascienceineducation.com/c09
-
-&gt; R For Data Science, Strings: https://r4ds.had.co.nz/strings.html
+&gt; R for Data Science, Data Transformation: https://r4ds.hadley.nz/data-transform
 
 Also linked in Canvas.
 

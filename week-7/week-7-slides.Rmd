@@ -1,6 +1,6 @@
 ---
 title: "Week 7 Slides"
-subtitle: "How do I preparing data for analysis: Foundational skills, Part 2"
+subtitle: "Creating a Good College Ranking System"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
 output:
   xaringan::moon_reader:
@@ -10,13 +10,15 @@ output:
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 
-style_duo_accent(primary_color = "#FF8200",
-                 secondary_color = "#58595B",
-                 title_slide_text_color = "#222943",
-                 title_slide_background_color = "#ededed",
-                 title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
-                 title_slide_background_position = "bottom",
-                 title_slide_background_size = "30%")
+style_duo_accent(
+    primary_color = "#FF8200",
+    secondary_color = "#58595B",
+    title_slide_text_color = "#222943",
+    title_slide_background_color = "#ededed",
+    title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
+    title_slide_background_position = "bottom",
+    title_slide_background_size = "30%"
+)
 ```
 
 
@@ -33,10 +35,8 @@ pacman::p_load(pacman, knitr, tidyverse, readxl)
 # these allow any code snippets to be copied to the clipboard so they 
 # can be pasted easily
 htmltools::tagList(
-    xaringanExtra::use_clipboard(
-        button_text = "<i class=\"fa fa-clipboard\"></i>",
-        success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
-    ),
+    xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>", ),
     rmarkdown::html_dependency_font_awesome()
 )
 ```
@@ -45,18 +45,47 @@ htmltools::tagList(
 xaringanExtra::use_panelset()
 ```
 
-
 # Purpose and Agenda
 
-How do you deal with trickier aspects of data wrangling? This week builds on the last focused on core skills. You work toward building a better college rating system, working toward a preliminary product of our work from the past three weeks.
+What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the first of four weeks that equip you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
+
 ## What we'll do in this presentation
 
-- Discussion
 - Reading Recap
-- Key Concept: mutate, case_when, if_else, stringr
-- Key Concept: Pulling it all together
+- Discussion
+- Key Concept: select, rename, filter, arrange
+- Key Concept: Ratings and rankings
 - Code-along and data
 - What's next: Assignment(s) and Readings
+
+---
+
+# Reading Recap
+
+Substantive reading(s):
+
+> Rutherford, T., Duck, K., Rosenberg, J. M., & Patt, R. (2022). Leveraging mathematics software data to understand student learning and motivation during the COVID-19 pandemic. *Journal of Research on Technology in Education, 54(sup1)*, S94-S131.
+
+> Rosenberg, J. M., Borchers, C., Burchfield, M. A., Anderson, D., Stegenga, S. M., & Fischer, C. (2022). Posts about students on Facebook: a data ethics perspective. *Educational Researcher, 51*(8), 547-550.
+
+Technical reading(s):
+
+> R for Data Science, Data Transformation: https://r4ds.hadley.nz/data-transform
+
+---
+
+# Reading Recap
+
+Your fellow classmates have used data from:
+
+- Administrative records
+- APIs
+- Student surveys
+- Lesson plans
+- Web scraping
+- Publicly available datasets
+- Meta-analysis from papers
+- & more!
 
 ---
 
@@ -66,80 +95,253 @@ How do you deal with trickier aspects of data wrangling? This week builds on the
 
 .panel[.panel-name[Background]
 
+- APIs can be very powerful, affording access to large data sets in a convenient manner
+- However, they can occasionally be difficult to use due to:
 
-
-]
-
-.panel[.panel-name[Discussion Question]
-
--
-
-]
+- Technical issues
+- Challenges around the size or amount of the data being accessed
+- The degree of documentation, among others
 
 ]
 
-???
+.panel[.panel-name[Discussion Questions]
 
-This discussion can serve as an opening to discussing what ggplot2's strengths are relative to the above two tools.
+- What new data did you pull in the second half of the assignment?
+- Did you find anything interesting and how would you extend your analysis?
+- What went well in the last week?
+- What issues, if any, did you encounter in the last week using the Education Data Portal API via the educationdata R package? How did you overcome them---or try to overcome them?
+
+]
+
+]
 
 ---
 
-# Reading Recap
+# Key Concept: dplyr "verbs"
 
-> Park, J. J., Kim, B. H., Wong, N., Zheng, J., Breen, S., Lo, P., … & Poon, O. (2023). Inequality Beyond S tandardized Tests: Trends in Extr acurricular Activity Reporting in College A pplications Across Race and Class. Technical Report. Annenberg Institute at Brown University. <https ://edworkin g papers.>co m/ai23-749.
-
-This was meant to introduce you to perhaps the most prominent data science adjacent field in education, the learning analytics community. The SOLAR community and LAK conference support learning analytics researchers. 
-
-Additionally, there were two technical readings:
-
-> Data Science in Education Using R, Using School-Level Aggregate Data to Illuminate Educational Inequities: https://datascienceineducation.com/c09
-
-> R For Data Science, Strings: https://r4ds.had.co.nz/strings.html
-
-???
-
-As in the first week, it may be good to pull out and summarize highlights from students' discussion posts here.
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("dplyr-verbs_table_v2.png")
+```
 
 ---
 
-# Key Concept: mutate, if_else, case_when, stringr
+# Key Concept: dplyr "verbs"
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("dplyr-verb_general-syntax-explanation.png")
+
+knitr::include_graphics("dplyr-pipe-syntax_simple.png")
+```
+
+---
+
+# Key Concept: dplyr "verbs"
+
+```{r}
+#| echo: true
+library(dplyr)
+
+dat <- tibble(
+    ID = c(1, 2, 3, 4),
+    Name = c("Alice", "Bob", "Charlie", "Stefanie"),
+    Age = c(25, 30, 22, 39),
+    State = c("TN", "NC", "CA", "TN")
+)
+
+dat
+```
+
+---
+
+# Key Concept: dplyr "verbs"
 
 .panelset[
 
-.panel[.panel-name[xxx]
+.panel[.panel-name[dplyr "verbs"]
 
+- There are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses
+- These are all "verbs": words used to describe an action, state, or occurrence ([OxfordLanguage](https://languages.oup.com/google-dictionary-en/))
+- The core dplyr "verbs" are `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
+]
+
+.panel[.panel-name[select]
+
+- `select()` is used to choose particular columns from a data frame (or tibble)
+- It works by specifying the variables you want to keep or remove
+
+```{r, echo = TRUE}
+selected_data <- dat %>%
+    select(Name, Age)
+
+selected_data
+```
+
+- *Important note and point of emphasis*: if we don't assign the output a new name (`selected_data <-`), the results of our use of a dplyr "verb" won't be saved
 
 ]
 
-.panel[.panel-name[yyyy]
+.panel[.panel-name[rename]
 
+- `rename()` changes the names of variables
+
+```{r, echo = TRUE}
+selected_renamed_data <- 
+    selected_data %>%
+    rename(name = Name, age = Age)
+
+selected_renamed_data
+```
+
+- *Note*: You can _select_ and _rename_ in a single step using `select()`:
+
+```{r, echo = TRUE}
+selected_and_renamed <- 
+    dat %>%
+    select(name = Name, age = Age) # selects Name and Age and renames them at the same time
+```
+
+Because `select()` can be used to rename, `rename()` is rarely used in practice.
+
+Learn more about `select()` and `rename()` [here](https://dplyr.tidyverse.org/reference/select.html), including handy "select helpers"
 
 ]
 
-.panel[.panel-name[zzz]
+.panel[.panel-name[filter]
+
+- `filter()` keeps or removes the rows of your data based on _logical conditions_ that you specify
+
+```{r, echo = TRUE}
+filtered_data <- dat %>%
+    filter(Age >= 25)
+
+filtered_data
+```
+
+]
+
+.panel[.panel-name[filter]
+
+```{r, echo = TRUE}
+filtered_data <- dat %>% 
+    filter(State == "TN")
+
+filtered_data
+```
+
+Learn more about `filter()` [here](https://dplyr.tidyverse.org/reference/filter.html)
 
 ]
 ]
 
 ---
 
-# Key Concept: Pulling it all together
+# Key Concept: dplyr "verbs"
 
 .panelset[
 
-.panel[.panel-name[xxx]
+.panel[.panel-name[arrange]
 
+- `arrange()` sorts the rows of your data frame based on numeric or alpha-numeric values
+
+```{r, echo = TRUE}
+arranged_data <- dat %>% 
+    arrange(Name)
+
+arranged_data
+```
 
 ]
 
-.panel[.panel-name[yyyy]
+.panel[.panel-name[arrange]
 
+You can reverse the order with `desc()`:
+
+```{r, echo = TRUE}
+arranged_data <- dat %>% 
+    arrange(desc(Name))
+
+arranged_data
+```
+
+Learn more about `arrange()` [here](https://dplyr.tidyverse.org/reference/arrange.html)
 
 ]
 
-.panel[.panel-name[zzz]
+.panel[.panel-name[mutate]
+
+- `mutate()` creates new variables
+
+```{r, echo = TRUE}
+mutated_data <- dat %>%
+    mutate(age_next_year = Age + 1)
+
+mutated_data
+```
+
+Learn more about `mutate()` [here](https://dplyr.tidyverse.org/reference/mutate.html)
 
 ]
+
+]
+
+---
+
+# Key Concept: Ratings and rankings
+
+.panelset[
+
+.panel[.panel-name[educationdata]
+
+- Reminder: The [educationdata R package](https://urbaninstitute.github.io/education-data-package-r/index.html) facilitates access to the [Education Data Portal's API](https://educationdata.urban.org/documentation/index.html)
+
+```{r, eval = FALSE, echo = TRUE}
+df <- get_education_data(
+    level = "schools",
+    source = "ccd",
+    topic = "enrollment",
+    filters = list(year = 2021, grade = 12)
+)
+```
+
+*Documentation:*
+
+1. The [R package documentation](https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html)
+2. The [EDP API documentation](https://educationdata.urban.org/documentation/index.html)
+]
+
+.panel[.panel-name[Variables]
+
+- Any data on *colleges*: https://educationdata.urban.org/documentation/colleges.html
+- These four sources available via educationdata are likely to be particularly helpful:
+    - IPEDS
+    - College Scorecard
+    - Federal Student Aid
+    - National Association of College and University Business Officers
+
+]
+
+.panel[.panel-name[Ranking]
+
+- Creating a ranking involves 1) _accessing data_, 2) _preparing_ different variables, 3) _combining_ them into a single score or rank and 4) _interpreting_ the output
+- This will likely involve several dplyr functions:
+    - `mutate()`
+    - `row_number()`
+    - `scale()`
+    - `arrange()`
+
+]
+
+.panel[.panel-name[Process]
+
+- Week 7, *this week*: Access and standardize data
+- Week 8, *next week (fall break)*: Combine data and present and interpret rankings
+
+]
+
 ]
 
 ---
@@ -148,61 +350,95 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 .panelset[
 
-.panel[.panel-name[mutate]
+.panel[.panel-name[Accessing]
 
-- yyy
--zzz
+- Tuition and fees and fall retention rates
+- We'll have to access data on each, standardize them, and combine them to create a ranking
+
+- Let's access the data
 
 ```{r, eval = FALSE, echo = TRUE}
+library(educationdata)
+library(tidyverse)
 
+ratio <- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "student-faculty-ratio",
+    filters = list(year = 2020))
+
+retention <- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "fall-retention",
+    filters = list(year = 2020))
 ```
 
 ]
 
-.panel[.panel-name[if_else]
-
-- yyy
--zzz
+.panel[.panel-name[Preparing]
 
 ```{r, eval = FALSE, echo = TRUE}
+ratio <- as_tibble(ratio)
 
+ratio <- ratio %>% 
+    select(unitid, student_faculty_ratio) # to simply the data
+```
+
+```{r, eval = FALSE, echo = TRUE}
+retention <- as_tibble(retention)
+
+retention <- retention %>% 
+    filter(ftpt == 99) %>% # let's look at the total of both full (1) and part-time (2) students
+    select(unitid, retention_rate) # to simply the data
 ```
 
 ]
 
-.panel[.panel-name[case_when]
+.panel[.panel-name[Combining]
 
-- yyy
--zzz
+- As the variables are on different scales, calculating _ranks_ may be helpful -- `min_rank()`, which assigns tied ranks to equivalent values
+
+```{r}
+x <- c(5, 1, 3, 2, 2, NA)
+min_rank(x)
+```
 
 ```{r, eval = FALSE, echo = TRUE}
+combined_data <- inner_join(ratio, retention, by = c("unitid"))
 
+combined_data <- combined_data %>% 
+    mutate(student_faculty_ratio_rank = min_rank(student_faculty_ratio),
+           retention_rate_rank = min_rank(retention_rate)) %>% 
+    select(unitid, student_faculty_ratio_rank, retention_rate_rank)
+
+final_ranks <- combined_data %>% 
+    mutate(total_rank = (student_faculty_ratio_rank + retention_rate_rank) / 2) %>% 
+    arrange(total_rank)
+
+final_ranks
 ```
 
 ]
 
-.panel[.panel-name[stringr]
+.panel[.panel-name[Interpreting]
 
-- yyy
--zzz
+- We need to know the names of the institutions to be able to present and interpret our results.
+- We can access that data, too
 
 ```{r, eval = FALSE, echo = TRUE}
+directory <- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "directory",
+    filters = list(year = 2020))
 
+directory <- directory %>% 
+    select(unitid, inst_name)
+
+final_ranks %>% 
+    left_join(directory) %>% 
+    select(inst_name, total_rank)
 ```
 
 ]
-
-.panel[.panel-name[rankings]
-
-- yyy
--zzz
-
-```{r, eval = FALSE, echo = TRUE}
-
-```
-
-]
-
 
 ]
 
@@ -212,27 +448,42 @@ As in the first week, it may be good to pull out and summarize highlights from s
 
 .panelset[
 
-
 .panel[.panel-name[Weekly Assignment]
 
-- 
-- 
-
+- In the weekly assignment, you will expand on what we did in the code-along in several ways:
+    - Researching how _other ranking systems_ work
+    - Planning out your approach in terms of _three principles you want to adhere to_ in your analysis
+    - Adding at least _three variables to use in your analysis_
+    - Suggesting possible improvements in the context of your interpretation of your results
+- Big picture, this is challenging: **the goal is to use this as an opportunity to practice all of the skills you have developed through this point in an authentic task**, but it will be challenging, and try to not let the good become the enemy of the perfect 
 ]
 
 .panel[.panel-name[Data]
 
-- We'll be using data from the educationdata package, specifically
+- We'll again be using data from the educationdata package --- any of the college-related data: https://educationdata.urban.org/documentation/colleges.html#ipeds_directory
+- Again, these four sources available via educationdata are likely to be particularly helpful:
+    - IPEDS
+    - College Scorecard
+    - Federal Student Aid
+    - National Association of College and University Business Officers
 
 ]
 
 .panel[.panel-name[Substantive Reading(s)]
 
-- Substantive reading(s) for the week ahead:
+- Substantive reading(s) for the week ahead (**note: there are three plus an optional reading, but the three required readings are brief!***:
 
-> Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... & Warschauer, M. (2020). Mining big data in education: Affordances and challenges. Review of Research in Education, 44(1), 130-160.
+> Morse, R., and & Brooks, E. (2023). How U.S. News Calculated the 2024 Best Colleges Rankings. https://www.usnews.com/education/best-colleges/articles/how-us-news-calculated-the-rankings
 
-> Hakimi, L., Eynon, R., & Murphy, V. A. (2021). The ethics of using digital trace data in education: A thematic review of the research landscape. Review of Educational Research, 91(5), 671-717.
+> Wolfe, R. (2023). A different kind of college ranking. *Washington Monthly.* https://washingtonmonthly.com/2023/08/27/a-different-kind-of-college-ranking-2/
+
+> Blinder, A. (2023). With a New Formula, U.S. News  Rankings Boost Some State Universities. *New York Times*. https://www.nytimes.com/2023/09/18/us/us-news-college-ranking.html
+
+]
+
+.panel[.panel-name[Optional Reading]
+
+> Esposito, E., & Stark, D. (2019). What's Observed in a Rating? Rankings as Orientation in the Face of Uncertainty. *Theory, Culture & Society, 36*(4), 3-26.
 
 Linked in Canvas.
 
@@ -242,7 +493,7 @@ Linked in Canvas.
 
 - Technical reading(s) for the week ahead:
 
-> gganimate package: https://gganimate.com/articles/gganimate.html
+> Data Science in Education Using R, Using School-Level Aggregate Data to Illuminate Educational Inequities: https://datascienceineducation.com/c09
 
 Also linked in Canvas.
 

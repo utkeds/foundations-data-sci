@@ -1,0 +1,251 @@
+---
+title: "Week 8 Slides"
+subtitle: "How do I preparing data for analysis: Foundational skills, Part 2"
+author: "**Isabella Velásquez and Maryrose Weatherton**"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_duo_accent(primary_color = "#FF8200",
+                 secondary_color = "#58595B",
+                 title_slide_text_color = "#222943",
+                 title_slide_background_color = "#ededed",
+                 title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
+                 title_slide_background_position = "bottom",
+                 title_slide_background_size = "30%")
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r, echo=FALSE}
+# then load all the relevant packages
+pacman::p_load(pacman, knitr, tidyverse, readxl)
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+# these allow any code snippets to be copied to the clipboard so they 
+# can be pasted easily
+htmltools::tagList(
+    xaringanExtra::use_clipboard(
+        button_text = "<i class=\"fa fa-clipboard\"></i>",
+        success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    ),
+    rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+
+# Purpose and Agenda
+
+How do you deal with trickier aspects of data wrangling? This week builds on the last focused on core skills. You work toward building a better college rating system, working toward a preliminary product of our work from the past three weeks.
+## What we'll do in this presentation
+
+- Discussion
+- Reading Recap
+- Key Concept: mutate, case_when, if_else, stringr
+- Key Concept: Pulling it all together
+- Code-along and data
+- What's next: Assignment(s) and Readings
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+
+
+]
+
+.panel[.panel-name[Discussion Question]
+
+-
+
+]
+
+]
+
+???
+
+This discussion can serve as an opening to discussing what ggplot2's strengths are relative to the above two tools.
+
+---
+
+# Reading Recap
+
+> Park, J. J., Kim, B. H., Wong, N., Zheng, J., Breen, S., Lo, P., … & Poon, O. (2023). Inequality Beyond S tandardized Tests: Trends in Extr acurricular Activity Reporting in College A pplications Across Race and Class. Technical Report. Annenberg Institute at Brown University. <https ://edworkin g papers.>co m/ai23-749.
+
+This was meant to introduce you to perhaps the most prominent data science adjacent field in education, the learning analytics community. The SOLAR community and LAK conference support learning analytics researchers. 
+
+Additionally, there were two technical readings:
+
+> Data Science in Education Using R, Using School-Level Aggregate Data to Illuminate Educational Inequities: https://datascienceineducation.com/c09
+
+> R For Data Science, Strings: https://r4ds.had.co.nz/strings.html
+
+???
+
+As in the first week, it may be good to pull out and summarize highlights from students' discussion posts here.
+
+---
+
+# Key Concept: mutate, if_else, case_when, stringr
+
+.panelset[
+
+.panel[.panel-name[xxx]
+
+
+]
+
+.panel[.panel-name[yyyy]
+
+
+]
+
+.panel[.panel-name[zzz]
+
+]
+]
+
+---
+
+# Key Concept: Pulling it all together
+
+.panelset[
+
+.panel[.panel-name[xxx]
+
+
+]
+
+.panel[.panel-name[yyyy]
+
+
+]
+
+.panel[.panel-name[zzz]
+
+]
+]
+
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[mutate]
+
+- yyy
+-zzz
+
+```{r, eval = FALSE, echo = TRUE}
+
+```
+
+]
+
+.panel[.panel-name[if_else]
+
+- yyy
+-zzz
+
+```{r, eval = FALSE, echo = TRUE}
+
+```
+
+]
+
+.panel[.panel-name[case_when]
+
+- yyy
+-zzz
+
+```{r, eval = FALSE, echo = TRUE}
+
+```
+
+]
+
+.panel[.panel-name[stringr]
+
+- yyy
+-zzz
+
+```{r, eval = FALSE, echo = TRUE}
+
+```
+
+]
+
+.panel[.panel-name[rankings]
+
+- yyy
+-zzz
+
+```{r, eval = FALSE, echo = TRUE}
+
+```
+
+]
+
+
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+
+.panel[.panel-name[Weekly Assignment]
+
+- 
+- 
+
+]
+
+.panel[.panel-name[Data]
+
+- We'll be using data from the educationdata package, specifically
+
+]
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- Substantive reading(s) for the week ahead:
+
+> Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... & Warschauer, M. (2020). Mining big data in education: Affordances and challenges. Review of Research in Education, 44(1), 130-160.
+
+> Hakimi, L., Eynon, R., & Murphy, V. A. (2021). The ethics of using digital trace data in education: A thematic review of the research landscape. Review of Educational Research, 91(5), 671-717.
+
+Linked in Canvas.
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s) for the week ahead:
+
+> gganimate package: https://gganimate.com/articles/gganimate.html
+
+Also linked in Canvas.
+
+]
+
+]

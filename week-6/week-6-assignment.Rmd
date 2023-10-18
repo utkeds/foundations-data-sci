@@ -11,93 +11,107 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Step 1
 
-Load the tidyverse and educaitondata packages.
+Load the tidyverse and educationdata packages. Like all packages, you will need to install the educationdata package before loading it for the first time.
 
 ```{r}
-library(tidyverse)
-library(educationdata)
+
 ```
 
 ## Step 2
 
-Let's begin by looking at the endowments of some institutions across the United States by querying the educationdata API. For now, let's use the year 2020.
+Next, we'll query the educationdata API to create a data frame that includes fall enrollment for colleges and universities for years ten years apart.
+
+*Note -- this may take a few minutes (or more) to run! If it stops running, you may need to try again. If you have tried several times and cannot access the data, please message the instructors.*
 
 ```{r}
-endowment <- get_education_data(level = "college-university",
-                         source = "nacubo",
-                         topic = "endowments",
-                         filter = list(year = 2020))
+df <- get_education_data(
+    level = "college-university",
+    source = "ipeds",
+    topic = "enrollment-headcount",
+    filters = list(year = c(2018), level_of_study = "undergraduate")
+)
+
+df <- as_tibble(df)
 ```
 
-How many institutions are included in this data frame?
+In the next code chunk, please glimpse the data you accessed.
 
--   
+```{r}
+
+```
+
+You may notice that instead of College or University names, you have an identifier that is a number, `unitid`. You can look up their names here: https://nces.ed.gov/ipeds/datacenter/InstitutionByName.aspx?stepId=1&sid=fb7e4c13-4a9e-43a5-89eb-dfead5e01d78&rtid=6
+
+You can also use that link (above) to lookup the unitid for a school. Please find the University of Tennessee, Knoxville, unit ID. Then, below, use the `filter()` function to filter the data you already accessed to only include rows associated with the University of Tennessee, Knoxville. Here's how that would be done.
+
+```{r}
+df %>% filter(unitid == 221759)
+```
 
 ## Step 3
 
-Using the endowment data frame from Step 2, let's practice our foundational skills from the week.
-
-First, rename the institution name column to something that is more user friendly
+How many colleges/universities are there in the data set? Please count up the number of unique colleges/universities using the tidyverse/tidyverse functions in the next code chunk. 
 
 ```{r}
-endowment <- endowment %>% 
-    rename(uni_name = inst_name_nacubo)
-```
 
-Next, arrange the endowments from greatest to least.
-
-```{r}
-endowment <- endowment %>% 
-    arrange(desc(endow_total))
-```
-
-Which institutions comprise the top 3 endowments in this list?
-
--   
-
-Next, filter institutions such that only institutions with endowments per full-time employee larger than $750,000 are included.
-
-```{r}
-endowment_filter <- endowment %>% 
-    filter(endow_per_fte >= 750000)
-```
-
-Do you find that institutions with the highest endowment also have the highest endowment per full-time employee?
-
--   
-
-Finally, select the year, institution name, and the market value change of the endowment and arrange the change in market value of endowment in descending order.
-
-```{r}
-endowment_mkt <- endowment %>% 
-    select("year", "uni_name", "endow_chg_mktval") %>% 
-    arrange(desc(endow_chg_mktval))
 ```
 
 ## Step 4
 
-US News and Rankings has tasked you with creating a better college ranking system. You are allowed to use any data available from the educationdata package. The focus for this week is to identify 3-4 variables you think would make a better ranking system and create the data frames with said variables. 
+To visualize the range of enrollments at all U.S. schools, let's create a histogram of total enrollment. To do this, we need to check out the codebook: https://educationdata.urban.org/documentation/colleges.html#ipeds-enrollment-headcount
 
-What are the 3-4 variables you plan to include? It might be helpful to look at the educationdata GitHub page to see what is available.
+Note that values of 99 have a special meaning. What does it mean? Add a note below:
 
--
+- Total
 
-Now, gather the 3-4 *individual* data frames from the educationdata API. 
+Check out the `headcount` variable in the codebook to understand its meaning. Then, filter the data so that race and sex are both equivalent to 99. If you've successfully filtered the data, you should have only one row per unitid (college or university).
+
+Then, create a histogram of the headcount variable _after_ you have filtered the data. 
+
+Read about geom_histogram() here: https://ggplot2.tidyverse.org/reference/geom_histogram.html
+
 ```{r}
 
 ```
 
-Next week, we will be joining these data frames together into one single data frame. Remember, you must have a common "key" across each data frame to join on. That is, there must be a column with the same name for each data frame. We suggest using the institution name as your key. In this step, use `rename()` to create that key. 
+Please interpret the graph you created. What do you notice? What does this tell you?
+
+- 
+
+## Step 5
+
+Create your own data frame *using a different variable of your choosing*. Examine the options available on the educationdata GitHub: https://github.com/UrbanInstitute/education-data-package-r. Also, consider reviewing the EDP documentation: https://educationdata.urban.org/documentation/index.html. 
+
+At this stage, we are focused on becoming familiar with accessing data from the API, so don't worry too much about the specifics of your selection.
+
 ```{r}
 
 ```
 
-You may not want to include all variables educationdata pulls. In this step, use `select()` to include the variables of interest in each data frame. 
+Why did you select the variables you selected?
+
+- 
+
+## Step 6
+
+Complete a very brief, exploratory analysis of your date. This can be _very_ simple; just learn something about the data you accessed. recall again that the purpose of this step is to get familiar with accessing data from the API.
+
 ```{r}
 
 ```
 
-Now that you have cleaned your data a bit, it is time to save each data frame as a .csv so you can access them next week.
+What information did you learn from your analysis? Were there any results that surprised you?
+
+- 
+
+- 
+
+
+## Reach
+
+This portion of the assignment is optional but offers you a chance to push your skills further.
+
+Think of an issue University of Tennessee, Knoxville Chancellor Donde Plowman might be interested in. Create a new data frame that could be presented to Donde Plowman to address this interest. Complete a simple analysis to hep Donde understand what the data is saying. 
 
 ```{r}
 
@@ -106,12 +120,10 @@ Now that you have cleaned your data a bit, it is time to save each data frame as
 ## Rubric
 
 |                                               | Points Possible | Points Earned |
-|--------------------------------------|-----------------|-----------------|
+|-----------------------------------------------|-----------------|---------------|
 | File knits                                    | 2               |               |
-| Code is accurately filled in for all 4 steps. | 10              |               |
-| Step 2 Question                               | 3               |               |
-| Step 3 Questions                              | 6               |               |
-| Step 4 Code and Question                      | 9               |               |
+| Code is accurately filled in for all 5 steps. | 10              |               |
+| Steps 1-6 are completed                       | 3 points each   |               |
 
 ## Knit and Submit
 

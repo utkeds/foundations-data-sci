@@ -1,7 +1,7 @@
 ---
-title: "Week 4 - Teacher"
-author: "Teacher"
-date: "Assignment Due Date"
+title: "Week 4 Assignment"
+author: "Student Name"
+date: "Assignment due date"
 output: html_document
 ---
 
@@ -9,159 +9,145 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Step 1
+For this assignment, we are going to use data from the Elementary/Secondary Information System (ElSi). ELSi simplifies downloading data from the Common Core of Data (CCD) and Private School Survey (PSS).
 
-Load the tidyverse and janitor packages.
+## Step 1  
+
+Load the necessary packages: tidyverse and janitor
 
 ```{r}
-
+library(___)
+library(___)
 ```
 
 ## Step 2
 
-Read the tidykids and NAEP data frames to your environment.
+Load ELSI data. You will need to give the dataframe a name to make R "store" it for later use.
 
 ```{r}
+___ <- read_csv(___, skip = 6)
 
+# This .csv has 6 rows of information before the data starts. We must tell R to skip the 6 rows of information in order for the data to import correctly. To do this, we include "skip = 6" after the file name. 
 ```
 
 ## Step 3
 
-Familiarize yourself with the two data frames using functions we've used before to do so.
+Explore the data and clean column names as necessary using `clean_names()`
 
 ```{r}
+glimpse(___)
+print(___)
 
+___ <- clean_names(___) # Rename the clean names version of the dataframe. It can be the same name or something new. 
 ```
 
-What is one interesting piece of information you learned about the two datasets from your exploration?
+## Step 4a
 
-```         
-- 
-```
-
-One thing we noticed is that the tidykids data is quite big relative to the NAEP data! 
-
-With the naep data, we have *only a single row per state*, whereas the tidykids data has *many rows per state*. The reason is the tidykids data is by *year* and *variable* (category of spending on kids). To make our lives a bit easier, let's filter the tidykids data to be only from the most recent year, 2016.
+Create a bar plot looking at the number of Title 1 schools in the 2021-22 school year. *Notes*: the value of 1 means the school is a Title 1 school and the value of 2 means the school is not a Title 1 school. Also, we are using a bar graph becuase the data is categorical -- either a school is Title 1 or it is not.  
 
 ```{r}
-# the code below filters the rows of the tidykids data frame to only include those for which the year is equivalent to 2016, and then (re)assigns the name tidykids to the resulting output
-
-tidykids <- tidykids %>% 
-    filter(year == 2016)
-
-tidykids
+___ %>%
+    ggplot(aes(x = ___)) +
+    geom_bar() 
 ```
 
-Looking better, with one step to go - if we were to `count()` `variable`, we'd see that each state has one row per variable. Thus, we can consider this data to be in **long form**, something we will discuss around week 10 of the class. For now, we'll show how to transform this data to be in a form that is more appropriate for our aim of joining together this and the NAEP data. This relates to a concept we will introduce now and dive more deeply into later--tidy data.
+- Approximately how many schools were Title 1? How many were not?
 
-Run the code chunk below to see a representation of tidy data (from the presentation) that follows from applying two simple rules:
+## Step 4b
 
-- Rule 1: Put each dataset in a tibble
-- Rule 2: Put each variable in a column
-
-Take another look at tidykids. Which of the two above rules is broken in the tidykids dataset in its present form? Add your answer and a brief explanation for why after the bullet point below:
-
-- 
-
-Fortunately, we can address this issue relatively straightforwardly. For now, run the code below; the key at this time is to begin to recognize data that isn't tidy. We'll dive deeper into the mechanics of how to transform data so that it is tidy later on.
+We can also change the theme of the plot and make the colors a bit more interesting.
 
 ```{r}
-tidykids_widened <- tidykids %>% 
-    select(state, variable, inf_adj_perchild) %>% # select just the three variables we need
-    pivot_wider(names_from = "variable", values_from = "inf_adj_perchild") # specify how we want the names of the variables and their values to be created
+elsi_clean %>%
+    ggplot(aes(x = school_wide_title_i_public_school_2021_22)) +
+    geom_bar(fill = "darkseagreen", color = "black") +
+    theme_minimal()
 
-tidykids_widened
-```
-
-Do the two data frames have the same observations (in this case, states)? Note the number of rows; why is there one additional row in one dataset?
-
-- 
-
-At this point, we are ready to move on to joining our data.
-
-## Step 4
-
-Now we will practice joining the two dataframes together based on the column that refers to the state. As a reminder, the column you join by must have the same name in each data frame, so you will need to use `rename()`.
-
-```{r}
-
-```
-
-Now that there is a column in each dataframe with a matching name, let's practice joining. First, let's use `right_join()`.
-
-```{r}
-joined_right_1 <- right_join(tidykids_widened, naep, "state")
-
-joined_right_2 <- right_join(naep, tidykids_widened, "state")
-```
-
-What do you notice about these two new dataframes? Is there anything different between `joined_right_1` and `joined_right_2`?
-
--   
-
--   
-
-You can also use `left_join()`. As you likely garnered from above, right join joins all of the rows in the "right" (named second) data frame with matching rows in the "left" (named first data frame). Left join flips this. Use `left_join()` below, naming `naep` first and `tidykids_widened` second. Specify "state" as the key and name the resulting output `joined_left`.
-
-```{r}
-
-```
-
-Generally, left join is more common than right join, perhaps because it's a little more intuitive to name the data frame with all of the rows you want to keep first. Let's proceed with `joined_left`, using this for our next analyses.
-
-Before we proceed, let's use the clean_names() function from the janitor package we have used earlier with `joined_left`. Be sure to assign that name back to the resulting output!
-
-```{r}
-
+# Notes: fill changes the "inside" color of the bars while color changes the border color of the bars.
+# There are many themes you can select (https://ggplot2.tidyverse.org/reference/ggtheme.html). 
+# There are many colors you can select (https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/)
 ```
 
 ## Step 5
 
-We're finally ready to analyze our joined data.
-
-Create a scatterplot to examine the relationship between a variable originally in the tidykids dataset and a variable originally in the NAEP dataset (e.g., PK12ed, or others - consider changing this out and exploring several!). See a description of all of the codes here: https://jrosen48.github.io/tidykids/
-
-Use the `joined_left` dataframe for this exercise. 
-
-We note that you can choose among any of the NAEP variables. We ask you to please defend your choice when interpreting your analysis.
-
-You must specify both the x- and y- variables when using `geom_point()`. You may also want to add another geom on a new line, `geom_smooth(method = "lm", se = FALSE)` and `geom_text(aes(label = state))`.
+Create a histogram to examine the total number of students in schools for the 2021-22 school year. 
 
 ```{r}
-
+___ %>% 
+    ggplot(aes(x = ___)) +
+      ___()
 ```
 
-What interesting relationship (if any) did you find? Add a few notes below. Also, share ideas on what you could do to extend this analysis.
+With the default bin width and the maximum x-value of 20,000, the plot is not very interesting. We can change these two defaults quite easily:
 
--   
-- 
+```{r}
+___ %>%
+    ggplot(aes(x = total_students_all_grades_excludes_ae_public_school_2021_22)) +
+    geom_histogram(binwidth = ___) +
+    xlim(0, 5000)
+
+# You should select a bin width that best tells the story of your data. 
+```
+
+## Step 5b
+
+Just as we did with the bar chart, we can also change the theme and colors of the histogram. 
+
+```{r}
+___ %>%
+    ggplot(aes(x = total_students_all_grades_excludes_ae_public_school_2021_22)) +
+    geom_histogram(fill = ___, binwidth = ___) +
+    theme_minimal() +
+    xlim(0, 5000)
+```
+
+## Step 6
+
+Create a histogram comparing multiple groups. Use ggplot2 and `facet_wrap()`.
+
+```{r}
+___ %>%
+    ggplot(aes(___ = ___)) +
+    ___() +
+    facet_wrap(___)
+```
 
 ## Reach
 
-This portion of the assignment is optional but offers you a chance to push your skills further.
+This portion of the assignment is optional but offers you a chance to push your skills further. 
 
-We encourage you to change the theme, color, and other aesethetics of the plot. Do so by copying your code above and extending your graph. Also, consider visualizing a different variable's relations with achievement.
+- Change the theme and color for your graphs in Step 6. Can you color each graph by the variable you are faceting on? 
 
-```{r}
+## Questions
 
-```
+1.  What groups did you compare in step 6? What were you able to determine to be the differences between those two groups by looking at your graphs?
+
+-   
+
+2.  How could a policy maker use the information you gathered (or other information contained in this dataset) to suggest changes? Are graphical representations an effective way to do this?
+
+-   
+
+3.  How might you make your graphs look more "publication ready?" You do not need to include code, just a general idea of what could be improved.
+
+-   
 
 ## Rubric
 
-|                                               | Points Possible | Points Earned |
-|-----------------------------------------------|-----------------|---------------|
-| File knits                                    | 2               |               |
-| Code is accurately filled in for all 5 steps. | 10              |               |
-| Step 3 Question                               | 3               |               |
-| Step 4 Questions                              | 8               |               |
-| Step 5 Questions                              | 7               |               |
+|                                 | Points Possible | Points Earned |
+|---------------------------------|-----------------|---------------|
+| File knits                      | 2               |               |
+| Effective use of `facet_wrap()` | 10              |               |
+| Question 1                      | 5               |               |
+| Question 2                      | 8               |               |
+| Question 3                      | 5               |               |
 
 ## Knit and Submit
 
-Complete the following steps to knit and publish your work (note - we'll remove these steps after this week, as we know you're becoming quite familiar with it!):
+Complete the following steps to knit and publish your work:
 
 1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
 
 2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
 
-3.  Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!
+3. Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!
