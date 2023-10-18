@@ -1,0 +1,144 @@
+---
+title: "Week 13 Assignment"
+author: "Student Name"
+date: "Assignment Due Date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this homework, we will work with text gathered from a recent class recording. When Zoom records, it collects a transcript with time stamps and speaker identifiers. Before beginning, please download the Zoom data file(s) from Canvas and save them in a separate folder.
+
+## Step 1
+
+Load the tidyverse package. We will also use the tidytext and zoomGroupStats packages. Install and load these packages if you have not already done so.
+
+```{r}
+
+```
+
+## Step 2
+
+Let's start by working with some text. Here's an example that captures the core steps.
+
+```{r}
+my_sentences <- tibble(sentences = c("I think that she's really good at playing soccer, but he's probably a better dancer, especially at his age", "I really like to watch soccer games, especially for OneKnox", "She was a great goalkeeper, perhaps because she played soccer from such a young age"))
+
+my_sentences %>% 
+  unnest_tokens(word, sentences) %>% # separate words, removing punctuation
+  count(word) %>% # counting words
+  arrange(desc(n)) %>% # arranging by frequency
+  anti_join(stop_words) # removing common words, or "stop" words
+```
+
+Before moving on to analyzing class data, what do you think are two benefits of analyzing text data in your field?
+
+-   
+
+## Step 3
+
+Now, let's do the same with our Zoom data.
+
+```{r}
+# This will need to be updated with the appropriate file name from class.
+
+batchOut = batchProcessZoomOutput(batchInput="myMeetingsBatch.xlsx")
+
+transcript <- batchOut$transcript %>% 
+  as_tibble()
+
+# In this next step, use similar code from Step 2.
+transcript %>% 
+  unnest_tokens(word, ____) %>% 
+  count(____) %>% 
+  ____(desc(n)) %>% 
+  ____(____)
+```
+
+Does looking at the top 10 words spoken in class give you an idea of what the class is about? Or any other meaningful information about the interactions that occurred?
+
+-   
+
+## Step 4
+
+Let's create a column chart of the top words, styling it and making it easier to interpret by using color to enhance the plot. Please use a color package other than the default color and include axis titles. You may have to use `slice()` to make the graph clearer. 
+
+```{r}
+
+```
+
+## Step 5
+
+Calculate the mean duration of the time spoken, then create a plot, coloring the points by the number of times each individual spoke. Be sure to include axis titles. 
+
+```{r}
+mean_utterance_duration_and_n_utterances <- transcript %>% 
+  mutate(utterance_duration = utteranceEndTime-utteranceStartTime) %>% 
+  group_by(userName) %>% 
+  summarize(mean_utterance_duration = mean(utterance_duration),
+            n_utterances = n()) %>% 
+  arrange(desc(mean_utterance_duration))
+```
+
+```{r}
+# Use this code chunk for the plot.
+
+```
+
+Who spoke the most? Does this result surprise you?
+
+-   
+
+If someone not associated with the class were given your graph, what do you think they would interpret about interactions in the class?
+
+-   
+
+## Step 6
+
+In this step, determine how many times the instructor spoke the utterance "um" over the class. Hint: use code similar to Steps 2 and 3. As a reach, calculate the mean number of "um" utterances per minute spoken (you may need to use the package lubridate). 
+
+```{r}
+# I really enjoyed doing this last year. We can (and likely should) adjust the filler word to something that is more appropriate for this course. I wanted to have this in here as a placeholder for now, though. Also, this is code that I copied from my assignment last year, so it likely isn't the most efficient way of doing this.
+
+
+
+#Reach
+
+```
+
+## Ethics
+
+What could be an ethical concern with presenting the Zoom data as it was given to you? (e.g., the inclusion of screen names, etc.)
+
+-   
+
+What ethical concerns might be present when sharing word frequencies to a large audience?
+
+-   
+
+What is one other ethical concern you have with text/transcript data?
+
+-   
+
+## Rubric
+
+|                                               | Points Possible | Points Earned |
+|----------------------------------------|----------------|----------------|
+| File knits                                    | 2               |               |
+| Code is accurately filled in for all 6 steps. | 10              |               |
+| Step 2 Question                               | 3               |               |
+| Step 3 Questions                              | 3               |               |
+| Step 5 Question                               | 3               |               |
+| Ethics Questions (3 points each)              | 9               |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work:
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3.  Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!

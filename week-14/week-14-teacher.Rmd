@@ -1,0 +1,110 @@
+---
+title: "Week 14 - Teacher"
+author: "Teacher"
+date: "Assignment Due Date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this homework, you are going to complete text analysis on some of your own text data. The data could be course evaluations, open-ended survey responses from research you've conducted, or some other source of original text data. Specifically, our text analysis is going to center around topic modeling (resource with example code: <https://www.tidytextmining.com/topicmodeling>).
+
+## Step 1
+
+Load the tidyverse and topicmodels packages.
+
+```{r}
+library(tidyverse)
+library(topicmodels)
+```
+
+## Step 2
+
+Next, you will need to upload your data. If this data is in multiple files, you will need to combine them into one dataset.
+
+```{r}
+
+```
+
+## Step 3
+
+Now, let's begin the process of determining the topics.
+
+```{r}
+# First, we need to create a data frame that is set to find a specific number of topics, k. The seed is set to make the output of the model predictable. Note: rename the new data frame with something meaningful to you and in the LDA code, use your data frame name rather than "df_name".
+
+data_lda <- LDA(df_name, k = 2, control = list(seed = 20231018))
+
+# This step creates a "tidy" version of the output of the output of the topic modeling
+data_topics <- tidy(data_lda, matrix = "beta")
+data_topics
+
+# Here, we'll find the top 10 terms for each topic
+data_top_terms <- data_topics %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 10) %>% 
+  ungroup() %>%
+  arrange(topic, -beta)
+
+# Then, we'll plot those 10 terms and their estimated probability for each topic
+data_top_terms %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(beta, term, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  scale_y_reordered()
+```
+
+Name each topic you found. There is no right or wrong answer here; make it something unique yet descriptive.
+
+-   
+
+-   
+
+## Step 4
+
+Your task in this next step is to copy and then modify the code above to estimate and interpret a model with a different number of topics. Recall that the choice for the value of k is up to the analyst, and depends on concerns of interpretability and parsimony (as well as fit metrics that you can explore if you wish to take this analysis further). Please copy and paste the code above and choose several values of k, trying to understand what the "best" value for k may be.
+
+```{r}
+
+```
+
+Why did you choose k to be the value it is?
+
+-   
+
+Are there topics that remained the same from Step 3? Did they change? How would you name the topics now?
+
+-   
+
+## Discussion Questions
+
+How do you think you could use topic modeling in your thesis or dissertation?
+
+-   
+
+What are ethical considerations you should take when publishing topic models?
+
+-   
+
+## Rubric
+
+|                                               | Points Possible | Points Earned |
+|--------------------------------------|-----------------|-----------------|
+| File knits                                    | 2               |               |
+| Code is accurately filled in for all 4 steps. | 12              |               |
+| Step 3 Question                               | 4               |               |
+| Step 4 Questions                              | 4               |               |
+| Discussion Questions                          | 8               |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work:
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3.  Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!
