@@ -36,7 +36,10 @@ The problem is this file has _aggregate_ data for all public schools before the 
 Your task is to read the data on nurses again, skipping a suitable number of rows so that the variable name is for the state, and the first row is the first state in the data.
 
 ```{r}
+dat <- read_excel("ntps2021_7341_s1s.xlsx", skip = 5)
+dat
 
+glimpse(dat)
 ```
 
 ## Step 4
@@ -50,7 +53,12 @@ We can use `select()` to do all of these. Refer to the documentation for `select
 *Documentation for `select()`*: https://dplyr.tidyverse.org/reference/select.html
 
 ```{r}
+dat_selected <- dat %>% 
+    select(State, 
+           average_nurses = 2,
+           nurses_per_student = 4)
 
+dat_selected
 ```
 
 ## Step 5
@@ -60,7 +68,8 @@ There are some missing values in the variable for the state. Let's remove those 
 https://dplyr.tidyverse.org/reference/filter.html
 
 ```{r}
-
+dat_filtered <- dat_selected %>% 
+    filter(!is.na(State))
 ```
 
 ## Step 6
@@ -68,7 +77,8 @@ https://dplyr.tidyverse.org/reference/filter.html
 The key challenge at this point is that we need the data to be in _long_ format. In this step, please transform the data to be in long format, so that the two variables in the data are considered to be two different observations for the same state, and the values represent the values for each of the two variables.
 
 ```{r}
-
+dat_long <- dat_filtered %>% 
+    pivot_longer(-State, names_to = "variable", values_to = "values")
 ```
 
 ## Step 7
@@ -76,15 +86,19 @@ The key challenge at this point is that we need the data to be in _long_ format.
 Last, please join the `state_by_region` data to your data (now in long format). Optionally, you may wish to use `filter()` to remove any states without a region in this step. 
 
 ````{r}
-
+dat_joined <- dat_long %>% 
+    left_join(state_by_region)
 ```
 
 ## Step 8
 
-We're ready for an analysis! Now, please group by region, and summarize the mean *and* standard deviation for the two variables for each region --- this may make interpretation just a bit clearer later on. You can also choose to filter the data frame later (or not at at all), if you prefer.
+We're ready for an analysis! Now, please group by region, and summarize the mean *and* standard deviation for the two variables for each region.
 
 ```{r}
-
+dat_joined %>% 
+    group_by(Region, variable) %>% 
+    summarize(mean_value = mean(values),
+              sd_value = sd(values))
 ```
 
 What do you notice about any differences by region? Add a note or two below.
@@ -104,7 +118,8 @@ In this step, please group by division---instead of region---using the code chun
 In this final step, please transform your data to be _back_ in wide format. 
 
 ```{r}
-
+dat_wide <- dat_joined %>% 
+    pivot_wider(names_from = "variable", values_from = "values")
 ```
 
 ## Reach

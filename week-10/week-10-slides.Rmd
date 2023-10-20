@@ -236,7 +236,7 @@ dat_long <- dat %>%
 - How might we change this _back_ into wide form?
 - `pivot_wider()` requires you to specify `names_from` and `values_from`
 
-```{r}
+```{r, echo = TRUE, eval = FALSE}
 dat_long %>% 
     pivot_wider(names_from = "time", values_from = "values")
 ```

@@ -136,10 +136,11 @@ This week, we'll dive into an element of data analysis that is surprisingly comm
 
 ```
 ## # A tibble: 2 × 4
-##   name     observation_at_t1 observation_at_t2 observation_at_t3
-##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
-## 1 Maryrose                 3                 5                 3
-## 2 Isabella                 2                 1                 5
+##   name     observation_at_t1 observation_at_t2
+##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;
+## 1 Maryrose                 3                 5
+## 2 Isabella                 2                 1
+## # ℹ 1 more variable: observation_at_t3 &lt;dbl&gt;
 ```
 
 ]
@@ -192,10 +193,11 @@ This week, we'll dive into an element of data analysis that is surprisingly comm
 
 ```
 ## # A tibble: 2 × 4
-##   name     observation_at_t1 observation_at_t2 observation_at_t3
-##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
-## 1 Maryrose                 3                 5                 3
-## 2 Isabella                 2                 1                 5
+##   name     observation_at_t1 observation_at_t2
+##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;
+## 1 Maryrose                 3                 5
+## 2 Isabella                 2                 1
+## # ℹ 1 more variable: observation_at_t3 &lt;dbl&gt;
 ```
 
 ]
@@ -208,10 +210,11 @@ This week, we'll dive into an element of data analysis that is surprisingly comm
 
 ```
 ## # A tibble: 2 × 4
-##   name     observation_at_t1 observation_at_t2 observation_at_t3
-##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
-## 1 Maryrose                 3                 5                 3
-## 2 Isabella                 2                 1                 5
+##   name     observation_at_t1 observation_at_t2
+##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;
+## 1 Maryrose                 3                 5
+## 2 Isabella                 2                 1
+## # ℹ 1 more variable: observation_at_t3 &lt;dbl&gt;
 ```
 
 ]
@@ -266,12 +269,9 @@ dat_long &lt;- dat %&gt;%
 - `pivot_wider()` requires you to specify `names_from` and `values_from`
 
 
-```
-## # A tibble: 2 × 4
-##   name     observation_at_t1 observation_at_t2 observation_at_t3
-##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
-## 1 Maryrose                 3                 5                 3
-## 2 Isabella                 2                 1                 5
+```r
+dat_long %&gt;% 
+    pivot_wider(names_from = "time", values_from = "values")
 ```
 ]
 
