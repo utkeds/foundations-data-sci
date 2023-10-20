@@ -266,6 +266,12 @@ relig_income
 
 ]
 
+.panel[.panel-name[Mini-Project]
+
+- The mini-project is now available in Canvas! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have two week to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
+
+]
+
 .panel[.panel-name[Data]
 
 - The data we'll use comes from the [*National Teacher and Principal Survey*](https://nces.ed.gov/surveys/ntps/) and is on the number of full-time nurses in schools in U.S. states.
