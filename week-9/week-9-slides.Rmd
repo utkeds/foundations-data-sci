@@ -38,7 +38,7 @@ pacman::p_load(pacman, knitr, tidyverse, readxl)
 # can be pasted easily
 htmltools::tagList(
     xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
-                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>", ),
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",),
     rmarkdown::html_dependency_font_awesome()
 )
 ```
@@ -61,6 +61,53 @@ What do you need to be able to work with a range of datasets? This week focuses 
 
 ---
 
+# Mid-semester survey
+
+## https://forms.gle/3L9yiA69GbENbWgk8
+
+* Discussion posts / substantive readings
+* Assignment due date
+* Data analysis vs data cleaning
+* Assignments in advance
+* Functions and iteration
+* Code along speed
+* Foundation R & Advanced Skills
+
+Contacting us: ivelasq@gmail.com; mweath13@vols.utk.edu
+
+---
+
+# Lesson Recap
+
+* Importing data
+* Projects
+* Data frames and tibbles
+* ggplot2
+* Joins
+* APIs
+
+---
+
+# Lesson Recap
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("1.png")
+```
+
+---
+
+# Today!
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("2.png")
+```
+
+---
+
 # Reading Recap
 
 Substantive reading(s):
@@ -77,7 +124,39 @@ Technical reading(s):
 
 ---
 
-# Discussion
+# Reading Recap
+
+*Miranda*:
+
+> Ranking systems have biases, particularly towards wealth and privilege.
+
+*Wei*:
+
+> The choice of how much importance each metric receives in the calculation is a subjective decision that can lead to varying results. 
+
+*Tara*:
+
+> Changing the formula for what school is 'best' will directly negatively affect the reputation of schools that prioritize profit and alumni donations, potentially pushing them to begin prioritizing criteria that is often talked about as important but rarely pursued by these institutions.
+
+---
+
+# Reading Recap
+
+What would make a good ranking system?
+
+*Chulin*:
+
+* **Ranking criteria and weights** 
+* **Data sources and quality**
+* **Transparency and fairness**
+
+*Erika*:
+
+> It would be so amazing if we could just pull up a website, rank how important factors are to us, and generate our own top 10 schools.
+
+---
+
+# Aggregated data
 
 .panelset[
 
@@ -96,10 +175,31 @@ Technical reading(s):
 
 ]
 
+.panel[.panel-name[Background]
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("examples.png")
+```
+
+Source: Data Quality Campaign
+
+]
+
+.panel[.panel-name[Definitions]
+
+- *Raw data* is data that has not been processed for use
+- *Row-level/individual data* is data that can be associated with a single element
+- *Aggregated data* is when multiple data sources are combined into one set to create a larger idea of a particular issue
+- *Disaggregated data* refers to the isolation of one or more variables within a data set, highlighting specific features or populations and leading to different insights 
+
+]
+
 .panel[.panel-name[Discussion Questions]
 
-- For your research-related area of interest, what are one or more levels at which raw data is aggregated?
-- For which purposes might **raw data** me more useful? For which purposes might aggregate data be useful?
+- For your research-related area of interest, what are one or more levels at which row-level data is aggregated?
+- For which purposes might **raw data** be more useful? For which purposes might aggregated data be useful?
 
 ]
 
@@ -108,7 +208,6 @@ Technical reading(s):
 ---
 
 # Key Concept: Aggregating
-
 
 .panelset[
 
@@ -124,16 +223,24 @@ Technical reading(s):
 
 - `group_by()` is used to specify the group or groups in a a data frame (or tibble)
 - It works by specifying the variables you want to keep or remove
-- Let's imagine we're using school-level data on the number of students enrolled
 
-```{r, echo = TRUE, eval = FALSE}
-grouped_data <- dat %>%
-    group_by(district_name)
-
-grouped_data # the data is now "grouped" by district_name
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("group_by.png")
 ```
 
-- *Important reminder from last week!*: if we don't assign the output a new name (`selected_data <-`), the results of our use of a dplyr "verb" won't be saved
+]
+
+.panel[.panel-name[group_by]
+
+- Let's use our trusty `mtcars` dataset
+
+```{r, echo = TRUE}
+mtcars %>%
+    group_by(cyl) %>%
+    head()
+```
 
 ]
 
@@ -142,29 +249,64 @@ grouped_data # the data is now "grouped" by district_name
 - Importantly, we can specify multiple groups; typically, groups are a character string or factor, but they can be any unique identifiers
 
 ```{r, echo = TRUE, eval = FALSE}
-grouped_data_2 <- dat %>%
-    group_by(district_name, state_name)
-
-grouped_data_2 # the data is now "grouped" by school *and* district both
+mtcars %>%
+    group_by(cyl, vs) %>%  # the data is now "grouped" by cyl *and* vs
+    head()
 ```
 
-What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific schools within specific districts and states, even if the schools share the same name)
+- What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific cyl within specific vs)
+- If you apply group_by() to an already grouped dataset, will overwrite the existing grouping variables.
 
-Learn more about group_by [here](https://dplyr.tidyverse.org/reference/group_by.html)
+]
+
+.panel[.panel-name[ungrouping]
+
+- To remove all grouping variables, use `ungroup()`:
+
+```{r, echo = TRUE}
+mtcars %>%
+    group_by(cyl, vs) %>%
+    head() %>% 
+    ungroup()
+```
+
+Learn more about `group_by()` [here](https://dplyr.tidyverse.org/reference/group_by.html)
+
+]
+]
+
+---
+
+# Key Concept: Aggregating
+
+.panelset[
+
+.panel[.panel-name[summarize]
+
+- Once we have specified groups, we can then calculate summary statistics
+- `summarise()/summarize()` computes a summary for each group.
+- The first part of the `summarize()` function is simply the name of our summary statistic --- whatever we want it to be!
+- The second part, following the `=` symbol, is the formula for how your summary statistic is calculated (as long as it returns a single value per group, it is a valid summary statistic!)
 
 ]
 
 .panel[.panel-name[summarize]
 
-- Once we have specified groups, we can then calculate summary statistics
-- The first part of the `summarize()` function is simply the name of our summary statistic --- whatever we want it to be!
-- The second part, following the `=` symbol, is the formula for how your summary statistic is calculated (as long as it returns a single value per group, it is a valid summary statistic!)
-- This sounds pretty abstract, but it can also be pretty straightforward, as in the following:
-
-```{r, echo = TRUE, eval = FALSE}
-grouped_data %>% 
-    summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled)) 
+```{r, echo = TRUE, eval = TRUE}
+mtcars %>% 
+    summarize(mean_mpg = mean(mpg)) 
 ```
+
+]
+
+.panel[.panel-name[summarize]
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("summarize.png")
+```
+
 Learn more about summarize [here](https://dplyr.tidyverse.org/reference/summarize.html)
 
 ]
@@ -173,14 +315,13 @@ Learn more about summarize [here](https://dplyr.tidyverse.org/reference/summariz
 
 - We can use the pipe operator to link together these functions in a single block of code
 - We can also change our summary statistic or add multiple summary statistics, as below
-- Practically always, summary statistics are calculated for numeric variables
+- Summary statistics are calculated for numeric variables
 
-```{r, echo = TRUE, eval = FALSE}
-dat %>% 
-    group_by(district_name, state_name) %>% 
-    summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled),
-              max_number_of_students_enrolled = max(number_of_students_enrolled),
-              range_number_of_students_enrolled = range(number_of_students_enrolled)) 
+```{r, echo = TRUE, eval = TRUE}
+mtcars %>% 
+    group_by(cyl) %>% 
+    summarize(n = n(),
+              mean_mpg = mean(mpg)) 
 ```
 
 ]

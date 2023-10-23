@@ -57,6 +57,45 @@ What do you need to be able to work with a range of datasets? This week focuses 
 
 ---
 
+# Mid-semester survey
+
+## https://forms.gle/3L9yiA69GbENbWgk8
+
+* Discussion posts / substantive readings
+* Assignment due date
+* Data analysis vs data cleaning
+* Assignments in advance
+* Functions and iteration
+* Code along speed
+* Foundation R &amp; Advanced Skills
+
+Contacting us: ivelasq@gmail.com; mweath13@vols.utk.edu
+
+---
+
+# Lesson Recap
+
+* Importing data
+* Projects
+* Data frames and tibbles
+* ggplot2
+* Joins
+* APIs
+
+---
+
+# Lesson Recap
+
+&lt;img src="1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Today!
+
+&lt;img src="2.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
 # Reading Recap
 
 Substantive reading(s):
@@ -73,7 +112,39 @@ Technical reading(s):
 
 ---
 
-# Discussion
+# Reading Recap
+
+*Miranda*:
+
+&gt; Ranking systems have biases, particularly towards wealth and privilege.
+
+*Wei*:
+
+&gt; The choice of how much importance each metric receives in the calculation is a subjective decision that can lead to varying results. 
+
+*Tara*:
+
+&gt; Changing the formula for what school is 'best' will directly negatively affect the reputation of schools that prioritize profit and alumni donations, potentially pushing them to begin prioritizing criteria that is often talked about as important but rarely pursued by these institutions.
+
+---
+
+# Reading Recap
+
+What would make a good ranking system?
+
+*Chulin*:
+
+* **Ranking criteria and weights** 
+* **Data sources and quality**
+* **Transparency and fairness**
+
+*Erika*:
+
+&gt; It would be so amazing if we could just pull up a website, rank how important factors are to us, and generate our own top 10 schools.
+
+---
+
+# Aggregated data
 
 .panelset[
 
@@ -92,10 +163,27 @@ Technical reading(s):
 
 ]
 
+.panel[.panel-name[Background]
+
+&lt;img src="examples.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+Source: Data Quality Campaign
+
+]
+
+.panel[.panel-name[Definitions]
+
+- *Raw data* is data that has not been processed for use
+- *Row-level/individual data* is data that can be associated with a single element
+- *Aggregated data* is when multiple data sources are combined into one set to create a larger idea of a particular issue
+- *Disaggregated data* refers to the isolation of one or more variables within a data set, highlighting specific features or populations and leading to different insights 
+
+]
+
 .panel[.panel-name[Discussion Questions]
 
-- For your research-related area of interest, what are one or more levels at which raw data is aggregated?
-- For which purposes might **raw data** me more useful? For which purposes might aggregate data be useful?
+- For your research-related area of interest, what are one or more levels at which row-level data is aggregated?
+- For which purposes might **raw data** be more useful? For which purposes might aggregated data be useful?
 
 ]
 
@@ -104,7 +192,6 @@ Technical reading(s):
 ---
 
 # Key Concept: Aggregating
-
 
 .panelset[
 
@@ -120,17 +207,34 @@ Technical reading(s):
 
 - `group_by()` is used to specify the group or groups in a a data frame (or tibble)
 - It works by specifying the variables you want to keep or remove
-- Let's imagine we're using school-level data on the number of students enrolled
+
+&lt;img src="group_by.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[group_by]
+
+- Let's use our trusty `mtcars` dataset
 
 
 ```r
-grouped_data &lt;- dat %&gt;%
-    group_by(district_name)
-
-grouped_data # the data is now "grouped" by district_name
+mtcars %&gt;%
+    group_by(cyl) %&gt;%
+    head()
 ```
 
-- *Important reminder from last week!*: if we don't assign the output a new name (`selected_data &lt;-`), the results of our use of a dplyr "verb" won't be saved
+```
+## # A tibble: 6 × 11
+## # Groups:   cyl [3]
+##     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4
+## 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+## 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+## 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+## 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+## 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1
+```
 
 ]
 
@@ -140,30 +244,79 @@ grouped_data # the data is now "grouped" by district_name
 
 
 ```r
-grouped_data_2 &lt;- dat %&gt;%
-    group_by(district_name, state_name)
-
-grouped_data_2 # the data is now "grouped" by school *and* district both
+mtcars %&gt;%
+    group_by(cyl, vs) %&gt;%  # the data is now "grouped" by cyl *and* vs
+    head()
 ```
 
-What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific schools within specific districts and states, even if the schools share the same name)
+- What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific cyl within specific vs)
+- If you apply group_by() to an already grouped dataset, will overwrite the existing grouping variables.
 
-Learn more about group_by [here](https://dplyr.tidyverse.org/reference/group_by.html)
+]
+
+.panel[.panel-name[ungrouping]
+
+- To remove all grouping variables, use `ungroup()`:
+
+
+```r
+mtcars %&gt;%
+    group_by(cyl, vs) %&gt;%
+    head() %&gt;% 
+    ungroup()
+```
+
+```
+## # A tibble: 6 × 11
+##     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4
+## 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+## 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+## 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+## 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+## 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1
+```
+
+Learn more about `group_by()` [here](https://dplyr.tidyverse.org/reference/group_by.html)
+
+]
+]
+
+---
+
+# Key Concept: Aggregating
+
+.panelset[
+
+.panel[.panel-name[summarize]
+
+- Once we have specified groups, we can then calculate summary statistics
+- `summarise()/summarize()` computes a summary for each group.
+- The first part of the `summarize()` function is simply the name of our summary statistic --- whatever we want it to be!
+- The second part, following the `=` symbol, is the formula for how your summary statistic is calculated (as long as it returns a single value per group, it is a valid summary statistic!)
 
 ]
 
 .panel[.panel-name[summarize]
 
-- Once we have specified groups, we can then calculate summary statistics
-- The first part of the `summarize()` function is simply the name of our summary statistic --- whatever we want it to be!
-- The second part, following the `=` symbol, is the formula for how your summary statistic is calculated (as long as it returns a single value per group, it is a valid summary statistic!)
-- This sounds pretty abstract, but it can also be pretty straightforward, as in the following:
-
 
 ```r
-grouped_data %&gt;% 
-    summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled)) 
+mtcars %&gt;% 
+    summarize(mean_mpg = mean(mpg)) 
 ```
+
+```
+##   mean_mpg
+## 1 20.09062
+```
+
+]
+
+.panel[.panel-name[summarize]
+
+&lt;img src="summarize.png" width="60%" style="display: block; margin: auto;" /&gt;
+
 Learn more about summarize [here](https://dplyr.tidyverse.org/reference/summarize.html)
 
 ]
@@ -172,15 +325,23 @@ Learn more about summarize [here](https://dplyr.tidyverse.org/reference/summariz
 
 - We can use the pipe operator to link together these functions in a single block of code
 - We can also change our summary statistic or add multiple summary statistics, as below
-- Practically always, summary statistics are calculated for numeric variables
+- Summary statistics are calculated for numeric variables
 
 
 ```r
-dat %&gt;% 
-    group_by(district_name, state_name) %&gt;% 
-    summarize(mean_number_of_students_enrolled = mean(number_of_students_enrolled),
-              max_number_of_students_enrolled = max(number_of_students_enrolled),
-              range_number_of_students_enrolled = range(number_of_students_enrolled)) 
+mtcars %&gt;% 
+    group_by(cyl) %&gt;% 
+    summarize(n = n(),
+              mean_mpg = mean(mpg)) 
+```
+
+```
+## # A tibble: 3 × 3
+##     cyl     n mean_mpg
+##   &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt;
+## 1     4    11     26.7
+## 2     6     7     19.7
+## 3     8    14     15.1
 ```
 
 ]
