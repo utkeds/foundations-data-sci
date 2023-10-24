@@ -71,19 +71,13 @@ This week, we'll dive into an element of data analysis that is surprisingly comm
 
 # Optional Reading Recap
 
-.panel[.panel-name[Substantive reading(s)]
+Optional Substantive Reading(s):
 
-> Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... & Warschauer, M. (2020). Mining big data in education: Affordances and challenges. *Review of Research in Education, 44*(1), 130-160.
+>  D'Ignazio, C., & Klein, L. F. (2020). Data feminism. MIT press. Chaper 1 (In troduction: Why Data Science Needs Feminism).
 
-]
+Technical reading(s):
 
-.panel[.panel-name[Technical Reading(s)]
-
-> Summarizing Data by Groups: https://r-graphics.org/recipe-dataprep-summarize
-
-> Data Transformation: https://r4ds.hadley.nz/data-transform
-
-]
+> (on mapping, part 2)
 
 ---
 
@@ -280,9 +274,7 @@ relig_income
 
 Substantive reading(s):
 
-> Kimmons, R., & Veletsianos, G. (2018). Public internet data mining methods in in structional design, educational technology, and online learning research. *TechTrends, 62*(5), 492-500.
-
-This is linked in Canvas.
+> Lucy, L., Demszky, D., Bromley, P., & Jurafsky, D. (2020). Content analysis of textbooks via natural language processing: Findings on gender, race, and ethnicity in Texas US history textbooks. AERA Open, 6(3), https://journals.sagepub.com/doi/full/10.1177/2332858420940312
 
 ]
 
@@ -290,7 +282,7 @@ This is linked in Canvas.
 
 - Technical reading(s):
 
-> Tidy data: https://vita.had.co.nz/papers/tidy-data.pdf
+> (on text analysis)
 
 This is also linked in Canvas.
 

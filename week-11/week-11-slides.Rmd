@@ -71,19 +71,13 @@ This week, we'll dive into an element of data analysis that is surprisingly comm
 
 # Optional Reading Recap
 
-.panel[.panel-name[Substantive reading(s)]
+Optional Substantive Reading(s):
 
-> Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... & Warschauer, M. (2020). Mining big data in education: Affordances and challenges. *Review of Research in Education, 44*(1), 130-160.
+> Kimmons, R., & Veletsianos, G. (2018). Public internet data mining methods in in structional design, educational technology, and online learning research. *TechTrends, 62*(5), 492-500.
 
-]
+Technical reading(s):
 
-.panel[.panel-name[Technical Reading(s)]
-
-> Summarizing Data by Groups: https://r-graphics.org/recipe-dataprep-summarize
-
-> Data Transformation: https://r4ds.hadley.nz/data-transform
-
-]
+> Tidy data: https://vita.had.co.nz/papers/tidy-data.pdf
 
 ---
 
@@ -280,7 +274,7 @@ relig_income
 
 Substantive reading(s):
 
-> Kimmons, R., & Veletsianos, G. (2018). Public internet data mining methods in in structional design, educational technology, and online learning research. *TechTrends, 62*(5), 492-500.
+> Mann, B., & Saultz, A. (2019). The role of place, geography, and geographic information systems in educational research. Aera Open, 5(3), https://journals.sagepub.com/doi/10.1177/2332858419869340
 
 This is linked in Canvas.
 
@@ -290,7 +284,7 @@ This is linked in Canvas.
 
 - Technical reading(s):
 
-> Tidy data: https://vita.had.co.nz/papers/tidy-data.pdf
+> on mapping
 
 This is also linked in Canvas.
 
