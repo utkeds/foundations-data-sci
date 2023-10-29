@@ -1,0 +1,158 @@
+---
+title: "Week 11 Assignment"
+author: "Student Name"
+date: "November 6, 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Step 1: Setting up the project
+
+We will be creating a cholopleth map. Load the necessary packages: dplyr, ggplot2, and maps.
+
+```{r}
+
+```
+
+Access the world map data using the `map_data()` function we discussed in class. Save it in an object called `world_map`.
+
+```{r}
+
+```
+
+Finally, create a blank world map.
+
+```{r}
+
+```
+
+## Step 2: Pulling and exploring data
+
+Now, let's bring in the data that we will put on the map. This data is from [TidyTuesdsay], a project in which weekly datasets are released. R coders use these datasets to create and share a visualization.
+
+Read in this CSV and store the data in an object called `owid_energy`: https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-06-06/owid-energy.csv
+
+```{r}
+
+```
+
+### Step 2 Questions
+
+1. How many years of data are in the `owid_energy` dataset? Please use R to answer this question. Hint: One option is use `distinct()` and `count()`.
+
+```{r}
+
+```
+
+2. Let's check out how the US' per capita electricity has changed over the past few years. Filter the `owid_energy` dataset to `year > 1984` and `country == "United States"` and use `group_by()` and `summarize()` to calculate the average per capita electricity. 
+
+```{r}
+
+```
+
+3. Using your data from above, use `ggplot` to create a line graph with `year` on the x-axis and the average per capita electricity on the y-axis.
+
+```{r}
+
+```
+
+## Step 3: Prepping data for mapping
+
+Now, let's get to mapping. First, let's filter `owid_energy` to just 2021. Save this object with the name `owid_energy_2021`.
+
+```{r}
+
+```
+
+In our `world_map` dataset, we have a column called `region` with different country names. We have a column in `owid_energy` called `country` with different country names. We will want to join our two datasets in order to create the map, but how do we make sure that all the countries in one dataset are also in the other?
+
+One way to do this is with `anti_join()`, which we talked about briefly during our joining session. An anti-join is when you would like to keep all of the records in the original table except those records that match the other table.
+
+```{r}
+dplyr::anti_join(world_map, owid_energy_2021, by = c("region" = "country")) %>% 
+    distinct(region)
+```
+
+There are quite a few countries that are different! This will cause issues because we won't be able to join the energy data with the world map data based on the country names since they won't match.
+
+To simplify things, let's just focus on a few mismatches. We can use a special function called `case_when()` together with `mutate()` to change the names of these columns. If you would like to learn more about `case_when()`, check the documentation: <https://dplyr.tidyverse.org/reference/case_when.html>
+
+Run the chunk below:
+
+```{r}
+owid_energy_2021 <-
+  owid_energy_2021 %>% 
+  mutate(
+    country =
+      case_match(
+        country,
+        "United States" ~ "USA",
+        "United Kingdom" ~ "UK",
+        "Cote d'Ivoire" ~ "Ivory Coast",
+        "Democratic Republic of Congo" ~ "Democratic Republic of the Congo",
+        "Congo" ~ "Republic of Congo",
+        "Czechia" ~ "Czech Republic",
+        .default = country
+      )
+  )
+```
+
+Now, join the `world_map` data and the `owid_energy_2021` data. **NOTE:** You want to keep all rows from the `world_map` and the matching rows from `owid_energy_2021`. Your joined table should have the same number of rows as `world_map`. What is the proper join? 
+
+```{r}
+
+```
+
+## Step 4: Creating a world map
+
+Our data is ready to map! Create a world map where the `fill` is `per_capita_electricity`.
+
+```{r}
+
+```
+
+That is a very nice map, but we can do small things to make it more understandable. Add a meaningful plot title and use `theme_void()` to remove the background.
+
+```{r}
+
+```
+
+You can also add a log scale to your ggplot so that it's easier to see the different values across countries. Add it to your map by changing your fill to `fill = log(per_capita_electricity)`. Read more about log scales: <https://en.wikipedia.org/wiki/Logarithmic_scale>
+
+```{r}
+
+```
+
+Finally, you may have noticed that the legend has the darker colors for lower per capita electricity values and lighter for higher values. Generally, darker means more in visualizations. Reverse the legend by adding `+ scale_fill_continuous(trans = "reverse")` to your ggplot.
+
+```{r}
+
+```
+
+## Reach
+
+What else can you do to create a compelling choropleth map? Let's see it! One option is to add a custom theme: https://github.com/EmilHvitfeldt/r-color-palettes
+
+## Rubric
+
+|                                 | Points Possible | Points Earned |
+|---------------------------------|-----------------|---------------|
+| File knits                      | 2               |               |
+| Step 1 complete                 | 4               |               |
+| Step 2 complete                 | 4               |               |
+| Step 2 questions answered       | 4 each          |               |
+| Step 3 complete                 | 4               |               |
+| Step 4 complete                 | 4               |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work:
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3. Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!
