@@ -4,7 +4,7 @@
     <title>Week 11 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
-    <meta name="date" content="2023-10-24" />
+    <meta name="date" content="2023-10-29" />
     <script src="week-11-slides_files/header-attrs-2.24/header-attrs.js"></script>
     <link href="week-11-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="week-11-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -31,11 +31,10 @@ class: center, middle, inverse, title-slide
 ### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
 ]
 .date[
-### October 24, 2023
+### October 29, 2023
 ]
 
 ---
-
 
 
 
@@ -48,238 +47,161 @@ class: center, middle, inverse, title-slide
 
 # Purpose and Agenda
 
-This week, we'll dive into an element of data analysis that is surprisingly commonly-needed --- and useful: pivoting. Pivoting describes transforming data from a form in which variables are represented in rows to one in which they are represented in columns. Sometimes, these different forms are described as "long" and "wide."
+One of the most important aspects of working with geographical data is the presentation and communication of the results. In this lesson, we'll explore how to make stunning and informative maps that can help you convey insights about data in a visually appealing way.
 
 ## What we'll do in this presentation
 
-- Discussion
-- Key Concept: tidy data
-- Key Concept: Pivoting
-- Code-along and data
-- Discussion
-- What's next: Assignment(s) and Readings
+- Final project comments &amp; recommendations
+- Revisit Key Concepts from Assignment 9
+- 
 
 ---
 
-# Discussion
+## Final project
 
-.panelset[
-
-.panel[.panel-name[Background]
-
-- There are some conventions that are stated and sometimes unstated about how data should be recorded
-- For example, typically, rows represent _cases_ (AKA _observations_), while columns represent _variables_
-
-]
-
-.panel[.panel-name[Discussion Question]
-
-- Which conventions (stated or unstated!) for how data should be recorded have you found to be important in your work? Why?
-
-]
-
-]
-
+* Please review the comments on your final projects and follow up if necessary
+* If they do not have the data, please obtain it as soon as possible (really only a month left!)
+* Please start data cleaning as soon as possible
 
 ---
 
-# Optional Reading Recap
+## Revisit Key Concepts from Assignment 9
 
-Optional Substantive Reading(s):
-
-&gt; Kimmons, R., &amp; Veletsianos, G. (2018). Public internet data mining methods in in structional design, educational technology, and online learning research. *TechTrends, 62*(5), 492-500.
-
-Technical reading(s):
-
-&gt; Tidy data: https://vita.had.co.nz/papers/tidy-data.pdf
-
-]
-
----
-
-# Key Concept: tidy data
-
-.panelset[
-
-.panel[.panel-name[What is tidy data?]
-
-- *Tidy data* refers to a particular expression of the conventions about how data should be recorded, or stored
-- The idea was first shared in a *Journal of Statistical Software* paper (that you can optionally read this week!)
-- Broadly, "The principles of tidy data provide a standard way to organise data values within a dataset" (Wickham, 2014, p. 1)
-- The idea of tidy data relates to other notions how how data should be recorded, including schema for relational databases
-]
-
-
-.panel[.panel-name[Definition and Benefits]
-
-**Definition**:
-
-1. Each variable forms a column.
-2. Each observation forms a row.
-3. Each type of observational unit forms a table.
-
-**Benefits**:
-
-- Using the "tidy data" gives you a sense of direction for how you can prepare disorganized data
-- The "tidy data" format works well with many tidyverse functions, including the `group_by()` and `summarize()` we used last week, as well as ggplot2() functions
-
-]
-
-.panel[.panel-name[Example]
-
-**How can we make this tidy?**
-
-
-```
-## # A tibble: 2 × 4
-##   name     observation_at_t1 observation_at_t2 observation_at_t3
-##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
-## 1 Maryrose                 3                 5                 3
-## 2 Isabella                 2                 1                 5
-```
-
-]
-
-.panel[.panel-name[Example]
-
-**Each observation must become a row, with a variable indicating when the observation was made**
-
-
-```
-## # A tibble: 6 × 3
-##   name      time observation
-##   &lt;chr&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-## 1 Maryrose     1           3
-## 2 Isabella     1           2
-## 3 Maryrose     2           5
-## 4 Isabella     2           1
-## 5 Maryrose     3           3
-## 6 Isabella     3           5
-```
-
-*For examples of other common problems with datasets, check out [the tutorial reading for this week](https://vita.had.co.nz/papers/tidy-data.pdf) on tidy data.*
-]
-
-]
-
----
-
-# Key Concept: Pivoting
-
-.panelset[
-
-.panel[.panel-name[How to tidy]
-
-- In the section on the last key concept, we showed a dataset in a tidy form (and its original form)
-- We manually changed the format of that dataset, because it was very small in size
-- But, how can we tidy data when we're working with larger datasets---when manual transformations are not possible?
-- One set of functions to do this* are the pivot functions:
-- `pivot_longer()`
-- `pivot_wider()`
-
-*There are aspects of tidy data that cannot be addressed through the pivot functions, though we focus on them because the problem they address is very common and otherwise difficult to resolve 
-]
-
-.panel[.panel-name[`pivot_longer()`]
-
-- When should `pivot_longer()` be used?
-- For the following data frame, this function can be used to tidy the data (we'll show how to use this function in just a moment!)
-
-
-```
-## # A tibble: 2 × 4
-##   name     observation_at_t1 observation_at_t2 observation_at_t3
-##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
-## 1 Maryrose                 3                 5                 3
-## 2 Isabella                 2                 1                 5
-```
-
-]
-
-.panel[.panel-name[`pivot_wider()`]
-
-- When should `pivot_wider()` be used?
-- For the following data frame, this function can be used to change the data back to its original form
-
-
-```
-## # A tibble: 2 × 4
-##   name     observation_at_t1 observation_at_t2 observation_at_t3
-##   &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
-## 1 Maryrose                 3                 5                 3
-## 2 Isabella                 2                 1                 5
-```
-
-]
-
-.panel[.panel-name[Notes]
-
-- You may be wondering, why would we _ever_ want to use `pivot_wider()`, if doing so typically changes data (back) into non-tidy form?
-- Sometimes, non-tidy data is useful:
-- For displays of (tables with) data, for which non-tidy data is more familiar or intuitive
-- For certain functions or data analytic techniques that require the data to be in this form
-]
-
-
-]
-
----
-
-# Code-along
-
-.panelset[
-
-.panel[.panel-name[pivot_longer()]
-
-- Let's start by tidying the example data frame
-- You can click the copy symbol in the top-right of the below code chunk to easily copy this code
-- `pivot_longer()` requires that you specify the `names_to` and `values_to` and we use `!` to indicate which columns should _not_ be pivoted
+**Why may you not want to do this?**
 
 
 ```r
-dat &lt;- tibble(name = c("Maryrose", "Isabella"),
-              observation_at_t1 = c(3, 2),
-              observation_at_t2 = c(5, 1),
-              observation_at_t3 = c(3, 5))
-
-dat %&gt;% 
-    pivot_longer(!name, names_to = "time", values_to = "values")
+glimpse(elsi_data %&gt;% select(state_name_public_school_latest_available_year))
 ```
 
-]
+```
+## Rows: 1,910
+## Columns: 1
+## $ state_name_public_school_latest_available_year &lt;chr&gt; "Tennessee", "Tennessee…
+```
 
-.panel[.panel-name[pivot_wider()]
-
-- Let's start with our data in long form
 
 
 ```r
-dat_long &lt;- dat %&gt;% 
-    pivot_longer(!name, names_to = "time", values_to = "values")
+elsi_data &lt;- elsi_data %&gt;% 
+    mutate(state_name_public_school_2021_22 = as.double(state_name_public_school_2021_22))
 ```
 
-- How might we change this _back_ into wide form?
-- `pivot_wider()` requires you to specify `names_from` and `values_from`
+---
+
+## Revisit Key Concepts from Assignment 9
 
 
 ```r
-dat_long %&gt;% 
-    pivot_wider(names_from = "time", values_from = "values")
+elsi_data %&gt;%
+    group_by(agency_id_nces_assigned_public_school_latest_available_year) %&gt;% 
+    summarize(mean = mean(total_students_all_grades_excludes_ae_public_school_2021_22)) %&gt;%
+    arrange(desc(mean)) %&gt;% head()
 ```
-]
 
-.panel[.panel-name[More practice]
+```
+## # A tibble: 6 × 2
+##   agency_id_nces_assigned_public_school_latest_available_year  mean
+##                                                         &lt;dbl&gt; &lt;dbl&gt;
+## 1                                                     4700152 1240.
+## 2                                                     4703690  966.
+## 3                                                     4700154  952.
+## 4                                                     4700149  906 
+## 5                                                     4703030  897.
+## 6                                                     4700153  883.
+```
 
-- Let's try tidying a different data frame, transforming it from _wide_ to _long_ form 
-- How might we do this? Consider a) which variable(s) should not be pivoted and what the b) `names_to` and c) `values_to` should be
+**How would you interpret this?**
+
+A. The largest average number of students in schools was 1240.
+
+B. The largest average number of students in districts was 1240.
+
+---
+
+## Revisit Key Concepts from Assignment 9
 
 
 ```r
-relig_income
+elsi_data %&gt;% nrow()
 ```
 
-]
-]
+```
+## [1] 1910
+```
+
+
+```r
+elsi_data %&gt;% 
+    group_by(school_name) %&gt;% 
+    nrow()
+```
+
+```
+## [1] 1910
+```
+
+**Why didn't the number of rows change?**
+
+---
+
+## Revisit Key Concepts from Assignment 9
+
+
+```r
+table(elsi_data$state_name_public_school_latest_available_year)
+```
+
+```
+## 
+## Tennessee TENNESSEE 
+##      1654       252
+```
+
+Why would you not want to group by `state_name_public_school_latest_available_year`?
+
+---
+
+## Key Concept: Mapping with ggplot2
+
+There are many ways of mapping with R. Today, we'll focus on mapping with ggplot2.
+
+---
+
+## The maps package
+
+- The maps package contains many outlines of continents, countries, states, and counties.
+- To use maps, install it with:
+
+```{{r}}
+install.packages("maps")
+```
+
+- Recall that ggplot2 operates on data frames. Therefore we need some way to translate the maps data into a data frame format the ggplot can use.
+
+
+```
+##        long      lat group order region subregion
+## 1 -69.89912 12.45200     1     1  Aruba      &lt;NA&gt;
+## 2 -69.89571 12.42300     1     2  Aruba      &lt;NA&gt;
+## 3 -69.94219 12.43853     1     3  Aruba      &lt;NA&gt;
+## 4 -70.00415 12.50049     1     4  Aruba      &lt;NA&gt;
+## 5 -70.06612 12.54697     1     5  Aruba      &lt;NA&gt;
+## 6 -70.05088 12.59707     1     6  Aruba      &lt;NA&gt;
+```
+
+```
+
+
+
+
+---
+
+## Key Concept: Choropleth maps
+
+Geographical heat maps, also known as choropleth maps, are one way of visualizing our geographic data.
+
+&lt;img src="photo.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -307,7 +229,7 @@ relig_income
 
 Substantive reading(s):
 
-&gt; D'Ignazio, C., &amp; Klein, L. F. (2020). Data feminism. MIT press. Chaper 1 (In troduction: Why Data Science Needs Feminism)
+&gt; Mann, B., &amp; Saultz, A. (2019). The role of place, geography, and geographic information systems in educational research. Aera Open, 5(3), https://journals.sagepub.com/doi/10.1177/2332858419869340
 
 This is linked in Canvas.
 
