@@ -31,7 +31,7 @@ state_by_region <- read_csv("https://github.com/cphalpert/census-regions/blob/ma
 
 When we read this in, we may notice some unexpected things with the resulting output. The second row is "State" and the third is "All public schools", followed by a missing row and then "State" again!
 
-The problem is this file has _aggregate_ data for all public schools before the state-specific data. An easy solution is to read the data in once more, but to skip a number of rows. Try adding the `skip` argument to `read_excel()` below, e.g. `read_excel(file_name, skip = 2)`. You will need to fiddle with the value for skip (changing it from 2 to the appropriate number, so that each row in your data frame represents a single state).
+The problem is this file has _aggregate_ data for all public schools before the state-specific data. An easy solution is to read the data in once more, but to skip a number of rows. Try adding the `skip` argument to `read_csv`()` below, e.g. `read_csv(file_name, skip = 2)`. You will need to fiddle with the value for skip (changing it from 2 to the appropriate number, so that each row in your data frame represents a single state).
 
 Your task is to read the data on nurses again, skipping a suitable number of rows so that the variable name is for the state, and the first row is the first state in the data.
 
@@ -45,7 +45,7 @@ Better! But, even after that step, the data still isn't quite right.
 
 The 2nd variable is supposed to represent the average number of nurses per school in the state. The 4th variable represents the number of students in a school per nurse, on average, for the schools in that state. The 3rd variable is simply an empty column that can be removed. Let's clean up our data, renaming the 2nd and 4th variables with a _short, easy-to-remember name_, and dropping the fourth variable from the data. 
 
-We can use `select()` to do all of these. Refer to the documentation for `select()` if you need a refresher! One tip - you can refer to the variables simply by their number when renaming them, i.e. `select(ave_nurses = 2)`.
+We can use `select()` to do all of these. Refer to the documentation for `select()` if you need a refresher! One tip - you can refer to the variables simply by their number when renaming them, i.e. `select(ave_nurses = 2)`. Be sure to keep the `State` variable as well.
 
 *Documentation for `select()`*: https://dplyr.tidyverse.org/reference/select.html
 
@@ -55,7 +55,7 @@ We can use `select()` to do all of these. Refer to the documentation for `select
 
 ## Step 5
 
-There are some missing values in the variable for the state. Let's remove those with `filter()`, removing the NA values using this dplyr function. Check out the documentation here for a refresher:
+There are some missing values in the variable for the state. Let's remove those with `filter()`, removing the `NA` values using this dplyr function. Check out the documentation here for a refresher:
 
 https://dplyr.tidyverse.org/reference/filter.html
 
