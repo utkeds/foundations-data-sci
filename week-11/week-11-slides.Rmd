@@ -7,9 +7,17 @@ output: xaringan::moon_reader
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+
 library(dplyr)
-elsi_data <- readr::read_csv("https://github.com/utkeds/f23-founds-eds/blob/main/data/ELSI_csv_export_6383262475806903427192.csv?raw=true", skip = 6) %>% janitor::clean_names()
+
+elsi_data <-
+    readr::read_csv(
+        "https://github.com/utkeds/f23-founds-eds/blob/main/data/ELSI_csv_export_6383262475806903427192.csv?raw=true",
+        skip = 6
+    ) %>% janitor::clean_names()
 ```
 
 ```{r, echo=FALSE}
@@ -21,10 +29,8 @@ pacman::p_load(pacman, knitr, tidyverse, readxl)
 # these allow any code snippets to be copied to the clipboard so they 
 # can be pasted easily
 htmltools::tagList(
-    xaringanExtra::use_clipboard(
-        button_text = "<i class=\"fa fa-clipboard\"></i>",
-        success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
-    ),
+    xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",),
     rmarkdown::html_dependency_font_awesome()
 )
 ```
@@ -41,7 +47,8 @@ One of the most important aspects of working with geographical data is the prese
 
 - Final project comments & recommendations
 - Revisit Key Concepts from Assignment 9
-- 
+- Mapping with ggplot2
+- Adding data to maps
 
 ---
 
@@ -50,6 +57,14 @@ One of the most important aspects of working with geographical data is the prese
 * Please review the comments on your final projects and follow up if necessary
 * If they do not have the data, please obtain it as soon as possible (really only a month left!)
 * Please start data cleaning as soon as possible
+
+```{r}
+#| echo: false
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("https://media0.giphy.com/media/s4kpsTSwoiFCU/giphy.gif")
+```
+
 
 ---
 
@@ -73,6 +88,12 @@ elsi_data <- elsi_data %>%
 
 ## Revisit Key Concepts from Assignment 9
 
+**How would you interpret this?**
+
+A. The largest average number of students in schools was 1240.
+
+B. The largest average number of students in districts was 1240.
+
 ```{r}
 #| echo: true
 elsi_data %>%
@@ -81,15 +102,11 @@ elsi_data %>%
     arrange(desc(mean)) %>% head()
 ```
 
-**How would you interpret this?**
-
-A. The largest average number of students in schools was 1240.
-
-B. The largest average number of students in districts was 1240.
-
 ---
 
 ## Revisit Key Concepts from Assignment 9
+
+**Why don't the number of rows change?**
 
 ```{r}
 #| echo: true
@@ -103,18 +120,16 @@ elsi_data %>%
     nrow()
 ```
 
-**Why didn't the number of rows change?**
-
 ---
 
 ## Revisit Key Concepts from Assignment 9
+
+**Why would you not want to group by `state_name_public_school_latest_available_year`?**
 
 ```{r}
 #| echo: true
 table(elsi_data$state_name_public_school_latest_available_year)
 ```
-
-Why would you not want to group by `state_name_public_school_latest_available_year`?
 
 ---
 
@@ -137,7 +152,7 @@ install.packages("maps")
 
 ## The maps package
 
-- Recall that ggplot2 operates on data frames. Therefore we need some way to translate the maps data into a data frame format the ggplot can use.
+Recall that ggplot2 operates on data frames. Therefore we need some way to translate the maps data into a data frame format the ggplot can use.
 
 ```{r}
 world_map <- map_data("world")
@@ -167,13 +182,28 @@ ggplot(data = world_map) +
     coord_fixed(1.3)
 ```
 
-Why `coord_fixed()`? It fixes the relationship between one unit in the y direction and one unit in the x direction. Then, even if you change the outer dimensions of the plot (i.e. by changing the window size or the size of the pdf file you are saving it to (in ggsave for example)), the aspect ratio remains unchanged.
+---
+
+## Make a map with ggplot2
+
+Why `coord_fixed()`? It fixes the relationship between one unit in the y direction and one unit in the x direction. Then, even if you change the outer dimensions of the plot (i.e., by changing the window size or the size of the PDF file you are saving it to), the aspect ratio remains unchanged.
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
 
 ---
 
 ## Make a map with ggplot2
 
-Since this is ggplot2, you can customize your graph using the same aesthetics as any ggplot2 object.
+Since this is ggplot2, you can customize your graph the same way as any ggplot2 object.
 
 ```{r}
 #| echo: true
@@ -190,22 +220,10 @@ ggplot(data = world_map) +
 
 ---
 
-## Key Concept: Choropleth maps
-
-Geographical heat maps, also known as choropleth maps, are one way of visualizing our geographic data.
-
-```{r}
-#| echo: false
-#| out.width: 60%
-#| fig-align: center
-knitr::include_graphics("photo.png")
-```
-
----
-
 ## More maps with maps
 
 ```{r}
+#| echo: true
 usa_map <- map_data("usa")
 
 ggplot(data = usa_map) +
@@ -221,6 +239,7 @@ ggplot(data = usa_map) +
 ## More maps with maps
 
 ```{r}
+#| echo: true
 state_map <- map_data("state")
 
 ggplot(data = state_map) +
@@ -240,6 +259,7 @@ ggplot(data = state_map) +
 Since we are working with a dataframe, we can run our usual dplyr functions to get what we need.
 
 ```{r}
+#| echo: true
 tn_map <-
     state_map %>% 
     filter(region == "tennessee")
@@ -255,25 +275,216 @@ ggplot(data = tn_map) +
 
 ---
 
+## Key Concept: Choropleth maps
+
+Geographical heat maps, also known as choropleth maps, are one way of visualizing our geographic data.
+
+```{r}
+#| echo: false
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("~/R/f23-founds-eds/week-11/photo.png")
+```
+
+---
+
+## Making choropleth maps: Global map
+
+```{r}
+#| include: false
+set.seed(123)
+
+regions_data <-
+    world_map %>% 
+    select(region) %>% 
+    distinct() %>% 
+    mutate(value = sample(100:1000, n()))
+```
+
+```{r}
+#| echo: true
+head(world_map)
+```
+
+```{r}
+#| echo: true
+head(regions_data)
+```
+
+---
+
+## Making choropleth maps: Joining data
+
+```{r}
+#| echo: true
+joined_data <- left_join(world_map, regions_data, by = "region")
+
+head(joined_data)
+```
+
+---
+
+## Making choropleth maps: Joining data
+
+```{r}
+#| echo: true
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+---
+
+## Making choropleth maps: U.S. Map
+
+```{r}
+#| include: false
+set.seed(123)
+
+state_data <-
+    state_map %>% 
+    select(state = region) %>% 
+    distinct() %>% 
+    mutate(value = sample(100:1000, n()))
+```
+
+```{r}
+#| echo: true
+head(state_data)
+```
+
+```{r}
+#| echo: true
+joined_data <- left_join(state_map, state_data, join_by("region" == "state"))
+
+head(joined_data)
+```
+
+---
+
+## Making choropleth maps: Joining data
+
+```{r}
+#| echo: true
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+---
+
+## Key Concept: Adding points to a map
+
+Let's say we have another dataset with longitude/latitude data for different points:
+
+```{r}
+#| include: false
+points_data <-
+    tibble::tribble(
+               ~Place.Name, ~Latitude,  ~Longitude,
+          "Wisconsin, USA",      44.5,       -89.5,
+      "West Virginia, USA",        39,       -80.5,
+            "Vermont, USA",        44,  -72.699997,
+          "Texas, the USA",        31,        -100,
+    "South Dakota, the US",      44.5,        -100,
+    "Rhode Island, the US", 41.742325,  -71.742332,
+          "Oregon, the US",        44,      -120.5,
+           "New York, USA",        43,         -75,
+      "New Hampshire, USA",        44,       -71.5,
+           "Nebraska, USA",      41.5,        -100,
+          "Kansas, the US",      38.5,         -98,
+        "Mississippi, USA",        33,         -90,
+           "Illinois, USA",        40,         -89,
+        "Delaware, the US",        39,       -75.5,
+        "Connecticut, USA", 41.599998,  -72.699997,
+        "Arkansas, the US", 34.799999,  -92.199997,
+            "Indiana, USA", 40.273502,  -86.126976,
+           "Missouri, USA", 38.573936,   -92.60376,
+            "Florida, USA", 27.994402,  -81.760254,
+             "Nevada, USA", 39.876019, -117.224121,
+          "Maine, the USA", 45.367584,  -68.972168,
+           "Michigan, USA", 44.182205,  -84.506836,
+        "Georgia, the USA", 33.247875,  -83.441162,
+             "Hawaii, USA", 19.741755, -155.844437,
+             "Alaska, USA", 66.160507, -153.369141,
+          "Tennessee, USA", 35.860119,  -86.660156,
+           "Virginia, USA", 37.926868,  -78.024902,
+         "New Jersey, USA", 39.833851,  -74.871826,
+           "Kentucky, USA", 37.839333,   -84.27002,
+       "North Dakota, USA", 47.650589, -100.437012,
+          "Minnesota, USA",  46.39241,   -94.63623,
+       "Oklahoma, the USA", 36.084621,  -96.921387,
+            "Montana, USA",  46.96526, -109.533691,
+     "Washington, the USA", 47.751076, -120.740135,
+               "Utah, USA",  39.41922, -111.950684,
+           "Colorado, USA", 39.113014, -105.358887,
+               "Ohio, USA", 40.367474,  -82.996216,
+            "Alabama, USA",  32.31823,  -86.902298,
+           "Iowa, the USA", 42.032974,  -93.581543,
+         "New Mexico, USA", 34.307144, -106.018066,
+     "South Carolina, USA", 33.836082,  -81.163727,
+       "Pennsylvania, USA", 41.203323,  -77.194527,
+            "Arizona, USA", 34.048927, -111.093735,
+           "Maryland, USA", 39.045753,  -76.641273,
+      "Massachusetts, USA", 42.407211,  -71.382439,
+         "California, USA", 36.778259, -119.417931,
+              "Idaho, USA", 44.068203, -114.742043,
+            "Wyoming, USA",  43.07597, -107.290283,
+     "North Carolina, USA", 35.782169,  -80.793457,
+          "Louisiana, USA",  30.39183,  -92.329102
+    )
+```
+
+
+```{r}
+#| echo: true
+head(points_data)
+```
+
+---
+
+## Key Concept: Adding points to a map
+
+```{r}
+#| echo: true
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3) +
+    geom_point(data = points_data,
+               aes(x = Longitude, y = Latitude))
+```
+
+---
+
 # What's next?
 
 .panelset[
 
 .panel[.panel-name[Weekly Assignment]
 
-- In this week's assignment, you will tidy a data set while also practicing selecting and renaming variables and joining a second data set
+- In this week's assignment, you will create a map that shows global energy data from [Our World in Data](https://ourworldindata.org/energy).
+- The dataset is mostly cleaned up as part of the TidyTuesday project, but some preparation steps are still required.
+- The reach section asks you to add customization. If there's something you would like to do and have questions on how to do it, please reach out!
 
 ]
 
 .panel[.panel-name[Mini-Project]
 
-- The mini-project is now available in Canvas! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have two week to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
+- The mini-project is now available in Canvas! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have one more week to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
 
 ]
-
-.panel[.panel-name[Data]
-
-- The data we'll use comes from the [*National Teacher and Principal Survey*](https://nces.ed.gov/surveys/ntps/) and is on the number of full-time nurses in schools in U.S. states.
 
 .panel[.panel-name[Optional Substantive Reading(s)]
 
