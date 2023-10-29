@@ -78,7 +78,7 @@ dplyr::anti_join(world_map, owid_energy_2021, by = c("region" = "country")) %>%
 
 There are quite a few countries that are different! This will cause issues because we won't be able to join the energy data with the world map data based on the country names since they won't match.
 
-To simplify things, let's just focus on a few mismatches. We can use a special function called `case_when()` together with `mutate()` to change the names of these columns. If you would like to learn more about `case_when()`, check the documentation: <https://dplyr.tidyverse.org/reference/case_when.html>
+To simplify things, let's just focus on a few mismatches. We can use a special function called `case_match()` together with `mutate()` to change the names of these columns. If you would like to learn more about `case_when()`, check the documentation: <https://dplyr.tidyverse.org/reference/case_when.html>
 
 Run the chunk below:
 
