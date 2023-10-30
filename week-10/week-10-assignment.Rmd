@@ -1,0 +1,129 @@
+---
+title: "Week 10 Assignment"
+author: "Student Name"
+date: "Assignment Due Date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Step 1
+
+First, let's load the tidyverse package.
+
+```{r}
+library(tidyverse)
+```
+
+## Step 2
+
+Next, let's load two files, one for the data on nurses (from the [*National Teacher and Principal Survey*](https://nces.ed.gov/surveys/ntps/)) and the other a simple data frame with the names of U.S. states and their region. For ease of access, we'll load them both directly from GitHub again.
+
+```{r}
+dat <- read_csv("https://github.com/utkeds/f23-founds-eds/blob/main/ntps2021_7341_s1s.csv?raw=true") # data on nurses in U.S. schools, by state
+dat
+
+state_by_region <- read_csv("https://github.com/cphalpert/census-regions/blob/master/us%20census%20bureau%20regions%20and%20divisions.csv?raw=true") # data on U.S. states' regions
+```
+## Step 3
+
+When we read this in, we may notice some unexpected things with the resulting output. The second row is "State" and the third is "All public schools", followed by a missing row and then "State" again!
+
+The problem is this file has _aggregate_ data for all public schools before the state-specific data. An easy solution is to read the data in once more, but to skip a number of rows. Try adding the `skip` argument to `read_csv`()` below, e.g. `read_csv(file_name, skip = 2)`. You will need to fiddle with the value for skip (changing it from 2 to the appropriate number, so that each row in your data frame represents a single state).
+
+Your task is to read the data on nurses again, skipping a suitable number of rows so that the variable name is for the state, and the first row is the first state in the data.
+
+```{r}
+
+```
+
+## Step 4
+
+Better! But, even after that step, the data still isn't quite right. 
+
+The 2nd variable is supposed to represent the average number of nurses per school in the state. The 4th variable represents the number of students in a school per nurse, on average, for the schools in that state. The 3rd variable is simply an empty column that can be removed. Let's clean up our data, renaming the 2nd and 4th variables with a _short, easy-to-remember name_, and dropping the fourth variable from the data. 
+
+We can use `select()` to do all of these. Refer to the documentation for `select()` if you need a refresher! One tip - you can refer to the variables simply by their number when renaming them, i.e. `select(ave_nurses = 2)`. Be sure to keep the `State` variable as well.
+
+*Documentation for `select()`*: https://dplyr.tidyverse.org/reference/select.html
+
+```{r}
+
+```
+
+## Step 5
+
+There are some missing values in the variable for the state. Let's remove those with `filter()`, removing the `NA` values using this dplyr function. Check out the documentation here for a refresher:
+
+https://dplyr.tidyverse.org/reference/filter.html
+
+```{r}
+
+```
+
+## Step 6
+
+The key challenge at this point is that we need the data to be in _long_ format. In this step, please transform the data to be in long format, so that the two variables in the data are considered to be two different observations for the same state, and the values represent the values for each of the two variables.
+
+```{r}
+
+```
+
+## Step 7
+
+Last, please join the `state_by_region` data to your data (now in long format). Optionally, you may wish to use `filter()` to remove any states without a region in this step. 
+
+````{r}
+
+```
+
+## Step 8
+
+We're ready for an analysis! Now, please group by region, and summarize the mean *and* standard deviation for the two variables for each region --- this may make interpretation just a bit clearer later on. You can also choose to filter the data frame later (or not at at all), if you prefer.
+
+```{r}
+
+```
+
+What do you notice about any differences by region? Add a note or two below.
+
+- 
+
+## Step 9
+
+In this step, please group by division---instead of region---using the code chunk below and summarize the same statistics (mean and SD), and briefly add a note or two on your findings.
+
+```{r}
+
+```
+
+## Step 10
+
+In this final step, please transform your data to be _back_ in wide format. 
+
+```{r}
+
+```
+
+## Reach
+
+As a reach, create a graph using your data in long format. 
+
+## Rubric
+
+|                            | Points Possible | Points Earned |
+|----------------------------|-----------------|---------------|
+| File knits                 | 3               |               |
+| Steps 1 and 3-10 completed | 3 points each   |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work:
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3. Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!

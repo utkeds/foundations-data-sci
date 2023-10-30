@@ -1,0 +1,65 @@
+---
+title: "Mini Project"
+author: "Amazing Student"
+date: '2022-12-23'
+output: html_document
+---
+
+## Assignment Introduction
+
+This mini-project is intended to involve the capabilities you have developed over the semester. Like the final project, the analysis you conduct is open-ended. But, unlike the final project, the data you'll be using is provided to you for this assignment. The open-ended nature of the analysis you will conduct can be a challenge, especially regarding becoming familiar with an unfamiliar dataset and its conventions. However, with time, we are confident that you can complete each step.
+
+## Data
+
+The data you will be using is from last year's survey of all educators in Tennessee public schools. 
+
+The data you will access can be accessed directly from the Tennessee Department of Education's website. Specifically, please download the CSV named as *School Level - One file containing all schools (WARNING: Large)* on the following page:
+
+https://www.tn.gov/education/districts/federal-programs-and-oversight/data/data-downloads.html
+
+This file is beneath the "Tennessee Educator Survey" and then the "Teachers" and "2022 Educator Survey Results" headings.
+
+## Background
+
+The following files are likely to be helpful to learn about the survey and data:
+
+*One-page summary of the survey*: https://www.tn.gov/content/dam/tn/education/data/Tennessee_Educator_Survey_OnePager_2023.pdf
+
+*Report on general findings from the 2022 survey*: https://www.tn.gov/content/dam/tn/education/data/TDOE_EducatorSurvey_2022.pdf
+
+*Data dictionary for the 2022 survey*: https://www.tn.gov/content/dam/tn/education/data/district-survey/Teacher_Core_2022.pdf
+
+## Your Task
+
+Your task has the following requirements:
+
+**Requirement 1**: Create either a project in RStudio for the mini-project. Then, create a new R Markdown document within that project for all of your work on the mini-project. Be sure to give your R Markdown document a title and add your name. All of the subsequent requirements and steps can be done within this RMarkdown document, which you'll knit and submit when complete!
+
+**Requirement 2**: Save the data in folder for your project and read the data into R. Be sure to add the code to do so to your RMarkdown document.
+
+**Requirement 3**: Answer at least two questions of the data. These questions are up to you and can come from your reading of the background material, exploratory analysis of the data, individual interests, hunches, or anything else. Please write out these questions in your R Markdown document as plain test. 
+
+**Requirement 4**: Include code to provide output that you can use to answer your questions.
+
+**Requirement 5**: Add two-three sentences that provide your answers to each question.
+
+**Requirement 6**: Use one or both of the following functions to prepare and clean the data for analysis: `select()` and `filter()`. These can be in the same code chunk or in separate or multiple code chunks.
+
+**Requirement 7**: Use `group_by()` and `summarize()` at least once.
+
+**Requirement 8**: Use `arrange()` to facilitate interpretation of your analyses.
+
+**Requirement 9**: Create at least one visualization - however basic or exploratory - using ggplot2.
+
+**Requirement 10**: Write a brief (around one paragraph) reflection on your experience working on this, including ideas for ways you or others could extend your analysis.
+
+## Rubric
+
+*150 points possible* 
+| Criteria                                                            | Maximum Points | Points Received |
+|:--------------------------------------------------------------------|:---------------|:----------------|
+| The file created for requirement (req.) 1 knits without error.      | 15             |                 |
+| Two questions asked of the data are answerable and relevant (Req. 3)| 25             |                 |
+| Code is used to answer the two questions (Re. 4)                    | 25             |                 |
+| Output is interpreted to provide answers to the questions (Re. 5)   | 25             |                 |
+| Other req.'s (2, 6, 7, 8, 9, 10) are fulfilled                      | 10 point each  |                 |

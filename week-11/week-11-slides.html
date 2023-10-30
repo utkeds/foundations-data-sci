@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 11 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
+    <meta name="date" content="2023-10-29" />
+    <script src="week-11-slides_files/header-attrs-2.24/header-attrs.js"></script>
+    <link href="week-11-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="week-11-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="week-11-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-11-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-11-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-11-slides_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-11-slides_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-11-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-11-slides_files/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 11 Slides
+]
+.subtitle[
+## Mapping, Part 1
+]
+.author[
+### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
+]
+.date[
+### October 29, 2023
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+One of the most important aspects of working with geographical data is the presentation and communication of the results. In this lesson, we'll explore how to make stunning and informative maps that can help you convey insights about data in a visually appealing way.
+
+## What we'll do in this presentation
+
+- Final project comments &amp; recommendations
+- Revisit Key Concepts from Assignment 9
+- Mapping with ggplot2
+- Adding data to maps
+
+---
+
+## Final project
+
+* Please review the comments on your final projects and follow up if necessary
+* If they do not have the data, please obtain it as soon as possible (really only a month left!)
+* Please start data cleaning as soon as possible
+
+&lt;img src="https://media0.giphy.com/media/s4kpsTSwoiFCU/giphy.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Revisit Key Concepts from Assignment 9
+
+**Why may you not want to do this?**
+
+
+```r
+glimpse(elsi_data %&gt;% select(state_name_public_school_latest_available_year))
+```
+
+```
+## Rows: 1,910
+## Columns: 1
+## $ state_name_public_school_latest_available_year &lt;chr&gt; "Tennessee", "Tennessee…
+```
+
+
+
+```r
+elsi_data &lt;- elsi_data %&gt;% 
+    mutate(state_name_public_school_2021_22 = as.double(state_name_public_school_2021_22))
+```
+
+---
+
+## Revisit Key Concepts from Assignment 9
+
+**How would you interpret this?**
+
+A. The largest average number of students in schools was 1240.
+
+B. The largest average number of students in districts was 1240.
+
+
+```r
+elsi_data %&gt;%
+    group_by(agency_id_nces_assigned_public_school_latest_available_year) %&gt;% 
+    summarize(mean = mean(total_students_all_grades_excludes_ae_public_school_2021_22)) %&gt;%
+    arrange(desc(mean)) %&gt;% head()
+```
+
+```
+## # A tibble: 6 × 2
+##   agency_id_nces_assigned_public_school_latest_available_year  mean
+##                                                         &lt;dbl&gt; &lt;dbl&gt;
+## 1                                                     4700152 1240.
+## 2                                                     4703690  966.
+## 3                                                     4700154  952.
+## 4                                                     4700149  906 
+## 5                                                     4703030  897.
+## 6                                                     4700153  883.
+```
+
+---
+
+## Revisit Key Concepts from Assignment 9
+
+**Why don't the number of rows change?**
+
+
+```r
+elsi_data %&gt;% nrow()
+```
+
+```
+## [1] 1910
+```
+
+
+```r
+elsi_data %&gt;% 
+    group_by(school_name) %&gt;% 
+    nrow()
+```
+
+```
+## [1] 1910
+```
+
+---
+
+## Revisit Key Concepts from Assignment 9
+
+**Why would you not want to group by `state_name_public_school_latest_available_year`?**
+
+
+```r
+table(elsi_data$state_name_public_school_latest_available_year)
+```
+
+```
+## 
+## Tennessee TENNESSEE 
+##      1654       252
+```
+
+---
+
+## Key Concept: Mapping with ggplot2
+
+There are many ways of mapping with R. Today, we'll focus on mapping with ggplot2.
+
+---
+
+## The maps package
+
+- The maps package contains many outlines of continents, countries, states, and counties.
+- To use maps, run the following:
+
+```{{r}}
+install.packages("maps")
+```
+
+---
+
+## The maps package
+
+Recall that ggplot2 operates on data frames. Therefore we need some way to translate the maps data into a data frame format the ggplot can use.
+
+
+```
+##        long      lat group order region subregion
+## 1 -69.89912 12.45200     1     1  Aruba      &lt;NA&gt;
+## 2 -69.89571 12.42300     1     2  Aruba      &lt;NA&gt;
+## 3 -69.94219 12.43853     1     3  Aruba      &lt;NA&gt;
+## 4 -70.00415 12.50049     1     4  Aruba      &lt;NA&gt;
+## 5 -70.06612 12.54697     1     5  Aruba      &lt;NA&gt;
+## 6 -70.05088 12.59707     1     6  Aruba      &lt;NA&gt;
+```
+
+- `long` is longitude. Things to the west of the prime meridian are negative.
+- `lat` is latitude.
+- `order` shows in which order ggplot should "connect the dots"
+- `region` and `subregion` tell what region or subregion a set of points surrounds.
+- `group` is very important! ggplot2's functions can take a group argument which controls (among other things) whether adjacent points should be connected by lines. If they are in the same group, then they get connected, but if they are in different groups then they don’t.
+    - Essentially, having to points in different groups means that ggplot "lifts the pen" when going between them.
+
+---
+
+## Make a map with ggplot2
+
+Plot the world with:
+
+
+```r
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+![](week-11-slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+---
+
+## Make a map with ggplot2
+
+Why `coord_fixed()`? It fixes the relationship between one unit in the y direction and one unit in the x direction. Then, even if you change the outer dimensions of the plot (i.e., by changing the window size or the size of the PDF file you are saving it to), the aspect ratio remains unchanged.
+
+
+```r
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+---
+
+## Make a map with ggplot2
+
+Since this is ggplot2, you can customize your graph the same way as any ggplot2 object.
+
+
+```r
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region),
+           fill = "white", 
+           size = 1,
+           color = "blue") +
+    coord_fixed(1.3)
+```
+
+![](week-11-slides_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+---
+
+## More maps with maps
+
+
+```r
+usa_map &lt;- map_data("usa")
+
+ggplot(data = usa_map) +
+  geom_map(map = usa_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+![](week-11-slides_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+---
+
+## More maps with maps
+
+
+```r
+state_map &lt;- map_data("state")
+
+ggplot(data = state_map) +
+  geom_map(map = state_map,
+           aes(x = long,
+               y = lat,
+               fill = region, # different color for each state
+               map_id = region)) +
+    coord_fixed(1.3) +
+    theme(legend.position = "none") # remove the legend
+```
+
+![](week-11-slides_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+---
+
+## More maps with maps
+
+Since we are working with a dataframe, we can run our usual dplyr functions to get what we need.
+
+
+```r
+tn_map &lt;-
+    state_map %&gt;% 
+    filter(region == "tennessee")
+
+ggplot(data = tn_map) +
+  geom_map(map = tn_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3) +
+    theme(legend.position = "none") # remove the legend
+```
+
+![](week-11-slides_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+---
+
+## Key Concept: Choropleth maps
+
+Geographical heat maps, also known as choropleth maps, are one way of visualizing our geographic data.
+
+&lt;img src="photo.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Making choropleth maps: Global map
+
+
+
+
+```r
+head(world_map)
+```
+
+```
+##        long      lat group order region subregion
+## 1 -69.89912 12.45200     1     1  Aruba      &lt;NA&gt;
+## 2 -69.89571 12.42300     1     2  Aruba      &lt;NA&gt;
+## 3 -69.94219 12.43853     1     3  Aruba      &lt;NA&gt;
+## 4 -70.00415 12.50049     1     4  Aruba      &lt;NA&gt;
+## 5 -70.06612 12.54697     1     5  Aruba      &lt;NA&gt;
+## 6 -70.05088 12.59707     1     6  Aruba      &lt;NA&gt;
+```
+
+
+```r
+head(regions_data)
+```
+
+```
+##        region value
+## 1       Aruba   514
+## 2 Afghanistan   562
+## 3      Angola   278
+## 4    Anguilla   625
+## 5     Albania   294
+## 6     Finland   917
+```
+
+---
+
+## Making choropleth maps: Joining data
+
+
+```r
+joined_data &lt;- left_join(world_map, regions_data, by = "region")
+
+head(joined_data)
+```
+
+```
+##        long      lat group order region subregion value
+## 1 -69.89912 12.45200     1     1  Aruba      &lt;NA&gt;   514
+## 2 -69.89571 12.42300     1     2  Aruba      &lt;NA&gt;   514
+## 3 -69.94219 12.43853     1     3  Aruba      &lt;NA&gt;   514
+## 4 -70.00415 12.50049     1     4  Aruba      &lt;NA&gt;   514
+## 5 -70.06612 12.54697     1     5  Aruba      &lt;NA&gt;   514
+## 6 -70.05088 12.59707     1     6  Aruba      &lt;NA&gt;   514
+```
+
+---
+
+## Making choropleth maps: Joining data
+
+
+```r
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+![](week-11-slides_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+---
+
+## Making choropleth maps: U.S. Map
+
+
+
+
+```r
+head(state_data)
+```
+
+```
+##         state value
+## 1     alabama   514
+## 2     arizona   562
+## 3    arkansas   278
+## 4  california   625
+## 5    colorado   294
+## 6 connecticut   917
+```
+
+
+```r
+joined_data &lt;- left_join(state_map, state_data, join_by("region" == "state"))
+
+head(joined_data)
+```
+
+```
+##        long      lat group order  region subregion value
+## 1 -87.46201 30.38968     1     1 alabama      &lt;NA&gt;   514
+## 2 -87.48493 30.37249     1     2 alabama      &lt;NA&gt;   514
+## 3 -87.52503 30.37249     1     3 alabama      &lt;NA&gt;   514
+## 4 -87.53076 30.33239     1     4 alabama      &lt;NA&gt;   514
+## 5 -87.57087 30.32665     1     5 alabama      &lt;NA&gt;   514
+## 6 -87.58806 30.32665     1     6 alabama      &lt;NA&gt;   514
+```
+
+---
+
+## Making choropleth maps: Joining data
+
+
+```r
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+![](week-11-slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+---
+
+## Key Concept: Adding points to a map
+
+Let's say we have another dataset with longitude/latitude data for different points:
+
+
+
+
+
+```r
+head(points_data)
+```
+
+```
+## # A tibble: 6 × 3
+##   Place.Name           Latitude Longitude
+##   &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Wisconsin, USA           44.5     -89.5
+## 2 West Virginia, USA       39       -80.5
+## 3 Vermont, USA             44       -72.7
+## 4 Texas, the USA           31      -100  
+## 5 South Dakota, the US     44.5    -100  
+## 6 Rhode Island, the US     41.7     -71.7
+```
+
+---
+
+## Key Concept: Adding points to a map
+
+
+```r
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3) +
+    geom_point(data = points_data,
+               aes(x = Longitude, y = Latitude))
+```
+
+![](week-11-slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+- In this week's assignment, you will create a map that shows global energy data from [Our World in Data](https://ourworldindata.org/energy).
+- The dataset is mostly cleaned up as part of the TidyTuesday project, but some preparation steps are still required.
+- The reach section asks you to add customization. If there's something you would like to do and have questions on how to do it, please reach out!
+
+]
+
+.panel[.panel-name[Mini-Project]
+
+- The mini-project is now available in Canvas! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have one more week to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
+
+]
+
+.panel[.panel-name[Optional Substantive Reading(s)]
+
+Substantive reading(s):
+
+&gt; Mann, B., &amp; Saultz, A. (2019). The role of place, geography, and geographic information systems in educational research. Aera Open, 5(3), https://journals.sagepub.com/doi/10.1177/2332858419869340
+
+This is linked in Canvas.
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s):
+
+&gt; on mapping
+
+This is also linked in Canvas.
+
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -45,7 +45,7 @@ Write down two or more observations about the data (just from a glimpse of it) b
 
 ## Step 4
 
-One common issue encountered when reading data into R is that the variables are the wrong type; the fourth, fifth, and sixth variables in our data look like numbers, but were read into R as "chr" (character) variables. We can change those using mutate. We'll get you started by changing the fourth - `full_time_equivalent_fte_teachers_public_school_2021_22` - and fifth - `pupil_teacher_ratio_public_school_2021_22` variables. Can you do the same for the sixth by adding on to the mutate function?
+One common issue encountered when reading data into R is that the variables are the wrong type; the fourth, fifth, and sixth variables in our data look like numbers, but were read into R as "chr" (character) variables. We can change those using mutate. We'll get you started by changing the fifth - `full_time_equivalent_fte_teachers_public_school_2021_22` - and sixth - `pupil_teacher_ratio_public_school_2021_22` variables. Can you do the same for the fourth by adding on to the `mutate()` function?
 
 ```{r}
 elsi_data <- elsi_data %>% 
