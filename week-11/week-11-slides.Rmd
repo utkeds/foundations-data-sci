@@ -56,7 +56,7 @@ One of the most important aspects of working with geographical data is the prese
 ## Final project
 
 * Please review the comments on your final projects and follow up if necessary
-* If they do not have the data, please obtain it as soon as possible (really only a month left!)
+* If you do not have the data, please obtain it as soon as possible (really only a month left!)
 * Please start data cleaning as soon as possible
 * Involve your PI/collaborators
 
