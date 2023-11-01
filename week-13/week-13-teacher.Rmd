@@ -147,6 +147,14 @@ What is one other ethical concern you have with text/transcript data?
 
 -   
 
+## Reach
+
+As a reach, conduct a sentiment analysis on the Zoom transcript data from class. To see code on how to do this, visit: http://zoomgroupstats.org/articles/part03-analyze-zoom-conversation-data.html#:~:text=the%20transcript%20file.-,Performing,-sentiment%20analysis
+
+```{r}
+
+```
+
 ## Rubric
 
 |                                               | Points Possible | Points Earned |
