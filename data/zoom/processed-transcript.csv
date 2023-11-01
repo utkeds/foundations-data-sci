@@ -1,0 +1,464 @@
+index,start,end,name,text
+1,00:00:00.000,00:00:04.999,Isabella Velásquez,Importation of data in a way that's a little less manual.
+2,00:00:05.400,00:00:22.020,Isabella Velásquez,"And so we're going to explore the idea of an Api through one that already exists, created by the Urban Institute that creates an interface to education data so that we can access and download and use that data for our own purposes"
+3,00:00:22.300,00:00:30.769,Isabella Velásquez,"before I continue any questions. Anything anybody wants to raise about either the syllabus, this class, what we've been doing"
+4,00:00:36.540,00:00:42.009,Isabella Velásquez,"alright, and if not again feel free to to raise them at any point as throughout today."
+5,00:00:43.240,00:00:49.460,Isabella Velásquez,"So really quick, we're going to do a brief review of what we talked about last time."
+6,00:00:50.200,00:00:54.000,Isabella Velásquez,"So quick. Question, what kind of join is this?"
+7,00:00:55.370,00:00:57.670,Isabella Velásquez,Please enter your guests in the chat.
+8,00:01:06.700,00:01:07.780,Isabella Velásquez,"Enter, join"
+9,00:01:12.940,00:01:14.050,Isabella Velásquez,any other thoughts.
+10,00:01:17.640,00:01:18.660,Isabella Velásquez,Yeah.
+11,00:01:18.730,00:01:42.620,Isabella Velásquez,"that's right, not left or right. It is, in fact, an inner join. So it's a brief recap and inner join is where you have 2 data frames or data sets, and then you keep all of the rows from X or the left data set, and then they're matching values at Y, which is considered the right data frame. And then all the columns from X and Y are are kept."
+12,00:01:43.050,00:01:52.649,Isabella Velásquez,"since 3 is not in y, and 4 is not in x. Those 2 are removed when you do the joints outside. Andre, I love it"
+13,00:01:56.200,00:02:14.320,Isabella Velásquez,"as a review left join keeps all the rows from X and all the columns from Y, and anything in X that doesn't have a matched Y are are remains, and and then the Y column has an NA. Instead of, you know, a value, because there's nothing that corresponds to it"
+14,00:02:16.520,00:02:30.270,Isabella Velásquez,flipped around. There's the right join where similar to a left join. But this time you keep all the rows from y all the columns from X and Y rows and y with no match and x will have in a bot values in those new columns.
+15,00:02:32.910,00:02:44.999,Isabella Velásquez,"and finally a full join. This is where all rows and all columns, and X and Y are remain, and anything without matches, and either one will just have an an a for the for the missing values."
+16,00:02:48.240,00:03:13.650,Isabella Velásquez,"a few things to watch out for with joins, and thank you all so much for, adding your notes in the reading. First of all, is, that the amount of data cleaning that is involved either by renaming columns or cleaning up columns, you know if you import a a data set and the column is numeric, and then the other one is character having to clean that up to make sure that you can actually do the join in R,"
+17,00:03:13.960,00:03:26.089,Isabella Velásquez,"just generally the format. So as you saw in your assignment, sometimes you have to wrangle the the data in different formats so that they actually can be joined. Any other limitations that might exist"
+18,00:03:26.110,00:03:56.089,Isabella Velásquez,"in terms of whether they can even be join, maybe, like the Ids, the primary ids don't match at all. And so you're gonna have to find a different way of of combining the 2 data frames. In addition to that type of join that you're interested in. So I know we talked briefly last time. Why would you use a left join as opposed to an inner join. And it really depends on the final data frame that you're interested in creating and making sure that you do the appropriate join. According to that"
+19,00:03:56.540,00:04:24.760,Isabella Velásquez,"visualizing the join. So particularly if it's a a complex one, or in general, just like if it's helpful to you to kind of visualize like the final output that you want, and the 2 or the 3 or etc. Data frames that you have, and how you're going to put them together to to form that final output, and then finally, like, it doesn't end there checking your join data set and making sure that everything looks correct."
+20,00:04:24.760,00:04:46.830,Isabella Velásquez,"That you don't have duplicate ids if you're not expecting to have duplicate ids or you're not, you don't have missing values when you don't expect to have missing values. And so from the beginning, all the way through, after you've done the join, thinking about you know the steps involved, and and making sure that everything looks correct and nothing has been missed."
+21,00:04:47.380,00:04:51.209,Isabella Velásquez,"Oh, and I heard that the"
+22,00:04:51.270,00:05:06.579,Isabella Velásquez,"the slides, I think for last week, and perhaps week 4 were linked to just the the our markdown file that creates these slides. They have been updated in canvas. So if you go to canvas and click on week"
+23,00:05:06.580,00:05:22.010,Isabella Velásquez,"next slides and click on the open link in new browser. It should open up to this rendered version, if you have any issues. Please let me know. And and that's how it should also be. Accessible, moving forward as well."
+24,00:05:23.530,00:05:32.020,Isabella Velásquez,"Alright. Any questions, thoughts about the joints, anything that you found particularly helpful or or tricky during the assignment."
+25,00:05:39.420,00:05:56.000,Isabella Velásquez,"Alright, that's great. And moving forward, we're going to continue bringing in these different data frames and creating more and more complex, more robust views of data. So yeah, it's welcome to the world of joints"
+26,00:05:56.550,00:06:20.460,Isabella Velásquez,"before I move forward. I also wanted to share. You know, all of you have been doing an amazing job on the assignments and working on the reach part in order to, you know, create visualizations that are more customized, that, you know, start to tell a story and everything like that. So really appreciate your work on that, and particularly wanted to highlight roots."
+27,00:06:20.460,00:06:30.680,Isabella Velásquez,"Visualization. Today. II asked Ruth if it's alright if if I shared, and thank you very much, Ruth, for saying yes, I just wanted to show an example of what"
+28,00:06:30.970,00:06:43.369,Isabella Velásquez,"how gg, plot visualizations can be used to. Again, further, tailor the data and and talk about it and present it in a way that others can glean insights from it."
+29,00:06:43.660,00:06:52.650,Isabella Velásquez,"So this our Markdown file starts off with loading the data. I should have it. Yes, I have everything ready?"
+30,00:06:52.790,00:07:11.019,Isabella Velásquez,"And you all work through. Why do you need the data and join in the data as well? But here's an example of a visualization again. That, I feel also brings together a lot of the concepts that we've talked about in class. So first, we have our data frame called join left."
+31,00:07:11.290,00:07:39.270,Isabella Velásquez,"And we talked about, how do we highlight specific points or bars or or whatnot in our data? In visualizations? And one way to do that is, to create a custom variable of the of the thing and interest of the variable of interest. So in this particular case, using muteape from deeply or mute creates new columns based on other columns. And so we"
+32,00:07:39.530,00:07:43.009,Isabella Velásquez,"So this is saying, create a column called Color."
+33,00:07:43.180,00:07:51.300,Isabella Velásquez,"where, if the State is Tennessee. The the value is yes, and if the State is not Tennessee, the value is no"
+34,00:07:54.040,00:08:07.799,Isabella Velásquez,"okay. And so from that, since a Gg plot is part of the tiny verse. We can take that modified data frame and pipe it into our Gg plot object, using the Mcgrider pipe like. So."
+35,00:08:08.310,00:08:16.970,Isabella Velásquez,"And here in the ggplot object, the X variable is this social security payments."
+36,00:08:17.290,00:08:39.330,Isabella Velásquez,"And one thing that Ruth have very, you know. Great detail to know is that the payments are actually in the thousands. And so the because the key data dictionary actually says as many as the thousands, and to show the actual amount. It might be more valuable to multiply that"
+37,00:08:39.600,00:08:44.589,Isabella Velásquez,"in the data as opposed to, you know, having folks who are reading the graph infer it."
+38,00:08:44.660,00:08:59.140,Isabella Velásquez,"And so because of how our works, you can actually do those manipulations within gg plot itself. So without having to create a another column or anything like that, modify the X value like that."
+39,00:08:59.620,00:09:02.739,Isabella Velásquez,And then why is at or above proficient?
+40,00:09:03.430,00:09:15.040,Isabella Velásquez,"We've talked about the different layers that Gg plot is allows you to do. And so from here, it's just kind of building on the graph until you get to the final stage that you are interested in."
+41,00:09:15.100,00:09:24.349,Isabella Velásquez,"So here's our data that's been modified initializing the plot. Gg, plot first up is creating key on smooth."
+42,00:09:24.870,00:09:30.330,Isabella Velásquez,which we have talked about creates those linear regression line
+43,00:09:30.760,00:09:37.920,Isabella Velásquez,"and then also specifying the color, so that it's easier to see the next player"
+44,00:09:38.160,00:09:41.300,Isabella Velásquez,right? Adds the points with geon points.
+45,00:09:42.430,00:10:03.970,Isabella Velásquez,"and notice that there's also an additional argument show legend where it's false. So again, when creating visualization, sometimes you might find yourself with a legend and it might be a little redundant with the things that are already on your plot, and you may find yourself wanting to remove it so that you're you're not showing that same information twice."
+46,00:10:05.860,00:10:22.939,Isabella Velásquez,"and then adding values for the for the points. So this is where that custom, variable of color, comes in where it's saying, for one of the color, or for one of the variables, make it gray, for the other variable, makes it all make it orange"
+47,00:10:23.380,00:10:30.439,Isabella Velásquez,and doing. That makes it very clear which point is meant to be highlighted in this plot.
+48,00:10:31.900,00:10:34.449,Isabella Velásquez,continue to add to it is
+49,00:10:35.990,00:10:40.609,Isabella Velásquez,adding labels. So we talk about labels such as
+50,00:10:40.650,00:11:07.950,Isabella Velásquez,"X axes, y axes, titles, and things like that. But there's also the labels within the data itself. And so in this case, knowing that we are talking about payments which are in dollar amounts. There's an additional package called scales that adds these formatting to your numeric values. Using this this kind of syntax. So this is saying, from those package scales use the dollar format for the X axis."
+51,00:11:09.950,00:11:13.489,Isabella Velásquez,so adding that adds the dollar signs down below.
+52,00:11:13.770,00:11:36.990,Isabella Velásquez,"Similarly, we know that this add or above proficient percent is a percentage. And therefore we might want to add a percentage sign to make that clear. And the scales package, similarly, has a function that does that for you. In this case this is same from the scales passage. Use the percent format and apply that to the y-axis."
+53,00:11:37.500,00:11:47.639,Isabella Velásquez,And there are additional arguments that you can look up by looking at the documentation so running that this gives us percentage signs on the Y axis.
+54,00:11:48.010,00:11:56.529,Isabella Velásquez,"and then continuing on further adding detail and clarification through X and Y,"
+55,00:11:56.880,00:12:00.590,Isabella Velásquez,access labels using labs.
+56,00:12:01.800,00:12:09.340,Isabella Velásquez,"So now, instead of saying, you know the variable name that comes from the data frame. Now, it's actually, you know, specifying what it is."
+57,00:12:10.830,00:12:28.769,Isabella Velásquez,"And then there is an additional layer using geom text being able to say, like somebody looking at this chart, might not know, you know, what is this orange dot versus these gray dots? And so, further adding text, in order to really really hone in on what this"
+58,00:12:29.710,00:12:40.390,Isabella Velásquez,"visualization is about, which is about highlighting Tennessee. and finally using a built in theme from ggplot to make the chart easier to read."
+59,00:12:40.570,00:12:54.750,Isabella Velásquez,"So anyway, I thought this was an excellent example. Of like storytelling, of utilizing various level layers of TV plot, creating an informative graph. So thank you so much, Ruth, for allowing me to share"
+60,00:12:59.840,00:13:00.740,Isabella Velásquez,alright
+61,00:13:03.040,00:13:32.049,Isabella Velásquez,"in addition, last week the reading assignment focus on learning analytics and learning at scale. So last time we had talked about joins as a way of bringing in data from you know, separate data sets together creating data frames from them and then joining them together. But in addition, there is the idea of like, what are the sources of these of these data sets, and the"
+62,00:13:32.170,00:13:43.400,Isabella Velásquez,"application of multiple modes in order to create a more robust picture of students if they're learning of, you know, whatever a research question may be."
+63,00:13:44.280,00:14:03.239,Isabella Velásquez,"and then it finally, in addition to that, another reading that talked about superintendent gender to caps. And the idea behind this reading is to kind of just highlight the what it means to disaggregate data, or to look at various subgroups in comparison with each other, to see patterns that might be"
+64,00:14:03.300,00:14:18.970,Isabella Velásquez,"might that might be missed or not visible. If you are looking at everything together. And this is another concept that we'll further explore, especially now that we're getting into data that has these multiple variables, that we can look at it from multiple different ways."
+65,00:14:19.660,00:14:27.300,Isabella Velásquez,"And the technical reading which introduced education data, which is the package that we're going to be going really deeply in today."
+66,00:14:30.970,00:14:31.860,Isabella Velásquez,Next.
+67,00:14:34.010,00:14:54.660,Isabella Velásquez,"So the idea behind today is that there are multiple way multiple ways of accessing data. And in particular, on the Internet, there are services that allow the public researchers, developers of applications, things like that to access data from those services."
+68,00:14:54.660,00:15:11.270,Isabella Velásquez,"So for example. There's social media. So if you want to access something like your organization's likes on a particular photo on Instagram, Instagram has a way for an avenue for you to do that"
+69,00:15:11.590,00:15:21.040,Isabella Velásquez,"work related. So, for example, the canvas, the software that we use every week for assignments, and everything like that can also be"
+70,00:15:21.110,00:15:36.640,Isabella Velásquez,"The data within it can also be accessed by going through a certain process. The government utilizes these services as well in order to share things like weather data or census data, more accessible to more people."
+71,00:15:37.280,00:15:51.840,Isabella Velásquez,"And then also, there's also personal data. So every time you know, I run on Strava like that. Information is stored, and it's also accessible to me through Strava and the the services that it provides."
+72,00:15:53.060,00:16:10.230,Isabella Velásquez,"So keep saying services. But in particular, one service that we're going to be talking about today is again the Api. So on the chat. I am curious. What is an Internet based service or organization that, you know, provides data that is of interest of you."
+73,00:16:10.240,00:16:35.810,Isabella Velásquez,"And so you know, think about, like, you know what kind of data you're most interested in and paste in your response, in the chat, like what organization or service, and then an example of the data that they provide. And let me just show what I mean. So, for example, I really like to pull data from Youtube and understand, you know, which which videos are the most popular for whatever time"
+74,00:16:35.930,00:16:38.250,Isabella Velásquez,searching for Youtube. Api.
+75,00:16:40.750,00:16:48.180,Isabella Velásquez,"Google, who owns Youtube, provides this Api as a service for you to"
+76,00:16:48.900,00:16:50.429,Isabella Velásquez,for you to like
+77,00:16:50.840,00:17:20.729,Isabella Velásquez,"access. The data in in a way like that doesn't involve you going into each individual video. And, you know, copying and pasting it. So searching for resources and resource types. This gives me kind of an idea of the sort of things that Google allows me to access. So a channel, for example, this would give me information about a single Youtube channel. So for by providing an Id, I have the Channel name, I have the Channel description. Probably you know the details are kind of con"
+78,00:17:20.900,00:17:22.869,Isabella Velásquez,contained within the service
+79,00:17:22.950,00:17:31.489,Isabella Velásquez,or a playlist. So this represents a playlist. And so then I'm able to see what is contained within this collection of video.
+80,00:17:32.530,00:17:36.279,Isabella Velásquez,"So that's an example I'd love to hear, you know. Take a look."
+81,00:17:36.410,00:17:40.279,Isabella Velásquez,And the whether or not the the
+82,00:17:40.450,00:17:49.090,Isabella Velásquez,"organization you're interested in has an Api. They do please share an example. If not, you know, just saying they don't have an Api"
+83,00:17:51.500,00:17:52.430,Isabella Velásquez,awesome.
+84,00:17:53.670,00:18:00.590,Isabella Velásquez,Cornell. Eford provides crowd generated data about how many birds have the sighted where that's awesome
+85,00:18:01.550,00:18:07.810,Isabella Velásquez,ipads. He's ipens a lot for postsecondary education data
+86,00:18:14.310,00:18:15.610,Isabella Velásquez,that's awesome.
+87,00:18:16.670,00:18:20.000,Isabella Velásquez,So using canvas in real time
+88,00:18:20.080,00:18:23.450,Isabella Velásquez,to see what all is happening.
+89,00:18:41.490,00:18:42.260,Isabella Velásquez,Yeah.
+90,00:18:44.190,00:18:47.480,Isabella Velásquez,the canvas definitely has an Api which makes it
+91,00:18:47.990,00:18:57.320,Isabella Velásquez,really wonderful wealth of information on how people are using the product for a particular class or anything like that.
+92,00:18:59.280,00:19:19.239,Isabella Velásquez,"So, for instance, I just searched Ebrood Api, and they do have one, but they also have a place where you can just like click download and download a bunch of data. So I'm wondering like how an Api is different and what makes it easier or like more functional and just doing that. Yeah, that is an excellent question. You will get to that in the next."
+93,00:19:20.100,00:19:23.809,Isabella Velásquez,"But, what is the example again, what the name? Sorry"
+94,00:19:27.940,00:19:34.070,Isabella Velásquez,"of the one that has both options. Oh, I was saying, Ebert the"
+95,00:19:35.920,00:19:40.569,Isabella Velásquez,Twitter. Yeah. So twitter slash. That is
+96,00:19:40.990,00:19:51.650,Isabella Velásquez,"also a great example of service of an Api. Please remind me to come back to it, because they're actually having quite a few changes, and I think it"
+97,00:19:51.660,00:19:54.209,Isabella Velásquez,harkens back to the reading from
+98,00:19:54.650,00:20:00.579,Isabella Velásquez,"a few weeks ago about big data. Okay, and let me write in it. So make sure I don't forget."
+99,00:20:00.690,00:20:01.940,Isabella Velásquez,Talk about that again.
+100,00:20:04.710,00:20:08.250,Isabella Velásquez,Biodiversity data from Gpif. Excellent
+101,00:20:40.940,00:20:55.979,Maryrose Weatherton,Isabella. What are other good examples of places that might have Apis like? I think I get the sense that most people haven't really are not super familiar with Apis. And so maybe folks don't really know how they could use an Api in their research.
+102,00:20:56.390,00:21:01.999,Isabella Velásquez,"Yeah, absolutely.  yeah. So I'm trying to think"
+103,00:21:02.450,00:21:03.340,Isabella Velásquez,of
+104,00:21:03.490,00:21:12.009,Isabella Velásquez,"as an example off the top of my head. But I think like, when I think particularly like services of really big data like Twitter."
+105,00:21:12.020,00:21:28.620,Isabella Velásquez,"Sasha, Youtube, canvas like. Generally, they try to provide data through an Api, and we'll talk about why, they probably use that format as opposed to a Csv or anything like that."
+106,00:21:28.990,00:21:35.860,Isabella Velásquez,"and also, like the Department of Education, is another example. and I think it's"
+107,00:21:36.190,00:21:39.850,Isabella Velásquez,"If I had to get like, it would be for"
+108,00:21:39.930,00:22:02.099,Isabella Velásquez,"for organizations who are most interested in like sharing their data, who actually want other people to access their data and use it for their own applications, for whatever reason that they will find the a an Api, that the best format of doing that. And again, we'll kind of dig into why, that as opposed to something else."
+109,00:22:02.880,00:22:05.090,Isabella Velásquez,Yeah. Fit the
+110,00:22:05.530,00:22:15.330,Isabella Velásquez,"yeah. Line cover national land cover. Database. Excellent. So yeah, so lots of examples from the government as well. Because."
+111,00:22:15.680,00:22:24.319,Isabella Velásquez,Apis are a way of sharing data in a way that's very accessible. As opposed to say.
+112,00:22:24.320,00:22:49.619,Isabella Velásquez,"the data for a data set that is coming from like a Sas format to open up a data set that is assess format. You need to have sas, which is proprietary, which costs money and things like that. An Api is if it is provided, is a way of a accessing data that anybody with the tools to do it can do it. They don't need to get anything kind of proprietary for that."
+113,00:22:50.810,00:22:51.680,Yeah.,NA
+114,00:22:52.220,00:23:15.269,Maryrose Weatherton,"yeah. Lots of other good examples, I think. Oh, overdrive. Miranda is a really interesting one. I also just looked up that things like Paypal have an Api, and I could see. Some types of commerce or payment. Api is being really useful for folks that are interested in like how education is funded, or policies or things like that could be super interesting."
+115,00:23:17.650,00:23:18.320,Isabella Velásquez,Oh.
+116,00:23:18.780,00:23:20.090,Maryrose Weatherton,so good examples.
+117,00:23:20.720,00:23:23.180,Isabella Velásquez,excellent example. Thank you so much.
+118,00:23:23.560,00:23:33.109,Isabella Velásquez,"Yeah. Then, while we take a break to, I'll come up with some other extent, but these are excellent, and there's so many that I wasn't aware of either. I didn't"
+119,00:23:34.410,00:23:38.609,Isabella Velásquez,"I did not even know about overdrive, which is great cause it's"
+120,00:23:39.070,00:23:40.780,Isabella Velásquez,did I use to get my books?
+121,00:23:42.910,00:23:44.420,Isabella Velásquez,Alright excellent.
+122,00:23:46.120,00:24:02.350,Isabella Velásquez,"So if you keep searching, if you run into any other ones, please feel free to share but essentially like it is way of sharing data from the from various services. Some may have it, some may not. And why, what is the difference?"
+123,00:24:03.630,00:24:08.090,Isabella Velásquez,So to quickly define log trace data.
+124,00:24:08.220,00:24:25.359,Isabella Velásquez,"So there is in any like interaction that we may have with digital services like again, like Strava Fitbit, for example. Anything that you click on on canvas. All of that information is recorded."
+125,00:24:25.400,00:24:44.740,Isabella Velásquez,"All the events, all the activities and things like that. It's generally a time stamped piece of information. So it'll tell you exactly when that thing happens and some information about what occurred during that specific operation or process. So, for example, when you submitted an assignment."
+126,00:24:44.740,00:25:02.329,Isabella Velásquez,"and the canvas Api in the back end is recording, hey? This person submitted their assignment at this time. And so this really helps track behavior. For the people who are creating the program. Right? What are people doing? Diagnosing any issues and ensuring this."
+127,00:25:02.330,00:25:13.009,Isabella Velásquez,"the the program is functioning the way it should. But for us, what is interesting is having access to that information, to get you to answer our research questions."
+128,00:25:13.420,00:25:37.469,Isabella Velásquez,"So log trace data has many different wh, the terminologies or terms for it. Right? You can say, trace data, digital traces log data. So from here on out, we're gonna use the term log trace data to refer to this kind of data. But just be just note if you hear these other terms. And they're all referring to this kind of data that's generated through services."
+129,00:25:41.140,00:25:42.440,Isabella Velásquez,That's right.
+130,00:25:43.620,00:26:13.569,Isabella Velásquez,"So there are many different ways that we can access log trace data. One way is we can collaborate with individuals. We can create our own tool that generates data through these like automatic timestamps and pieces of information. But if we want to access data from other organizations like Google, like the government, like Hoover drive, for example, these application programming interfaces are are very common."
+131,00:26:13.770,00:26:26.980,Isabella Velásquez,"and what these are are set of rules, protocols and tools that allow different software different computers, you know, different programming languages to be able to communicate with each other."
+132,00:26:27.080,00:26:31.460,Isabella Velásquez,So a very common analogy for an Api
+133,00:26:31.760,00:26:36.960,Isabella Velásquez,"is, is ordering something at a restaurant."
+134,00:26:37.050,00:26:56.949,Isabella Velásquez,"So, for example, your waiter is the Api, the data and the delivery mechanism, for, say, your French onion soup you can't go into the kitchen and order it to from the chef. You have to ask the waiter, so you send a request through the waiter. The waiter transport your request"
+135,00:26:57.010,00:27:11.269,Isabella Velásquez,"to from you to the kitchen, and then transports that back to you. The menu. The thing that you are reading is the documentation of the Api. So it tells you. What can you order from the Api, from waiter."
+136,00:27:11.710,00:27:33.480,Isabella Velásquez,"and then what the kitchen is is the server. So it is supplying or serving the service or the data that you're asking for, but it only has certain kinds of data. So if on your menu, you ask for a tomato soup, and it's not on the menu, you may request the Api, but you're not going to get it back from the server."
+137,00:27:33.900,00:27:36.780,Isabella Velásquez,"and if you do, you probably get an error code."
+138,00:27:37.310,00:27:58.719,Isabella Velásquez,"and then there are also secret ingredients that you aren't aware of that. Go into your food. And so, similarly, with an Api, there are things you can ask of it. But there are things that when you make your request that you're not it's unknown to you, like what exactly is happening to the back end and the reason for this is the Api"
+139,00:27:58.720,00:28:10.370,Isabella Velásquez,helps protect confidentiality and security and compliance while serving you. Any of the requests that you have that are appropriate that are allowable through that Api
+140,00:28:10.620,00:28:28.709,Isabella Velásquez,"and so very common like. And for example, the Youtube Api that we looked at it would be me saying, like, Hey, Youtube, Api, give me the list of all the videos in this playlist, Api goes, grabs that list and then delivers it back to me."
+141,00:28:28.860,00:28:32.579,Isabella Velásquez,according to the rules that are set up for that particular Api
+142,00:28:33.390,00:28:35.060,questions.,NA
+143,00:28:39.370,00:29:05.129,Isabella Velásquez,"just wanna make sure. And often a lot of times when we're interacting with something on the Internet, that is actually how we are getting the information. So we are going to focus on a particular Api called web-based Apis. So things that are accessing the Internet for data or information. But there are other kinds of Apis to be aware of some access databases some you know, access"
+144,00:29:05.130,00:29:12.440,Isabella Velásquez,messages and things like that. But we're focusing on Web Api's. And like I mentioned with Web Api's have rules that
+145,00:29:12.440,00:29:24.959,Isabella Velásquez,"and protocols and tools. Really, the the point of this image is to just show, like there is a structure to an Api of how you make a request and how you get something back."
+146,00:29:26.470,00:29:30.870,Isabella Velásquez,So why would we use Apis as opposed to other formats?
+147,00:29:30.890,00:29:45.120,Isabella Velásquez,"For example, the the Ebirds website also provides a way to to download. I'm assuming, like a Csv or an Excel file with the same information that the Api has."
+148,00:29:45.260,00:30:00.280,Isabella Velásquez,"So first off, like I mentioned, there's data accessibility. So if whereas, like some data, formats are proprietary to a particular software, or whatever reason."
+149,00:30:00.280,00:30:22.319,Isabella Velásquez,"apis, if you have the tools to do it like is accessible to to anybody. And so they are very direct. So as we've seen with these examples, they're provided from the products themselves to you. And so it's a direct way of accessing this data in a way that"
+150,00:30:22.820,00:30:36.199,Isabella Velásquez,"that is, ha also has, like a structured and consistent format versus, like, you know, Csv's might differ like from from page to page. And things like that."
+151,00:30:36.210,00:30:40.690,Isabella Velásquez,"In addition, real time data. So Apis are"
+152,00:30:40.850,00:30:46.100,Isabella Velásquez,like we mentioned can be used for log trace data in that they can be
+153,00:30:46.160,00:30:59.110,Isabella Velásquez,"updated almost instantly. And so both Updated in terms of adding new records and also updated in terms of you know, if something has changed"
+154,00:30:59.150,00:31:24.739,Isabella Velásquez,"from the data that you already have, that the Api is able to like, give you the most up to date information. And so versus a Csv. As you can imagine, like, you can download a Csv every single time that you see, a new one has been uploaded to the website, or you could create a script that reads an Api that automatically pulls that for you."
+155,00:31:24.740,00:31:47.980,Isabella Velásquez,"And so again, it's very much depends on your research question and the sort of analysis that you're doing. But for anything that you want to be updating very, very frequently. And there is an Api and a mechanism to access it, that this might be more efficient and more easy than you know, trying to keep track of many, many files."
+156,00:31:48.740,00:32:14.300,Isabella Velásquez,"Also that. And that leads to the fair point efficiency. So this Apis can be automated. So we can write a script that just says, like, you know, every 5 min, every 1 min. Whatnot. Read this Api and do the analysis with the most updated information that we have as opposed to it, being you know, timestamp by the the last downloaded file."
+157,00:32:15.250,00:32:32.019,Isabella Velásquez,"And finally, kind of like leading into the data accessibility because of how Apis are structured and how they are provided to many people that it helps facilitate collaboration. And"
+158,00:32:32.250,00:32:55.099,Isabella Velásquez,"for example, like. There are methods in Python to access Apis or methods in art to access Apis. And so if you're collaborating with someone, it doesn't matter what programming language you're you're using because you both have access to the same data and can use your own you know techniques in order to to download it and and run your analyses and everything like that."
+159,00:32:58.170,00:33:02.890,Isabella Velásquez,Any questions on why use Apis versus something else
+160,00:33:10.980,00:33:12.600,Isabella Velásquez,cool?
+161,00:33:14.930,00:33:19.189,Isabella Velásquez,So let's talk about an actual example of an Api.
+162,00:33:19.640,00:33:25.729,Isabella Velásquez,so the education data portal provides an Api to
+163,00:33:26.030,00:33:46.640,Isabella Velásquez,"government data on Us. Schools, Us. Districts and colleges. This is created by the Urban Institute. And so if folks have ever tried to download data from public schools. There is a Federal website called the Common Core Data, Ccd."
+164,00:33:46.980,00:34:04.460,Isabella Velásquez,"and here you can come, you. You can say it like the kind of data that you are interested in. So fiscal non fiscal. You can say, you know what level I'm interested in national, what year, etc. And then your search will provide the various different tables right?"
+165,00:34:04.650,00:34:09.250,Isabella Velásquez,Clicking through these tables. Here's an example
+166,00:34:10.159,00:34:14.979,Isabella Velásquez,of number of virtual schools by state and school type.
+167,00:34:15.250,00:34:25.380,Isabella Velásquez,And then we can also download the excel. And so downloading excel. I actually don't have excel on this computer numbers. But
+168,00:34:25.909,00:34:52.960,Isabella Velásquez,"same general idea, we get the table from the website that reflects the the information in this table. So as we talked about. This is a fantastic way of downloading data like, it's amazing. It's publicly available and everything. But like, if we are doing this regularly or we are sharing this with other people. There might be reasons that we don't want to go through through this mechanism in order to download this information."
+169,00:34:52.960,00:35:07.010,Isabella Velásquez,"So first of all, it's hard to reproduce right like. Say, you wanted to tell your colleague, hey, download this table for some reason you can send it or whatnot you'll have to tell them, you know. Go to this website, click all of these."
+170,00:35:07.010,00:35:12.899,Isabella Velásquez,You know. Make sure that you have the right year and click on it and download it.
+171,00:35:13.010,00:35:16.559,Isabella Velásquez,"In addition, you may have noticed once you do download it."
+172,00:35:16.710,00:35:23.680,Isabella Velásquez,"It's in a very particular format, right? There's merge merge cells here. There's some"
+173,00:35:23.940,00:35:26.480,Isabella Velásquez,some rows that
+174,00:35:26.490,00:35:38.120,Isabella Velásquez,"don't have anything right like the me of the information that we're interested is down here, and then once, like if you were to upload this to our, you'll see. That"
+175,00:35:38.230,00:35:43.190,Isabella Velásquez,takes a little bit of data cleaning right like this.
+176,00:35:43.230,00:36:01.120,Isabella Velásquez,"this little number shows up, and you may not want that. So you have to clean that out. You know you may have to decide to do something with else with the zeros and things like that. So anyway, all this to say is like, there are times where it makes sense to use the common core data table to"
+177,00:36:01.120,00:36:29.329,Isabella Velásquez,"to get your information. But there may be times that you want to, you know. You kind of just want to pull it. You want it ready for analysis and are without doing these various different steps. And so the Urban Institute created the Education data portal to kind of address that so rather than having to go through these different websites. Because this was just a common core of data. There are various other education related."
+178,00:36:29.630,00:36:44.919,Isabella Velásquez,"data sets that the education data portal contains, and to also facilitate, you know, sharing of the same information across multiple people and everything like that. They created this Api that anybody can access for this information."
+179,00:36:46.100,00:36:51.250,Isabella Velásquez,"So what does this actually look like? It actually kind of looks like a yeah. URL,"
+180,00:36:51.300,00:36:57.620,Isabella Velásquez,so this URL is an Api request
+181,00:36:57.660,00:37:06.429,Isabella Velásquez,for the educational data portal which is linked here. Education data.urban.org slash api.
+182,00:37:06.490,00:37:19.730,Isabella Velásquez,"and then again, like I mentioned Apis have a very particular structure, which again, very like they look like Urls. This request has, is saying, I want version one"
+183,00:37:19.930,00:37:22.130,Isabella Velásquez,of the Api.
+184,00:37:22.360,00:37:27.990,Isabella Velásquez,"I want the school data set from the common core, Theta or Ccd"
+185,00:37:28.520,00:37:31.550,Isabella Velásquez,"more specifically, I want their moment data"
+186,00:37:31.640,00:37:34.300,Isabella Velásquez,from the Ccd by school
+187,00:37:34.420,00:37:36.469,Isabella Velásquez,for the year 2013
+188,00:37:37.910,00:37:39.360,Isabella Velásquez,"for grade, 3"
+189,00:37:41.360,00:37:48.130,Isabella Velásquez,"for charter equals one which we will talk about in a second, and then fifths equals 47."
+190,00:37:49.510,00:38:02.880,Isabella Velásquez,So you may be wondering what does charter equal one mean or fifth equals 47 mean? So that is just specifying the request. Looking at the documentation or the common core of data.
+191,00:38:02.910,00:38:05.389,Isabella Velásquez,or I'm sorry for the education data portal
+192,00:38:05.500,00:38:20.300,Isabella Velásquez,"it provides, you know, it tells you what the data sources are. You know. And then the Directory gives you information as to what the endpoints or those specific requests have to be in order for you to get your data back."
+193,00:38:20.760,00:38:28.220,Isabella Velásquez,and very conveniently at the side. It actually gives you an example of what the request needs to look like.
+194,00:38:28.310,00:38:31.999,Isabella Velásquez,By default. It's state of clicking on R.
+195,00:38:32.300,00:38:37.399,Isabella Velásquez,"We can actually see what it would look like. There, I'm sorry I'm getting hurt myself, though, first"
+196,00:38:37.410,00:38:42.550,Isabella Velásquez,in terms of what the request needs to contain. If you go to charters
+197,00:38:44.580,00:38:45.390,Isabella Velásquez,right?
+198,00:38:45.630,00:39:03.939,Isabella Velásquez,"We can see if we say a request of charter. 0 means No. One means yes. And then there's various other values. So by saying, Charter equals one. We're saying, we want the enrollment data for grade, 3 for 2013 for schools. There are charters."
+199,00:39:04.170,00:39:05.920,Isabella Velásquez,and then Phipps.
+200,00:39:08.050,00:39:14.530,Isabella Velásquez,"correspond to the different States in the United States. So, scrolling down to 47,"
+201,00:39:14.820,00:39:19.589,Isabella Velásquez,"you may have guessed 47 is Tennessee. So we're saying,"
+202,00:39:19.740,00:39:21.370,Isabella Velásquez,"in conclusion, we want"
+203,00:39:21.400,00:39:31.799,Isabella Velásquez,"from the version one of this Api, we want enrollment school data 2013 grade, 3 charter schools in Tennessee."
+204,00:39:32.250,00:39:35.290,Isabella Velásquez,So what does it actually look like to make this request.
+205,00:39:36.500,00:39:38.839,Isabella Velásquez,copying and pasting this in your browser
+206,00:39:38.950,00:39:46.849,Isabella Velásquez,"you can see an example. So no Apis will give you their response in a format, called Json."
+207,00:39:48.490,00:40:11.509,Isabella Velásquez,"opening up. Json. Json is a format that is very nested, as in like, there's information within information within information, and it's seen here by opening up these arrows will give you further information, but, opening up the first result, we see that we have the year 2,013 which we specified. We have the school Id"
+208,00:40:11.750,00:40:13.260,Isabella Velásquez,for grade. 3.
+209,00:40:13.400,00:40:16.400,Isabella Velásquez,"And then the enrollment, which is a hundred, 8,"
+210,00:40:16.800,00:40:25.799,Isabella Velásquez,"and then race and sex enrollment, are 99. So that is where it's looking at the codebook for like, what does 99 mean?"
+211,00:40:26.020,00:40:37.349,Isabella Velásquez,"and then, Fips, it's 47 Tennessee leaid is the district. Id. So it gives you the district. Id. So for every school"
+212,00:40:37.440,00:40:43.090,Isabella Velásquez,"that meets those criteria, it will give you a result that you can take a look at."
+213,00:40:44.700,00:40:48.069,Isabella Velásquez,So here is the example of
+214,00:40:49.090,00:40:54.239,Isabella Velásquez,an Api. Go ahead and paste that into your browser and and click around. Take a look
+215,00:41:04.780,00:41:08.940,Isabella Velásquez,1 min and then I'll show other examples as well.
+216,00:41:44.190,00:41:57.750,Isabella Velásquez,"Okay, great. In terms of other examples, the education data portal has more information from common core data as well as other different data sets clicking through. You can read through the different"
+217,00:41:58.790,00:42:01.790,Isabella Velásquez,the different. You know.
+218,00:42:01.820,00:42:10.840,Isabella Velásquez,"data sources that they have, as well as what is needed in order to make a request from the Api to access that data."
+219,00:42:12.890,00:42:14.580,Isabella Velásquez,So
+220,00:42:14.880,00:42:19.340,Isabella Velásquez,you have the URL. I have 3 questions
+221,00:42:19.400,00:42:21.730,Isabella Velásquez,in the chat. If you could
+222,00:42:22.430,00:42:24.690,Isabella Velásquez,"well, with the"
+223,00:42:24.700,00:42:31.260,Isabella Velásquez,"What would the Api request for 2016 look like instead of 2013,"
+224,00:42:40.450,00:42:46.099,Isabella Velásquez,with the same parameters other than the year?
+225,00:42:57.030,00:42:57.860,Isabella Velásquez,Yeah.
+226,00:42:58.980,00:43:01.419,Isabella Velásquez,exactly right. So 2013.
+227,00:43:01.910,00:43:05.419,Isabella Velásquez,"But turning 16, I'm sure you can"
+228,00:43:05.500,00:43:07.889,Isabella Velásquez,guess what would grade. 6 look like
+229,00:43:08.000,00:43:09.700,Isabella Velásquez,as opposed to ring 3.
+230,00:43:20.950,00:43:27.830,Isabella Velásquez,"Yeah, killing it. And charter. I'm sorry, non Charters as opposed to charters."
+231,00:43:56.880,00:43:58.450,Isabella Velásquez,Anybody want to take a get?
+232,00:44:15.050,00:44:17.199,Isabella Velásquez,"So, taking a look at"
+233,00:44:19.800,00:44:24.250,Isabella Velásquez,"the documentation, if we go down to Charter"
+234,00:44:26.670,00:44:27.990,Isabella Velásquez,and I got down to.
+235,00:44:33.830,00:44:34.710,Isabella Velásquez,There we go.
+236,00:44:37.040,00:44:40.279,Isabella Velásquez,"So yes, is one so"
+237,00:44:41.180,00:44:44.080,Isabella Velásquez,For non-charters it corresponds to 0.
+238,00:44:44.460,00:44:48.049,Isabella Velásquez,So where it says charter equals you would put 0.
+239,00:44:50.700,00:45:00.179,Isabella Velásquez,And one more question anybody wants. See what it's like to get the enrollment data for female students?
+240,00:45:00.370,00:45:01.480,Isabella Velásquez,as well.
+241,00:45:04.410,00:45:08.079,Isabella Velásquez,And I'm sorry I should have shared this. This is documentation.
+242,00:45:37.150,00:45:39.540,Isabella Velásquez,So in the Api
+243,00:45:39.710,00:45:47.859,Isabella Velásquez,the you see how various things like the first part of the request is specifying the
+244,00:45:48.110,00:45:59.709,Isabella Velásquez,"you know that you want the Api, the version you want schools, enrollment, and so on, and some of them are kind of in between these slashes."
+245,00:45:59.820,00:46:20.969,Isabella Velásquez,"and then some of them are added on at the end with this question, mark and ants. So sometimes there's a little bit of trial and error to figure out what exactly you you need in order to create the Api. So just think about like, how would you also request?"
+246,00:46:20.980,00:46:37.629,Isabella Velásquez,"you know, female? Yeah, great, great job. So adding on like that extra parameter of specifying, you know what what kind of enrollment you want. And then, taking a look at the documentation in order to making sure that you add the right value."
+247,00:46:37.990,00:46:48.340,Isabella Velásquez,"One other thing that I'd like you to try is try to make a request that is incorrect, you know. Create a"
+248,00:46:48.530,00:47:02.069,Isabella Velásquez,"like, say, grade 99, or something like that, just to see kind of what that looks like. Because it is very helpful to know like oh, this particular request, for some reason was not"
+249,00:47:02.600,00:47:10.420,Isabella Velásquez,"was not possible, and that happens sometimes. Like we mentioned Apis can also be used for security measures."
+250,00:47:10.760,00:47:25.609,Isabella Velásquez,"So there might be times that you are requesting data from an Api, and some things are allowed, and some things are not and it really depends on the the terms of services for the Api"
+251,00:47:25.630,00:47:35.069,Isabella Velásquez,"and which you can dig into, or you know the sort of access levels that the public is allowed versus a researcher with special permission, etc."
+252,00:47:40.030,00:47:44.690,Isabella Velásquez,Alright. So you just tried that out. So what are
+253,00:47:44.700,00:47:54.440,Isabella Velásquez,"Some thoughts, and like what seems to work well in terms of editing the yeah. URL, to get this information, and what doesn't seem to work all that great and feel free to put it in the chat."
+254,00:48:05.870,00:48:14.000,Isabella Velásquez,"One issue for me, for example, is knowing, am I supposed to be putting it in the slash or not. Yeah. Typos. That's very, very"
+255,00:48:14.140,00:48:16.119,Isabella Velásquez,easily doable.
+256,00:48:22.490,00:48:33.350,Miranda Rutan,"An advantage would be that if you want the same data from different ears, it's pretty easy to copy and paste the URL over and over again with a slight change."
+257,00:48:33.550,00:48:41.129,Isabella Velásquez,"Yeah, that's right, you know, like, it's gonna look exactly the same, except for that. One thing so easy to edit"
+258,00:48:45.610,00:48:51.129,Ruth Simberloff (she/they),"the disadvantage might be that you don't see like all of the options, to"
+259,00:48:51.600,00:48:56.119,Ruth Simberloff (she/they),change it like if you wanted female students. But you weren't
+260,00:48:56.180,00:49:01.390,Ruth Simberloff (she/they),"like you didn't know that there were a bunch of students that had, like unknown gender or something."
+261,00:49:02.400,00:49:07.909,Isabella Velásquez,Absolutely. Yep. you kind of just have to know what exactly it looks like.
+262,00:49:11.150,00:49:22.230,Isabella Velásquez,"Yep, I feel like I'm gonna make the same error over and over and not be able. See it because of the potential points of error. That's right. And sometimes the"
+263,00:49:22.310,00:49:48.229,Isabella Velásquez,"the Api might give you a little bit of a hint as to like, is it? Are you getting an error? Because because you, you are not allowed to access that data, or you getting an error because it can't find. You know you ordered something from the menu that the Api can't find but if it is that case, it's not gonna tell you where exactly that error happened. So there is a lot of debugging that needs to happen, too."
+264,00:49:50.100,00:49:53.250,Isabella Velásquez,"So yeah, exactly in terms of."
+265,00:49:53.500,00:49:54.500,Isabella Velásquez,And
+266,00:49:54.730,00:50:16.669,Isabella Velásquez,"we'll talk about advantages in a bit. But there are a few issues with like taking the URL editing it and trying to get data that way. It's a bit difficult. There's lots and lots. It's very long, URL, and as you can imagine, as your request gets more and more complex, it it becomes difficult to keep track of like what all you are specifying."
+267,00:50:17.340,00:50:39.500,Isabella Velásquez,"Second, we talked about this Json format, which is very nested. Very hard to see, like this particular Api had that request just had that one level. But there are some that keep going and going and going and going, and it's very hard to see. And then, in particular, our"
+268,00:50:39.610,00:50:46.250,Isabella Velásquez,and the tidy bridge which we've been using for data frames and things like that. It like
+269,00:50:46.500,00:50:51.830,Isabella Velásquez,takes a bit of manipulation in order to see Json in the right way.
+270,00:50:52.090,00:50:57.260,Isabella Velásquez,and especially if we want to see Json in the sort of table format that we've been working
+271,00:50:57.730,00:51:03.050,Isabella Velásquez,third as as was mentioned. What if you have lots of requests
+272,00:51:03.070,00:51:14.270,Isabella Velásquez,"and you are typing it in? You are editing the year, for example. But you know, may accidentally enter here twice, or things like that."
+273,00:51:14.800,00:51:29.589,Isabella Velásquez,"And so the education, our package addresses all of these issues by accessing data from the education data portal Api through an art package and a term that I've heard for this as well is an RA. Wrapper."
+274,00:51:29.650,00:51:46.130,Isabella Velásquez,"So what a a wrapper lets you do is, let's you access an Api using our so using in the syntax that we know using you know, the the same sort of format for functions, and then also,"
+275,00:51:46.130,00:52:08.009,Isabella Velásquez,"being able to access the documentation the same way that we've been doing through our studio and things like that. So rather than having to, you know. Take a URL. Read it in, convert Json to a data frame. The education r package does all of that for us. So it makes it a little bit easier to work with the Api."
+276,00:52:08.580,00:52:16.820,Isabella Velásquez,"So let's take a 5 min break, and when we come back we'll we'll dig into using this education. Our package. Thank you all so much."
+277,00:52:21.240,00:52:22.390,Isabella Velásquez,So.
+278,00:52:22.570,00:52:52.349,Isabella Velásquez,"So what I was thinking about that is, it's very interesting in that. Twitter has an Api in that it provides information about the tweets that are going out, who is sending it when they sent it, and everything like that? And it was very, very widely used by for research and all sorts of like information on, you know, people's activity and things like that, and then combining it with other data sets."
+279,00:52:52.470,00:53:03.250,Isabella Velásquez,"We just talked about the wrapper package. There is a package called our Tweet, that wraps the Twitter Api, so that you can use our to access"
+280,00:53:03.760,00:53:16.249,Isabella Velásquez,information from Twitter that way. But what's interesting is over the past few months. Twitter has slash. X has changed a lot right? And one of the things that changed is the
+281,00:53:16.420,00:53:19.439,Isabella Velásquez,the the price of the Api.
+282,00:53:19.510,00:53:25.800,Isabella Velásquez,Before there were certain types of data from the Api that were freely available.
+283,00:53:25.800,00:53:50.789,Isabella Velásquez,"But now it's a lot more restricted. And just thinking back about the the reading from a few weeks ago and idea of big data that, you know, big data provides all these opportunities, all these advantages, but they're all are also disadvantages. And the way that bias shows up and things like that. And I just find, like X to be a particularly interesting example, too, of like"
+284,00:53:50.910,00:53:54.349,Isabella Velásquez,"these, these data are"
+285,00:53:54.790,00:54:15.210,Isabella Velásquez,"like, provided by a company right? And at any point company could decide. I'm not going to provide this data anymore. And so what are the implications for using that data for for research and things like that and like, it's been a while since I followed up on it. I hear, like the the rates for"
+286,00:54:15.210,00:54:25.149,Isabella Velásquez,use for pulling data from Twitter was really really high to the extent that people couldn't use it for research like they did before.
+287,00:54:25.440,00:54:28.310,Isabella Velásquez,"So anyway, I just like"
+288,00:54:28.490,00:54:48.589,Isabella Velásquez,"it is definitely in my mind as like things change. Our tweet was used for so many things, and even things like whenever you see something that's automated from our on Twitter like that was probably using the Rt package and and just not being able to do that anymore, because the terms of change"
+289,00:54:49.100,00:54:57.129,Isabella Velásquez,I'd love to hear it here that you have an exciting potential project. And that also uses Api data.
+290,00:54:57.470,00:55:08.110,Maryrose Weatherton,"Yeah, yeah, totally. I'm I'm more than happy to share just a little bit about it. I just signed on as senior personnel on this project that may or may not be funded by the and Nsf."
+291,00:55:08.170,00:55:37.900,Maryrose Weatherton,"but we're using things like blackboard and canvas. And the Api data for that to understand students resource use in in real time. So essentially, what we're doing is we're asking students about how they're studying for their classes. And then we're matching up those accounts to those real time data for how students are accessing resources in canvas. So we're getting these what we call them digital traces. Of student learning. Right? So if a student is studying for an exam, they might potentially look back over lecture notes or things like that"
+292,00:55:37.900,00:55:54.809,Maryrose Weatherton,"and matching those up to students perceptions of how they're learning where, hopefully, we're trying to figure out if these digital traces are are real and useful in terms of, do they actually represent what students are learning and how they're studying for these things."
+293,00:55:54.810,00:56:17.380,Maryrose Weatherton,"And if that's the case, then we can find potentially a generalizable pattern, and how students are utilizing these resources and then use that to inform pedagogy in the classroom. Right? If we see that students from these Api data, we see that students are accessing lecture notes a ton before classes. Potentially, they might need a review session. And so we can use those data to inform how teachers are reviewing for these exams or preparing their students."
+294,00:56:17.380,00:56:35.460,Maryrose Weatherton,"Or maybe we find that students don't utilize canvas resources at all. That's also really, really inf important information to give to teachers so that they can kind of access with their students. So that's what we're hoping to do. Hopefully, the Msf funds it. So we can do we're hoping to get access Api data across a ton of universities."
+295,00:56:35.460,00:56:49.400,Maryrose Weatherton,"And because I know something else that we've really talked about in this class is who who is represented in these data. And so I think it's really important that when we think about accessing these Apis, we're thinking about whose data is included, is it just students from our one institution?"
+296,00:56:49.400,00:57:03.130,Maryrose Weatherton,Those students. Data might not look anything like students from smaller institutions or students from Hbcus. Right? And so part of getting this Nsf funding is being able to access lots and lots of data. And so that we have a lot of diversity and perspectives.
+297,00:57:03.410,00:57:06.849,Maryrose Weatherton,That's what this project is is hoping to do. We'll see how it goes.
+298,00:57:08.250,00:57:28.339,Isabella Velásquez,"Well, crossing fingers for you, and that's that's awesome. Sounds absolutely fascinating. Yeah, just did a brief search during break and and thank you so much for sharing a about a few other examples. So another common Api is weather data."
+299,00:57:28.390,00:57:51.949,Isabella Velásquez,"So there's publicly available interface where you can go where you're like. I want weather data. You know, whatever intervals that you want and say you wanted to create a mobile app with that, like all the mobile apps of weather data that you have, are accessing this Api, in order to, you know. Present that information. Oh, I'm sorry."
+300,00:57:54.340,00:58:12.900,Maryrose Weatherton,"That's a great question. I don't know. Is the answer. I think. Yeah. Something in my work that comes up a lot is that there is so much variation, I think. Generally. Yeah, generally large chunking, right? So so doing, a little bit of qualitative coding of these resources and chunking them into themes."
+301,00:58:12.900,00:58:26.039,Maryrose Weatherton,"But something I am really interested in is how resource provisioning varies across, and these different classrooms, and how resource provisioning might constrain student success. So the answer is, I don't know. But I'm really, really interested to find those differences"
+302,00:58:26.640,00:58:28.440,Maryrose Weatherton,"really great question. Thanks, Miranda."
+303,00:58:32.120,00:58:34.820,Isabella Velásquez,Let's grab some fingers and keep us updated.
+304,00:58:34.900,00:58:43.829,Isabella Velásquez,"yeah. Another example of an Api it's flight data. So again, we"
+305,00:58:43.850,00:59:07.989,Isabella Velásquez,"take a look at like flight information. You can access that through an Api if you'd like. And again, the advantages of that is like it's immediate, like things update. A flight is delayed or arrives early, or whatnot like you don't have to go back in to download that information and update it on your end. Through your access of the Api. All"
+306,00:59:07.990,00:59:16.819,Isabella Velásquez,that information is kept up to date. Just to give an example from from my experience and my previous job.
+307,00:59:16.820,00:59:20.079,Isabella Velásquez,I would have to create these reports.
+308,00:59:20.550,00:59:29.320,Isabella Velásquez,in our on curriculum. And the it's like radium and radio quality.
+309,00:59:29.760,00:59:56.720,Isabella Velásquez,"So I would work with another organization and the analyst at the organization would pass like Csv's back and forth right? And so every week I'd send an email be like, Hey, any updates get into a Csv and Update my analyses and things like that but eventually that they developed an Api. And so what that meant is like, I no longer had to request that from them I was able to at any point that I needed."
+310,00:59:56.720,01:00:19.060,Isabella Velásquez,"You know, my manager was like I needed an updated report. I could refresh my our script, pull the latest data. So if there were new records or updated records, I was able to pull that in and run my analyses that there are things to like know for that kind of process? Right? So we mentioned that often the data behind Apis are timestamped."
+311,01:00:19.060,01:00:42.930,Isabella Velásquez,"So what happens if a record that existed in the past has been updated. And so, you know, if you try to rerun the analysis from 2 weeks ago, like, it might look different because a a record has been updated. So it's just things to like, keep in mind to. You know, manager, it would be like, why is this different all of a sudden, and just being able to also include in the script like."
+312,01:00:42.930,01:00:54.430,Isabella Velásquez,"you know, time of time since you know things like that the version that you saw in the education data portal. Also is another way of indicating, like"
+313,01:00:54.520,01:00:58.699,Isabella Velásquez,I wanted it from version one versus versus version 2 and and things like that.
+314,01:00:59.050,01:01:09.750,Isabella Velásquez,"So lots and lots of Api's and and really like, is just another way of of broadening the sort of data and information that you could look at for for the questions that you're interested in."
+315,01:01:11.510,01:01:12.350,Isabella Velásquez,Cool.
+316,01:01:13.670,01:01:17.060,Isabella Velásquez,alright. So back to the education data
+317,01:01:18.540,01:01:19.610,Isabella Velásquez,package.
+318,01:01:20.910,01:01:29.340,Isabella Velásquez,"So as we talked about. When you make a request from the urban education data portal, you get it back like this."
+319,01:01:29.390,01:01:35.849,Isabella Velásquez,"which is very helpful, but very not like the easiest thing to work with. If you want to pull this into our"
+320,01:01:35.870,01:01:51.790,Isabella Velásquez,"there are packages in R where you can take this, and you can copy it and paste it, and it'll pull that information in and then on your end. You can go ahead and clean it up, or, you know, make it into a data frame or things like that. But the Urban Institute has wonderfully created"
+321,01:01:52.540,01:01:58.110,Isabella Velásquez,something that does that for us. So that is the education data package.
+322,01:01:58.310,01:02:08.129,Isabella Velásquez,The education data package makes it easy to well makes it easier for our users to access the education data portal. Api.
+323,01:02:08.540,01:02:31.800,Isabella Velásquez,"So this is an example of what it looks like to pull data from the Api using the education data package. Like any our package. First, you must install it. And so on. My end. I've already installed it. You install it using install packages the name of the package. Be sure once you've installed it to comment it out so that"
+324,01:02:31.800,01:02:39.480,Isabella Velásquez,"anytime that you run your script. It's not reinstalling it because it does take a little bit of time, I think."
+325,01:02:39.550,01:02:45.579,Isabella Velásquez,"oh, no, I'm sorry the data pull takes time. The installation shouldn't take too long. If you do, let us know."
+326,01:02:45.910,01:02:56.000,Isabella Velásquez,"And then this is what the function looks like in order to pull that same information that we were looking at before. So the function is, get education data."
+327,01:02:56.490,01:03:08.139,Isabella Velásquez,"The arguments that we provide is the level in which in this case is like, do we want school district data? Do we want school data? We want school data? So we specify level equal schools."
+328,01:03:08.490,01:03:30.130,Isabella Velásquez,"The source. So that is the data source, do we want common core data or Ccd data in this case? Yes. So we mark it that way. The topic. So topic can be as you see on this left hand column, a variety of different things, we want enrollment, so we specify it as enrollment."
+329,01:03:30.620,01:03:34.520,Isabella Velásquez,The sub topic. So these are specific things within that topic.
+330,01:03:34.830,01:03:37.009,Isabella Velásquez,"In this case, race and sex."
+331,01:03:37.170,01:03:47.140,Isabella Velásquez,"the filters. So we said that we wanted 2013. So we can set, specify years 2013. We want third grade specified grade is 3."
+332,01:03:47.250,01:03:54.739,Isabella Velásquez,"And then there is an additional argument. Csv equals true, that makes accessing the large data a little bit easier."
+333,01:03:54.810,01:04:15.949,Isabella Velásquez,"and so you may be wondering like how how to keep track of all of these, like similar to the URL, there's a like a lot of different components. Again, the documentation provided by the Urban Institute provides like kind of samples of what you would want to type in various languages to access this data."
+334,01:04:16.140,01:04:31.340,Isabella Velásquez,"So in this case, since we want enrollment by grade and sex, we could go down to the directory data. And then here, on the right hand side, clicking on R gives us an example of what the function would look like."
+335,01:04:32.840,01:04:34.190,Isabella Velásquez,And so
+336,01:04:34.520,01:04:40.169,Isabella Velásquez,"clicking example response, it'll also show you what it should look like. Once you have pulled it in"
+337,01:04:40.960,01:04:42.640,Isabella Velásquez,"hopefully, this runs."
+338,01:04:44.540,01:04:52.850,Isabella Velásquez,"and then up here. It also tells you, like the corresponding. URL, if you did, wanna go ahead and type that into your browser and see what it looks like."
+339,01:04:52.930,01:05:00.980,Isabella Velásquez,"Sorry, this is a part that takes a little bit data, pull and it takes a little bit in R to. So you're aware."
+340,01:05:03.040,01:05:03.750,Isabella Velásquez,okay.
+341,01:05:04.260,01:05:08.370,Isabella Velásquez,"maybe it's pulling too much. Okay, apologies. But I will run this in R as well."
+342,01:05:10.770,01:05:22.290,Isabella Velásquez,"So some advantages like we talked about. So instead of editing the yeah, URL, the way that we were, we can do it as different arguments for that function."
+343,01:05:22.550,01:05:23.650,Isabella Velásquez,and
+344,01:05:23.660,01:05:32.440,Isabella Velásquez,it's using the our syntax. So A little bit more familiar than editing a URL like that
+345,01:05:33.480,01:05:48.140,Isabella Velásquez,"rather than receiving output output as Json, that kind of nested format that we see in our browser, we get a data frame. So right from there we can start applying our tidyverse functions and everything that to work with that data."
+346,01:05:48.530,01:06:04.100,Isabella Velásquez,"And then, if we want to change it to access different data, we just change the the each of those arguments according to the thing that we want, we can have each one in our script and assign it to different objects, so that we could use it accordingly. In our analysis"
+347,01:06:07.510,01:06:22.469,Isabella Velásquez,"there are 2 pieces of documentation that are very, very helpful. I find myself coming back to this documentation if it loaded well, and"
+348,01:06:22.560,01:06:28.940,Isabella Velásquez,"to be able to keep track of, you know, like, what am I supposed to be putting in and everything like that."
+349,01:06:31.700,01:06:34.019,Isabella Velásquez,And then also the education.
+350,01:06:34.100,01:06:49.310,Isabella Velásquez,"I'm sorry. This is the education data, documentation. education, data portal documentation. And then this is the education data package documentation. So this will also help give more information about things like."
+351,01:06:49.350,01:06:54.070,Isabella Velásquez,"you know, what does level mean versus topic provide different examples."
+352,01:06:55.160,01:07:08.269,Isabella Velásquez,"If you click on reference, you'll see. You can see the 2 different functions that exist, and you can click into that to get more information about what it's supposed to look like when you finish, you know, writing up the function as well."
+353,01:07:10.810,01:07:18.699,Isabella Velásquez,Who any questions from the education data r package
+354,01:07:19.390,01:07:22.850,Isabella Velásquez,when to use it how to install it. Anything like that?
+355,01:07:29.860,01:07:31.170,Isabella Velásquez,"Okay, cool."
+356,01:07:36.080,01:07:41.969,Isabella Velásquez,Alright. So let's start looking at some data from it and what it looks like.
+357,01:07:43.430,01:07:48.250,Isabella Velásquez,okay.
+358,01:07:49.170,01:07:58.270,Isabella Velásquez,So first off you have to load all your packages. I already have all of these installed. So I'm going to load them by using library.
+359,01:08:01.340,01:08:08.590,Isabella Velásquez,So let's look at the twelfth grade enrollment in Us. Schools for 2021. So
+360,01:08:08.660,01:08:18.130,Isabella Velásquez,we get use to get education data for function. We specify the level of schools. The source is Ccd.
+361,01:08:18.240,01:08:20.089,Isabella Velásquez,the topic is enrollments.
+362,01:08:20.540,01:08:31.129,Isabella Velásquez,"and then the filters as opposed to 2013 like before we're gonna say, 2021. The grade is 12, and we're going to assign that to a function called DF."
+363,01:08:32.920,01:08:34.309,Isabella Velásquez,So I'm running that
+364,01:08:35.590,01:08:41.950,Isabella Velásquez,it's gonna take it. And then we can go ahead. Open that up and see what it looks like.
+365,01:08:42.580,01:08:48.009,Isabella Velásquez,"So we have a year column, something called NCES. SSCH."
+366,01:08:48.170,01:09:14.080,Isabella Velásquez,"Ces sc numum grade race, sex enrollment, Phips and la id. And so if you take a look at the code book, the education data portal codebook, you can find out what these numbers mean. For example, this one means school district Id. This one means district id fips correspond to state enrollment gives you that number."
+367,01:09:14.330,01:09:28.450,Isabella Velásquez,"And you may notice like there's 99. So part of the question is figuring out, what what does 99 mean? Right? Oh, one thing you can do is put as Tibble"
+368,01:09:28.569,01:09:32.370,Isabella Velásquez,to make the make it a little bit easier to look at the
+369,01:09:32.649,01:09:34.620,Isabella Velásquez,data frame right?
+370,01:09:36.710,01:09:40.250,Isabella Velásquez,So if we were to go back to like
+371,01:09:40.279,01:09:43.430,Isabella Velásquez,"documentation. Oh, my goodness, this still! Running."
+372,01:09:47.439,01:09:48.410,Isabella Velásquez,Sorry about this
+373,01:09:59.930,01:10:01.529,Isabella Velásquez,1 s.
+374,01:10:05.700,01:10:06.470,Isabella Velásquez,Okay.
+375,01:10:07.540,01:10:08.370,Isabella Velásquez,Great
+376,01:10:17.450,01:10:19.810,Isabella Velásquez,drilling down. We can see race
+377,01:10:20.230,01:10:24.160,Isabella Velásquez,the 99 is reported as total.
+378,01:10:29.100,01:10:30.120,Isabella Velásquez,So
+379,01:10:32.060,01:10:33.430,so thank you.,NA
+380,01:10:35.060,01:10:47.470,Isabella Velásquez,"So 99 is reported as total. And so it's not very informative in terms of here to figure out like for this school. Id, you know how many?"
+381,01:10:47.920,01:11:03.969,Isabella Velásquez,"oh, I'm sorry I'm so sorry. Total means that it is not specifying a particular say re, race or sex, it means all of them combined. So here we say, for this school id in twelfth grade for"
+382,01:11:04.020,01:11:10.530,Isabella Velásquez,students of any race of any sex. There's 374 students enrolled.
+383,01:11:10.790,01:11:17.450,Isabella Velásquez,Phips is one I forget. I think that's maybe Alaska. And then the Lei Id. The district is here
+384,01:11:21.970,01:11:50.400,Isabella Velásquez,"scrolling down, we can see more examples. And so, since we didn't specify in our function that we wanted a specific race or anything like that it's going to just show us the total as opposed to the enrollment for a specific race. However, when you're searching through this data, if that's what you are interested in. You can specify it in the filters like like the documentation shows."
+385,01:11:52.630,01:12:05.989,Isabella Velásquez,"Let's see, we want to see how many schools there are in the data. He. Now you have, like various different ways of doing that, using the tidyverse functions or the other packages that you have learned. I'm going to use skim"
+386,01:12:06.140,01:12:18.630,Isabella Velásquez,"I can specify a variable within skim to just skim that variable. And then I see there's 27,782 unique"
+387,01:12:18.670,01:12:28.189,Isabella Velásquez,"values for Nc. Es, sc, which stands for the school. Id, so that tells me how many schools there are in that data."
+388,01:12:32.670,01:12:33.690,Isabella Velásquez,Okay?
+389,01:12:35.450,01:12:36.480,Isabella Velásquez,And
+390,01:12:38.640,01:12:42.330,Isabella Velásquez,I forget what I was trying to do here. Sorry.
+391,01:12:42.430,01:13:09.959,Isabella Velásquez,"Okay, there we go. So here we were looking at enrollment data. Now let's say that. Oh, that's right, we want to look at directory data. So this is more information about a particular school or district or whatnot. So instead of specifying that we want enrollment data here, we're going to say that we want directory data. And again, we're going to say at a school level from the common core data or Ccd. And that we want it from 2,021."
+392,01:13:11.060,01:13:12.720,Isabella Velásquez,So branding that.
+393,01:13:14.220,01:13:15.929,Isabella Velásquez,see how long it takes.
+394,01:13:19.110,01:13:25.660,Isabella Velásquez,"Okay, this one takes a little bit longer as you could see. It lets, you know, you know, 5 out of 11. But"
+395,01:13:25.820,01:13:27.370,Isabella Velásquez,it takes a little bit of time.
+396,01:13:38.860,01:13:39.640,Isabella Velásquez,Okay.
+397,01:13:39.890,01:13:44.710,Isabella Velásquez,we can pass it to as Tibble to make it a little easier to inspect.
+398,01:13:47.970,01:13:57.800,Isabella Velásquez,"So the reason that it took longer is because this is a lot more information from the Directory, data set as opposed to the enrollment data set."
+399,01:13:58.270,01:14:20.560,Isabella Velásquez,"So here we also have year school Id. The Ncs. Sc, id. A shorter version that's called School Id. And then the full name of the school, the Lea Id. Which corresponds to the district the full name of the district. And then all this associate information that the Api has pulled from the education data portal"
+400,01:14:20.740,01:14:30.810,Isabella Velásquez,"you notice as opposed to Json format, we have it as a data frame is nice and clean in in our for us to use. And"
+401,01:14:30.950,01:14:55.889,Isabella Velásquez,"you know you could definitely go through and do some data quality checks. But you'll see, when you look at State location, for example, the the abbreviations for different States aren't going to change or anything like that. And the reason for that is that the Urban Institute has done the upfront work to making sure that these data frames are are usable by anybody who is actually accessing the Api."
+402,01:14:57.960,01:14:58.990,Isabella Velásquez,So
+403,01:14:59.980,01:15:02.579,Isabella Velásquez,"again, you know, we can take a look"
+404,01:15:03.030,01:15:05.439,Isabella Velásquez,at how many schools in the Us.
+405,01:15:06.460,01:15:09.759,Isabella Velásquez,And then in this case we see that there is a different number.
+406,01:15:10.400,01:15:31.840,Isabella Velásquez,"and so you know, that helps us like, think about, like, what could be the difference between this data frame that is also coming from and ce from the common core of data, and this one that is also coming from the common core of data. So what would be the difference between the various different."
+407,01:15:32.840,01:15:33.760,Isabella Velásquez,a
+408,01:15:33.980,01:15:51.459,Isabella Velásquez,"the different data frames. Taking a look at our functions, we can see that here we filtered this 12, and here we did not right. So if we were just interested in just grade, it equals 12. We could similarly put the filter here and"
+409,01:15:52.050,01:15:55.720,Isabella Velásquez,let's go ahead and do that boop.
+410,01:16:01.760,01:16:06.709,Isabella Velásquez,"Okay, so now we get an error. It's not a valid filter for this endpoint."
+411,01:16:07.240,01:16:20.650,Isabella Velásquez,"And so that is like an example of ordering something from many, it's not allowed. And so that is a good thing to keep mind of like if we want to. Take our enrollment data up here."
+412,01:16:21.000,01:16:25.749,Isabella Velásquez,and we want to join it with the other data frame. Right?
+413,01:16:25.810,01:16:42.000,Isabella Velásquez,"That we make sure that the number of in our output corresponds to what we're thinking, because they're not one to one right and as you can imagine. If there are any duplicates or the join is is not"
+414,01:16:42.130,01:16:51.680,Isabella Velásquez,"created, you know, accurately. Then there might be opportunities for errors, for duplications and things like that. So just something to keep mind of."
+415,01:16:56.720,01:16:57.590,Isabella Velásquez,Okay.
+416,01:16:57.990,01:17:15.140,Isabella Velásquez,"And so finally, let's do one more example. Sorry. That is a habit of and so let's do the same for school districts. So instead of looking at the data group by school. We want it by district."
+417,01:17:15.240,01:17:25.959,Isabella Velásquez,"And looking at the documentation. you'll find out that the level is specified as school dash district like, so we can run that"
+418,01:17:28.600,01:17:31.590,Isabella Velásquez,maybe not. I'm sorry school districts
+419,01:17:43.540,01:17:45.950,Isabella Velásquez,and put it as a table.
+420,01:17:46.200,01:17:47.519,Isabella Velásquez,Then take a look.
+421,01:17:49.120,01:17:53.429,Isabella Velásquez,"Oh, and in this case that id doesn't exist"
+422,01:17:54.990,01:17:59.339,Isabella Velásquez,because it is at the district level as opposed to the school level.
+423,01:17:59.500,01:18:04.860,Isabella Velásquez,How many individual districts are there? Okay.
+424,01:18:06.380,01:18:08.289,Isabella Velásquez,LEAI. D.
+425,01:18:11.680,01:18:15.700,Isabella Velásquez,"There are 19,713 unique."
+426,01:18:15.770,01:18:18.030,Isabella Velásquez,districts. save this.
+427,01:18:19.120,01:18:25.150,Isabella Velásquez,So that's just some examples of using the so different
+428,01:18:25.160,01:18:35.889,Isabella Velásquez,"the same function, but using different filters in order to get different sorts of data from the education data portal. Using the education data package."
+429,01:18:35.970,01:18:49.399,Isabella Velásquez,"In your assignment, you're going to be pulling this data, but then also putting it together so that it is understandable and usable for analysis. If you notice like this example"
+430,01:18:49.860,01:19:07.809,Isabella Velásquez,"like this is very, very helpful in terms of like it provides a lot of information, everything like that. But it's kind of hard to know, like, what is this leaid? Well, you know. What district is that? What is this Fips like? I don't quite remember what state that is or things like that."
+431,01:19:07.840,01:19:16.890,Isabella Velásquez,"So that's going to also bring in what we learned last time in terms of joining, as a way of bringing this all this information together."
+432,01:19:18.780,01:19:22.950,Isabella Velásquez,any questions or anything I can show on this side
+433,01:19:29.900,01:19:31.039,Isabella Velásquez,any other
+434,01:19:32.070,01:19:36.549,Isabella Velásquez,data that you'd be interested in seeing pull or anything like that.
+435,01:19:39.720,01:19:43.999,Isabella Velásquez,"Okay, I'll leave that to as a question during your"
+436,01:19:44.670,01:19:52.399,Isabella Velásquez,"during your group discussion of starting the assignment and everything like that. If anything comes to mind, just let me know"
+437,01:19:57.600,01:19:58.470,Isabella Velásquez,cool.
+438,01:20:00.900,01:20:15.809,Isabella Velásquez,"So, as usual, we're just going to spend a little bit of time to getting groups, start the assignment, make sure, you know that you're able to start off without any issues or questions. Yeah, we'll meet back in in 15 min."
+439,01:20:17.790,01:20:18.840,Isabella Velásquez,Thank you.
+440,01:20:33.540,01:20:34.400,Isabella Velásquez,Huh?
+441,01:20:34.840,01:20:45.160,Isabella Velásquez,"Oh, that's okay. I never. I never know how it goes to. Well"
+442,01:20:45.980,01:20:46.810,Maryrose Weatherton,pause this.
+443,01:21:17.030,01:21:21.409,Isabella Velásquez,Remember how to see the
+444,01:21:23.370,01:21:25.460,Isabella Velásquez,breakout rooms. No.
+445,01:21:30.050,01:21:32.290,Isabella Velásquez,hey? Welcome back!
+446,01:21:34.040,01:21:36.669,Isabella Velásquez,And how did it go? Any questions?
+447,01:21:39.750,01:21:40.639,Isabella Velásquez,Not good.
+448,01:21:40.880,01:21:47.649,Isabella Velásquez,"Okay. Well, cool. I'm glad to hear  any other like"
+449,01:21:47.660,01:21:55.930,Isabella Velásquez,"questions, generally about either Apis education, data, package, anything that we've learned over the past few weeks, and"
+450,01:21:56.860,01:21:58.380,Isabella Velásquez,folks would like to revisit.
+451,01:21:59.700,01:22:01.400,Isabella Velásquez,Got our studio ready?
+452,01:22:06.980,01:22:14.160,Isabella Velásquez,Hello. cool. Really appreciate it. So we'll be here for
+453,01:22:14.600,01:22:27.209,Isabella Velásquez,"the next hour. 15, if you have any questions. Anything that you like from your particular projects, that you'd like to take a look at it, or anything like that, but not, I'll see you on canvas."
+454,01:22:32.330,01:22:34.429,Miranda Rutan,"Thanks, thank you."
+455,01:22:42.110,01:22:47.810,Nathan Duerr,I'm doing the homework right now. Step 3.
+456,01:22:48.080,01:22:49.440,Nathan Duerr,There's
+457,01:22:50.260,01:22:55.309,Nathan Duerr,I have. I can just paste it in here. I was wondering why this
+458,01:22:56.140,01:23:00.100,Nathan Duerr,was giving me a value of one. But then.
+459,01:23:00.490,01:23:01.940,Maryrose Weatherton,can you share your screen?
+460,01:23:02.180,01:23:02.980,Nathan Duerr,Yeah.
+461,01:23:04.660,01:23:06.330,Nathan Duerr,okay.
+462,01:23:06.670,01:23:08.189,Maryrose Weatherton,"I mean, make sense to it."
+463,01:23:15.700,01:23:19.120,Isabella Velásquez,Let me load the data really fast.
