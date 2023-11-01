@@ -47,7 +47,7 @@ Read in this CSV and store the data in an object called `owid_energy`: https://r
 
 ```
 
-2. Let's check out how the US' per capita electricity has changed over the past few years. Filter the `owid_energy` dataset to `year > 1984` and `country == "United States"` and use `group_by()` and `summarize()` to calculate the average per capita electricity. 
+2. Let's check out how the US' per capita electricity has changed over the past few years. Filter the `owid_energy` dataset to `year > 1984` and `country == "United States"` and use `group_by()` and `summarize()` to calculate the average per capita electricity per year (`per_capita_electricity`).
 
 ```{r}
 
