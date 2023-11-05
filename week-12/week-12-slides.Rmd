@@ -544,6 +544,13 @@ tn_data2 %>%
 
 ---
 
+# What's next?
+
+- Final projects have comments and suggestions
+- 
+
+---
+
 # Optional Reading Recap
 
 Substantive reading(s):
