@@ -31,41 +31,449 @@ htmltools::tagList(
 xaringanExtra::use_panelset()
 ```
 
-
 # Purpose and Agenda
 
-This week, we'll dive into an element of data analysis that is surprisingly commonly-needed --- and useful: pivoting. Pivoting describes transforming data from a form in which variables are represented in rows to one in which they are represented in columns. Sometimes, these different forms are described as "long" and "wide."
+This week, we'll add to our toolkit for visualizing spatial data with `geom_sf()`, which allows us the flexibility and power to visualize data that is stored in vector spatial format.
 
 ## What we'll do in this presentation
 
-- Discussion
-- Key Concept: tidy data
-- Key Concept: Pivoting
-- Code-along and data
-- Discussion
-- What's next: Assignment(s) and Readings
+- New mapping packages: sf and tigris
+- New mapping geom: `geom_sf()`
 
 ---
 
-# Discussion
+# Last week: `geom_map()`
+
+Last week, we created maps using the maps package and `geom_map()`.
+
+`geom_map()` can use a dataframe object to create a map:
+
+```r
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+---
+
+# This week: `geom_sf()`
 
 .panelset[
 
-.panel[.panel-name[Background]
+.panel[.panel-name[Vector spatial data]
 
-- There are some conventions that are stated and sometimes unstated about how data should be recorded
-- For example, typically, rows represent _cases_ (AKA _observations_), while columns represent _variables_
+You will commonly encounter map outlines in other formats.
 
-]
-
-.panel[.panel-name[Discussion Question]
-
-- Which conventions (stated or unstated!) for how data should be recorded have you found to be important in your work? Why?
+- *Vector spatial data* is a spatial data model that represents geographic features as points, lines, and polygons.
 
 ]
 
+.panel[.panel-name[sf package]
+
+- The sf package uses the class of simple feature (sf) for vector spatial data in R.
+- The sf package was designed to replace the sp package, which has been one of the most popular and powerful spatial packages in R for more than a decade.
+- sf represents vector spatial data much like a regular R data frame, but with a special column, `geometry`, that represents the shape of each feature.
+- An important benefit is its compatibility with the tidyverse packages, which include widely popular packages like ggplot2 and dplyr.
+
+```{r}
+# install.packages("sf")
+library(sf)
+```
+
 ]
 
+.panel[.panel-name[`geom_sf()`]
+
+- As of ggplot2 version 3.0, the package released support for plotting simple features objects directly with the function `geom_sf()`. 
+- The underlying principles and syntax to create maps and non-spatial figures are very similar.
+- We can use `geom_sf()` for sf objects.
+
+In the example below, `la_tracts` is of class sf:
+
+```r
+ggplot(la_tracts) + 
+  geom_sf() + 
+  theme_void()
+```
+
+]
+]
+
+---
+
+# Key Concept: Simple Feature (sf)
+
+.panelset[
+
+.panel[.panel-name[sf storage]
+
+The sf package provides a simply way of storing geographic information and the attributes of the geographic units in a single dataset.
+
+```{r}
+#| echo: true
+#--- a dataset that comes with the sf package ---#
+nc <- st_read(system.file("shape/nc.shp", package = "sf"))
+```
+
+]
+
+.panel[.panel-name[sf class]
+
+Inspecting the object reveals its `sf` class:
+
+```{r}
+#| echo: true
+class(nc)
+```
+
+]
+
+.panel[.panel-name[sf geometries]
+
+Now, let’s take a look inside of nc.
+
+- The variable `geometry` at the end, where each row represents a single simple feature geographic unit (sfg; in this case, county).
+- There are different types of sfgs (`POINT`, `LINESTRING`, `POLYGON`, `MULTIPOLYGON`, etc).
+- An sf object is essentially a dataframe with geometric information stored as a variable (column).
+
+```{r}
+#| echo: true
+head(nc)
+```
+
+]
+
+.panel[.panel-name[sf geometries]
+
+Let’s take a look inside the sfg for Ashe County using `st_geometry()`.
+
+```{r}
+#| echo: true
+st_geometry(nc[1, ])[[1]][[1]]
+```
+
+]
+
+.panel[.panel-name[sf geometries]
+
+```{r}
+#| echo: true
+plot(st_geometry(nc[1, ]))
+```
+
+]
+]
+
+---
+
+# Creating maps from `sf` objects using ggplot2
+
+.panelset[
+
+.panel[.panel-name[Plotting using `geom_sf()`]
+
+- `geom_sf()` allows for visualizing sf objects.
+- Conveniently, `geom_sf()` automatically detects the geometry type of spatial objects stored in sf and draw maps accordingly.
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = nc) +
+    geom_sf()
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+```{r}
+#| echo: false
+#| eval: true
+ggplot(data = nc) +
+    geom_sf()
+```
+
+]
+
+.panel[.panel-name[`Specifying the aesthetics`]
+
+```{r}
+#| echo: true
+#| eval: false
+library(ggplot2)
+
+ggplot(data = nc) +
+    geom_sf(fill = "#0C1337",
+            color = "white") +
+    theme_void()
+```
+
+]
+
+.panel[.panel-name[`Specifying the aesthetics`]
+
+```{r}
+#| echo: false
+#| eval: true
+library(ggplot2)
+
+ggplot(data = nc) +
+    geom_sf(fill = "#0C1337",
+            color = "white") +
+    theme_void()
+```
+
+]
+]
+
+---
+
+## If we can't use the maps package for built-in geometries, what can we use?
+
+---
+
+# The tigris package
+
+.panelset[
+.panel[.panel-name[tigris]
+
+tigris is an R package that allows users to directly download and use TIGER/Line shapefiles from the US Census Bureau using R.
+
+TIGER stands for *Topologically Integrated Geographic Encoding and Referencing* and include three general types of data:
+
+- Legal entities
+- Statistical entities
+- Geographic features
+
+```r
+install.packages("tigris")
+```
+
+]
+
+.panel[.panel-name[Downloading data]
+
+tigris functions return simple features objects with a default year of 2021.
+
+- See all options: <https://github.com/walkerke/tigris>
+- In some cases, this subsetting is optional; in other cases, state and/or county arguments will be required.
+
+```{r}
+#| echo: true
+#| eval: false
+library(tigris)
+
+tn_districts <- school_districts("Tennessee")
+```
+
+```{r}
+#| include: false
+library(tigris)
+
+tn_districts <- school_districts("Tennessee")
+```
+
+```{r}
+#| echo: true
+class(tn_districts)
+```
+
+
+]
+
+.panel[.panel-name[tigris geometries]
+
+```{r}
+#| echo: true
+tn_districts
+```
+
+]
+
+.panel[.panel-name[Plotting geometries]
+
+We can plot our output from tigris using ggplot2 and `geom_sf()`:
+
+```{r}
+#| echo: true
+ggplot(tn_districts) + 
+  geom_sf()
+```
+
+]
+]
+
+---
+
+# Joining data with tigris outlines
+
+.panelset[
+.panel[.panel-name[Obtaining the data]
+
+Let's revisit our handy educationdata package:
+
+```{r}
+#| echo: true
+library(educationdata)
+
+edu_data <- get_education_data(level = "school-districts",
+    source = "ccd",
+    topic = "finance",
+    filters = list(year = 2018,
+                   fips = 47))
+```
+
+]
+
+.panel[.panel-name[Joining the data]
+
+```{r}
+#| echo: true
+tn_data <-
+    left_join(tn_districts, edu_data, join_by(GEOID == leaid))
+
+head(tn_data)
+```
+
+]
+
+.panel[.panel-name[Plotting the data]
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = tn_data) + 
+    geom_sf(aes(fill = rev_state_sch_lunch))
+```
+
+]
+
+
+.panel[.panel-name[Plot]
+
+```{r}
+#| echo: false
+#| eval: true
+#| dpi: 300
+ggplot(data = tn_data) + 
+    geom_sf(aes(fill = rev_state_sch_lunch))
+```
+
+]
+]
+
+---
+
+# Joining data with tigris outlines
+
+.panelset[
+
+.panel[.panel-name[Adding to the plot]
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = tn_data) + 
+    geom_sf(aes(fill = rev_state_sch_lunch),
+            color = "white") +
+    theme_void() +
+    labs(title = "State revenue for school lunch programs",
+         fill = "Revenue") +
+    scale_fill_continuous(labels = scales::dollar)
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+```{r}
+#| echo: false
+#| dpi: 300
+#| eval: true
+ggplot(data = tn_data) + 
+    geom_sf(aes(fill = rev_state_sch_lunch),
+            color = "white") +
+    theme_void() +
+    labs(title = "State revenue for school lunch programs",
+         fill = "Revenue") +
+    scale_fill_continuous(labels = scales::dollar)
+```
+
+]
+
+]
+
+---
+
+## What if I have my own map to plot?
+
+---
+
+.panelset[
+
+.panel[.panel-name[Shapefiles]
+
+- The shapefile format is a geospatial vector data format for geographic information system (GIS) software.
+-  The shapefile format can spatially describe vector features: points, lines, and polygons.
+- The term "shapefile" is quite common, but the format consists of a collection of files with a common filename prefix, stored in the same directory.
+- The three mandatory files have filename extensions .`shp`, `.shx`, and `.dbf`.
+- The actual shapefile relates specifically to the .shp file, but alone is incomplete for distribution as the other supporting files are required.
+
+]
+
+.panel[.panel-name[Knoxville - Knox County Zoning]
+
+Let's say we want to map the Zoning districts from Knox County (available here: <https://www.arcgis.com/home/item.html?id=481b8a768b20403998fb9b454f35d23b>).
+
+- We download the shapefile(s) and save it in our Week 12 folder.
+
+```{r}
+#| echo: false
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("~/R/f23-founds-eds/week-12/knox.png")
+```
+
+]
+
+panel[.panel-name[Files]
+
+We should save all the files in the folder:
+
+```{r}
+#| echo: false
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("~/R/f23-founds-eds/week-12/files.png")
+```
+
+]
+
+.panel[.panel-name[Reading the data]
+
+Use the function `st_read()` to read the files
+
+- `dsn`: the path to folder in which the shapefile(s) you want to import is stored.
+- name of the shapefile
+
+```{r}
+knox_zones <-
+    st_read(here::here("week-12", "data", "Knoxville-Knox_County_Zoning.shp"))
+```
+
+]
+
+.panel[.panel-name[Plotting the data]
+
+```{r}
+ggplot(data = knox_zones) +
+    geom_sf()
+```
+
+]
 
 ---
 
@@ -77,217 +485,6 @@ Substantive reading(s):
 
 Technical reading(s):
 
-> on mapping
-
----
-
-# Key Concept: tidy data
-
-.panelset[
-
-.panel[.panel-name[What is tidy data?]
-
-- *Tidy data* refers to a particular expression of the conventions about how data should be recorded, or stored
-- The idea was first shared in a *Journal of Statistical Software* paper (that you can optionally read this week!)
-- Broadly, "The principles of tidy data provide a standard way to organise data values within a dataset" (Wickham, 2014, p. 1)
-- The idea of tidy data relates to other notions how how data should be recorded, including schema for relational databases
-]
-
-
-.panel[.panel-name[Definition and Benefits]
-
-**Definition**:
-
-1. Each variable forms a column.
-2. Each observation forms a row.
-3. Each type of observational unit forms a table.
-
-**Benefits**:
-
-- Using the "tidy data" gives you a sense of direction for how you can prepare disorganized data
-- The "tidy data" format works well with many tidyverse functions, including the `group_by()` and `summarize()` we used last week, as well as ggplot2() functions
-
-]
-
-.panel[.panel-name[Example]
-
-**How can we make this tidy?**
-
-```{r, echo = FALSE, eval = TRUE}
-tibble(name = c("Maryrose", "Isabella"),
-       observation_at_t1 = c(3, 2),
-       observation_at_t2 = c(5, 1),
-       observation_at_t3 = c(3, 5))
-```
-
-]
-
-.panel[.panel-name[Example]
-
-**Each observation must become a row, with a variable indicating when the observation was made**
-
-```{r, echo = FALSE, eval = TRUE}
-tibble(name = rep(c("Maryrose", "Isabella"), 3),
-       time = c(1,1,2,2,3,3),
-       observation = c(3, 2, 5, 1, 3, 5))
-```
-
-*For examples of other common problems with datasets, check out [the tutorial reading for this week](https://vita.had.co.nz/papers/tidy-data.pdf) on tidy data.*
-]
-
-]
-
----
-
-# Key Concept: Pivoting
-
-.panelset[
-
-.panel[.panel-name[How to tidy]
-
-- In the section on the last key concept, we showed a dataset in a tidy form (and its original form)
-- We manually changed the format of that dataset, because it was very small in size
-- But, how can we tidy data when we're working with larger datasets---when manual transformations are not possible?
-- One set of functions to do this* are the pivot functions:
-- `pivot_longer()`
-- `pivot_wider()`
-
-*There are aspects of tidy data that cannot be addressed through the pivot functions, though we focus on them because the problem they address is very common and otherwise difficult to resolve 
-]
-
-.panel[.panel-name[`pivot_longer()`]
-
-- When should `pivot_longer()` be used?
-- For the following data frame, this function can be used to tidy the data (we'll show how to use this function in just a moment!)
-
-```{r, echo = FALSE, eval = TRUE}
-tibble(name = c("Maryrose", "Isabella"),
-       observation_at_t1 = c(3, 2),
-       observation_at_t2 = c(5, 1),
-       observation_at_t3 = c(3, 5))
-```
-
-]
-
-.panel[.panel-name[`pivot_wider()`]
-
-- When should `pivot_wider()` be used?
-- For the following data frame, this function can be used to change the data back to its original form
-
-```{r, echo = FALSE, eval = TRUE}
-tibble(name = c("Maryrose", "Isabella"),
-       observation_at_t1 = c(3, 2),
-       observation_at_t2 = c(5, 1),
-       observation_at_t3 = c(3, 5))
-```
-
-]
-
-.panel[.panel-name[Notes]
-
-- You may be wondering, why would we _ever_ want to use `pivot_wider()`, if doing so typically changes data (back) into non-tidy form?
-- Sometimes, non-tidy data is useful:
-- For displays of (tables with) data, for which non-tidy data is more familiar or intuitive
-- For certain functions or data analytic techniques that require the data to be in this form
-]
-
-
-]
-
----
-
-# Code-along
-
-.panelset[
-
-.panel[.panel-name[pivot_longer()]
-
-- Let's start by tidying the example data frame
-- You can click the copy symbol in the top-right of the below code chunk to easily copy this code
-- `pivot_longer()` requires that you specify the `names_to` and `values_to` and we use `!` to indicate which columns should _not_ be pivoted
-
-```{r, echo = TRUE, eval = FALSE}
-dat <- tibble(name = c("Maryrose", "Isabella"),
-              observation_at_t1 = c(3, 2),
-              observation_at_t2 = c(5, 1),
-              observation_at_t3 = c(3, 5))
-
-dat %>% 
-    pivot_longer(!name, names_to = "time", values_to = "values")
-```
-
-]
-
-.panel[.panel-name[pivot_wider()]
-
-- Let's start with our data in long form
-
-```{r, echo = TRUE, eval = FALSE}
-dat_long <- dat %>% 
-    pivot_longer(!name, names_to = "time", values_to = "values")
-```
-
-- How might we change this _back_ into wide form?
-- `pivot_wider()` requires you to specify `names_from` and `values_from`
-
-```{r, echo = TRUE, eval = FALSE}
-dat_long %>% 
-    pivot_wider(names_from = "time", values_from = "values")
-```
-]
-
-.panel[.panel-name[More practice]
-
-- Let's try tidying a different data frame, transforming it from _wide_ to _long_ form 
-- How might we do this? Consider a) which variable(s) should not be pivoted and what the b) `names_to` and c) `values_to` should be
-
-```{r, echo = TRUE, eval = FALSE}
-relig_income
-```
-
-]
-]
-
----
-
-# What's next?
-
-.panelset[
-
-.panel[.panel-name[Weekly Assignment]
-
-- In this week's assignment, you will tidy a data set while also practicing selecting and renaming variables and joining a second data set
-
-]
-
-.panel[.panel-name[Mini-Project]
-
-- The mini-project is now available in Canvas! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have two week to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
-
-]
-
-.panel[.panel-name[Data]
-
-- The data we'll use comes from the [*National Teacher and Principal Survey*](https://nces.ed.gov/surveys/ntps/) and is on the number of full-time nurses in schools in U.S. states.
-
-.panel[.panel-name[Optional Substantive Reading(s)]
-
-Substantive reading(s):
-
-> D'Ignazio, C., & Klein, L. F. (2020). Data feminism. MIT press. Chaper 1 (In troduction: Why Data Science Needs Feminism)
-
-This is linked in Canvas.
-
-]
-
-.panel[.panel-name[Technical Reading(s)]
-
-- Technical reading(s):
-
-> (on mapping, part 2)
-
-This is also linked in Canvas.
-
-]
-
-]
+- [R as GIS for Economists](https://tmieno2.github.io/R-as-GIS-for-Economists/index.html)
+- [tigris package](https://github.com/walkerke/tigris)
+- [Census geographic data and applications in R](https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html)

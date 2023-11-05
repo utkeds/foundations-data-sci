@@ -1,0 +1,49 @@
+---
+title: "Week 12 - Teacher"
+author: "Teacher"
+date: "Assignment Due Date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Step 1
+
+1. Install the tidycensus package with `install.packages("tidycensus")`. Be sure to remove this from your R Markdown file; otherwise, it may not knit.
+2. Load the package with `library()` in the chunk below.
+3. Obtain an API key: <https://api.census.gov/data/key_signup.html>
+4. Run `census_api_key("YOUR KEY GOES HERE", install = TRUE)` and replace "YOUR KEY GOES HERE" with your API key. Delete this line after it has successfully run and do **not** leave it in your code.
+5. Restart your R session (shortcut: Shift + Command + 0).
+
+Please do **not** leave your API key in your code. If you include your API key in your knitted file, it will result in a 5 point deduction.
+
+```{r}
+
+```
+
+## Step 2
+
+
+
+
+## Rubric
+
+|                                               | Points Possible | Points Earned |
+|-----------------------------------------------|-----------------|---------------|
+| File knits                                    | 2               |               |
+| Code is accurately filled in for all 5 steps. | 10              |               |
+| API key is removed from R Markdown file       | 5               |               |
+| Step 4 Questions                              | 8               |               |
+| Step 5 Questions                              | 7               |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work (note - we'll remove these steps after this week, as we know you're becoming quite familiar with it!):
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3.  Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!
