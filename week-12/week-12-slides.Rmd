@@ -281,7 +281,6 @@ tn_districts <- school_districts("Tennessee")
 class(tn_districts)
 ```
 
-
 ]
 
 .panel[.panel-name[tigris geometries]
@@ -308,109 +307,11 @@ ggplot(tn_districts) +
 
 ---
 
-# Joining data with tigris outlines
-
-.panelset[
-.panel[.panel-name[Obtaining the data]
-
-Let's revisit our handy educationdata package:
-
-```{r}
-#| echo: true
-library(educationdata)
-
-edu_data <- get_education_data(level = "school-districts",
-    source = "ccd",
-    topic = "finance",
-    filters = list(year = 2018,
-                   fips = 47))
-```
-
-]
-
-.panel[.panel-name[Joining the data]
-
-```{r}
-#| echo: true
-tn_data <-
-    left_join(tn_districts, edu_data, join_by(GEOID == leaid))
-
-head(tn_data)
-```
-
-]
-
-.panel[.panel-name[Plotting the data]
-
-```{r}
-#| echo: true
-#| eval: false
-ggplot(data = tn_data) + 
-    geom_sf(aes(fill = rev_state_sch_lunch))
-```
-
-]
-
-
-.panel[.panel-name[Plot]
-
-```{r}
-#| echo: false
-#| eval: true
-#| dpi: 300
-ggplot(data = tn_data) + 
-    geom_sf(aes(fill = rev_state_sch_lunch))
-```
-
-]
-]
-
----
-
-# Joining data with tigris outlines
-
-.panelset[
-
-.panel[.panel-name[Adding to the plot]
-
-```{r}
-#| echo: true
-#| eval: false
-ggplot(data = tn_data) + 
-    geom_sf(aes(fill = rev_state_sch_lunch),
-            color = "white") +
-    theme_void() +
-    labs(title = "State revenue for school lunch programs",
-         fill = "Revenue") +
-    scale_fill_continuous(labels = scales::dollar)
-```
-
-]
-
-.panel[.panel-name[Plot]
-
-```{r}
-#| echo: false
-#| dpi: 300
-#| eval: true
-ggplot(data = tn_data) + 
-    geom_sf(aes(fill = rev_state_sch_lunch),
-            color = "white") +
-    theme_void() +
-    labs(title = "State revenue for school lunch programs",
-         fill = "Revenue") +
-    scale_fill_continuous(labels = scales::dollar)
-```
-
-]
-
-]
-
----
-
 ## What if I have my own map to plot?
 
 ---
+
+# Reading shapefiles
 
 .panelset[
 
@@ -460,6 +361,7 @@ Use the function `st_read()` to read the files
 - name of the shapefile
 
 ```{r}
+#| echo: true
 knox_zones <-
     st_read(here::here("week-12", "data", "Knoxville-Knox_County_Zoning.shp"))
 ```
@@ -469,10 +371,175 @@ knox_zones <-
 .panel[.panel-name[Plotting the data]
 
 ```{r}
+#| echo: true
+#| eval: false
 ggplot(data = knox_zones) +
     geom_sf()
 ```
 
+]
+
+.panel[.panel-name[Plotting the data]
+
+```{r}
+#| echo: false
+#| eval: true
+ggplot(data = knox_zones) +
+    geom_sf()
+```
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+.panel[.panel-name[Intro]
+
+Let's create a choropleth map of state revenue for school lunch programs for each school district in Tennesee.
+
+]
+
+.panel[.panel-name[Obtaining the data]
+
+Let's revisit our handy educationdata package:
+
+```{r}
+#| echo: true
+library(educationdata)
+library(dplyr)
+library(tidyr)
+library(tigris)
+library(ggplot2)
+
+edu_data <- get_education_data(level = "school-districts",
+    source = "ccd",
+    topic = "finance",
+    filters = list(year = 2018,
+                   fips = 47))
+```
+
+]
+
+.panel[.panel-name[Joining the data]
+
+```{r}
+#| echo: true
+tn_districts <- school_districts("Tennessee")
+
+tn_data <-
+    left_join(tn_districts, edu_data, join_by(GEOID == leaid))
+```
+
+]
+
+.panel[.panel-name[Plotting the data]
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = tn_data) + 
+    geom_sf(aes(fill = salaries_total))
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+```{r}
+#| echo: false
+#| eval: true
+#| dpi: 300
+ggplot(data = tn_data) + 
+    geom_sf(aes(fill = salaries_total))
+```
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+.panel[.panel-name[Adding to the plot]
+
+```{r}
+salaries_total_by_enrollment <-
+    tn_data %>% 
+    mutate(salary_by_enrollment = salaries_total/enrollment_fall_school)
+```
+
+]
+
+
+.panel[.panel-name[Adding to the plot]
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = salaries_total_by_enrollment) + 
+    geom_sf(aes(fill = salary_by_enrollment),
+            color = "white") +
+    theme_void() +
+    labs(title = "Total salary amount",
+         fill = "Revenue") +
+    scale_fill_continuous(labels = scales::dollar)
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+```{r}
+#| echo: false
+#| dpi: 300
+#| eval: true
+ggplot(data = salaries_total_by_enrollment) + 
+    geom_sf(aes(fill = salary_by_enrollment,
+                color = "white"),
+    theme_void() +
+    labs(title = "State revenue for school lunch programs",
+         fill = "Revenue") +
+    scale_fill_continuous(labels = scales::dollar)
+```
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+
+.panel[.panel-name[Plotting more than one variable]
+
+Let's say we want to use `facet_wrap()` to show more than one variable at a time. We will need to use `pivot_longer()` and contain our variables in one column to be able to do this.
+
+```{r}
+tn_data2 <-
+    tn_data %>% 
+    pivot_longer(-c(STATEFP:censusid, geometry),
+                 names_to = "variables",
+                 values_to = "values")
+```
+
+]
+
+.panel[.panel-name[Plotting more than one variable]
+
+```{r}
+tn_data2 %>% 
+    filter(variables %in% c("salaries_instruction", "salaries_supp_instruc_staff")) %>%
+    ggplot() +
+    geom_sf(aes(fill = values)) +
+    facet_wrap(~ variables)
+```
+
+]
 ]
 
 ---
