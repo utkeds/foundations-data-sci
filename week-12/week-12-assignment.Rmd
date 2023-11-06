@@ -62,7 +62,7 @@ Now we have the educator race and ethnicity data associated with the federal-lev
 
 ```
 
-2. Now, join the tigris output and your joined file from above. If you get an error, correct it using `mutate()` and `as.character()` and then join the data:
+2. Now, successfully join the tigris output and your joined file from above.
 
 ```{r}
 
