@@ -9,15 +9,44 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+In this assignment, we will take a look at the [Tennessee Department of Education's dataset on educator race and ethnicity for 2016-17](https://www.tn.gov/education/districts/federal-programs-and-oversight/data/data-downloads.html). Let's take a look at the distribution of teacher race and ethnicity on a choropleth map.
+
+While the assignment guides you through the steps, it doesn't provide step-by-step instructions on what to do. Be sure to think carefully about the *data* as well as the code.
+
 ## Step 1
 
-1. Install the tidycensus package with `install.packages("tidycensus")`. Be sure to remove this from your R Markdown file; otherwise, it may not knit.
-2. Load the package with `library()` in the chunk below.
-3. Obtain an API key: <https://api.census.gov/data/key_signup.html>
-4. Run `census_api_key("YOUR KEY GOES HERE", install = TRUE)` and replace "YOUR KEY GOES HERE" with your API key. Delete this line after it has successfully run and do **not** leave it in your code.
-5. Restart your R session (shortcut: Shift + Command + 0).
+1. Load the packages that we will use: tidyverse, readxl, and tigris. If you need to install any packages, make sure to remove the `install.packages()` call from R Markdown. Otherwise, your file may not knit.
 
-Please do **not** leave your API key in your code. If you include your API key in your knitted file, it will result in a 5 point deduction.
+```{r}
+
+```
+
+2. Download and read in the following data using `read_excel()`:
+
+- The School Directory provides the school names, school numbers, district names, district numbers, school addresses, and other school-related information in an excel document for public reference: https://github.com/utkeds/f23-founds-eds/blob/main/week-12/data/data_2017_educator_race_ethnicity_by_district.xlsx
+- Educator Race and Ethnicity Data for 2016-17: https://github.com/utkeds/f23-founds-eds/blob/main/week-12/data/schl_directory_2017-18.xlsx
+
+```{r}
+
+```
+
+3. Take a look at the column identifying districts in the `data_2017_educator_race_ethnicity_by_district` file. Notice that they are not the usual school district IDs that we've been using; instead, they are Tennessee-specific identifiers. Tigris uses the federal identifiers. Luckily, the directory file provides a crosswalk between the two.
+
+**QUESTIONS:** Before doing the join, please answer these questions:
+
+1. Take a look at `schl_directory_2017-18` file before you join. What does each row represent? And how about in `data_2017_educator_race_ethnicity_by_district`?
+
+Answer:
+
+2. To do this join successfully, we need to drop the `NA`s from the `schl_directory_2017` columns. Why? (Hint: use `group_by()` and `summarize(count = n())` to see how many of eah
+
+Answer:
+
+4. Now let's do the join. 
+
+- Select the `LEA_NCES` and the column corresponding to the identifiers in the `data_2017_educator_race_ethnicity_by_district` dataset from the school directory file.
+- Join the two datasets. Be sure to wrangle the data accordingly, as you described in the responses above.
+- Your joined dataset should have the same number of rows as the original `data_2017_educator_race_ethnicity_by_district` file.
 
 ```{r}
 
@@ -25,18 +54,60 @@ Please do **not** leave your API key in your code. If you include your API key i
 
 ## Step 2
 
+Now we have the educator race and ethnicity data associated with the federal-level identifiers, `LEA_NCES`.
 
+1. Load the `school_districts` sf object from the tigris package (see class slides for a refresher):
 
+```{r}
+
+```
+
+2. Now, join the tigris output and your joined file from above. If you get an error, correct it using `mutate()` and `as.character()` and then join the data:
+
+```{r}
+
+```
+
+3. Create a choropleth map of the Tennessee school districts where `fill` is one of the available race/ethnicities of **Teachers** (the map may take a little bit to load):
+
+```{r}
+
+```
+
+## Step 3
+
+Let's say we want to create a map with `facet_wrap()` so we can see several **Teacher** race/ethnicity distribution at once. We will need to pivot our data so that all the race/ethnicity variables are in one column and their associated values are in another.
+
+1. Pivot the data below, where the columns we want to pivot are `American Indian or Alaska Native`:`Unidentified`.
+
+```{r}
+
+```
+
+2. Filter the data to at least two values of race/ethnicity for **Teachers**. Create a map with `facet_wrap()` for both of the race/ethnicities, where the shade of each district is the percentage of educators of that race/ethnicity. (Your plots may take a while, especially if it's more than two).
+
+```{r}
+
+```
+
+## Step 4
+
+1. Now, let's make this into a nice, readable map that we could include in a report. Add at least **four** elements to your plot.
+
+```{r}
+
+```
+
+2. I do not know a lot about Tennessee. Describe what is surprising/unsurprising about your plots based on your knowledge of Tennessee.
 
 ## Rubric
 
 |                                               | Points Possible | Points Earned |
 |-----------------------------------------------|-----------------|---------------|
 | File knits                                    | 2               |               |
-| Code is accurately filled in for all 5 steps. | 10              |               |
-| API key is removed from R Markdown file       | 5               |               |
-| Step 4 Questions                              | 8               |               |
-| Step 5 Questions                              | 7               |               |
+| Code is accurately filled in for all 5 steps  | 20              |               |
+| Step 1 Questions                              | 4               |               |
+| Step 4 Question                               | 4               |               |
 
 ## Knit and Submit
 

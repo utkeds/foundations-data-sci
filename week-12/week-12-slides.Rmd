@@ -37,8 +37,16 @@ This week, we'll add to our toolkit for visualizing spatial data with `geom_sf()
 
 ## What we'll do in this presentation
 
+- Useful functions for cleaning data
 - New mapping packages: sf and tigris
 - New mapping geom: `geom_sf()`
+
+---
+
+## Useful functions for cleaning data
+
+    
+
 
 ---
 
@@ -363,7 +371,8 @@ Use the function `st_read()` to read the files
 ```{r}
 #| echo: true
 knox_zones <-
-    st_read(here::here("week-12", "data", "Knoxville-Knox_County_Zoning.shp"))
+    st_read(dsn = here::here("week-12", "shapefiles"),
+            "Knoxville-Knox_County_Zoning")
 ```
 
 ]
@@ -474,7 +483,6 @@ salaries_total_by_enrollment <-
 
 ]
 
-
 .panel[.panel-name[Adding to the plot]
 
 ```{r}
@@ -544,10 +552,18 @@ tn_data2 %>%
 
 ---
 
+# Notes on the assignment
+
+- Instead of using `read_csv()` from tidyr, you will need to install `readxl` and use the function `read_excel()`.
+- Be sure to join the data carefully!
+- Plots may take a while to load (they did for me).
+
+---
+
 # What's next?
 
-- Final projects have comments and suggestions
-- 
+- Final projects have comments and suggestions. Please take a look!
+-
 
 ---
 
