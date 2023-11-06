@@ -56,7 +56,7 @@ Answer:
 
 Now we have the educator race and ethnicity data associated with the federal-level identifiers, `LEA_NCES`.
 
-1. Load the `school_districts` sf object from the tigris package (see class slides for a refresher):
+1. Load the `school_districts` sf object for Tennessee from the tigris package (see class slides for a refresher):
 
 ```{r}
 
