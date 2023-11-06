@@ -46,8 +46,8 @@ Answer:
 
 4. Now let's do the join. 
 
-- Select the `LEA_NCES` and the column corresponding to the identifiers in the `data_2017_educator_race_ethnicity_by_district` dataset from the school directory file.
-- Join the two datasets. Be sure to wrangle the data accordingly, as you described in the responses above.
+- Select the federal-specific identifier `LEA_NCES` and the column corresponding to the Tennesse-level identifier in the `data_2017_educator_race_ethnicity_by_district` dataset from the school directory file.
+- Join the two datasets by the Tennessee-specific district identifier. Be sure to wrangle the data accordingly, as you described in the responses above.
 - Your joined dataset should have the same number of rows as the original `data_2017_educator_race_ethnicity_by_district` file.
 
 ```{r}
