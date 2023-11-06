@@ -40,7 +40,7 @@ Clean the column names with janitor.
 
 Answer:
 
-2. To do this join successfully, we need to drop the `NA`s from the `schl_directory_2017` columns. Why? (Hint: use `group_by()` and `summarize(count = n())` to see how many of eah
+2. To do this join successfully, we need to drop the `NA`s from the `schl_directory_2017` columns. Why? (Hint: use `group_by()` and `summarize(count = n())` to see how many of each
 
 Answer:
 

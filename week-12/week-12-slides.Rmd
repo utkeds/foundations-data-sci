@@ -214,7 +214,7 @@ tidyr and dplyr also have useful functions for cleaning data!
 .panelset[
 .panel[.panel-name[`distinct()`]
 
-Use `distinct()` to extract unique rows from a data frame. It can be helpful when you want to remove duplicate rows.
+Use `dplyr::distinct()` to extract unique rows from a data frame. It can be helpful when you want to remove duplicate rows.
 
 ```{r}
 #| echo: true
@@ -227,7 +227,7 @@ distinct(dat)
 
 .panel[.panel-name[`drop_na()`]
 
-`drop_na()` is used to remove rows containing missing (NA) values in a data frame.
+`tidyr::drop_na()` is used to remove rows containing missing (NA) values in a data frame.
 
 ```{r}
 #| echo: true
@@ -240,7 +240,7 @@ drop_na(dat)
 
 .panel[.panel-name[`replace_na()`]
 
-`replace_na()` is used to replace missing values with a specific value in a data frame.
+`tidyr::replace_na()` is used to replace missing values with a specific value in a data frame.
 
 ```{r}
 #| echo: true
@@ -253,7 +253,7 @@ dat %>% mutate(age = replace_na(age, 0))
 
 .panel[.panel-name[`case_when()`]
 
-`case_when()` allows you to perform conditional operations to create a new column based on specific conditions.
+`dplyr::case_when()` allows you to perform conditional operations to create a new column based on specific conditions.
 
 ```{r}
 #| echo: true
@@ -785,7 +785,7 @@ tn_data2 %>%
 
 - Final projects have comments and suggestions. Please take a look!
 - Be sure to turn in your mini-project if you haven't already
-- Data ethnics assignment now with partner feedback - due November 20th, feedback due the 27th
+- Data ethics assignment now with partner feedback - due November 20th, feedback due the 27th
 - Please turn in any late assignments; grade book will be up to date by next week
 
 ---
