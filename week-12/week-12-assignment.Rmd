@@ -32,7 +32,9 @@ Clean the column names with janitor.
 
 ```
 
-3. Take a look at the column identifying districts in the `data_2017_educator_race_ethnicity_by_district` file. Notice that they are not the usual school district IDs that we've been using; instead, they are Tennessee-specific identifiers. Tigris uses the federal identifiers. Luckily, the directory file provides a crosswalk between the two.
+3. Take a look at the column identifying districts in the `data_2017_educator_race_ethnicity_by_district` file. Notice that they are not the usual school district IDs that we've been using; instead, they are Tennessee-specific identifiers. Tigris uses the federal-specific identifiers. Luckily, the directory file provides a crosswalk between the two. 
+
+Let's join the data so that the federal-specific identifiers are available in the `data_2017_educator_race_ethnicity_by_district` as well.
 
 **QUESTIONS:** Before doing the join, please answer these questions:
 
