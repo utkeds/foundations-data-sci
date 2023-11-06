@@ -26,6 +26,8 @@ While the assignment guides you through the steps, it doesn't provide step-by-st
 - The School Directory provides the school names, school numbers, district names, district numbers, school addresses, and other school-related information in an excel document for public reference: https://github.com/utkeds/f23-founds-eds/blob/main/week-12/data/data_2017_educator_race_ethnicity_by_district.xlsx
 - Educator Race and Ethnicity Data for 2016-17: https://github.com/utkeds/f23-founds-eds/blob/main/week-12/data/schl_directory_2017-18.xlsx
 
+Clean the column names with janitor.
+
 ```{r}
 
 ```
