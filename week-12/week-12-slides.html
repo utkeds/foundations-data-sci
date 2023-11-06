@@ -4,7 +4,7 @@
     <title>Week 12 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
-    <meta name="date" content="2023-11-05" />
+    <meta name="date" content="2023-11-06" />
     <script src="week-12-slides_files/header-attrs-2.24/header-attrs.js"></script>
     <link href="week-12-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="week-12-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -31,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
 ]
 .date[
-### November 05, 2023
+### November 06, 2023
 ]
 
 ---
@@ -51,9 +51,71 @@ This week, we'll add to our toolkit for visualizing spatial data with `geom_sf()
 
 ## What we'll do in this presentation
 
+- Assignment 10 review
 - Useful functions for cleaning data
 - New mapping packages: sf and tigris
 - New mapping geom: `geom_sf()`
+
+---
+
+## Assignment 10 review
+
+.panelset[
+
+.panel[.panel-name[Tidy data]
+
+* Each variable must have its own column.
+* Each observation must have its own row.
+* Each value must have its own cell.
+
+```
+dat
+## # A tibble: 63 × 3
+##    State                avg_nurses avg_students_per_nurse
+##    &lt;chr&gt;                     &lt;dbl&gt;                  &lt;dbl&gt;
+##  1 Alabama                    1.04                    510
+##  2 Alaska                     0.3                     400
+##  3 Arizona                    0.64                    670
+##  4 Arkansas                   1.1                     460
+```
+]
+
+.panel[.panel-name[Long data]
+
+```
+dat_long
+## # A tibble: 108 × 3
+##    State      Variables              Values
+##    &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt;
+##  1 Alabama    avg_nurses               1.04
+##  2 Alabama    avg_students_per_nurse 510   
+##  3 Alaska     avg_nurses               0.3 
+##  4 Alaska     avg_students_per_nurse 400   
+##  5 Arizona    avg_nurses               0.64
+```
+
+]
+
+.panel[.panel-name[Long data example]
+
+
+```r
+ggplot(dat) +
+  geom_bar(mapping = aes(x = Region, 
+                         y = values,
+                         fill = Division),
+           stat = "identity",
+           position = position_dodge()) +
+  facet_wrap(~ variable,
+             scales = "free_y")
+```
+
+![](week-12-slides_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+]
+
+]
+
 
 ---
 
@@ -164,6 +226,7 @@ dat %&gt;% mutate(emails = str_extract(txt, "\\S+@\\S+"))
 ]
 
 ---
+
 ## Useful functions for cleaning data
 
 tidyr and dplyr also have useful functions for cleaning data!
@@ -453,7 +516,7 @@ st_geometry(nc[1, ])[[1]][[1]]
 plot(st_geometry(nc[1, ]))
 ```
 
-![](week-12-slides_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ]
 ]
@@ -479,7 +542,7 @@ ggplot(data = nc) +
 
 .panel[.panel-name[Plot]
 
-![](week-12-slides_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -499,7 +562,7 @@ ggplot(data = nc) +
 
 .panel[.panel-name[`Specifying the aesthetics`]
 
-![](week-12-slides_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 ]
 ]
@@ -617,7 +680,7 @@ ggplot(tn_districts) +
   geom_sf()
 ```
 
-![](week-12-slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 ]
 ]
@@ -699,7 +762,7 @@ ggplot(data = knox_zones) +
 
 .panel[.panel-name[Plotting the data]
 
-![](week-12-slides_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
 ]
 ]
@@ -760,7 +823,7 @@ ggplot(data = tn_data) +
 
 .panel[.panel-name[Plot]
 
-![](week-12-slides_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 
 ]
 ]
@@ -798,7 +861,7 @@ ggplot(data = salaries_total_by_enrollment) +
 
 .panel[.panel-name[Plot]
 
-![](week-12-slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
 
 ]
 ]
@@ -819,7 +882,7 @@ Let's say we want to use `facet_wrap()` to show more than one variable at a time
 
 .panel[.panel-name[Plotting more than one variable]
 
-![](week-12-slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
 
 ]
 ]
@@ -837,7 +900,9 @@ Let's say we want to use `facet_wrap()` to show more than one variable at a time
 # What's next?
 
 - Final projects have comments and suggestions. Please take a look!
--
+- Be sure to turn in your mini-project if you haven't already
+- Data ethnics assignment now with partner feedback - due November 20th, feedback due the 27th
+- Please turn in any late assignments; grade book will be up to date by next week
 
 ---
 

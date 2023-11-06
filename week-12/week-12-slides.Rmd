@@ -7,7 +7,25 @@ output: xaringan::moon_reader
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+
+library(tidyverse)
+
+state_by_region <- read_csv("https://github.com/cphalpert/census-regions/blob/master/us%20census%20bureau%20regions%20and%20divisions.csv?raw=true") # data on U.S. states' regions
+
+dat <-
+    read_csv(
+        "https://github.com/utkeds/f23-founds-eds/blob/main/ntps2021_7341_s1s.csv?raw=true",
+        skip = 5
+    ) %>% 
+  select(State,
+         ave_nurses = 2,
+         students_per_nurse = 4) %>% 
+    filter(!is.na(State)) %>% 
+    pivot_longer(-State, names_to = "variable", values_to = "values") %>% 
+    left_join(state_by_region)
 ```
 
 ```{r, echo=FALSE}
@@ -37,9 +55,69 @@ This week, we'll add to our toolkit for visualizing spatial data with `geom_sf()
 
 ## What we'll do in this presentation
 
+- Assignment 10 review
 - Useful functions for cleaning data
 - New mapping packages: sf and tigris
 - New mapping geom: `geom_sf()`
+
+---
+
+## Assignment 10 review
+
+.panelset[
+
+.panel[.panel-name[Tidy data]
+
+* Each variable must have its own column.
+* Each observation must have its own row.
+* Each value must have its own cell.
+
+```
+dat
+## # A tibble: 63 × 3
+##    State                avg_nurses avg_students_per_nurse
+##    <chr>                     <dbl>                  <dbl>
+##  1 Alabama                    1.04                    510
+##  2 Alaska                     0.3                     400
+##  3 Arizona                    0.64                    670
+##  4 Arkansas                   1.1                     460
+```
+]
+
+.panel[.panel-name[Long data]
+
+```
+dat_long
+## # A tibble: 108 × 3
+##    State      Variables              Values
+##    <chr>      <chr>                   <dbl>
+##  1 Alabama    avg_nurses               1.04
+##  2 Alabama    avg_students_per_nurse 510   
+##  3 Alaska     avg_nurses               0.3 
+##  4 Alaska     avg_students_per_nurse 400   
+##  5 Arizona    avg_nurses               0.64
+```
+
+]
+
+.panel[.panel-name[Long data example]
+
+```{r}
+#| echo: true
+ggplot(dat) +
+  geom_bar(mapping = aes(x = Region, 
+                         y = values,
+                         fill = Division),
+           stat = "identity",
+           position = position_dodge()) +
+  facet_wrap(~ variable,
+             scales = "free_y")
+```
+
+]
+
+]
+
 
 ---
 
@@ -128,6 +206,7 @@ dat %>% mutate(emails = str_extract(txt, "\\S+@\\S+"))
 ]
 
 ---
+
 ## Useful functions for cleaning data
 
 tidyr and dplyr also have useful functions for cleaning data!
@@ -705,7 +784,9 @@ tn_data2 %>%
 # What's next?
 
 - Final projects have comments and suggestions. Please take a look!
-- 
+- Be sure to turn in your mini-project if you haven't already
+- Data ethnics assignment now with partner feedback - due November 20th, feedback due the 27th
+- Please turn in any late assignments; grade book will be up to date by next week
 
 ---
 
