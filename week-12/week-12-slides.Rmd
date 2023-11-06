@@ -45,8 +45,149 @@ This week, we'll add to our toolkit for visualizing spatial data with `geom_sf()
 
 ## Useful functions for cleaning data
 
-    
+.panelset[
 
+.panel[.panel-name[Cleaning data]
+
+Before joining, grouping, summarizing, modeling, visualizing... we need to make sure our data is clean!
+
+```{r}
+#| echo: false
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("https://r4ds.hadley.nz/diagrams/data-science/communicate.png")
+```
+
+]
+
+.panel[.panel-name[stringr]
+
+The stringr package provides a cohesive set of functions designed to make working with strings as easy as possible.
+
+```{r}
+#| echo: false
+#| out.width: 40%
+#| fig-align: center
+knitr::include_graphics("https://stringr.tidyverse.org/logo.png")
+```
+
+]
+
+.panel[.panel-name[`str_trim()`]
+
+**Removing Whitespace:** Let's say you have a dataset with a column of messy text, and you want to remove extra spaces at the beginning and end of each string. Use the `str_trim` function for that:
+
+```{r}
+#| echo: true
+dat <- tibble(txt = c("   Hello  ", "   World   "))
+dat %>% mutate(clean_txt = str_trim(txt))
+```
+
+]
+
+.panel[.panel-name[`str_to_lower()`]
+
+**Changing Case:** You can change the case of text using `str_to_lower` or `str_to_upper.` For example, to convert all text to lowercase:
+
+```{r}
+#| echo: true
+dat <- tibble(txt = c("Tennessee", "tennessee"))
+dat %>% mutate(clean_txt = str_to_lower(txt))
+```
+
+]
+
+.panel[.panel-name[`str_replace_all()`]
+
+**Pattern Matching and Replacement:** If you want to replace specific patterns in your text, you can use `str_replace` or `str_replace_all.` For example, if you want to replace all instances of "apple" with "banana":
+
+```{r}
+#| echo: true
+dat <- tibble(txt = c("I like apples", "Apples are tasty"))
+dat %>% mutate(clean_txt = str_replace_all(txt, "apple", "banana"))
+```
+
+]
+
+.panel[.panel-name[`str_extract()`]
+
+**Extracting Substrings:** You can use `str_extract` to extract specific substrings based on a pattern. 
+
+- Regular expression (regex) is a sequence of characters that specifies a match pattern in
+text. ChatGPT is very good at regex!
+
+For example, to extract all email addresses from a text column:
+
+```{r}
+#| echo: true
+dat <- tibble(txt = c("Contact me at user@example.com", "Email us at support@email.com"))
+dat %>% mutate(emails = str_extract(txt, "\\S+@\\S+"))
+```
+
+]
+]
+
+---
+## Useful functions for cleaning data
+
+tidyr and dplyr also have useful functions for cleaning data!
+
+.panelset[
+.panel[.panel-name[`distinct()`]
+
+Use `distinct()` to extract unique rows from a data frame. It can be helpful when you want to remove duplicate rows.
+
+```{r}
+#| echo: true
+dat <- tibble(name = c("Alice", "Bob", "Alice", "Charlie"),
+               age = c(25, 30, 25, 28))
+distinct(dat)
+```
+
+]
+
+.panel[.panel-name[`drop_na()`]
+
+`drop_na()` is used to remove rows containing missing (NA) values in a data frame.
+
+```{r}
+#| echo: true
+dat <- tibble(name = c("Alice", "Bob", NA, "Charlie"),
+              age = c(25, NA, 30, 28))
+drop_na(dat)
+```
+
+]
+
+.panel[.panel-name[`replace_na()`]
+
+`replace_na()` is used to replace missing values with a specific value in a data frame.
+
+```{r}
+#| echo: true
+dat <- tibble(name = c("Alice", "Bob", NA, "Charlie"),
+              age = c(25, NA, 30, 28))
+dat %>% mutate(age = replace_na(age, 0))
+```
+
+]
+
+.panel[.panel-name[`case_when()`]
+
+`case_when()` allows you to perform conditional operations to create a new column based on specific conditions.
+
+```{r}
+#| echo: true
+dat <- tibble(score = c(85, 72, 95, 60, 78))
+dat %>%
+    mutate(grade = case_when(score >= 90 ~ "A",
+                             score >= 80 ~ "B",
+                             score >= 70 ~ "C",
+                             TRUE ~ "D"))
+```
+
+]
+]
 
 ---
 
@@ -476,6 +617,7 @@ ggplot(data = tn_data) +
 .panel[.panel-name[Adding to the plot]
 
 ```{r}
+#| echo: true
 salaries_total_by_enrollment <-
     tn_data %>% 
     mutate(salary_by_enrollment = salaries_total/enrollment_fall_school)
@@ -488,7 +630,7 @@ salaries_total_by_enrollment <-
 ```{r}
 #| echo: true
 #| eval: false
-ggplot(data = salaries_total_by_enrollment) + 
+ggplot(data = salaries_total_by_enrollment) +
     geom_sf(aes(fill = salary_by_enrollment),
             color = "white") +
     theme_void() +
@@ -507,7 +649,7 @@ ggplot(data = salaries_total_by_enrollment) +
 #| eval: true
 ggplot(data = salaries_total_by_enrollment) + 
     geom_sf(aes(fill = salary_by_enrollment,
-                color = "white"),
+                color = "white")) +
     theme_void() +
     labs(title = "State revenue for school lunch programs",
          fill = "Revenue") +
@@ -554,8 +696,8 @@ tn_data2 %>%
 
 # Notes on the assignment
 
-- Instead of using `read_csv()` from tidyr, you will need to install `readxl` and use the function `read_excel()`.
-- Be sure to join the data carefully!
+- Instead of using `read_csv()` from tidyr, you will need to install the readxl package and use the function `read_excel()`.
+- Be sure to read the instructions carefully!
 - Plots may take a while to load (they did for me).
 
 ---
@@ -563,7 +705,7 @@ tn_data2 %>%
 # What's next?
 
 - Final projects have comments and suggestions. Please take a look!
--
+- 
 
 ---
 

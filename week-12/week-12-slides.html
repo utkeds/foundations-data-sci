@@ -51,8 +51,217 @@ This week, we'll add to our toolkit for visualizing spatial data with `geom_sf()
 
 ## What we'll do in this presentation
 
+- Useful functions for cleaning data
 - New mapping packages: sf and tigris
 - New mapping geom: `geom_sf()`
+
+---
+
+## Useful functions for cleaning data
+
+.panelset[
+
+.panel[.panel-name[Cleaning data]
+
+Before joining, grouping, summarizing, modeling, visualizing... we need to make sure our data is clean!
+
+&lt;img src="https://r4ds.hadley.nz/diagrams/data-science/communicate.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[stringr]
+
+The stringr package provides a cohesive set of functions designed to make working with strings as easy as possible.
+
+&lt;img src="https://stringr.tidyverse.org/logo.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[`str_trim()`]
+
+**Removing Whitespace:** Let's say you have a dataset with a column of messy text, and you want to remove extra spaces at the beginning and end of each string. Use the `str_trim` function for that:
+
+
+```r
+dat &lt;- tibble(txt = c("   Hello  ", "   World   "))
+dat %&gt;% mutate(clean_txt = str_trim(txt))
+```
+
+```
+## # A tibble: 2 × 2
+##   txt           clean_txt
+##   &lt;chr&gt;         &lt;chr&gt;    
+## 1 "   Hello  "  Hello    
+## 2 "   World   " World
+```
+
+]
+
+.panel[.panel-name[`str_to_lower()`]
+
+**Changing Case:** You can change the case of text using `str_to_lower` or `str_to_upper.` For example, to convert all text to lowercase:
+
+
+```r
+dat &lt;- tibble(txt = c("Tennessee", "tennessee"))
+dat %&gt;% mutate(clean_txt = str_to_lower(txt))
+```
+
+```
+## # A tibble: 2 × 2
+##   txt       clean_txt
+##   &lt;chr&gt;     &lt;chr&gt;    
+## 1 Tennessee tennessee
+## 2 tennessee tennessee
+```
+
+]
+
+.panel[.panel-name[`str_replace_all()`]
+
+**Pattern Matching and Replacement:** If you want to replace specific patterns in your text, you can use `str_replace` or `str_replace_all.` For example, if you want to replace all instances of "apple" with "banana":
+
+
+```r
+dat &lt;- tibble(txt = c("I like apples", "Apples are tasty"))
+dat %&gt;% mutate(clean_txt = str_replace_all(txt, "apple", "banana"))
+```
+
+```
+## # A tibble: 2 × 2
+##   txt              clean_txt       
+##   &lt;chr&gt;            &lt;chr&gt;           
+## 1 I like apples    I like bananas  
+## 2 Apples are tasty Apples are tasty
+```
+
+]
+
+.panel[.panel-name[`str_extract()`]
+
+**Extracting Substrings:** You can use `str_extract` to extract specific substrings based on a pattern. 
+
+- Regular expression (regex) is a sequence of characters that specifies a match pattern in
+text. ChatGPT is very good at regex!
+
+For example, to extract all email addresses from a text column:
+
+
+```r
+dat &lt;- tibble(txt = c("Contact me at user@example.com", "Email us at support@email.com"))
+dat %&gt;% mutate(emails = str_extract(txt, "\\S+@\\S+"))
+```
+
+```
+## # A tibble: 2 × 2
+##   txt                            emails           
+##   &lt;chr&gt;                          &lt;chr&gt;            
+## 1 Contact me at user@example.com user@example.com 
+## 2 Email us at support@email.com  support@email.com
+```
+
+]
+]
+
+---
+## Useful functions for cleaning data
+
+tidyr and dplyr also have useful functions for cleaning data!
+
+.panelset[
+.panel[.panel-name[`distinct()`]
+
+Use `distinct()` to extract unique rows from a data frame. It can be helpful when you want to remove duplicate rows.
+
+
+```r
+dat &lt;- tibble(name = c("Alice", "Bob", "Alice", "Charlie"),
+               age = c(25, 30, 25, 28))
+distinct(dat)
+```
+
+```
+## # A tibble: 3 × 2
+##   name      age
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Alice      25
+## 2 Bob        30
+## 3 Charlie    28
+```
+
+]
+
+.panel[.panel-name[`drop_na()`]
+
+`drop_na()` is used to remove rows containing missing (NA) values in a data frame.
+
+
+```r
+dat &lt;- tibble(name = c("Alice", "Bob", NA, "Charlie"),
+              age = c(25, NA, 30, 28))
+drop_na(dat)
+```
+
+```
+## # A tibble: 2 × 2
+##   name      age
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Alice      25
+## 2 Charlie    28
+```
+
+]
+
+.panel[.panel-name[`replace_na()`]
+
+`replace_na()` is used to replace missing values with a specific value in a data frame.
+
+
+```r
+dat &lt;- tibble(name = c("Alice", "Bob", NA, "Charlie"),
+              age = c(25, NA, 30, 28))
+dat %&gt;% mutate(age = replace_na(age, 0))
+```
+
+```
+## # A tibble: 4 × 2
+##   name      age
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Alice      25
+## 2 Bob         0
+## 3 &lt;NA&gt;       30
+## 4 Charlie    28
+```
+
+]
+
+.panel[.panel-name[`case_when()`]
+
+`case_when()` allows you to perform conditional operations to create a new column based on specific conditions.
+
+
+```r
+dat &lt;- tibble(score = c(85, 72, 95, 60, 78))
+dat %&gt;%
+    mutate(grade = case_when(score &gt;= 90 ~ "A",
+                             score &gt;= 80 ~ "B",
+                             score &gt;= 70 ~ "C",
+                             TRUE ~ "D"))
+```
+
+```
+## # A tibble: 5 × 2
+##   score grade
+##   &lt;dbl&gt; &lt;chr&gt;
+## 1    85 B    
+## 2    72 C    
+## 3    95 A    
+## 4    60 D    
+## 5    78 C
+```
+
+]
+]
 
 ---
 
@@ -244,7 +453,7 @@ st_geometry(nc[1, ])[[1]][[1]]
 plot(st_geometry(nc[1, ]))
 ```
 
-![](week-12-slides_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 ]
 ]
@@ -270,7 +479,7 @@ ggplot(data = nc) +
 
 .panel[.panel-name[Plot]
 
-![](week-12-slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -290,7 +499,7 @@ ggplot(data = nc) +
 
 .panel[.panel-name[`Specifying the aesthetics`]
 
-![](week-12-slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 
 ]
 ]
@@ -344,7 +553,6 @@ class(tn_districts)
 ```
 ## [1] "sf"         "data.frame"
 ```
-
 
 ]
 
@@ -409,441 +617,9 @@ ggplot(tn_districts) +
   geom_sf()
 ```
 
-![](week-12-slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](week-12-slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ]
-]
-
----
-
-# Joining data with tigris outlines
-
-.panelset[
-.panel[.panel-name[Obtaining the data]
-
-Let's revisit our handy educationdata package:
-
-
-```r
-library(educationdata)
-
-edu_data &lt;- get_education_data(level = "school-districts",
-    source = "ccd",
-    topic = "finance",
-    filters = list(year = 2018,
-                   fips = 47))
-```
-
-]
-
-.panel[.panel-name[Joining the data]
-
-
-```r
-tn_data &lt;-
-    left_join(tn_districts, edu_data, join_by(GEOID == leaid))
-
-head(tn_data)
-```
-
-```
-## Simple feature collection with 6 features and 147 fields
-## Geometry type: MULTIPOLYGON
-## Dimension:     XY
-## Bounding box:  xmin: -90.30305 ymin: 34.99419 xmax: -83.08173 ymax: 36.64085
-## Geodetic CRS:  NAD83
-##   STATEFP UNSDLEA   GEOID                            NAME LSAD LOGRADE HIGRADE
-## 1      47   00001 4700001  Hamblen County School District   00      PK      12
-## 2      47   00060 4700060      Alcoa City School District   00      PK      12
-## 3      47   00078 4700078           Fort Campbell Schools   00      PK      12
-## 4      47   00090 4700090 Anderson County School District   00      PK      12
-## 5      47   00148 4700148   Shelby County School District   00      PK      12
-## 6      47   00149 4700149    Collierville School District   00      PK      12
-##   MTFCC SDTYP FUNCSTAT      ALAND   AWATER    INTPTLAT     INTPTLON year fips
-## 1 G5420  &lt;NA&gt;        E  417475125 37853343 +36.2183967 -083.2660711 2018   47
-## 2 G5420  &lt;NA&gt;        E   38808390  2388752 +35.8095702 -083.9758571 2018   47
-## 3 G5420     B        E  273929183   490282 +36.5982483 -087.6003456   NA   NA
-## 4 G5420  &lt;NA&gt;        E  729446681 10681215 +36.1454415 -084.1876563 2018   47
-## 5 G5420  &lt;NA&gt;        E 1380491136 22425242 +35.1640565 -089.9224302 2018   47
-## 6 G5420  &lt;NA&gt;        E   93892801   199087 +35.0489249 -089.6970764 2018   47
-##         censusid  rev_total rev_fed_total rev_fed_child_nutrition_act
-## 1 43103203230100  104529000      11903000                     5385000
-## 2 43200500130100   24223000       1451000                      645000
-## 3           &lt;NA&gt;         NA            NA                          NA
-## 4 43100100130100   76277000      11827000                     3033000
-## 5 43107907930100 1307173000     223523000                    82151000
-## 6 43207900310200   98122000       6583000                      767000
-##   rev_fed_state_title_i rev_fed_state_idea rev_fed_state_math_sci_teach
-## 1               2871000            2634000                            0
-## 2                330000             359000                            0
-## 3                    NA                 NA                           NA
-## 4               1726000            1906000                            0
-## 5              61147000           26489000                            0
-## 6               3670000            1752000                            0
-##   rev_fed_state_drug_free rev_fed_state_vocational rev_fed_state_bilingual_ed
-## 1                       0                   193000                     154000
-## 2                       0                    59000                          0
-## 3                      NA                       NA                         NA
-## 4                       0                   132000                          0
-## 5                 1728000                  2678000                    1026000
-## 6                       0                        0                      32000
-##   rev_fed_state_other rev_fed_direct_impact_aid rev_fed_direct_indian_ed
-## 1              666000                         0                        0
-## 2               58000                         0                        0
-## 3                  NA                        NA                       NA
-## 4             1196000                         0                        0
-## 5            17357000                         0                        0
-## 6              362000                         0                        0
-##   rev_fed_direct_other rev_fed_arra rev_fed_nonspec rev_state_total
-## 1                    0           NA               0        56340000
-## 2                    0           NA               0         9314000
-## 3                   NA           NA              NA              NA
-## 4              3834000           NA               0        35381000
-## 5             30947000           NA               0       544415000
-## 6                    0           NA               0        43713000
-##   rev_state_gen_formula_assist rev_state_special_ed rev_state_transportation
-## 1                     54821000                    0                        0
-## 2                      8839000                    0                        0
-## 3                           NA                   NA                       NA
-## 4                     32508000                    0                        0
-## 5                    516925000                    0                        0
-## 6                     42938000                    0                        0
-##   rev_state_staff_improve rev_state_compens_basic_ed rev_state_vocational_ed
-## 1                  200000                          0                       0
-## 2                   69000                          0                       0
-## 3                      NA                         NA                      NA
-## 4                  131000                          0                       0
-## 5                 1401000                          0                       0
-## 6                  162000                          0                       0
-##   rev_state_outlay_capital_debt rev_state_bilingual_ed
-## 1                             0                      0
-## 2                             0                      0
-## 3                            NA                     NA
-## 4                             0                      0
-## 5                             0                      0
-## 6                             0                      0
-##   rev_state_gifted_talented rev_state_sch_lunch rev_state_oth_prog
-## 1                         0               59000            1260000
-## 2                         0                9000             397000
-## 3                        NA                  NA                 NA
-## 4                         0               31000            2711000
-## 5                         0                   0           26089000
-## 6                         0               17000             596000
-##   rev_state_employee_benefits rev_state_not_employee_benefits rev_state_nonspec
-## 1                           0                               0                 0
-## 2                           0                               0                 0
-## 3                          NA                              NA                NA
-## 4                           0                               0                 0
-## 5                           0                               0                 0
-## 6                           0                               0                 0
-##   rev_local_total rev_local_parent_govt rev_local_prop_tax rev_local_sales_tax
-## 1        36286000              28358000                 -2                  -2
-## 2        13458000               3960000                 -2                  -2
-## 3              NA                    NA                 NA                  NA
-## 4        29069000              24787000                 -2                  -2
-## 5       539235000             480614000                 -2                  -2
-## 6        47826000                     0                 -2                  -2
-##   rev_local_utility_tax rev_local_income_tax rev_local_other_tax
-## 1                    -2                   -2                  -2
-## 2                    -2                   -2                  -2
-## 3                    NA                   NA                  NA
-## 4                    -2                   -2                  -2
-## 5                    -2                   -2                  -2
-## 6                    -2                   -2                  -2
-##   rev_local_other_sch_systems rev_local_cities_counties rev_local_tuition_fees
-## 1                      531000                         0                 196000
-## 2                           0                   7750000                 299000
-## 3                          NA                        NA                     NA
-## 4                      262000                         0                      0
-## 5                     2850000                         0                  52000
-## 6                      253000                  39561000                  17000
-##   rev_local_transportation_fees rev_local_sch_lunch
-## 1                             0             1275000
-## 2                             0                   0
-## 3                            NA                  NA
-## 4                             0              516000
-## 5                             0              213000
-## 6                             0             1558000
-##   rev_local_textbook_sales_rents rev_local_dist_activ_receipts
-## 1                              0                       5530000
-## 2                              0                       1402000
-## 3                             NA                            NA
-## 4                              0                       3154000
-## 5                              0                      14019000
-## 6                              0                       4203000
-##   rev_local_student_fees_nonspec rev_local_oth_sales_serv
-## 1                              0                   180000
-## 2                              0                     1000
-## 3                             NA                       NA
-## 4                              0                   276000
-## 5                              0                  9187000
-## 6                              0                  1257000
-##   rev_local_interest_earnings rev_local_rents_royalties rev_local_property_sale
-## 1                       16000                         0                   17000
-## 2                        4000                         0                       0
-## 3                          NA                        NA                      NA
-## 4                        1000                         0                    9000
-## 5                     4625000                         0                  357000
-## 6                       82000                         0                       0
-##   rev_local_fines_forfeits rev_local_private_contrib rev_local_misc rev_nces
-## 1                        0                    107000          76000        0
-## 2                        0                         0          42000        0
-## 3                       NA                        NA             NA       NA
-## 4                        0                         0          64000        0
-## 5                        0                  11620000       15698000        0
-## 6                        0                         0         895000        0
-##    exp_total exp_current_elsec_total exp_current_instruction_total
-## 1  103488000                95167000                      63341000
-## 2   25620000                22652000                      15085000
-## 3         NA                      NA                            NA
-## 4   73850000                66574000                      39061000
-## 5 1424602000              1278727000                     746816000
-## 6  109671000                90603000                      56032000
-##   exp_current_supp_serve_total exp_current_pupils exp_current_instruc_staff
-## 1                     26055000            2961000                   4453000
-## 2                      7566000             895000                    999000
-## 3                           NA                 NA                        NA
-## 4                     24064000            2802000                   4650000
-## 5                    459802000           77542000                  76402000
-## 6                     31904000            5214000                   5089000
-##   exp_current_general_admin exp_current_sch_admin exp_current_operation_plant
-## 1                   1789000               4820000                     7415000
-## 2                    475000               1553000                     2422000
-## 3                        NA                    NA                          NA
-## 4                   1585000               3655000                     5946000
-## 5                  19204000              95531000                   111411000
-## 6                   1805000               5642000                     5844000
-##   exp_current_student_transport exp_current_bco exp_current_supp_serv_nonspec
-## 1                       2876000         1741000                             0
-## 2                        280000          942000                             0
-## 3                            NA              NA                            NA
-## 4                       3295000         2131000                             0
-## 5                      31975000        47737000                             0
-## 6                       3202000         5108000                             0
-##   exp_current_other exp_current_food_serv exp_current_enterprise
-## 1           5771000               5771000                      0
-## 2              1000                  1000                      0
-## 3                NA                    NA                     NA
-## 4           3449000               3449000                      0
-## 5          72109000              72109000                      0
-## 6           2667000               2667000                      0
-##   exp_current_other_elsec exp_nonelsec exp_nonelsec_community_serv
-## 1                       0       306000                      306000
-## 2                       0        77000                       77000
-## 3                      NA           NA                          NA
-## 4                       0      4037000                     4037000
-## 5                       0     12724000                    11643000
-## 6                       0            0                           0
-##   exp_nonelsec_adult_education exp_nonelsec_other exp_current_arra
-## 1                            0                  0               NA
-## 2                            0                  0               NA
-## 3                           NA                 NA               NA
-## 4                            0                  0               NA
-## 5                      1081000                  0               NA
-## 6                            0                  0               NA
-##   exp_textbooks exp_current_state_local_funds exp_current_federal_funds
-## 1        456000                      80113000                  10295000
-## 2        170000                      20229000                   1289000
-## 3            NA                            NA                        NA
-## 4        436000                      53439000                   9806000
-## 5      12501000                    1007064000                 207726000
-## 6        209000                      80298000                   5775000
-##   exp_utilities_energy exp_tech_supplies_services exp_tech_equipment
-## 1              2648000                     497000             210000
-## 2               894000                     197000                  0
-## 3                   NA                         NA                 NA
-## 4              1697000                     498000              53000
-## 5             25372000                   14564000            3828000
-## 6              1824000                    1020000             171000
-##   outlay_capital_total outlay_capital_construction
-## 1              7241000                     4088000
-## 2               871000                           0
-## 3                   NA                          NA
-## 4              2046000                      693000
-## 5             95551000                    56232000
-## 6             15387000                     2892000
-##   outlay_capital_land_structures outlay_capital_instruc_equip
-## 1                              0                      1182000
-## 2                              0                       325000
-## 3                             NA                           NA
-## 4                              0                       693000
-## 5                              0                     15716000
-## 6                        4548000                      1929000
-##   outlay_capital_other_equip outlay_capital_nonspec_equip outlay_capital_arra
-## 1                    1971000                            0                  NA
-## 2                     546000                            0                  NA
-## 3                         NA                           NA                  NA
-## 4                     660000                            0                  NA
-## 5                   23603000                            0                  NA
-## 6                    6018000                            0                  NA
-##   payments_private_schools payments_charter_schools payments_state_govt
-## 1                        0                        0                   0
-## 2                        0                        0                   0
-## 3                       NA                       NA                  NA
-## 4                        0                        0                   0
-## 5                        0                        0                   0
-## 6                        0                        0                   0
-##   payments_local_govt payments_other_sch_system salaries_total
-## 1                   0                         0       57828000
-## 2                   0                    645000       13291000
-## 3                  NA                        NA             NA
-## 4                   0                         0       41980000
-## 5                   0                   2746000      743256000
-## 6                   0                         0       53314000
-##   salaries_instruction salaries_teachers_regular_prog salaries_teachers_sped
-## 1             41589000                       30616000                3682000
-## 2              9560000                        7548000                 702000
-## 3                   NA                             NA                     NA
-## 4             26861000                       18046000                3723000
-## 5            482605000                      330062000               55959000
-## 6             36498000                       29193000                3251000
-##   salaries_teachers_vocational salaries_teachers_other_ed salaries_supp_pupils
-## 1                      2513000                          0              2206000
-## 2                       284000                          0               569000
-## 3                           NA                         NA                   NA
-## 4                      2199000                          0              1985000
-## 5                     10939000                   10935000             54520000
-## 6                       712000                     126000              3738000
-##   salaries_supp_instruc_staff salaries_supp_general_admin
-## 1                     2690000                      511000
-## 2                      657000                      116000
-## 3                          NA                          NA
-## 4                     3003000                      371000
-## 5                    52517000                     4347000
-## 6                     3378000                      300000
-##   salaries_supp_sch_admin salaries_supp_operation_plant
-## 1                 3548000                       2733000
-## 2                 1149000                        651000
-## 3                      NA                            NA
-## 4                 2827000                       2241000
-## 5                69484000                      25955000
-## 6                 4347000                       1185000
-##   salaries_supp_stud_transport salaries_supp_bco salaries_food_service
-## 1                      1362000            932000               2003000
-## 2                         4000            534000                     0
-## 3                           NA                NA                    NA
-## 4                        41000           1020000               1289000
-## 5                       564000          19673000              26110000
-## 6                       302000           2764000                803000
-##   benefits_employee_total benefits_employee_instruction benefits_supp_pupils
-## 1                20243000                      14849000               643000
-## 2                 4764000                       3520000               161000
-## 3                      NA                            NA                   NA
-## 4                11607000                       7373000               575000
-## 5               211879000                     149528000             12901000
-## 6                15494000                      10570000               917000
-##   benefits_supp_instruc_staff benefits_supp_general_admin
-## 1                      863000                      145000
-## 2                      207000                       47000
-## 3                          NA                          NA
-## 4                      841000                       80000
-## 5                    12580000                      904000
-## 6                      800000                      569000
-##   benefits_supp_sch_admin benefits_supp_operation_plant
-## 1                 1145000                       1027000
-## 2                  376000                        241000
-## 3                      NA                            NA
-## 4                  800000                        745000
-## 5                16767000                       5710000
-## 6                 1263000                        339000
-##   benefits_supp_stud_transport benefits_supp_bco benefits_food_service
-## 1                       654000            292000                591000
-## 2                         2000            184000                     0
-## 3                           NA                NA                    NA
-## 4                         6000            292000                338000
-## 5                       105000           7993000               4729000
-## 6                        48000            753000                235000
-##   benefits_enterprise_operations debt_interest debt_longterm_outstand_beg_fy
-## 1                              0        774000                      18308000
-## 2                              0       1375000                      38985000
-## 3                             NA            NA                            NA
-## 4                              0       1193000                      29391000
-## 5                              0      34854000                     734616000
-## 6                              0       3681000                      91020000
-##   debt_longterm_issued_fy debt_longterm_retired_fy
-## 1                       0                  4484000
-## 2                       0                   445000
-## 3                      NA                       NA
-## 4                10900000                  2856000
-## 5               224404000                163270000
-## 6                       0                  1740000
-##   debt_longterm_outstand_end_fy debt_shortterm_outstand_beg_fy
-## 1                      13824000                              0
-## 2                      38540000                              0
-## 3                            NA                             NA
-## 4                      37435000                              0
-## 5                     795750000                              0
-## 6                      89280000                              0
-##   debt_shortterm_outstand_end_fy assets_sinking_fund assets_bond_fund
-## 1                              0                   0                0
-## 2                              0                   0                0
-## 3                             NA                  NA               NA
-## 4                              0                   0                0
-## 5                              0                   0                0
-## 6                              0                   0                0
-##   assets_other enrollment_fall_responsible enrollment_fall_school
-## 1            0                       10512                  10512
-## 2            0                        2095                   2095
-## 3           NA                          NA                     NA
-## 4            0                        6481                   6481
-## 5            0                      112125                 112125
-## 6            0                        9096                   9096
-##   exp_current_resa                       geometry
-## 1                0 MULTIPOLYGON (((-83.4687 36...
-## 2                0 MULTIPOLYGON (((-84.02875 3...
-## 3               NA MULTIPOLYGON (((-87.8021 36...
-## 4                0 MULTIPOLYGON (((-84.08317 3...
-## 5                0 MULTIPOLYGON (((-89.70663 3...
-## 6                0 MULTIPOLYGON (((-89.75968 3...
-```
-
-]
-
-.panel[.panel-name[Plotting the data]
-
-
-```r
-ggplot(data = tn_data) + 
-    geom_sf(aes(fill = rev_state_sch_lunch))
-```
-
-]
-
-
-.panel[.panel-name[Plot]
-
-![](week-12-slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
-
-]
-]
-
----
-
-# Joining data with tigris outlines
-
-.panelset[
-
-.panel[.panel-name[Adding to the plot]
-
-
-```r
-ggplot(data = tn_data) + 
-    geom_sf(aes(fill = rev_state_sch_lunch),
-            color = "white") +
-    theme_void() +
-    labs(title = "State revenue for school lunch programs",
-         fill = "Revenue") +
-    scale_fill_continuous(labels = scales::dollar)
-```
-
-]
-
-.panel[.panel-name[Plot]
-
-![](week-12-slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
-
-]
-
 ]
 
 ---
@@ -851,6 +627,8 @@ ggplot(data = tn_data) +
 ## What if I have my own map to plot?
 
 ---
+
+# Reading shapefiles
 
 .panelset[
 
@@ -890,10 +668,15 @@ Use the function `st_read()` to read the files
 - name of the shapefile
 
 
+```r
+knox_zones &lt;-
+    st_read(dsn = here::here("week-12", "shapefiles"),
+            "Knoxville-Knox_County_Zoning")
+```
+
 ```
 ## Reading layer `Knoxville-Knox_County_Zoning' from data source 
-##   `/Users/ivelasq/R/f23-founds-eds/week-12/data/Knoxville-Knox_County_Zoning.shp' 
-##   using driver `ESRI Shapefile'
+##   `/Users/ivelasq/R/f23-founds-eds/week-12/shapefiles' using driver `ESRI Shapefile'
 ## replacing null geometries with empty geometries
 ## Simple feature collection with 13230 features and 10 fields (with 14 geometries empty)
 ## Geometry type: GEOMETRY
@@ -906,10 +689,155 @@ Use the function `st_read()` to read the files
 
 .panel[.panel-name[Plotting the data]
 
-![](week-12-slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+
+```r
+ggplot(data = knox_zones) +
+    geom_sf()
+```
+
+]
+
+.panel[.panel-name[Plotting the data]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 
 ]
 ]
+
+---
+
+## Code-Along
+
+.panelset[
+.panel[.panel-name[Intro]
+
+Let's create a choropleth map of state revenue for school lunch programs for each school district in Tennesee.
+
+]
+
+.panel[.panel-name[Obtaining the data]
+
+Let's revisit our handy educationdata package:
+
+
+```r
+library(educationdata)
+library(dplyr)
+library(tidyr)
+library(tigris)
+library(ggplot2)
+
+edu_data &lt;- get_education_data(level = "school-districts",
+    source = "ccd",
+    topic = "finance",
+    filters = list(year = 2018,
+                   fips = 47))
+```
+
+]
+
+.panel[.panel-name[Joining the data]
+
+
+```r
+tn_districts &lt;- school_districts("Tennessee")
+
+tn_data &lt;-
+    left_join(tn_districts, edu_data, join_by(GEOID == leaid))
+```
+
+]
+
+.panel[.panel-name[Plotting the data]
+
+
+```r
+ggplot(data = tn_data) + 
+    geom_sf(aes(fill = salaries_total))
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+.panel[.panel-name[Adding to the plot]
+
+
+```r
+salaries_total_by_enrollment &lt;-
+    tn_data %&gt;% 
+    mutate(salary_by_enrollment = salaries_total/enrollment_fall_school)
+```
+
+]
+
+.panel[.panel-name[Adding to the plot]
+
+
+```r
+ggplot(data = salaries_total_by_enrollment) +
+    geom_sf(aes(fill = salary_by_enrollment),
+            color = "white") +
+    theme_void() +
+    labs(title = "Total salary amount",
+         fill = "Revenue") +
+    scale_fill_continuous(labels = scales::dollar)
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+
+.panel[.panel-name[Plotting more than one variable]
+
+Let's say we want to use `facet_wrap()` to show more than one variable at a time. We will need to use `pivot_longer()` and contain our variables in one column to be able to do this.
+
+
+
+]
+
+.panel[.panel-name[Plotting more than one variable]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+# Notes on the assignment
+
+- Instead of using `read_csv()` from tidyr, you will need to install the readxl package and use the function `read_excel()`.
+- Be sure to read the instructions carefully!
+- Plots may take a while to load (they did for me).
+
+---
+
+# What's next?
+
+- Final projects have comments and suggestions. Please take a look!
+-
 
 ---
 
