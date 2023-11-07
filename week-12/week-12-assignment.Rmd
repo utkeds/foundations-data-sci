@@ -51,6 +51,8 @@ Answer:
 - Join the two datasets by the Tennessee-specific district identifier. Be sure to wrangle the data accordingly, as you described in the responses above.
 - Your joined dataset should have the same number of rows as the original `data_2017_educator_race_ethnicity_by_district` file.
 
+**NOTE:** Make sure none of your lines of code return an error or your R Markdown document will not knit!
+
 ```{r}
 
 ```
