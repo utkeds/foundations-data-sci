@@ -32,7 +32,9 @@ Clean the column names with janitor.
 
 ```
 
-3. Take a look at the column identifying districts in the `data_2017_educator_race_ethnicity_by_district` file. Notice that they are not the usual school district IDs that we've been using; instead, they are Tennessee-specific identifiers. Tigris uses the federal identifiers. Luckily, the directory file provides a crosswalk between the two.
+3. Take a look at the column identifying districts in the `data_2017_educator_race_ethnicity_by_district` file. Notice that they are not the usual school district IDs that we've been using; instead, they are Tennessee-specific identifiers. Tigris uses the federal-specific identifiers. Luckily, the directory file provides a crosswalk between the two. 
+
+Let's join the data so that the federal-specific identifiers are available in the `data_2017_educator_race_ethnicity_by_district` as well.
 
 **QUESTIONS:** Before doing the join, please answer these questions:
 
@@ -46,9 +48,10 @@ Answer:
 
 4. Now let's do the join. 
 
-- Select the `LEA_NCES` and the column corresponding to the identifiers in the `data_2017_educator_race_ethnicity_by_district` dataset from the school directory file.
-- Join the two datasets. Be sure to wrangle the data accordingly, as you described in the responses above.
+- Join the two datasets by the Tennessee-specific district identifier. Be sure to wrangle the data accordingly, as you described in the responses above.
 - Your joined dataset should have the same number of rows as the original `data_2017_educator_race_ethnicity_by_district` file.
+
+**NOTE:** Make sure none of your lines of code return an error or your R Markdown document will not knit!
 
 ```{r}
 
