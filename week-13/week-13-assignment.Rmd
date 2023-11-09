@@ -27,10 +27,10 @@ Let's start by working with some text. Here's an example that captures the core 
 my_sentences <- tibble(sentences = c("I think that she's really good at playing soccer, but he's probably a better dancer, especially at his age", "I really like to watch soccer games, especially for OneKnox", "She was a great goalkeeper, perhaps because she played soccer from such a young age"))
 
 my_sentences %>% 
-  unnest_tokens(word, sentences) %>% # separate words, removing punctuation
-  count(word) %>% # counting words
-  arrange(desc(n)) %>% # arranging by frequency
-  anti_join(stop_words) # removing common words, or "stop" words
+  unnest_tokens(___, ___) %>% # separate words, removing punctuation
+  count(___) %>% # counting words
+  ____(desc(n)) %>% # arranging by frequency
+  ___(___) # removing common words, or "stop" words
 ```
 
 Before moving on to analyzing class data, what do you think are two benefits of analyzing text data in your field?
