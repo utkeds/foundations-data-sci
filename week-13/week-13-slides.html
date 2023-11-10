@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 13 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
+    <meta name="date" content="2023-11-10" />
+    <script src="week-13-slides_files/header-attrs-2.24/header-attrs.js"></script>
+    <link href="week-13-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="week-13-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="week-13-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-13-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-13-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-13-slides_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-13-slides_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-13-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-13-slides_files/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 13 Slides
+]
+.subtitle[
+## Introduction to Text Analysis
+]
+.author[
+### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
+]
+.date[
+### November 10, 2023
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+This week, we'll introduced text data and text analysis. Traditionally, text data has been in the wheelhouse of qualitative researchers. However, we can use a programming language like R to carry out _computational_ text analyses---analyses that can blur the lines between qualitative and quantitative in compelling ways.
+
+## What we'll do in this presentation
+
+- A quick discussion
+- Week 12 review
+- Useful functions for analyzing text
+- New text analysis package: tidytext
+
+---
+
+# What counts as text data?
+
+- Text data is common across physical, life sciences, and social sciences research fields (with this last group of fields including educational research)
+- Text data can take _many_ forms; what are some examples of text in your field? There are no wrong answers here!
+
+---
+
+## Week 12 Review
+
+.panelset[
+
+.panel[.panel-name[Review of the last week]
+
+* *add reflections on mapping?*
+
+
+]
+
+.panel[.panel-name[Week 12 assignment]
+
+* *any notes on the assignment?* or reading
+
+
+]
+
+
+]
+
+
+---
+
+## tidytext
+
+.panelset[
+
+.panel[.panel-name[tidytext]
+
+- **tidytext Package**: A tool designed for text mining and natural language processing, utilizing the principles of tidy data.
+Key Concept
+- **Token**: In tidytext, a 'token' refers to the smallest unit of text analysis, such as a word, symbol, or n-gram.
+- **Tokenization Process: Tidytext breaks down text into tokens, enabling efficient analysis of words, frequency, sentiment, and more.
+- **Applications and Benefits**: Uses the same tidy data format we are familiar with; has great documentations and examples (see [here](https://www.tidytextmining.com/)); has basic and advanced computational text analysis capabilities
+]
+
+.panel[.panel-name[`unnest_tokens()`]
+
+**Transforming text into tidy text:** we must break text into individual tokens. That is, each word (i.e., token) must have its own line.
+
+- `unnest_tokens()` is _the key_ function in working with text data using tidytext
+
+- The first argument (`word`) you must specify is the new column name the text will be unnested into.
+
+- The second argument (`text)` is the input column the text comes from. This can be quotes, transcripts, entire documents, etc.
+
+]
+
+.panel[.panel-name[Example]
+
+Here's a super small example (h/t to Run-D.M.C.)
+
+
+```r
+text_df = tibble(text = c("This speech is my recital, I think it's very vital",
+          "To rock (a rhyme), that's right (on time)",
+          "It's Tricky is the title, here we go..."))
+
+tidy_df_unnest &lt;- text_df %&gt;%
+  unnest_tokens(word, text)
+
+tidy_df_unnest %&gt;% 
+    head(3)
+```
+
+```
+## # A tibble: 3 × 1
+##   word  
+##   &lt;chr&gt; 
+## 1 this  
+## 2 speech
+## 3 is
+```
+
+]
+
+.panel[.panel-name[Which text?]
+
+- Text data can originate from a wide range of sources, encompassing both traditional and digital mediums.
+- **Examples of Text Data Sources**:
+  - Digital sources: Websites, social media posts, online reviews, blogs, and news articles.
+  - Traditional sources: Books, journals, newspapers, and transcripts of interviews or speeches.
+  - Institutional documents: Official reports, legal documents, policy papers, and corporate communications.
+  - Personal communication: Emails, letters, text messages, and notes.
+- **Considerations in Text Data Collection**:
+  - Ethical considerations and privacy concerns, especially with personal or sensitive data.
+  - Data quality and representativeness, ensuring that the text data accurately reflects the subject of study.
+  - Challenges in processing and analyzing unstructured text, requiring specific tools and methodologies like Natural Language Processing (NLP).
+
+]
+
+.panel[.panel-name[`anti_join()`]
+
+**Removing Stop Words:** `anti_join()` works to remove observations from a specified dataset. Here we will use the `stop_words` dataset from the tidytext package.
+
+- Stop words are words that are not useful for text analysis (e.g., the, a, and, etc.)
+
+
+```
+## # A tibble: 7 × 2
+##    line word       
+##   &lt;int&gt; &lt;chr&gt;      
+## 1     1 stop       
+## 2     1 death      
+## 3     2 kindly     
+## 4     2 stopped    
+## 5     3 carriage   
+## 6     3 held       
+## 7     4 immortality
+```
+
+]
+
+]
+
+---
+
+## Code-Along
+
+.panelset[
+.panel[.panel-name[Intro]
+
+This week's code-along is a bit different: We will practice text analysis on some simple text before you perform text analysis on our class' Zoom transcript data.
+
+- Please download this week's homework for the code-along.
+- Please also download the CSV (available only on Canvas for privacy reasons) to use for this code-along _and_ the homework
+
+]
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+- You'll complete this week's assignment using our class transcript data
+
+]
+
+.panel[.panel-name[Data Ethics]
+
+- This is posted in Canvas ((here)[https://utk.instructure.com/courses/184613/assignments/1641272?module_item_id=3651964]) and is due Nov. 20
+
+]
+
+.panel[.panel-name[Final Project]
+
+- This is posted in Canvas ((here)[https://utk.instructure.com/courses/184613/assignments/1607692?module_item_id=3562339])
+- See also the Week 16 module! Let's discuss this and consider any questions you have.
+
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

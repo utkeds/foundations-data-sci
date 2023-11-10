@@ -1,6 +1,6 @@
 ---
 title: "Week 13 Slides"
-subtitle: "Intro to Text Analysis"
+subtitle: "Introduction to Text Analysis"
 author: "**Isabella Velásquez and Maryrose Weatherton**"
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: xaringan::moon_reader
@@ -51,23 +51,38 @@ xaringanExtra::use_panelset()
 
 # Purpose and Agenda
 
-This week, we'll ...
+This week, we'll introduced text data and text analysis. Traditionally, text data has been in the wheelhouse of qualitative researchers. However, we can use a programming language like R to carry out _computational_ text analyses---analyses that can blur the lines between qualitative and quantitative in compelling ways.
 
 ## What we'll do in this presentation
 
-- Assignment ___ review
+- A quick discussion
+- Week 12 review
 - Useful functions for analyzing text
 - New text analysis package: tidytext
 
 ---
 
-## Assignment ___ review
+# What counts as text data?
+
+- Text data is common across physical, life sciences, and social sciences research fields (with this last group of fields including educational research)
+- Text data can take _many_ forms; what are some examples of text in your field? There are no wrong answers here!
+
+---
+
+## Week 12 Review
 
 .panelset[
 
-.panel[.panel-name[*add text here*]
+.panel[.panel-name[Review of the last week]
 
-* *add text here*
+* *add reflections on mapping?*
+
+
+]
+
+.panel[.panel-name[Week 12 assignment]
+
+* *any notes on the assignment?* or reading
 
 
 ]
@@ -78,39 +93,61 @@ This week, we'll ...
 
 ---
 
-## tidytext Package
+## tidytext
 
 .panelset[
 
 .panel[.panel-name[tidytext]
 
-*text here about tidytext package -- explain key vocab like "token"*
-
-
+- **tidytext Package**: A tool designed for text mining and natural language processing, utilizing the principles of tidy data.
+Key Concept
+- **Token**: In tidytext, a 'token' refers to the smallest unit of text analysis, such as a word, symbol, or n-gram.
+- **Tokenization Process: Tidytext breaks down text into tokens, enabling efficient analysis of words, frequency, sentiment, and more.
+- **Applications and Benefits**: Uses the same tidy data format we are familiar with; has great documentations and examples (see [here](https://www.tidytextmining.com/)); has basic and advanced computational text analysis capabilities
 ]
 
 .panel[.panel-name[`unnest_tokens()`]
 
-**Transforming text into tidy text:** we must break text into individual tokens. That is, each word must have its own line.
+**Transforming text into tidy text:** we must break text into individual tokens. That is, each word (i.e., token) must have its own line.
 
-- The first argument you must specify is the new column name the text will be unnested into.
+- `unnest_tokens()` is _the key_ function in working with text data using tidytext
 
-- The second argument is the input column the text comes from.
+- The first argument (`word`) you must specify is the new column name the text will be unnested into.
 
-```{r}
-text <- c("Because I could not stop for Death -",
-          "He kindly stopped for me -",
-          "The Carriage held but just Ourselves -",
-          "and Immortality")
+- The second argument (`text)` is the input column the text comes from. This can be quotes, transcripts, entire documents, etc.
 
-library(dplyr)
-text_df <- tibble(line = 1:4, text = text)
-```
+]
 
-```{r}
-text_df_unnest <- text_df %>%
+.panel[.panel-name[Example]
+
+Here's a super small example (h/t to Run-D.M.C.)
+
+```{r, echo = TRUE, eval = TRUE}
+text_df = tibble(text = c("This speech is my recital, I think it's very vital",
+          "To rock (a rhyme), that's right (on time)",
+          "It's Tricky is the title, here we go..."))
+
+tidy_df_unnest <- text_df %>%
   unnest_tokens(word, text)
+
+tidy_df_unnest %>% 
+    head(3)
 ```
+
+]
+
+.panel[.panel-name[Which text?]
+
+- Text data can originate from a wide range of sources, encompassing both traditional and digital mediums.
+- **Examples of Text Data Sources**:
+  - Digital sources: Websites, social media posts, online reviews, blogs, and news articles.
+  - Traditional sources: Books, journals, newspapers, and transcripts of interviews or speeches.
+  - Institutional documents: Official reports, legal documents, policy papers, and corporate communications.
+  - Personal communication: Emails, letters, text messages, and notes.
+- **Considerations in Text Data Collection**:
+  - Ethical considerations and privacy concerns, especially with personal or sensitive data.
+  - Data quality and representativeness, ensuring that the text data accurately reflects the subject of study.
+  - Challenges in processing and analyzing unstructured text, requiring specific tools and methodologies like Natural Language Processing (NLP).
 
 ]
 
@@ -127,11 +164,6 @@ text_df_unnest %>%
 
 ]
 
-.panel[.panel-name[Other analyses]
-
-*discuss other analysis techniques tidytext can use like sentiment analysis, etc.*
-
-]
 ]
 
 ---
@@ -141,33 +173,37 @@ text_df_unnest %>%
 .panelset[
 .panel[.panel-name[Intro]
 
-We will practice text analysis on some simple text before you perform text analysis on our class' Zoom transcript data.
+This week's code-along is a bit different: We will practice text analysis on some simple text before you perform text analysis on our class' Zoom transcript data.
 
 - Please download this week's homework for the code-along.
+- Please also download the CSV (available only on Canvas for privacy reasons) to use for this code-along _and_ the homework
 
 ]
 ]
-
----
-
-# Notes on the assignment
-
-- You will need to download the .csv transcript file located in this week's assignment module on Canvas.
 
 ---
 
 # What's next?
 
-- 
+.panelset[
 
----
+.panel[.panel-name[Weekly Assignment]
 
-# Optional Reading Recap
+- You'll complete this week's assignment using our class transcript data
 
-Substantive reading(s):
+]
 
+.panel[.panel-name[Data Ethics]
 
+- This is posted in Canvas ((here)[https://utk.instructure.com/courses/184613/assignments/1641272?module_item_id=3651964]) and is due Nov. 20
 
-Technical reading(s):
+]
 
+.panel[.panel-name[Final Project]
 
+- This is posted in Canvas ((here)[https://utk.instructure.com/courses/184613/assignments/1607692?module_item_id=3562339])
+- See also the Week 16 module! Let's discuss this and consider any questions you have.
+
+]
+
+]

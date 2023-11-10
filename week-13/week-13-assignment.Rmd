@@ -42,9 +42,7 @@ Before moving on to analyzing class data, what do you think are two benefits of 
 Now, let's do the same with our Zoom data.
 
 ```{r}
-# First, upload the class Zoom transcript CSV data.
-
-
+# First, read the class Zoom transcript CSV data. You can download this from Canvas!
 
 # In this next step, use similar code from Step 2.
 transcript %>% 
@@ -116,6 +114,7 @@ What is one other ethical concern you have with text/transcript data?
 -   
 
 ## Reach
+
 As a reach, conduct a sentiment analysis on the Zoom transcript data from class. To see code on how to do this, visit: https://www.tidytextmining.com/sentiment
 
 ```{r}
