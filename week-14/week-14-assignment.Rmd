@@ -40,28 +40,7 @@ There is a good chance your data is not tidy. Take some time to practice tidying
 Now, let's begin the process of determining the topics.
 
 ```{r}
-# First, we need to create a data frame that is set to find a specific number of topics, k. The seed is set to make the output of the model predictable. Note: rename the new data frame with something meaningful to you and in the LDA code, use your data frame name rather than "df_name".
 
-data_lda <- LDA(df_name, k = 2, control = list(seed = 20231018))
-
-# This step creates a "tidy" version of the output of the output of the topic modeling
-data_topics <- tidy(data_lda, matrix = "beta")
-data_topics
-
-# Here, we'll find the top 10 terms for each topic
-data_top_terms <- data_topics %>%
-  group_by(topic) %>%
-  slice_max(beta, n = 10) %>% 
-  ungroup() %>%
-  arrange(topic, -beta)
-
-# Then, we'll plot those 10 terms and their estimated probability for each topic
-data_top_terms %>%
-  mutate(term = reorder_within(term, beta, topic)) %>%
-  ggplot(aes(beta, term, fill = factor(topic))) +
-  geom_col(show.legend = FALSE) +
-  facet_wrap(~ topic, scales = "free") +
-  scale_y_reordered()
 ```
 
 Name each topic you found. There is no right or wrong answer here; make it something unique yet descriptive.
