@@ -1,0 +1,125 @@
+---
+title: "Week 12 - Teacher"
+author: "Teacher"
+date: "Assignment Due Date"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this assignment, we will take a look at the [Tennessee Department of Education's dataset on educator race and ethnicity for 2016-17](https://www.tn.gov/education/districts/federal-programs-and-oversight/data/data-downloads.html). Let's take a look at the distribution of teacher race and ethnicity on a choropleth map.
+
+While the assignment guides you through the steps, it doesn't provide step-by-step instructions on what to do. Be sure to think carefully about the *data* as well as the code.
+
+## Step 1
+
+1. Load the packages that we will use: tidyverse, readxl, and tigris. If you need to install any packages, make sure to remove the `install.packages()` call from R Markdown. Otherwise, your file may not knit.
+
+```{r}
+
+```
+
+2. Download and read in the following data using `read_excel()`:
+
+- The School Directory provides the school names, school numbers, district names, district numbers, school addresses, and other school-related information in an excel document for public reference: https://github.com/utkeds/f23-founds-eds/blob/main/week-12/data/data_2017_educator_race_ethnicity_by_district.xlsx
+- Educator Race and Ethnicity Data for 2016-17: https://github.com/utkeds/f23-founds-eds/blob/main/week-12/data/schl_directory_2017-18.xlsx
+
+Clean the column names with janitor.
+
+```{r}
+
+```
+
+3. Take a look at the column identifying districts in the `data_2017_educator_race_ethnicity_by_district` file. Notice that they are not the usual school district IDs that we've been using; instead, they are Tennessee-specific identifiers. Tigris uses the federal-specific identifiers. Luckily, the directory file provides a crosswalk between the two. 
+
+Let's join the data so that the federal-specific identifiers are available in the `data_2017_educator_race_ethnicity_by_district` as well.
+
+**QUESTIONS:** Before doing the join, please answer these questions:
+
+1. Take a look at `schl_directory_2017-18` file before you join. What does each row represent? And how about in `data_2017_educator_race_ethnicity_by_district`?
+
+Answer:
+
+2. To do this join successfully, we need to drop the `NA`s from the `schl_directory_2017` columns. Why? (Hint: use `group_by()` and `summarize(count = n())` to see how many of each
+
+Answer:
+
+4. Now let's do the join. 
+
+- Join the two datasets by the Tennessee-specific district identifier. Be sure to wrangle the data accordingly, as you described in the responses above.
+- Your joined dataset should have the same number of rows as the original `data_2017_educator_race_ethnicity_by_district` file.
+
+**NOTE:** Make sure none of your lines of code return an error or your R Markdown document will not knit!
+
+```{r}
+
+```
+
+## Step 2
+
+Now we have the educator race and ethnicity data associated with the federal-level identifiers, `LEA_NCES`.
+
+1. Load the `school_districts` sf object for Tennessee from the tigris package (see class slides for a refresher):
+
+```{r}
+
+```
+
+2. Now, successfully join the tigris output and your joined file from above.
+
+```{r}
+
+```
+
+3. Create a choropleth map of the Tennessee school districts where `fill` is one of the available race/ethnicities of **Teachers** (the map may take a little bit to load):
+
+```{r}
+
+```
+
+## Step 3
+
+Let's say we want to create a map with `facet_wrap()` so we can see several **Teacher** race/ethnicity distribution at once. We will need to pivot our data so that all the race/ethnicity variables are in one column and their associated values are in another.
+
+1. Pivot the data below, where the columns we want to pivot are `American Indian or Alaska Native`:`Unidentified`.
+
+```{r}
+
+```
+
+2. Filter the data to at least two values of race/ethnicity for **Teachers**. Create a map with `facet_wrap()` for both of the race/ethnicities, where the shade of each district is the percentage of educators of that race/ethnicity. (Your plots may take a while, especially if it's more than two).
+
+```{r}
+
+```
+
+## Step 4
+
+1. Now, let's make this into a nice, readable map that we could include in a report. Add at least **four** elements to your plot.
+
+```{r}
+
+```
+
+2. I do not know a lot about Tennessee. Describe what is surprising/unsurprising about your plots based on your knowledge of Tennessee.
+
+## Rubric
+
+|                                               | Points Possible | Points Earned |
+|-----------------------------------------------|-----------------|---------------|
+| File knits                                    | 2               |               |
+| Code is accurately filled in for all 5 steps  | 20              |               |
+| Step 1 Questions                              | 4               |               |
+| Step 4 Question                               | 4               |               |
+
+## Knit and Submit
+
+Complete the following steps to knit and publish your work (note - we'll remove these steps after this week, as we know you're becoming quite familiar with it!):
+
+1.  First, change the name of the `author:` in the [YAML header](https://bookdown.org/yihui/rmarkdown-cookbook/rmarkdown-anatomy.html#yaml-metadata) at the very top of this document to your name. The YAML header controls the style and feel for knitted document but doesn't actually display in the final output.
+
+2.  Next, click the knit button in the toolbar above to "knit" your R Markdown document to a [HTML](https://bookdown.org/yihui/rmarkdown/html-document.html) file that will be saved in your R Project folder. You should see a formatted webpage appear in your Viewer tab in the lower right pan or in a new browser window. Let's us know if you run into any issues with knitting.
+
+3.  Upload the HTML file that is now present in the same folder as this R Markdown file to Canvas to receive credit for this assignment!

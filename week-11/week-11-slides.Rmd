@@ -7,7 +7,18 @@ output: xaringan::moon_reader
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.align = "center")
+
+library(dplyr)
+
+elsi_data <-
+    readr::read_csv(
+        "https://github.com/utkeds/f23-founds-eds/blob/main/data/ELSI_csv_export_6383262475806903427192.csv?raw=true",
+        skip = 6
+    ) %>% janitor::clean_names()
 ```
 
 ```{r, echo=FALSE}
@@ -19,10 +30,8 @@ pacman::p_load(pacman, knitr, tidyverse, readxl)
 # these allow any code snippets to be copied to the clipboard so they 
 # can be pasted easily
 htmltools::tagList(
-    xaringanExtra::use_clipboard(
-        button_text = "<i class=\"fa fa-clipboard\"></i>",
-        success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
-    ),
+    xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",),
     rmarkdown::html_dependency_font_awesome()
 )
 ```
@@ -31,218 +40,660 @@ htmltools::tagList(
 xaringanExtra::use_panelset()
 ```
 
-
 # Purpose and Agenda
 
-This week, we'll dive into an element of data analysis that is surprisingly commonly-needed --- and useful: pivoting. Pivoting describes transforming data from a form in which variables are represented in rows to one in which they are represented in columns. Sometimes, these different forms are described as "long" and "wide."
+One of the most important aspects of working with geographical data is the presentation and communication of the results. In this lesson, we'll explore how to make stunning and informative maps that can help you convey insights about data in a visually appealing way.
 
 ## What we'll do in this presentation
 
-- Discussion
-- Key Concept: tidy data
-- Key Concept: Pivoting
-- Code-along and data
-- Discussion
-- What's next: Assignment(s) and Readings
+- Final project comments & recommendations
+- Revisit Key Concepts from Assignment 9
+- Mapping with ggplot2
+- Adding data to maps
 
 ---
 
-# Discussion
+## Final project
+
+* Please review the comments on your final projects and follow up if necessary
+* If you do not have the data, please obtain it as soon as possible (really only a month left!)
+* Please start data cleaning as soon as possible
+* Involve your PI/collaborators
+
+```{r}
+#| echo: false
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("https://media0.giphy.com/media/s4kpsTSwoiFCU/giphy.gif")
+```
+
+
+---
+
+## Revisit Key Concepts from Assignment 9
+
+**Why may you not want to do this?**
+
+```{r}
+#| echo: true
+glimpse(elsi_data %>% select(state_name_public_school_latest_available_year))
+```
+
+
+```{r}
+#| echo: true
+elsi_data <- elsi_data %>% 
+    mutate(state_name_public_school_2021_22 =
+               as.double(state_name_public_school_2021_22))
+```
+
+---
+
+## Revisit Key Concepts from Assignment 9
+
+**How would you interpret this?**
+
+A. The largest average number of students in schools was 1240.
+
+B. The largest average number of students in districts was 1240.
+
+```{r}
+#| echo: true
+elsi_data %>%
+    group_by(agency_id_nces_assigned_public_school_latest_available_year) %>% 
+    summarize(mean = mean(total_students_all_grades_excludes_ae_public_school_2021_22)) %>%
+    arrange(desc(mean)) %>% head()
+```
+
+---
+
+## Revisit Key Concepts from Assignment 9
+
+**Why don't the number of rows change?**
+
+```{r}
+#| echo: true
+elsi_data %>% nrow()
+```
+
+```{r}
+#| echo: true
+elsi_data %>% 
+    group_by(school_name) %>% 
+    nrow()
+```
+
+---
+
+## Revisit Key Concepts from Assignment 9
+
+**Why would you not want to group by `state_name_public_school_latest_available_year`?**
+
+```{r}
+#| echo: true
+table(elsi_data$state_name_public_school_latest_available_year)
+```
+
+---
+
+## Key Concept: Mapping with ggplot2
+
+There are many ways of mapping with R. Today, we'll focus on mapping with ggplot2.
+
+---
+
+## The maps package
+
+- The maps package contains many outlines of continents, countries, states, and counties.
+- To use maps, run the following:
+
+```{{r}}
+install.packages("maps")
+```
+
+- If you want even more outlines, you can download the mapdata package
+
+---
+
+## The maps package
+
+.panelset[
+.panel[.panel-name[Introduction]
+
+ggplot2 operates on data frames. Therefore we need some way to translate the maps data into a data frame format the ggplot can use.
+]
+
+.panel[.panel-name[Maps data]
+
+```{r}
+#| echo: true
+#| eval: false
+world_map <- map_data("world")
+head(world_map)
+```
+
+]
+
+.panel[.panel-name[Structure of the maps data]
+
+```{r}
+#| echo: false
+#| eval: true
+world_map <- map_data("world")
+head(world_map)
+```
+
+- `long` is longitude. Things to the west of the prime meridian are negative.
+- `lat` is latitude.
+- `order` shows in which order ggplot should "connect the dots"
+- `region` and `subregion` tell what region or subregion a set of points surrounds.
+- `group` controls (among other things) whether adjacent points should be connected by lines. If they are in the same group, then they get connected, but if they are in different groups then they don’t.
+    - Having points in different groups means that ggplot "lifts the pen" when going between them.
+
+]
+]
+
+---
+
+## Make a map with ggplot2
+
+.panelset[
+.panel[.panel-name[World map code]
+
+Plot the world with:
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+]
+
+.panel[.panel-name[World map]
+
+```{r}
+#| echo: false
+#| eval: true
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+]
+
+.panel[.panel-name[Why `coord_fixed()`?]
+
+Why `coord_fixed()`? It fixes the relationship between one unit in the y direction and one unit in the x direction. If you change the outer dimensions of the plot (i.e., by changing the window size or the size of the PDF file you are saving it to), the aspect ratio remains unchanged.
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+]
+]
+
+---
+
+## Make a map with ggplot2
+
+Since this is ggplot2, you can customize your graph the same way as any ggplot2 object.
+
+.panelset[
+.panel[.panel-name[Customization]
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region),
+           fill = "white", 
+           size = 1,
+           color = "blue") +
+    coord_fixed(1.3)
+```
+
+]
+
+.panel[.panel-name[Printed map]
+
+```{r}
+#| echo: false
+#| eval: true
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region),
+           fill = "white", 
+           size = 1,
+           color = "blue") +
+    coord_fixed(1.3)
+```
+]
+]
+
+---
+
+## More maps with maps
+
+```{r}
+#| echo: true
+usa_map <- map_data("usa")
+
+ggplot(data = usa_map) +
+  geom_map(map = usa_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+---
+
+## More maps with maps
+
+```{r}
+#| echo: true
+state_map <- map_data("state")
+
+ggplot(data = state_map) +
+  geom_map(map = state_map,
+           aes(x = long,
+               y = lat,
+               fill = region, # different color for each state
+               map_id = region)) +
+    coord_fixed(1.3) +
+    theme(legend.position = "none") # remove the legend
+```
+
+---
+
+## More maps with maps
+
+Since we are working with a dataframe, we can run our usual dplyr functions to get what we need.
+
+.panelset[
+.panel[.panel-name[Filter data]
+```{r}
+#| echo: true
+tn_map <-
+    state_map %>% 
+    filter(region == "tennessee")
+```
+]
+
+.panel[.panel-name[Create ggplot object]
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = tn_map) +
+  geom_map(map = tn_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3) +
+    theme(legend.position = "none") # remove the legend
+```
+]
+
+.panel[.panel-name[Print map]
+```{r}
+#| echo: false
+ggplot(data = tn_map) +
+  geom_map(map = tn_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3) +
+    theme(legend.position = "none") # remove the legend
+```
+]
+]
+---
+
+## Key Concept: Choropleth maps
+
+Geographical heat maps, also known as choropleth maps, are one way of visualizing our geographic data.
+
+```{r}
+#| echo: false
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("~/R/f23-founds-eds/week-11/photo.png")
+```
+
+---
+
+## Making choropleth maps: Global map
+
+```{r}
+#| include: false
+set.seed(123)
+
+regions_data <-
+    world_map %>% 
+    select(region) %>% 
+    distinct() %>% 
+    mutate(value = sample(100:1000, n()))
+```
+
+```{r}
+#| echo: true
+head(world_map)
+```
+
+```{r}
+#| echo: true
+head(regions_data)
+```
+
+---
+
+## Making choropleth maps: Joining data
+
+```{r}
+#| echo: true
+joined_data <- left_join(world_map, regions_data, by = "region")
+
+head(joined_data)
+```
+
+---
+
+## Making choropleth maps: Joining data
+
+Add the data as an aesthetic in your ggplot object with `fill()`.
 
 .panelset[
 
-.panel[.panel-name[Background]
+.panel[.panel-name[Create choropleth map]
 
-- There are some conventions that are stated and sometimes unstated about how data should be recorded
-- For example, typically, rows represent _cases_ (AKA _observations_), while columns represent _variables_
-
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
 ]
 
-.panel[.panel-name[Discussion Question]
+.panel[.panel-name[Create choropleth map]
 
-- Which conventions (stated or unstated!) for how data should be recorded have you found to be important in your work? Why?
-
+```{r}
+#| echo: false
+#| eval: true
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
 ]
-
 ]
-
 
 ---
 
-# Optional Reading Recap
+## Making choropleth maps: U.S. Map
 
-Optional Substantive Reading(s):
+```{r}
+#| include: false
+set.seed(123)
 
-> Kimmons, R., & Veletsianos, G. (2018). Public internet data mining methods in in structional design, educational technology, and online learning research. *TechTrends, 62*(5), 492-500.
+state_data <-
+    state_map %>% 
+    select(state = region) %>% 
+    distinct() %>% 
+    mutate(value = sample(100:1000, n()))
+```
 
-Technical reading(s):
+```{r}
+#| echo: true
+head(state_data)
+```
 
-> Tidy data: https://vita.had.co.nz/papers/tidy-data.pdf
+```{r}
+#| echo: true
+joined_data <- left_join(state_map, state_data, join_by("region" == "state"))
+
+head(joined_data)
+```
 
 ---
 
-# Key Concept: tidy data
+## Making choropleth maps: Joining data
+
+```{r}
+#| echo: true
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+---
+
+## Key Concept: Adding points to a map
+
+Let's say we have another dataset with longitude/latitude data for different points:
+
+```{r}
+#| include: false
+points_data <-
+    tibble::tribble(
+               ~Place.Name, ~Latitude,  ~Longitude,
+          "Wisconsin, USA",      44.5,       -89.5,
+      "West Virginia, USA",        39,       -80.5,
+            "Vermont, USA",        44,  -72.699997,
+          "Texas, the USA",        31,        -100,
+    "South Dakota, the US",      44.5,        -100,
+    "Rhode Island, the US", 41.742325,  -71.742332,
+          "Oregon, the US",        44,      -120.5,
+           "New York, USA",        43,         -75,
+      "New Hampshire, USA",        44,       -71.5,
+           "Nebraska, USA",      41.5,        -100,
+          "Kansas, the US",      38.5,         -98,
+        "Mississippi, USA",        33,         -90,
+           "Illinois, USA",        40,         -89,
+        "Delaware, the US",        39,       -75.5,
+        "Connecticut, USA", 41.599998,  -72.699997,
+        "Arkansas, the US", 34.799999,  -92.199997,
+            "Indiana, USA", 40.273502,  -86.126976,
+           "Missouri, USA", 38.573936,   -92.60376,
+            "Florida, USA", 27.994402,  -81.760254,
+             "Nevada, USA", 39.876019, -117.224121,
+          "Maine, the USA", 45.367584,  -68.972168,
+           "Michigan, USA", 44.182205,  -84.506836,
+        "Georgia, the USA", 33.247875,  -83.441162,
+             "Hawaii, USA", 19.741755, -155.844437,
+             "Alaska, USA", 66.160507, -153.369141,
+          "Tennessee, USA", 35.860119,  -86.660156,
+           "Virginia, USA", 37.926868,  -78.024902,
+         "New Jersey, USA", 39.833851,  -74.871826,
+           "Kentucky, USA", 37.839333,   -84.27002,
+       "North Dakota, USA", 47.650589, -100.437012,
+          "Minnesota, USA",  46.39241,   -94.63623,
+       "Oklahoma, the USA", 36.084621,  -96.921387,
+            "Montana, USA",  46.96526, -109.533691,
+     "Washington, the USA", 47.751076, -120.740135,
+               "Utah, USA",  39.41922, -111.950684,
+           "Colorado, USA", 39.113014, -105.358887,
+               "Ohio, USA", 40.367474,  -82.996216,
+            "Alabama, USA",  32.31823,  -86.902298,
+           "Iowa, the USA", 42.032974,  -93.581543,
+         "New Mexico, USA", 34.307144, -106.018066,
+     "South Carolina, USA", 33.836082,  -81.163727,
+       "Pennsylvania, USA", 41.203323,  -77.194527,
+            "Arizona, USA", 34.048927, -111.093735,
+           "Maryland, USA", 39.045753,  -76.641273,
+      "Massachusetts, USA", 42.407211,  -71.382439,
+         "California, USA", 36.778259, -119.417931,
+              "Idaho, USA", 44.068203, -114.742043,
+            "Wyoming, USA",  43.07597, -107.290283,
+     "North Carolina, USA", 35.782169,  -80.793457,
+          "Louisiana, USA",  30.39183,  -92.329102
+    )
+```
+
+
+```{r}
+#| echo: true
+head(points_data)
+```
+
+---
+
+## Key Concept: Adding points to a map
+
+```{r}
+#| echo: true
+ggplot(data = joined_data) +
+  geom_map(map = joined_data,
+           aes(x = long,
+               y = lat,
+               fill = value,
+               map_id = region)) +
+    coord_fixed(1.3) +
+    geom_point(data = points_data,
+               aes(x = Longitude, y = Latitude))
+```
+
+---
+
+## Code-along
 
 .panelset[
 
-.panel[.panel-name[What is tidy data?]
+.panel[.panel-name[Dataset]
 
-- *Tidy data* refers to a particular expression of the conventions about how data should be recorded, or stored
-- The idea was first shared in a *Journal of Statistical Software* paper (that you can optionally read this week!)
-- Broadly, "The principles of tidy data provide a standard way to organise data values within a dataset" (Wickham, 2014, p. 1)
-- The idea of tidy data relates to other notions how how data should be recorded, including schema for relational databases
-]
+Data is from iNaturalist
 
-
-.panel[.panel-name[Definition and Benefits]
-
-**Definition**:
-
-1. Each variable forms a column.
-2. Each observation forms a row.
-3. Each type of observational unit forms a table.
-
-**Benefits**:
-
-- Using the "tidy data" gives you a sense of direction for how you can prepare disorganized data
-- The "tidy data" format works well with many tidyverse functions, including the `group_by()` and `summarize()` we used last week, as well as ggplot2() functions
+- Can query and download data from Explorer tab: <https://www.inaturalist.org/observations>
+- There's also an R API wrapper: <https://cran.r-project.org/web/packages/rinat/rinat.pdf>
 
 ]
+.panel[.panel-name[Pull world map data]
 
-.panel[.panel-name[Example]
+```{r}
+#| eval: false
+#| echo: true
+library(tidyverse)
+library(maps)
 
-**How can we make this tidy?**
-
-```{r, echo = FALSE, eval = TRUE}
-tibble(name = c("Maryrose", "Isabella"),
-       observation_at_t1 = c(3, 2),
-       observation_at_t2 = c(5, 1),
-       observation_at_t3 = c(3, 5))
+world_map <- map_data("world")
 ```
 
 ]
 
-.panel[.panel-name[Example]
+.panel[.panel-name[Read in data]
 
-**Each observation must become a row, with a variable indicating when the observation was made**
-
-```{r, echo = FALSE, eval = TRUE}
-tibble(name = rep(c("Maryrose", "Isabella"), 3),
-       time = c(1,1,2,2,3,3),
-       observation = c(3, 2, 5, 1, 3, 5))
+```{r}
+#| eval: false
+#| echo: true
+bear_dat <- read_csv(here::here("week-11", "data", "bears.csv"))
 ```
 
-*For examples of other common problems with datasets, check out [the tutorial reading for this week](https://vita.had.co.nz/papers/tidy-data.pdf) on tidy data.*
 ]
 
+.panel[.panel-name[Prep data]
+
+```{r}
+#| eval: false
+#| echo: true
+bear_dat_grouped <-
+    bear_dat %>% 
+    mutate(place_country_name = case_match(place_country_name,
+                                           "United States" ~ "USA",
+                                           .default = place_country_name)) %>% 
+    group_by(place_country_name) %>% 
+    summarize(n_bears = n())
+```
+
+]
+
+.panel[.panel-name[Join data]
+
+```{r}
+#| eval: false
+#| echo: true
+bear_map <-
+    left_join(world_map, bear_dat_grouped, join_by(region == place_country_name))
+```
+
+]
 ]
 
 ---
 
-# Key Concept: Pivoting
+## Code-along
 
 .panelset[
 
-.panel[.panel-name[How to tidy]
+.panel[.panel-name[Create choropleth data]
 
-- In the section on the last key concept, we showed a dataset in a tidy form (and its original form)
-- We manually changed the format of that dataset, because it was very small in size
-- But, how can we tidy data when we're working with larger datasets---when manual transformations are not possible?
-- One set of functions to do this* are the pivot functions:
-- `pivot_longer()`
-- `pivot_wider()`
-
-*There are aspects of tidy data that cannot be addressed through the pivot functions, though we focus on them because the problem they address is very common and otherwise difficult to resolve 
-]
-
-.panel[.panel-name[`pivot_longer()`]
-
-- When should `pivot_longer()` be used?
-- For the following data frame, this function can be used to tidy the data (we'll show how to use this function in just a moment!)
-
-```{r, echo = FALSE, eval = TRUE}
-tibble(name = c("Maryrose", "Isabella"),
-       observation_at_t1 = c(3, 2),
-       observation_at_t2 = c(5, 1),
-       observation_at_t3 = c(3, 5))
+```{r}
+#| eval: false
+#| echo: true
+ggplot(data = bear_map) +
+    geom_map(map = bear_map,
+             aes(
+                 x = long,
+                 y = lat,
+                 fill = n_bears,
+                 map_id = region
+             )) +
+    coord_fixed(1.3)
 ```
 
 ]
 
-.panel[.panel-name[`pivot_wider()`]
+.panel[.panel-name[Add points]
 
-- When should `pivot_wider()` be used?
-- For the following data frame, this function can be used to change the data back to its original form
-
-```{r, echo = FALSE, eval = TRUE}
-tibble(name = c("Maryrose", "Isabella"),
-       observation_at_t1 = c(3, 2),
-       observation_at_t2 = c(5, 1),
-       observation_at_t3 = c(3, 5))
-```
-
-]
-
-.panel[.panel-name[Notes]
-
-- You may be wondering, why would we _ever_ want to use `pivot_wider()`, if doing so typically changes data (back) into non-tidy form?
-- Sometimes, non-tidy data is useful:
-- For displays of (tables with) data, for which non-tidy data is more familiar or intuitive
-- For certain functions or data analytic techniques that require the data to be in this form
-]
-
-
-]
-
----
-
-# Code-along
-
-.panelset[
-
-.panel[.panel-name[pivot_longer()]
-
-- Let's start by tidying the example data frame
-- You can click the copy symbol in the top-right of the below code chunk to easily copy this code
-- `pivot_longer()` requires that you specify the `names_to` and `values_to` and we use `!` to indicate which columns should _not_ be pivoted
-
-```{r, echo = TRUE, eval = FALSE}
-dat <- tibble(name = c("Maryrose", "Isabella"),
-              observation_at_t1 = c(3, 2),
-              observation_at_t2 = c(5, 1),
-              observation_at_t3 = c(3, 5))
-
-dat %>% 
-    pivot_longer(!name, names_to = "time", values_to = "values")
-```
-
-]
-
-.panel[.panel-name[pivot_wider()]
-
-- Let's start with our data in long form
-
-```{r, echo = TRUE, eval = FALSE}
-dat_long <- dat %>% 
-    pivot_longer(!name, names_to = "time", values_to = "values")
-```
-
-- How might we change this _back_ into wide form?
-- `pivot_wider()` requires you to specify `names_from` and `values_from`
-
-```{r, echo = TRUE, eval = FALSE}
-dat_long %>% 
-    pivot_wider(names_from = "time", values_from = "values")
-```
-]
-
-.panel[.panel-name[More practice]
-
-- Let's try tidying a different data frame, transforming it from _wide_ to _long_ form 
-- How might we do this? Consider a) which variable(s) should not be pivoted and what the b) `names_to` and c) `values_to` should be
-
-```{r, echo = TRUE, eval = FALSE}
-relig_income
+```{r}
+#| eval: false
+#| echo: true
+ggplot(data = bear_map) +
+    geom_map(map = bear_map,
+             aes(
+                 x = long,
+                 y = lat,
+                 fill = n_bears,
+                 map_id = region
+             )) +
+    coord_fixed(1.3) +
+    geom_point(data = bear_dat,
+               aes(x = longitude, y = latitude,
+                   color = common_name),
+               alpha = 0.3) +
+    theme(legend.position = "none") # remove the legend
 ```
 
 ]
@@ -256,19 +707,17 @@ relig_income
 
 .panel[.panel-name[Weekly Assignment]
 
-- In this week's assignment, you will tidy a data set while also practicing selecting and renaming variables and joining a second data set
+- In this week's assignment, you will create a map that shows global energy data from [Our World in Data](https://ourworldindata.org/energy).
+- The dataset is mostly cleaned up as part of the TidyTuesday project, but some preparation steps are still required.
+- The reach section asks you to add customization. If there's something you would like to do and have questions on how to do it, please reach out!
 
 ]
 
 .panel[.panel-name[Mini-Project]
 
-- The mini-project is now available in Canvas! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have two week to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
+- The mini-project is now available in Canvas! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have one more week to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
 
 ]
-
-.panel[.panel-name[Data]
-
-- The data we'll use comes from the [*National Teacher and Principal Survey*](https://nces.ed.gov/surveys/ntps/) and is on the number of full-time nurses in schools in U.S. states.
 
 .panel[.panel-name[Optional Substantive Reading(s)]
 

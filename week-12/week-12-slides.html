@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 12 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
+    <meta name="date" content="2023-11-06" />
+    <script src="week-12-slides_files/header-attrs-2.24/header-attrs.js"></script>
+    <link href="week-12-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="week-12-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="week-12-slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-12-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-12-slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-12-slides_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-12-slides_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-12-slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week-12-slides_files/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 12 Slides
+]
+.subtitle[
+## Mapping, Part 2
+]
+.author[
+### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
+]
+.date[
+### November 06, 2023
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+This week, we'll add to our toolkit for visualizing spatial data with `geom_sf()`, which allows us the flexibility and power to visualize data that is stored in vector spatial format.
+
+## What we'll do in this presentation
+
+- Assignment 10 review
+- Useful functions for cleaning data
+- New mapping packages: sf and tigris
+- New mapping geom: `geom_sf()`
+
+---
+
+## Assignment 10 review
+
+.panelset[
+
+.panel[.panel-name[Tidy data]
+
+* Each variable must have its own column.
+* Each observation must have its own row.
+* Each value must have its own cell.
+
+```
+dat
+## # A tibble: 63 × 3
+##    State                avg_nurses avg_students_per_nurse
+##    &lt;chr&gt;                     &lt;dbl&gt;                  &lt;dbl&gt;
+##  1 Alabama                    1.04                    510
+##  2 Alaska                     0.3                     400
+##  3 Arizona                    0.64                    670
+##  4 Arkansas                   1.1                     460
+```
+]
+
+.panel[.panel-name[Long data]
+
+```
+dat_long
+## # A tibble: 108 × 3
+##    State      Variables              Values
+##    &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt;
+##  1 Alabama    avg_nurses               1.04
+##  2 Alabama    avg_students_per_nurse 510   
+##  3 Alaska     avg_nurses               0.3 
+##  4 Alaska     avg_students_per_nurse 400   
+##  5 Arizona    avg_nurses               0.64
+```
+
+]
+
+.panel[.panel-name[Long data example]
+
+
+```r
+ggplot(dat) +
+  geom_bar(mapping = aes(x = Region, 
+                         y = values,
+                         fill = Division),
+           stat = "identity",
+           position = position_dodge()) +
+  facet_wrap(~ variable,
+             scales = "free_y")
+```
+
+![](week-12-slides_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+]
+
+]
+
+
+---
+
+## Useful functions for cleaning data
+
+.panelset[
+
+.panel[.panel-name[Cleaning data]
+
+Before joining, grouping, summarizing, modeling, visualizing... we need to make sure our data is clean!
+
+&lt;img src="https://r4ds.hadley.nz/diagrams/data-science/communicate.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[stringr]
+
+The stringr package provides a cohesive set of functions designed to make working with strings as easy as possible.
+
+&lt;img src="https://stringr.tidyverse.org/logo.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[`str_trim()`]
+
+**Removing Whitespace:** Let's say you have a dataset with a column of messy text, and you want to remove extra spaces at the beginning and end of each string. Use the `str_trim` function for that:
+
+
+```r
+dat &lt;- tibble(txt = c("   Hello  ", "   World   "))
+dat %&gt;% mutate(clean_txt = str_trim(txt))
+```
+
+```
+## # A tibble: 2 × 2
+##   txt           clean_txt
+##   &lt;chr&gt;         &lt;chr&gt;    
+## 1 "   Hello  "  Hello    
+## 2 "   World   " World
+```
+
+]
+
+.panel[.panel-name[`str_to_lower()`]
+
+**Changing Case:** You can change the case of text using `str_to_lower` or `str_to_upper.` For example, to convert all text to lowercase:
+
+
+```r
+dat &lt;- tibble(txt = c("Tennessee", "tennessee"))
+dat %&gt;% mutate(clean_txt = str_to_lower(txt))
+```
+
+```
+## # A tibble: 2 × 2
+##   txt       clean_txt
+##   &lt;chr&gt;     &lt;chr&gt;    
+## 1 Tennessee tennessee
+## 2 tennessee tennessee
+```
+
+]
+
+.panel[.panel-name[`str_replace_all()`]
+
+**Pattern Matching and Replacement:** If you want to replace specific patterns in your text, you can use `str_replace` or `str_replace_all.` For example, if you want to replace all instances of "apple" with "banana":
+
+
+```r
+dat &lt;- tibble(txt = c("I like apples", "Apples are tasty"))
+dat %&gt;% mutate(clean_txt = str_replace_all(txt, "apple", "banana"))
+```
+
+```
+## # A tibble: 2 × 2
+##   txt              clean_txt       
+##   &lt;chr&gt;            &lt;chr&gt;           
+## 1 I like apples    I like bananas  
+## 2 Apples are tasty Apples are tasty
+```
+
+]
+
+.panel[.panel-name[`str_extract()`]
+
+**Extracting Substrings:** You can use `str_extract` to extract specific substrings based on a pattern. 
+
+- Regular expression (regex) is a sequence of characters that specifies a match pattern in
+text. ChatGPT is very good at regex!
+
+For example, to extract all email addresses from a text column:
+
+
+```r
+dat &lt;- tibble(txt = c("Contact me at user@example.com", "Email us at support@email.com"))
+dat %&gt;% mutate(emails = str_extract(txt, "\\S+@\\S+"))
+```
+
+```
+## # A tibble: 2 × 2
+##   txt                            emails           
+##   &lt;chr&gt;                          &lt;chr&gt;            
+## 1 Contact me at user@example.com user@example.com 
+## 2 Email us at support@email.com  support@email.com
+```
+
+]
+]
+
+---
+
+## Useful functions for cleaning data
+
+tidyr and dplyr also have useful functions for cleaning data!
+
+.panelset[
+.panel[.panel-name[`distinct()`]
+
+Use `distinct()` to extract unique rows from a data frame. It can be helpful when you want to remove duplicate rows.
+
+
+```r
+dat &lt;- tibble(name = c("Alice", "Bob", "Alice", "Charlie"),
+               age = c(25, 30, 25, 28))
+distinct(dat)
+```
+
+```
+## # A tibble: 3 × 2
+##   name      age
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Alice      25
+## 2 Bob        30
+## 3 Charlie    28
+```
+
+]
+
+.panel[.panel-name[`drop_na()`]
+
+`drop_na()` is used to remove rows containing missing (NA) values in a data frame.
+
+
+```r
+dat &lt;- tibble(name = c("Alice", "Bob", NA, "Charlie"),
+              age = c(25, NA, 30, 28))
+drop_na(dat)
+```
+
+```
+## # A tibble: 2 × 2
+##   name      age
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Alice      25
+## 2 Charlie    28
+```
+
+]
+
+.panel[.panel-name[`replace_na()`]
+
+`replace_na()` is used to replace missing values with a specific value in a data frame.
+
+
+```r
+dat &lt;- tibble(name = c("Alice", "Bob", NA, "Charlie"),
+              age = c(25, NA, 30, 28))
+dat %&gt;% mutate(age = replace_na(age, 0))
+```
+
+```
+## # A tibble: 4 × 2
+##   name      age
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Alice      25
+## 2 Bob         0
+## 3 &lt;NA&gt;       30
+## 4 Charlie    28
+```
+
+]
+
+.panel[.panel-name[`case_when()`]
+
+`case_when()` allows you to perform conditional operations to create a new column based on specific conditions.
+
+
+```r
+dat &lt;- tibble(score = c(85, 72, 95, 60, 78))
+dat %&gt;%
+    mutate(grade = case_when(score &gt;= 90 ~ "A",
+                             score &gt;= 80 ~ "B",
+                             score &gt;= 70 ~ "C",
+                             TRUE ~ "D"))
+```
+
+```
+## # A tibble: 5 × 2
+##   score grade
+##   &lt;dbl&gt; &lt;chr&gt;
+## 1    85 B    
+## 2    72 C    
+## 3    95 A    
+## 4    60 D    
+## 5    78 C
+```
+
+]
+]
+
+---
+
+# Last week: `geom_map()`
+
+Last week, we created maps using the maps package and `geom_map()`.
+
+`geom_map()` can use a dataframe object to create a map:
+
+```r
+ggplot(data = world_map) +
+  geom_map(map = world_map,
+           aes(x = long,
+               y = lat,
+               map_id = region)) +
+    coord_fixed(1.3)
+```
+
+---
+
+# This week: `geom_sf()`
+
+.panelset[
+
+.panel[.panel-name[Vector spatial data]
+
+You will commonly encounter map outlines in other formats.
+
+- *Vector spatial data* is a spatial data model that represents geographic features as points, lines, and polygons.
+
+]
+
+.panel[.panel-name[sf package]
+
+- The sf package uses the class of simple feature (sf) for vector spatial data in R.
+- The sf package was designed to replace the sp package, which has been one of the most popular and powerful spatial packages in R for more than a decade.
+- sf represents vector spatial data much like a regular R data frame, but with a special column, `geometry`, that represents the shape of each feature.
+- An important benefit is its compatibility with the tidyverse packages, which include widely popular packages like ggplot2 and dplyr.
+
+
+
+]
+
+.panel[.panel-name[`geom_sf()`]
+
+- As of ggplot2 version 3.0, the package released support for plotting simple features objects directly with the function `geom_sf()`. 
+- The underlying principles and syntax to create maps and non-spatial figures are very similar.
+- We can use `geom_sf()` for sf objects.
+
+In the example below, `la_tracts` is of class sf:
+
+```r
+ggplot(la_tracts) + 
+  geom_sf() + 
+  theme_void()
+```
+
+]
+]
+
+---
+
+# Key Concept: Simple Feature (sf)
+
+.panelset[
+
+.panel[.panel-name[sf storage]
+
+The sf package provides a simply way of storing geographic information and the attributes of the geographic units in a single dataset.
+
+
+```r
+#--- a dataset that comes with the sf package ---#
+nc &lt;- st_read(system.file("shape/nc.shp", package = "sf"))
+```
+
+```
+## Reading layer `nc' from data source 
+##   `/Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library/sf/shape/nc.shp' 
+##   using driver `ESRI Shapefile'
+## Simple feature collection with 100 features and 14 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+## Geodetic CRS:  NAD27
+```
+
+]
+
+.panel[.panel-name[sf class]
+
+Inspecting the object reveals its `sf` class:
+
+
+```r
+class(nc)
+```
+
+```
+## [1] "sf"         "data.frame"
+```
+
+]
+
+.panel[.panel-name[sf geometries]
+
+Now, let’s take a look inside of nc.
+
+- The variable `geometry` at the end, where each row represents a single simple feature geographic unit (sfg; in this case, county).
+- There are different types of sfgs (`POINT`, `LINESTRING`, `POLYGON`, `MULTIPOLYGON`, etc).
+- An sf object is essentially a dataframe with geometric information stored as a variable (column).
+
+
+```r
+head(nc)
+```
+
+```
+## Simple feature collection with 6 features and 14 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -81.74107 ymin: 36.07282 xmax: -75.77316 ymax: 36.58965
+## Geodetic CRS:  NAD27
+##    AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74
+## 1 0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1
+## 2 0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0
+## 3 0.143     1.630  1828    1828       Surry 37171  37171       86  3188     5
+## 4 0.070     2.968  1831    1831   Currituck 37053  37053       27   508     1
+## 5 0.153     2.206  1832    1832 Northampton 37131  37131       66  1421     9
+## 6 0.097     1.670  1833    1833    Hertford 37091  37091       46  1452     7
+##   NWBIR74 BIR79 SID79 NWBIR79                       geometry
+## 1      10  1364     0      19 MULTIPOLYGON (((-81.47276 3...
+## 2      10   542     3      12 MULTIPOLYGON (((-81.23989 3...
+## 3     208  3616     6     260 MULTIPOLYGON (((-80.45634 3...
+## 4     123   830     2     145 MULTIPOLYGON (((-76.00897 3...
+## 5    1066  1606     3    1197 MULTIPOLYGON (((-77.21767 3...
+## 6     954  1838     5    1237 MULTIPOLYGON (((-76.74506 3...
+```
+
+]
+
+.panel[.panel-name[sf geometries]
+
+Let’s take a look inside the sfg for Ashe County using `st_geometry()`.
+
+
+```r
+st_geometry(nc[1, ])[[1]][[1]]
+```
+
+```
+## [[1]]
+##            [,1]     [,2]
+##  [1,] -81.47276 36.23436
+##  [2,] -81.54084 36.27251
+##  [3,] -81.56198 36.27359
+##  [4,] -81.63306 36.34069
+##  [5,] -81.74107 36.39178
+##  [6,] -81.69828 36.47178
+##  [7,] -81.70280 36.51934
+##  [8,] -81.67000 36.58965
+##  [9,] -81.34530 36.57286
+## [10,] -81.34754 36.53791
+## [11,] -81.32478 36.51368
+## [12,] -81.31332 36.48070
+## [13,] -81.26624 36.43721
+## [14,] -81.26284 36.40504
+## [15,] -81.24069 36.37942
+## [16,] -81.23989 36.36536
+## [17,] -81.26424 36.35241
+## [18,] -81.32899 36.36350
+## [19,] -81.36137 36.35316
+## [20,] -81.36569 36.33905
+## [21,] -81.35413 36.29972
+## [22,] -81.36745 36.27870
+## [23,] -81.40639 36.28505
+## [24,] -81.41233 36.26729
+## [25,] -81.43104 36.26072
+## [26,] -81.45289 36.23959
+## [27,] -81.47276 36.23436
+```
+
+]
+
+.panel[.panel-name[sf geometries]
+
+
+```r
+plot(st_geometry(nc[1, ]))
+```
+
+![](week-12-slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+# Creating maps from `sf` objects using ggplot2
+
+.panelset[
+
+.panel[.panel-name[Plotting using `geom_sf()`]
+
+- `geom_sf()` allows for visualizing sf objects.
+- Conveniently, `geom_sf()` automatically detects the geometry type of spatial objects stored in sf and draw maps accordingly.
+
+
+```r
+ggplot(data = nc) +
+    geom_sf()
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+]
+
+.panel[.panel-name[`Specifying the aesthetics`]
+
+
+```r
+library(ggplot2)
+
+ggplot(data = nc) +
+    geom_sf(fill = "#0C1337",
+            color = "white") +
+    theme_void()
+```
+
+]
+
+.panel[.panel-name[`Specifying the aesthetics`]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+## If we can't use the maps package for built-in geometries, what can we use?
+
+---
+
+# The tigris package
+
+.panelset[
+.panel[.panel-name[tigris]
+
+tigris is an R package that allows users to directly download and use TIGER/Line shapefiles from the US Census Bureau using R.
+
+TIGER stands for *Topologically Integrated Geographic Encoding and Referencing* and include three general types of data:
+
+- Legal entities
+- Statistical entities
+- Geographic features
+
+```r
+install.packages("tigris")
+```
+
+]
+
+.panel[.panel-name[Downloading data]
+
+tigris functions return simple features objects with a default year of 2021.
+
+- See all options: &lt;https://github.com/walkerke/tigris&gt;
+- In some cases, this subsetting is optional; in other cases, state and/or county arguments will be required.
+
+
+```r
+library(tigris)
+
+tn_districts &lt;- school_districts("Tennessee")
+```
+
+
+
+
+```r
+class(tn_districts)
+```
+
+```
+## [1] "sf"         "data.frame"
+```
+
+]
+
+.panel[.panel-name[tigris geometries]
+
+
+```r
+tn_districts
+```
+
+```
+## Simple feature collection with 126 features and 14 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -90.31049 ymin: 34.98292 xmax: -81.6469 ymax: 36.67826
+## Geodetic CRS:  NAD83
+## First 10 features:
+##    STATEFP UNSDLEA   GEOID                                 NAME LSAD LOGRADE
+## 1       47   00001 4700001       Hamblen County School District   00      PK
+## 2       47   00060 4700060           Alcoa City School District   00      PK
+## 3       47   00078 4700078                Fort Campbell Schools   00      PK
+## 4       47   00090 4700090      Anderson County School District   00      PK
+## 5       47   00148 4700148        Shelby County School District   00      PK
+## 6       47   00149 4700149         Collierville School District   00      PK
+## 7       47   00150 4700150 Millington Municipal School District   00      PK
+## 8       47   00151 4700151 Germantown Municipal School District   00      PK
+## 9       47   00152 4700152  Arlington Community School District   00      PK
+## 10      47   00153 4700153        Bartlett City School District   00      PK
+##    HIGRADE MTFCC SDTYP FUNCSTAT      ALAND   AWATER    INTPTLAT     INTPTLON
+## 1       12 G5420  &lt;NA&gt;        E  417475125 37853343 +36.2183967 -083.2660711
+## 2       12 G5420  &lt;NA&gt;        E   38808390  2388752 +35.8095702 -083.9758571
+## 3       12 G5420     B        E  273929183   490282 +36.5982483 -087.6003456
+## 4       12 G5420  &lt;NA&gt;        E  729446681 10681215 +36.1454415 -084.1876563
+## 5       12 G5420  &lt;NA&gt;        E 1380491136 22425242 +35.1640565 -089.9224302
+## 6       12 G5420  &lt;NA&gt;        E   93892801   199087 +35.0489249 -089.6970764
+## 7       12 G5420  &lt;NA&gt;        E  189546284   304978 +35.3418066 -089.8669986
+## 8       12 G5420  &lt;NA&gt;        E   51763696    64231 +35.0819566 -089.7825836
+## 9       12 G5420  &lt;NA&gt;        E   66034145    34735 +35.2606564 -089.6726813
+## 10      12 G5420  &lt;NA&gt;        E   83601298    34187 +35.2341691 -089.8202657
+##                          geometry
+## 1  MULTIPOLYGON (((-83.4687 36...
+## 2  MULTIPOLYGON (((-84.02875 3...
+## 3  MULTIPOLYGON (((-87.8021 36...
+## 4  MULTIPOLYGON (((-84.08317 3...
+## 5  MULTIPOLYGON (((-89.70663 3...
+## 6  MULTIPOLYGON (((-89.75968 3...
+## 7  MULTIPOLYGON (((-89.9912 35...
+## 8  MULTIPOLYGON (((-89.84557 3...
+## 9  MULTIPOLYGON (((-89.71952 3...
+## 10 MULTIPOLYGON (((-89.88795 3...
+```
+
+]
+
+.panel[.panel-name[Plotting geometries]
+
+We can plot our output from tigris using ggplot2 and `geom_sf()`:
+
+
+```r
+ggplot(tn_districts) + 
+  geom_sf()
+```
+
+![](week-12-slides_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+## What if I have my own map to plot?
+
+---
+
+# Reading shapefiles
+
+.panelset[
+
+.panel[.panel-name[Shapefiles]
+
+- The shapefile format is a geospatial vector data format for geographic information system (GIS) software.
+-  The shapefile format can spatially describe vector features: points, lines, and polygons.
+- The term "shapefile" is quite common, but the format consists of a collection of files with a common filename prefix, stored in the same directory.
+- The three mandatory files have filename extensions .`shp`, `.shx`, and `.dbf`.
+- The actual shapefile relates specifically to the .shp file, but alone is incomplete for distribution as the other supporting files are required.
+
+]
+
+.panel[.panel-name[Knoxville - Knox County Zoning]
+
+Let's say we want to map the Zoning districts from Knox County (available here: &lt;https://www.arcgis.com/home/item.html?id=481b8a768b20403998fb9b454f35d23b&gt;).
+
+- We download the shapefile(s) and save it in our Week 12 folder.
+
+&lt;img src="knox.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+panel[.panel-name[Files]
+
+We should save all the files in the folder:
+
+&lt;img src="files.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[Reading the data]
+
+Use the function `st_read()` to read the files
+
+- `dsn`: the path to folder in which the shapefile(s) you want to import is stored.
+- name of the shapefile
+
+
+```r
+knox_zones &lt;-
+    st_read(dsn = here::here("week-12", "shapefiles"),
+            "Knoxville-Knox_County_Zoning")
+```
+
+```
+## Reading layer `Knoxville-Knox_County_Zoning' from data source 
+##   `/Users/ivelasq/R/f23-founds-eds/week-12/shapefiles' using driver `ESRI Shapefile'
+## replacing null geometries with empty geometries
+## Simple feature collection with 13230 features and 10 fields (with 14 geometries empty)
+## Geometry type: GEOMETRY
+## Dimension:     XY
+## Bounding box:  xmin: 2479441 ymin: 536582.7 xmax: 2663425 ymax: 680917.9
+## Projected CRS: NAD83(HARN) / Tennessee (ftUS)
+```
+
+]
+
+.panel[.panel-name[Plotting the data]
+
+
+```r
+ggplot(data = knox_zones) +
+    geom_sf()
+```
+
+]
+
+.panel[.panel-name[Plotting the data]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+.panel[.panel-name[Intro]
+
+Let's create a choropleth map of state revenue for school lunch programs for each school district in Tennesee.
+
+]
+
+.panel[.panel-name[Obtaining the data]
+
+Let's revisit our handy educationdata package:
+
+
+```r
+library(educationdata)
+library(dplyr)
+library(tidyr)
+library(tigris)
+library(ggplot2)
+
+edu_data &lt;- get_education_data(level = "school-districts",
+    source = "ccd",
+    topic = "finance",
+    filters = list(year = 2018,
+                   fips = 47))
+```
+
+]
+
+.panel[.panel-name[Joining the data]
+
+
+```r
+tn_districts &lt;- school_districts("Tennessee")
+
+tn_data &lt;-
+    left_join(tn_districts, edu_data, join_by(GEOID == leaid))
+```
+
+]
+
+.panel[.panel-name[Plotting the data]
+
+
+```r
+ggplot(data = tn_data) + 
+    geom_sf(aes(fill = salaries_total))
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+.panel[.panel-name[Adding to the plot]
+
+
+```r
+salaries_total_by_enrollment &lt;-
+    tn_data %&gt;% 
+    mutate(salary_by_enrollment = salaries_total/enrollment_fall_school)
+```
+
+]
+
+.panel[.panel-name[Adding to the plot]
+
+
+```r
+ggplot(data = salaries_total_by_enrollment) +
+    geom_sf(aes(fill = salary_by_enrollment),
+            color = "white") +
+    theme_void() +
+    labs(title = "Total salary amount",
+         fill = "Revenue") +
+    scale_fill_continuous(labels = scales::dollar)
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+
+.panel[.panel-name[Plotting more than one variable]
+
+Let's say we want to use `facet_wrap()` to show more than one variable at a time. We will need to use `pivot_longer()` and contain our variables in one column to be able to do this.
+
+
+
+]
+
+.panel[.panel-name[Plotting more than one variable]
+
+![](week-12-slides_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+
+]
+]
+
+---
+
+# Notes on the assignment
+
+- Instead of using `read_csv()` from tidyr, you will need to install the readxl package and use the function `read_excel()`.
+- Be sure to read the instructions carefully!
+- Plots may take a while to load (they did for me).
+
+---
+
+# What's next?
+
+- Final projects have comments and suggestions. Please take a look!
+- Be sure to turn in your mini-project if you haven't already
+- Data ethnics assignment now with partner feedback - due November 20th, feedback due the 27th
+- Please turn in any late assignments; grade book will be up to date by next week
+
+---
+
+# Optional Reading Recap
+
+Substantive reading(s):
+
+&gt; Mann, B., &amp; Saultz, A. (2019). The role of place, geography, and geographic information systems in educational research. Aera Open, 5(3), https://journals.sagepub.com/doi/10.1177/2332858419869340
+
+Technical reading(s):
+
+- [R as GIS for Economists](https://tmieno2.github.io/R-as-GIS-for-Economists/index.html)
+- [tigris package](https://github.com/walkerke/tigris)
+- [Census geographic data and applications in R](https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

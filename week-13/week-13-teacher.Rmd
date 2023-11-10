@@ -13,12 +13,11 @@ In this homework, we will work with text gathered from a recent class recording.
 
 ## Step 1
 
-Load the tidyverse package. We will also use the tidytext and zoomGroupStats packages. Install and load these packages if you have not already done so.
+Load the tidyverse package. We will also use the tidytext package. Install and load this package if you have not already done so.
 
 ```{r}
 library(tidyverse)
 library(tidytext)
-library(zoomGroupStats)
 ```
 
 ## Step 2
@@ -44,15 +43,14 @@ Before moving on to analyzing class data, what do you think are two benefits of 
 Now, let's do the same with our Zoom data.
 
 ```{r}
-# This will need to be updated with the appropriate file name from class.
+# First, upload the class Zoom transcript CSV data.
 
-batchOut = batchProcessZoomOutput(batchInput="myMeetingsBatch.xlsx")
+transcript <- read_csv("data/processed-transcript.csv")
 
-transcript <- batchOut$transcript %>% 
-  as_tibble()
+# In this next step, use similar code from Step 2.
 
 transcript %>% 
-  unnest_tokens(word, utteranceMessage) %>% 
+  unnest_tokens(word, text) %>% 
   count(word) %>% 
   arrange(desc(n)) %>% 
   anti_join(stop_words)
@@ -80,8 +78,8 @@ Calculate the mean duration of the time spoken, then create a plot, coloring the
 
 ```{r}
 mean_utterance_duration_and_n_utterances <- transcript %>% 
-  mutate(utterance_duration = utteranceEndTime-utteranceStartTime) %>% 
-  group_by(userName) %>% 
+  mutate(utterance_duration = end-start) %>% 
+  group_by(name) %>% 
   summarize(mean_utterance_duration = mean(utterance_duration),
             n_utterances = n()) %>% 
   arrange(desc(mean_utterance_duration))
@@ -89,8 +87,8 @@ mean_utterance_duration_and_n_utterances <- transcript %>%
 
 ```{r}
 mean_utterance_duration_and_n_utterances %>% 
-  ggplot(aes(x = reorder(userName, mean_utterance_duration), y = mean_utterance_duration, fill = n_utterances)) +
-  geom_col() +coord_flip() +
+  ggplot(aes(x = reorder(name, mean_utterance_duration), y = mean_utterance_duration, fill = n_utterances)) +
+  geom_col() + coord_flip() +
   xlab("Speaker") + ylab("Average Utterance Duration")
 ```
 
@@ -104,29 +102,26 @@ If someone not associated with the class were given your graph, what do you thin
 
 ## Step 6
 
-In this step, determine how many times the instructor spoke the utterance "um" over the class. As a reach, calculate the mean number of "um" utterances per minute spoken.
+In this step, determine how many times Isabella or Maryrose (you pick) spoke the word "data" over the class. Hint: use code similar to Steps 2 and 3. As a reach, calculate the mean number of "data" words per minute spoken (you may need to use the package lubridate). 
 
 ```{r}
-# I really enjoyed doing this last year. We can (and likely should) adjust the filler word to something that is more appropriate for this course. I wanted to have this in here as a placeholder for now, though. Also, this is code that I copied from my assignment last year, so it likely isn't the most efficient way of doing this.
-
-Rosenberg_um <- transcript %>% 
-  filter(userName == "Joshua Rosenberg") %>% 
-  unnest_tokens(word, utteranceMessage) %>% 
+isabella_data <- transcript %>% 
+  filter(userName == "Isabella Velásquez") %>% 
+  unnest_tokens(word, text) %>% 
   count(word) %>% 
   arrange(desc(n)) %>% 
   anti_join(stop_words)
 
-#Reach
 library(lubridate)
-um <- transcript %>% 
-  filter(userName == "Joshua Rosenberg") %>% 
-  unnest_tokens(word, utteranceMessage) %>% 
-  filter(word == "um") %>% 
-  mutate(hour = hour(utteranceStartTime),
-         minute = minute(utteranceStartTime)) 
-um$time <- paste(um$hour,um$minute)
+isabella_data_1 <- transcript %>% 
+  filter(userName == "Isabella Velásquez") %>% 
+  unnest_tokens(word, text) %>% 
+  filter(word == "data") %>% 
+  mutate(hour = hour(start),
+         minute = minute(start)) 
+data$time <- paste(data$hour,data$minute)
 
-um_count <- um %>% 
+data_count <- isabella_data_1 %>% 
   group_by(time) %>% 
   count() %>% 
   summarize(avg_um_utterance_min = mean(n))
@@ -146,6 +141,14 @@ What ethical concerns might be present when sharing word frequencies to a large 
 What is one other ethical concern you have with text/transcript data?
 
 -   
+
+## Reach
+
+As a reach, conduct a sentiment analysis on the Zoom transcript data from class. To see code on how to do this, visit: https://www.tidytextmining.com/sentiment
+
+```{r}
+
+```
 
 ## Rubric
 

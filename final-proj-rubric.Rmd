@@ -1,0 +1,84 @@
+---
+title: "STEM 680 Final Rubric"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+There will be three parts to this assignment: 1) a file containing your code (50 points), 2) a written report of your analysis (150 points), and 3) a presentation detailing your findings (100 points). We recognize that there may be sensitive information in your code that you do not feel comfortable sharing. Please know that it is okay to submit a file with code commented out (either by using a \# or setting eval = FALSE) to protect any sensitive information contained within the dataset.
+
+**Part 1: Create (submitted as a .Rmd file)**
+
+You will **select a data set of your choice**. This may be data you are working on as part of your research, data from another course, or data you find on the internet. It does not have to be related to education.
+
+You will explore, analyze, and summarize your dataset, creating at least one data visualization that tells a story about this data. You must also employ techniques learned in at least three modules. It is recommended that you have at least two research questions you are trying to answer to do this.
+
+Here is a useful code snippet for good slide-sized output for data visualizations:
+
+`ggsave(plot=last_plot(), width=10, height=8, file=”your_file_name.jpg”)`
+
+50 points awarded as follows:
+
+|                                       | Points Possible |
+|---------------------------------------|-----------------|
+| Code to upload data                   | 5               |
+| Three techniques used to analyze data | 30              |
+| Research questions answered           | 15              |
+
+**Part 2: Report (submitted as a .pdf)**
+
+You will submit a final report after your presentation. This report should be at least 1,000 words in length. In addition to your R code, the following sections should be included:
+
+-   Introduction
+    -   Why is the problem you're analyzing important?
+    -   What is/are your research question(s)?
+-   Methods
+    -   How did you collect your data?
+    -   What does your data consist of?
+    -   What R packages did you use and how?
+-   Analysis
+    -   How did you use R to answer your research question(s)?
+    -   Include any figures in this section
+-   Conclusion
+    -   Summarize your findings
+    -   Discuss any limitations
+    -   Discuss any future plans
+-   Personal Reflection
+    -   This should be a reflection of your growth over the semester in this class. Feel free to discuss how you plan to use the skills you've learned in future projects.
+
+Please pay careful attention to formatting. Resources for formatting: [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) and the [RMarkdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/).
+
+150 points awarded as follows:
+
+|                     | Points Possible |
+|---------------------|-----------------|
+| Introduction        | 30 points       |
+| Methods             | 30 points       |
+| Analysis            | 30 points       |
+| Conclusion          | 30 points       |
+| Personal Reflection | 20 points       |
+| Grammar             | 10 points       |
+
+**Part 3: Presentation (completed in class)**
+
+-   Please prepare a 5-7 minute presentation on your project describing
+
+    -   The topic of your project
+    -   Why you chose this topic
+    -   What problem it solved or question it helped/helps you to answer
+    -   What you did, including the learning/independent work you had to do to be able to achieve what you did
+    -   What you are most proud of about your final project
+    -   What you still want to know more about/what you want to do next having completed your final project
+
+100 points awarded as follows:
+
+|                                                                         | Points Possible |
+|----------------------------------------------------|--------------------|
+| 6 points addresssed                                                     | 75 points       |
+| Presentation neatly organized and presented in an understandable manner | 20 points       |
+| Within time limits                                                      | 5 points        |

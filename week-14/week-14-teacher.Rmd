@@ -28,6 +28,14 @@ Next, you will need to upload your data. If this data is in multiple files, you 
 
 ```
 
+## Optional (maybe likely step)
+
+There is a good chance your data is not tidy. Take some time to practice tidying your data before moving onto Step 3.
+
+```{r}
+
+```
+
 ## Step 3
 
 Now, let's begin the process of determining the topics.

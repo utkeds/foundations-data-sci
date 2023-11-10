@@ -1,0 +1,18 @@
+https://stackoverflow.com/questions/56808444/reverse-geocoding-of-thousands-of-coordinates-to-get-country-only
+
+```{python}
+import geopandas as gpd
+import pandas as pd
+
+world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+
+df = pd.read_csv('week-11/data/bears.csv')
+
+gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.longitude, df.latitude))
+gdf.crs = {'init' :'epsg:4326'}
+result = gpd.sjoin(gdf, world, how='left')
+```
+
+```{r}
+a <- py$result
+```
