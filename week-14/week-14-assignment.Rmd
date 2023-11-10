@@ -27,6 +27,14 @@ Next, you will need to upload your data. If this data is in multiple files, you 
 
 ```
 
+## Optional (maybe likely step)
+
+There is a good chance your data is not tidy. Take some time to practice tidying your data before moving onto Step 3.
+
+```{r}
+
+```
+
 ## Step 3
 
 Now, let's begin the process of determining the topics.
@@ -87,6 +95,14 @@ How do you think you could use topic modeling in your thesis or dissertation?
 What are ethical considerations you should take when publishing topic models?
 
 -   
+
+## Reach
+
+As a reach, conduct a sentiment analysis on the Zoom transcript data from class. To see code on how to do this, visit: http://zoomgroupstats.org/articles/part03-analyze-zoom-conversation-data.html#:~:text=the%20transcript%20file.-,Performing,-sentiment%20analysis
+
+```{r}
+
+```
 
 ## Rubric
 
