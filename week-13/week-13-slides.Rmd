@@ -13,23 +13,6 @@ knitr::opts_chunk$set(echo = FALSE,
 
 library(tidyverse)
 library(tidytext)
-
-state_by_region <-
-    read_csv(
-        "https://github.com/cphalpert/census-regions/blob/master/us%20census%20bureau%20regions%20and%20divisions.csv?raw=true"
-    ) # data on U.S. states' regions
-
-dat <-
-    read_csv(
-        "https://github.com/utkeds/f23-founds-eds/blob/main/ntps2021_7341_s1s.csv?raw=true",
-        skip = 5
-    ) %>%
-    select(State,
-           ave_nurses = 2,
-           students_per_nurse = 4) %>%
-    filter(!is.na(State)) %>%
-    pivot_longer(-State, names_to = "variable", values_to = "values") %>%
-    left_join(state_by_region)
 ```
 
 ```{r, echo=FALSE}
@@ -42,7 +25,7 @@ pacman::p_load(pacman, knitr, tidyverse, readxl)
 # can be pasted easily
 htmltools::tagList(
     xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
-                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",),
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>", ),
     rmarkdown::html_dependency_font_awesome()
 )
 ```
@@ -92,7 +75,7 @@ In R, factors are a way to handle categorical data.
 
 .panel[.panel-name[`fct_reorder()`]
 
-`fct_reorder()` is a function in the forcats package that allows you to reorder levels sof a factor based on the values of another variable. Suppose you have a dataset with two variables: "City" and "Revenue." You want to reorder the levels of "City" based on the sum of "Revenue" for each city.
+`fct_reorder()` is a function in the forcats package that allows you to reorder levels of a factor based on the values of another variable. Suppose you have a dataset with two variables: "City" and "Revenue." You want to reorder the levels of "City" based on the sum of "Revenue" for each city.
 
 ```{r}
 #| echo: true
@@ -136,8 +119,10 @@ levels(data$education)
 
 # What counts as text data?
 
-- Text data is common across physical, life sciences, and social sciences research fields (with this last group of fields including educational research)
+- Text data is common across physical, life sciences, and social sciences research fields (with this last group of fields including educational research).
 - Text data can take _many_ forms; what are some examples of text in your field? What sort of analysis do you do with text?
+
+**Next week: bring your own text data!**
 
 ---
 
