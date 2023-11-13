@@ -494,6 +494,14 @@ tidy_books %>%
 
 ]
 
+.panel[.panel-name[Next Week: BYOD]
+
+Next week: bring your own text data!
+
+Think about the text data that you commonly work with and how you would like to analyze it.
+
+]
+
 .panel[.panel-name[Data Ethics]
 
 - This is posted in Canvas (here)[https://utk.instructure.com/courses/184613/assignments/1641272?module_item_id=3651964]) and is due Nov. 20 with partner feedback due Nov. 27th.
