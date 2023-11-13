@@ -66,11 +66,15 @@ Let's create a column chart of the top words, styling it and making it easier to
 
 ## Step 5
 
-Calculate the mean duration of the time spoken, then create a plot, coloring the points by the number of times each individual spoke. Be sure to include axis titles. 
+Calculate the mean duration of the time spoken, then create a plot, coloring the points by the number of times each individual spoke. Be sure to include axis titles.
 
 ```{r}
-mean_utterance_duration_and_n_utterances <- transcript %>% 
-  mutate(utterance_duration = end-start) %>% 
+mean_utterance_duration_and_n_utterances <- transcript %>%
+    mutate(
+        start = lubridate::seconds_to_period(hms(start)),
+        end = lubridate::seconds(hms(end)),
+        utterance_duration = end - start
+    ) %>% 
   group_by(name) %>% 
   summarize(mean_utterance_duration = mean(utterance_duration),
             n_utterances = n()) %>% 
