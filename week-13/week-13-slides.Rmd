@@ -12,19 +12,23 @@ knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE)
 
 library(tidyverse)
+library(tidytext)
 
-state_by_region <- read_csv("https://github.com/cphalpert/census-regions/blob/master/us%20census%20bureau%20regions%20and%20divisions.csv?raw=true") # data on U.S. states' regions
+state_by_region <-
+    read_csv(
+        "https://github.com/cphalpert/census-regions/blob/master/us%20census%20bureau%20regions%20and%20divisions.csv?raw=true"
+    ) # data on U.S. states' regions
 
 dat <-
     read_csv(
         "https://github.com/utkeds/f23-founds-eds/blob/main/ntps2021_7341_s1s.csv?raw=true",
         skip = 5
-    ) %>% 
-  select(State,
-         ave_nurses = 2,
-         students_per_nurse = 4) %>% 
-    filter(!is.na(State)) %>% 
-    pivot_longer(-State, names_to = "variable", values_to = "values") %>% 
+    ) %>%
+    select(State,
+           ave_nurses = 2,
+           students_per_nurse = 4) %>%
+    filter(!is.na(State)) %>%
+    pivot_longer(-State, names_to = "variable", values_to = "values") %>%
     left_join(state_by_region)
 ```
 
@@ -37,10 +41,8 @@ pacman::p_load(pacman, knitr, tidyverse, readxl)
 # these allow any code snippets to be copied to the clipboard so they 
 # can be pasted easily
 htmltools::tagList(
-    xaringanExtra::use_clipboard(
-        button_text = "<i class=\"fa fa-clipboard\"></i>",
-        success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
-    ),
+    xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",),
     rmarkdown::html_dependency_font_awesome()
 )
 ```
@@ -62,108 +64,340 @@ This week, we'll introduced text data and text analysis. Traditionally, text dat
 
 ---
 
-# What counts as text data?
+## Shout out
 
-- Text data is common across physical, life sciences, and social sciences research fields (with this last group of fields including educational research)
-- Text data can take _many_ forms; what are some examples of text in your field? There are no wrong answers here!
+Great job on the mini-project!
+
+```{r}
+#| echo: false
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics('https://i1.wp.com/media2.giphy.com/media/Xc9XJ8poD8cE7SSopt/giphy.gif?ssl=1')
+```
 
 ---
 
-## Week 12 Review
+## Helpful tidyverse functions: forcats
 
 .panelset[
 
-.panel[.panel-name[Review of the last week]
+.panel[.panel-name[Factors]
 
-* *add reflections on mapping?*
+In R, factors are a way to handle categorical data.
 
-
-]
-
-.panel[.panel-name[Week 12 assignment]
-
-* *any notes on the assignment?* or reading
-
+* R represents categorical data as factors to maintain the specific categories and their order.
+* Factors in R have both the category labels (levels) and the actual data.
 
 ]
 
+.panel[.panel-name[`fct_reorder()`]
+
+`fct_reorder()` is a function in the forcats package that allows you to reorder levels sof a factor based on the values of another variable. Suppose you have a dataset with two variables: "City" and "Revenue." You want to reorder the levels of "City" based on the sum of "Revenue" for each city.
+
+```{r}
+#| echo: true
+library(forcats)
+library(dplyr)
+
+data <- data.frame(
+  city = c("New York", "Los Angeles", "Chicago", "Houston", "New York", "Chicago"),
+  revenue = c(15000, 22000, 18000, 12000, 13500, 16000)
+)
+
+data <- data %>%
+  mutate(city = city %>% fct_reorder(., revenue, sum))
+
+# Check the levels after reordering
+levels(data$city)
+```
 
 ]
 
+.panel[.panel-name[`fct_relevel()`]
+
+`fct_relevel()` in the forcats package is used to reorder the levels of a factor to a specified order.
+
+Let's say you have a dataset with a factor variable "Education" that contains levels for different education levels. You want to reorder these levels to a custom order.
+
+```{r}
+#| echo: true
+data <- data.frame(
+  education = c("High School", "Bachelor's", "Some College", "Master's", "High School"))
+
+data <- data %>%  mutate(education = fct_relevel(education, "Some College", "Bachelor's", "Master's", "High School"))
+
+levels(data$education)
+```
+
+]
+]
+
+---
+
+# What counts as text data?
+
+- Text data is common across physical, life sciences, and social sciences research fields (with this last group of fields including educational research)
+- Text data can take _many_ forms; what are some examples of text in your field? What sort of analysis do you do with text?
+
+---
+
+# Example of text analysis
+
+She Giggles, He Gallops: <https://pudding.cool/2017/08/screen-direction/>
 
 ---
 
 ## tidytext
 
+**The tidytext package**: A tool designed for text mining and natural language processing, utilizing the principles of tidy data.
+
+Install using:
+
+```r
+install.packages("tidytext") # remember to delete this line after installing!
+```
+
+---
+
+## Key Concept: Tokens and the tidy text format
+
 .panelset[
 
-.panel[.panel-name[tidytext]
+.panel[.panel-name[Token]
 
-- **tidytext Package**: A tool designed for text mining and natural language processing, utilizing the principles of tidy data.
-Key Concept
-- **Token**: In tidytext, a 'token' refers to the smallest unit of text analysis, such as a word, symbol, or n-gram.
-- **Tokenization Process: Tidytext breaks down text into tokens, enabling efficient analysis of words, frequency, sentiment, and more.
-- **Applications and Benefits**: Uses the same tidy data format we are familiar with; has great documentations and examples (see [here](https://www.tidytextmining.com/)); has basic and advanced computational text analysis capabilities
+- **Token**: A 'token' refers to the smallest unit of text analysis, such as a word, symbol, or n-gram.
+- **Tokenization**: The process of splitting text into tokens, enabling efficient analysis of words, frequency, sentiment, and more.
+
 ]
 
+.panel[.panel-name[Tidy text format]
+
+Tidy text has a specific structure: 
+
+    Each variable is a column
+    Each observation is a row
+    Each type of observational unit is a table
+
+- **Tidy text format**: a table with one-token-per-row.
+- The tidytext package provides functionality to tokenize by commonly used units of text like these and convert to a one-term-per-row format.
+
+]
+
+.panel[.panel-name[Applications and benefits]
+
+- We can use the same tidy data format we are familiar with.
+- Tidy data sets allow manipulation with a standard set of “tidy” tools.
+- There's great documentations and examples (see [tidytextmining.com](https://www.tidytextmining.com/)); the website has basic and advanced computational text analysis capabilities.
+
+>  Treating text as data frames of individual words allows us to manipulate, summarize, and visualize the characteristics of text easily and integrate natural language processing into effective workflows we were already using. - Text Mining with R, Silge & Robinson.
+
+]
+]
+
+---
+
+## Key concept: Tokenization
+
+.panelset[
 .panel[.panel-name[`unnest_tokens()`]
 
 **Transforming text into tidy text:** we must break text into individual tokens. That is, each word (i.e., token) must have its own line.
 
-- `unnest_tokens()` is _the key_ function in working with text data using tidytext
-
+- `unnest_tokens()` is the _key_ function in working with text data using tidytext
 - The first argument (`word`) you must specify is the new column name the text will be unnested into.
-
 - The second argument (`text)` is the input column the text comes from. This can be quotes, transcripts, entire documents, etc.
 
 ]
 
 .panel[.panel-name[Example]
 
-Here's a super small example (h/t to Run-D.M.C.)
+Here's a super small example (h/t to Run-D.M.C.). This is a typical character vector that we might want to analyze.
 
-```{r, echo = TRUE, eval = TRUE}
-text_df = tibble(text = c("This speech is my recital, I think it's very vital",
-          "To rock (a rhyme), that's right (on time)",
-          "It's Tricky is the title, here we go..."))
+```{r}
+#| echo: true
+text = c(
+    "This speech is my recital, I think it's very vital",
+    "To rock (a rhyme), that's right (on time)",
+    "It's Tricky is the title, here we go..."
+)
 
-tidy_df_unnest <- text_df %>%
-  unnest_tokens(word, text)
-
-tidy_df_unnest %>% 
-    head(3)
+text
 ```
 
 ]
 
-.panel[.panel-name[Which text?]
+.panel[.panel-name[Example]
 
-- Text data can originate from a wide range of sources, encompassing both traditional and digital mediums.
-- **Examples of Text Data Sources**:
-  - Digital sources: Websites, social media posts, online reviews, blogs, and news articles.
-  - Traditional sources: Books, journals, newspapers, and transcripts of interviews or speeches.
-  - Institutional documents: Official reports, legal documents, policy papers, and corporate communications.
-  - Personal communication: Emails, letters, text messages, and notes.
-- **Considerations in Text Data Collection**:
-  - Ethical considerations and privacy concerns, especially with personal or sensitive data.
-  - Data quality and representativeness, ensuring that the text data accurately reflects the subject of study.
-  - Challenges in processing and analyzing unstructured text, requiring specific tools and methodologies like Natural Language Processing (NLP).
+To turn the text into a tidy text dataset, we first need to put it into a data frame. However, it still isn't compatible with text analysis.  We can’t filter out words or count which occur most frequently, since each row is made up of multiple combined words. We need to convert this so that it has **one-token-per-document-per-row**.
+
+```{r}
+#| echo: true
+text_df <- tibble(line = 1:3, text = text)
+
+text_df
+```
+
+]
+
+.panel[.panel-name[Example]
+
+we need to both break the text into individual tokens (tokenization) and transform it to a tidy data structure. For this, we use tidytext’s `unnest_tokens()` function.
+
+* The arguments are the column names
+    * First, we have the output column name that will be created as the text is unnested into it (`word`)
+    * The input column that the text comes from (`text`)
+
+```{r}
+#| echo: true
+tidy_df_unnest <- text_df %>%
+    unnest_tokens(word, text)
+```
+
+]
+
+.panel[.panel-name[Example]
+
+After using `unnest_tokens()`, we’ve split each row so that there is one token (word) in each row of the new data frame; the default tokenization in `unnest_tokens()` is for single words, as shown here.
+
+* Other columns, such as the line number each word came from, are retained.
+* Punctuation has been stripped.
+* By default, `unnest_tokens()` converts the tokens to lowercase.
+
+```{r}
+#| echo: true
+tidy_df_unnest %>%
+    head(3)
+```
+
+]
+]
+
+---
+
+## Summary
+
+```{r}
+#| echo: false
+#| out.width: 100%
+#| fig-align: center
+knitr::include_graphics('tmwr_0101.png')
+```
+
+---
+
+## Key Concept: Stop Words
+
+.panelset[
+.panel[.panel-name[Stop Words]
+
+- **Stop words**: Words that are not useful for an analysis, typically extremely common words such as “the”, “of”, “to”, and so forth in English.
+- Often in text analysis, we want to remove stop words.
 
 ]
 
 .panel[.panel-name[`anti_join()`]
 
-**Removing Stop Words:** `anti_join()` works to remove observations from a specified dataset. Here we will use the `stop_words` dataset from the tidytext package.
+- We can manipulate our text data with tidy tools like dplyr.
+- `anti_join()` works to remove observations from a specified dataset.
 
-- Stop words are words that are not useful for text analysis (e.g., the, a, and, etc.)
+> All rows from x where there are not matching values in y, keeping just columns from x.
 
 ```{r}
-text_df_unnest %>% 
+#| echo: false
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics('anti-join.gif')
+```
+
+Source: <https://www.garrickadenbuie.com/project/tidyexplain/#anti-join>
+
+]
+
+.panel[.panel-name[`stop_words` dataset]
+
+- The `stop_words` dataset in the tidytext package contains stop words from three lexicons. 
+- Here we will use `stop_words` to remove stop words with `anti_join()`.
+
+```{r}
+#| echo: true
+tidy_df_unnest %>%
     anti_join(stop_words)
 ```
 
 ]
+]
 
+---
+
+## Another example
+
+.panelset[
+.panel[.panel-name[Example]
+
+```r
+my_sentences <- tibble(sentences = c("I think that she's really good at playing soccer, but he's probably a better dancer, especially at his age", "I really like to watch soccer games, especially for OneKnox", "She was a great goalkeeper, perhaps because she played soccer from such a young age"))
+
+my_sentences %>% 
+  unnest_tokens(___, ___) %>% # separate words, removing punctuation
+  count(___) %>% # counting words
+  ____(desc(n)) %>% # arranging by frequency
+  ___(___) # removing common words, or "stop" words
+```
+
+]
+
+.panel[.panel-name[Example]
+
+```r
+my_sentences %>% 
+  unnest_tokens(word, sentences) %>% # separate words, removing punctuation
+  count(word) %>% # counting words
+  arrange(desc(n)) %>% # arranging by frequency
+  anti_join(stop_words) # removing common words, or "stop" words
+```
+
+]
+]
+
+---
+
+## Which text?
+
+.panelset[
+.panel[.panel-name[Sources]
+
+Text data can originate from a wide range of sources, encompassing both traditional and digital mediums.
+
+**Examples of Text Data Sources**:
+  
+- Digital sources: Websites, social media posts, online reviews, blogs, and news articles.
+- Traditional sources: Books, journals, newspapers, and transcripts of interviews or speeches.
+- Institutional documents: Official reports, legal documents, policy papers, and corporate communications.
+- Personal communication: Emails, letters, text messages, and notes.
+
+]
+
+.panel[.panel-name[Formats]
+
+Text data can be stored in many different formats.
+
+**Examples of Text Data Formats**:
+
+- String: Text can be stored as strings, i.e., character vectors, within R, and often text data is first read into memory in this form.
+- Corpus: These types of objects typically contain raw strings annotated with additional metadata and details.
+- Document-term matrix: This is a sparse matrix describing a collection (i.e., a corpus) of documents with one row for each document and one column for each term. The value in the matrix is typically word count or tf-idf.
+    
+]
+
+.panel[.panel-name[Data Ethics]
+  
+ **Considerations in Text Data Collection**:
+ 
+- Ethical considerations and privacy concerns, especially with personal or sensitive data.
+- Data quality and representativeness, ensuring that the text data accurately reflects the subject of study.
+- Challenges in processing and analyzing unstructured text, requiring specific tools and methodologies like Natural Language Processing (NLP).
+
+]
 ]
 
 ---
@@ -171,12 +405,94 @@ text_df_unnest %>%
 ## Code-Along
 
 .panelset[
+
 .panel[.panel-name[Intro]
 
-This week's code-along is a bit different: We will practice text analysis on some simple text before you perform text analysis on our class' Zoom transcript data.
+Tidying the works of Jane Austen: Let’s use the text of Jane Austen’s 6 completed, published novels from the janeaustenr package. The janeaustenr package provides these texts in a one-row-per-line format, where a line in this context is analogous to a literal printed line in a physical book. 
 
-- Please download this week's homework for the code-along.
-- Please also download the CSV (available only on Canvas for privacy reasons) to use for this code-along _and_ the homework
+]
+
+.panel[.panel-name[janeaustenr]
+
+To analyze the words in Jane Austen books, let's use `mutate()` to:
+
+* annotate a `linenumber` quantity to keep track of lines in the original format
+* and create a `chapter` column (using a regex) to find where all the chapters are.
+
+```r
+library(janeaustenr)
+library(dplyr)
+library(stringr)
+
+original_books <- austen_books() %>%
+  group_by(book) %>%
+  mutate(linenumber = row_number(),
+         chapter = cumsum(str_detect(text, 
+                                     regex("^chapter [\\divxlc]",
+                                           ignore_case = TRUE)))) %>%
+  ungroup()
+```
+
+]
+
+.panel[.panel-name[`unnest_tokens()`]
+
+To work with this as a tidy dataset, we need to restructure it in the one-token-per-row format using `unnest_tokens()`.
+
+```r
+library(tidytext)
+tidy_books <- original_books %>%
+  unnest_tokens(word, text)
+```
+
+]
+
+
+.panel[.panel-name[Remove stop words]
+
+We can remove stop words (kept in the tidytext dataset `stop_words`) with an `anti_join()`.
+
+```r
+data(stop_words)
+
+tidy_books <- tidy_books %>%
+  anti_join(stop_words)
+```
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+.panel[.panel-name[Count words]
+
+We can use dplyr’s `count()` to find the most common words in all the books as a whole.
+
+```r
+tidy_books %>%
+  count(word, sort = TRUE)
+```
+
+]
+
+.panel[.panel-name[Visualize words]
+
+We can pipe the word count directly to the ggplot2 package.
+
+```r
+library(ggplot2)
+
+tidy_books %>%
+  count(word, sort = TRUE) %>%
+  filter(n > 600) %>%
+  mutate(word = fct_reorder(word, n)) %>%
+  ggplot(aes(n, word)) +
+  geom_col() +
+  labs(y = NULL)
+```
 
 ]
 ]
@@ -189,21 +505,21 @@ This week's code-along is a bit different: We will practice text analysis on som
 
 .panel[.panel-name[Weekly Assignment]
 
-- You'll complete this week's assignment using our class transcript data
+- You'll complete this week's assignment using our class transcript data!
 
 ]
 
 .panel[.panel-name[Data Ethics]
 
-- This is posted in Canvas ((here)[https://utk.instructure.com/courses/184613/assignments/1641272?module_item_id=3651964]) and is due Nov. 20
+- This is posted in Canvas (here)[https://utk.instructure.com/courses/184613/assignments/1641272?module_item_id=3651964]) and is due Nov. 20 with partner feedback due Nov. 27th.
 
 ]
 
 .panel[.panel-name[Final Project]
 
-- This is posted in Canvas ((here)[https://utk.instructure.com/courses/184613/assignments/1607692?module_item_id=3562339])
+- This is posted in Canvas (here)[https://utk.instructure.com/courses/184613/assignments/1607692?module_item_id=3562339])
 - See also the Week 16 module! Let's discuss this and consider any questions you have.
+- You will present a 5-7 min presentation in class on 12/4 and the final project is due 12/11.
 
 ]
-
 ]
