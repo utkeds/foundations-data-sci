@@ -13,7 +13,7 @@ In this homework, you are going to complete text analysis on some of your own te
 
 ## Step 1
 
-Load the tidyverse and topicmodels packages.
+Load the tidyverse and topicmodels R packages.
 
 ```{r}
 
@@ -21,19 +21,12 @@ Load the tidyverse and topicmodels packages.
 
 ## Step 2
 
-Next, you will need to upload your data. If this data is in multiple files, you will need to combine them into one dataset.
+Next, you will need to upload your data. If this data is in multiple files, you will need to combine them into one dataset using the skills you have developed earlier (especially joining data on a common key!). There is a good chance your data is not tidy. Take some time to practice tidying your data before moving onto Step 3 - select, filter, and so on!
 
 ```{r}
 
 ```
 
-## Optional (maybe likely step)
-
-There is a good chance your data is not tidy. Take some time to practice tidying your data before moving onto Step 3.
-
-```{r}
-
-```
 
 ## Step 3
 
@@ -51,13 +44,13 @@ Name each topic you found. There is no right or wrong answer here; make it somet
 
 ## Step 4
 
-Your task in this next step is to copy and then modify the code above to estimate and interpret a model with a different number of topics. Recall that the choice for the value of k is up to the analyst, and depends on concerns of interpretability and parsimony (as well as fit metrics that you can explore if you wish to take this analysis further). Please copy and paste the code above and choose several values of k, trying to understand what the "best" value for k may be.
+Your task in this next step is to copy and then modify the code above to estimate and interpret a model with a different number of topics. Recall that the choice for the value of *k* is up to the analyst, and depends on concerns of interpretability and parsimony (as well as fit metrics that you can explore if you wish to take this analysis further). Please copy and paste the code above and choose several values of k, trying to understand what the "best" value for k may be.
 
 ```{r}
 
 ```
 
-Why did you choose k to be the value it is?
+Why did you choose *k* to be the value it is?
 
 -   
 
@@ -77,7 +70,7 @@ What are ethical considerations you should take when publishing topic models?
 
 ## Reach
 
-As a reach, conduct a sentiment analysis on the Zoom transcript data from class. To see code on how to do this, visit: http://zoomgroupstats.org/articles/part03-analyze-zoom-conversation-data.html#:~:text=the%20transcript%20file.-,Performing,-sentiment%20analysis
+As a reach, conduct a sentiment analysis on the Zoom transcript data from class. To see code on how to do this, visit: https://www.tidytextmining.com/sentiment
 
 ```{r}
 

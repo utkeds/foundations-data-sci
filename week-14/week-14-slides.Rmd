@@ -34,12 +34,12 @@ xaringanExtra::use_panelset()
 
 # Purpose and Agenda
 
-This week, we'll continue our exploration of text analysis specifically with topic modeling. Topic modeling is a method for unsupervised classification of such documents, similar to clustering on numeric data, which finds natural groups of items even when we’re not sure what we’re looking for.
+This week, we'll continue our exploration of text analysis specifically with topic modeling. Topic modeling is a method for unsupervised classification of such text---meaning no codes or themes for documents are needed in advance, It similar to clustering on numeric data, which finds natural groups of items even when we’re not sure what we’re looking for.
 
 ## What we'll do in this presentation
 
 - Discussion
-- Key Concept: topic modeling
+- Key Concept: Topic modeling
 - Code-along and data
 - Discussion
 - What's next: Assignment(s) and Readings
@@ -52,52 +52,75 @@ This week, we'll continue our exploration of text analysis specifically with top
 
 .panel[.panel-name[Background]
 
-- What is topic modeling?
+- Traditionally, something like what topic modeling can produce has been achieved through _thematic, qualitative analysis_ of text data
+- However, the power of computers --- even your own computer --- can be leveraged to achieve something like what thematic, qualitative analysis can 
+- Such computer-driven analyses go by many names that refer to similar but distinct techniques, including: 
+    - natural language processing (NLP)
+    - computational text analysis
+    - computational linguistics
+    - text mining
 
 ]
 
 .panel[.panel-name[Discussion Question]
 
-- Value of topic modeling?
+- What are some ways you have explored or described the themes in text?
+- What do you see as the potential of analyzing text with your computer?
 
 ]
-
-]
-
-
----
-
-# Optional Reading Recap
-
-Optional Substantive reading(s):
-
-> 
-
-Technical Reading(s):
-
-> 
 
 ]
 
 ---
 
-# Key Concept: topic modeling
+# Key Concept: Topic modeling
 
 .panelset[
 
-.panel[.panel-name[Latent Dirichlet allocation]
+.panel[.panel-name[LDA and topic models]
 
 - Latent Dirichlet allocation (LDA) is a method for fitting a topic model.
-- Each document is a mixture of topics and each topic is a mixture of words
-- Words can be shared between topics
+- Each document is a mixture of topics, and each topic is a mixture of words; this means that documents share similarities based on the distribution of topics.
+- Words can be shared between topics; this means that topics may overlap in their word distributions, indicating thematic similarities.
+
+]
+
+.panel[.panel-name[*k*]
+
+- A key aspect of topic modeling is determining *k*, the number of topics.
+- Choosing the right *k* is critical for model accuracy and interpretability.
+- Various methods, help in selecting an appropriate *k*, but **there's no one criterion used to select k**, and often analysts consider a variety of solutions with different numbers of topics (different *k*s)
+
+]
+
+.panel[.panel-name[Interpretation]
+
+- The interpretation of topic models is a key, non-trivial step.
+- It involves understanding the thematic substance of each topic based on the distribution of words.
+- Effective interpretation requires domain knowledge and sometimes iterative refinement of the model.
+
+]
+
+.panel[.panel-name[Example]
+
+- Here's a very simple snippet showing how you can use the {topicmodels} R package:
+
+```{r, eval = FALSE, echo = TRUE}
+library(topicmodels)
+data("AssociatedPress", package = "topicmodels")
+lda_model <- LDA(AssociatedPress, k = 10)
+topics <- terms(lda_model, 6)
+print(topics)
+```
 ]
 
 
-.panel[.panel-name[*other information? example?*]
+*More on interpreting the topics in just a moment!*
 
-**fill in text**:
+.panel[.panel-name[Caution]
 
-
+- Topic modeling is very powerful: you can estimate the topics that describe 100s, 1000s, or 10,000+ documents quickly
+- But, it is not a panacea, and it is often important to note that the topics identified through topic modeling _may not validly characterize what is in the documents_; carefully reviewing the topics, qualitatively reading sample documents to see how well the topics in fact describe them, and thoughtfully reporting results is necessary, still
 
 ]
 
@@ -116,11 +139,13 @@ Technical Reading(s):
 - First, install and load the topicmodels package. Then, load the AssociatedPress dataset.
 
 ```{r, echo = TRUE, eval = FALSE}
-install.packages("topicmodels")
+# install.packages("topicmodels")
 library(topicmodels)
 
 data("AssociatedPress")
 ```
+
+**A key thing to note here is the format of this data; when you use your own data, getting it into the right "form"--a document-term matrix--is essential. More on how to do that is [here](https://www.tidytextmining.com/topicmodeling).**
 
 ]
 
@@ -174,7 +199,8 @@ ap_top_terms %>%
   scale_y_reordered()
 ```
 
-- How would you name each of these topics?
+- How would you name each of these topics? Let's talk through each of them.
+
 ]
 
 ]
@@ -188,25 +214,30 @@ ap_top_terms %>%
 .panel[.panel-name[Weekly Assignment]
 
 - In this week's assignment, you will perform topic modeling on a dataset of your choosing, preferably from your own research. 
-- It is likely you will want to tidy your dataset before starting the topic modeling process. Don't forget your skills!
+- It is likely you will want to prepare and tidy your dataset before starting the topic modeling process. Don't forget the skills you have used through this point in the semester---they are just as relevant now!!
 
 ]
 
-.panel[.panel-name[Optional Substantive Reading(s)]
+.panel[.panel-name[Final Projects]
 
-Substantive reading(s):
+- How are you doing? Your final project _presentation_ is coming up soon! Please see details [here](https://utk.instructure.com/courses/184613/assignments/1607692)
+- Next week, we'll have time reserved to prepare for your final project presentations (and _reports_ due after your _presentations_)
 
-> 
+]
+
+.panel[.panel-name[Readings]
+
+**Substantive reading(s):**
+
+> Nelson, L. K., Burk, D., Knudsen, M., & McCall, L. (2021). The future of coding: A comparison of hand-coding and three types of computer-assisted text analysis methods. Sociological Methods & Research, 50(1), 202-237.
+
+*This is a phenomenal introduction not only to topic modeling, but also other computational text analysis methods. Also, refer back to the reading from last week for a nice example of how to write up a topic modeling study!*
 
 This is linked in Canvas.
 
-]
+**Technical reading(s):**
 
-.panel[.panel-name[Technical Reading(s)]
-
-- Technical reading(s):
-
-> 
+> Topic modeling: https://www.tidytextmining.com/topicmodeling
 
 This is also linked in Canvas.
 
