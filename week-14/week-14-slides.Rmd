@@ -215,6 +215,8 @@ ap_top_terms %>%
 
 - In this week's assignment, you will perform topic modeling on a dataset of your choosing, preferably from your own research. 
 - It is likely you will want to prepare and tidy your dataset before starting the topic modeling process. Don't forget the skills you have used through this point in the semester---they are just as relevant now!!
+- Lastly, using your own data may be hard; you shouldn't look for perfect or even very good output, instead celebrating any results/output you can produce with their data! That's what we're looking for from this assignment. 
+    - There's also a backup dataset you can use if you don't have one
 
 ]
 
