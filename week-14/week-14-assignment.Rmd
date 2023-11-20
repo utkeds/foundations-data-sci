@@ -23,16 +23,15 @@ Load the tidyverse and topicmodels R packages.
 
 Next, you will need to upload your data. If this data is in multiple files, you will need to combine them into one dataset using the skills you have developed earlier (especially joining data on a common key!). There is a good chance your data is not tidy. Take some time to practice tidying your data before moving onto Step 3 - select, filter, and so on!
 
-*Note --- you may not have data you can use. That's okay, and we have some backup data in such cases. You can uncomment the line in the code chunk below to download data from discussions from Massively Open Online Courses for Educators (MOOC-Ed) at NC State Unviersity. Specifically, the data is from a MOOC-Ed course on Teaching Statistics.*
+*Note --- you may not have data you can use. That's okay, and we have some backup data in such cases. You can uncomment the line in the code chunk below to download data from discussions from Massively Open Online Courses for Educators (MOOC-Ed) at NC State University. Specifically, the data is from a MOOC-Ed course on Teaching Statistics.*
 
 ```{r, code chunk to read in backup data we have provided}
-# forums_dtm <- read_rds("https://github.com/utkeds/f23-founds-eds/blob/main/data/forums-dtm.rds?raw=true")
+forums_dtm <- read_rds("https://github.com/utkeds/f23-founds-eds/blob/main/data/forums-dtm.rds?raw=true")
 ```
 
 ```{r}
 
 ```
-
 
 ## Step 3
 

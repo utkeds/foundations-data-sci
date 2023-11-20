@@ -251,6 +251,17 @@ print(topics)
 
 ---
 
+# The whole game
+
+```{r}
+#| echo: false
+#| out.width: 80%
+#| fig-align: center
+knitr::include_graphics('tmwr_0601.png')
+```
+
+---
+
 # Code-along
 
 .panelset[
