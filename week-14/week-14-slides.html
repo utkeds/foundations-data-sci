@@ -4,7 +4,7 @@
     <title>Week 14 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Isabella Velásquez and Maryrose Weatherton" />
-    <meta name="date" content="2023-11-15" />
+    <meta name="date" content="2023-11-20" />
     <script src="week-14-slides_files/header-attrs-2.24/header-attrs.js"></script>
     <link href="week-14-slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="week-14-slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -31,11 +31,10 @@ class: center, middle, inverse, title-slide
 ### <strong>Isabella Velásquez and Maryrose Weatherton</strong>
 ]
 .date[
-### November 15, 2023
+### November 20, 2023
 ]
 
 ---
-
 
 
 
@@ -60,9 +59,37 @@ This week, we'll continue our exploration of text analysis specifically with top
 
 ---
 
+## TNVoice
+
+TNVoice (TN Volunteer Online Instructor &amp; Course Evaluations) will open to students on Monday, November 20 and will remain open until 11:59 on Wednesday, December 6.
+
+- Should be available in your email or on Canvas
+- Can help provide evidence of the effectiveness of the class in future CVs/materials
+
+---
+
+# Importing data in other formats
+
+* Google Sheets: googlesheets4 provides an R interface to Google Sheets via the Sheets API v4.
+* Microsoft Word: docxtractr (for tables in Word), readtext, officer
+* PDFs: pdftools, tabulizer
+* SAS/SPSS/Stata: the haven package reads in files of various formats
+
+---
+
 # Discussion
 
 .panelset[
+
+.panel[.panel-name[Definition]
+
+Topic modeling
+
+- A technique used in natural language processing and machine learning 
+- Used to automatically identify and extract hidden topics or themes from a collection of documents or text data
+- Discover the underlying structure or patterns in a large corpus of text without prior knowledge of what those topics might be
+
+]
 
 .panel[.panel-name[Background]
 
@@ -82,7 +109,34 @@ This week, we'll continue our exploration of text analysis specifically with top
 - What do you see as the potential of analyzing text with your computer?
 
 ]
+]
 
+---
+
+# Prepping your data
+
+.panelset[
+
+.panel[.panel-name[Data Collection and Cleaning]
+
+- Gathering the text that you want to analyze
+- Handling missing data
+- Correcting typos or errors
+- Standardizing text format (e.g., lowercasing all text)
+- Text tokenization
+- Stopword removal
+
+&lt;img src="tmwr_0101.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[Exploratory Data Analysis (EDA)]
+
+- Basic statistics: number of documents and the total number of words
+- Word frequency analysis
+- Word clouds and other visualizations
+
+]
 ]
 
 ---
@@ -94,8 +148,8 @@ This week, we'll continue our exploration of text analysis specifically with top
 .panel[.panel-name[LDA and topic models]
 
 - Latent Dirichlet allocation (LDA) is a method for fitting a topic model.
-- Each document is a mixture of topics, and each topic is a mixture of words; this means that documents share similarities based on the distribution of topics.
-- Words can be shared between topics; this means that topics may overlap in their word distributions, indicating thematic similarities.
+    - Each document is a mixture of topics, and each topic is a mixture of words; this means that documents share similarities based on the distribution of topics.
+    - Words can be shared between topics; this means that topics may overlap in their word distributions, indicating thematic similarities.
 
 ]
 
@@ -109,38 +163,132 @@ This week, we'll continue our exploration of text analysis specifically with top
 
 .panel[.panel-name[Interpretation]
 
-- The interpretation of topic models is a key, non-trivial step.
+- The interpretation of topic models is a non-trivial step.
 - It involves understanding the thematic substance of each topic based on the distribution of words.
 - Effective interpretation requires domain knowledge and sometimes iterative refinement of the model.
 
 ]
+]
 
-.panel[.panel-name[Example]
+---
 
-- Here's a very simple snippet showing how you can use the {topicmodels} R package:
+# Key Concept: Document-term matrix
+
+.panelset[
+
+.panel[.panel-name[Document-term matrix]
+
+**Document-term matrix (DTM)**: Transform your tokenized and preprocessed text data into a DTM. 
+
+- Each row represents one document (such as a book or article)
+- Each column represents one term, and
+- Each value (typically) contains the number of appearances of that term in that document
+
+]
+
+.panel[.panel-name[Converting to and from non-tidy formats]
+
+- A DTM is typically comparable to a tidy data frame after a count or a group_by/summarize that contains counts or another statistic for each combination of a term and document.
+- DTM objects cannot be used directly with tidy tools.
+- The tidytext package provides two verbs that convert between the two formats:
+    - `tidy()` turns a document-term matrix into a tidy data frame
+    - `cast()` turns a tidy one-term-per-row data frame into a matrix
+
+]
+]
+
+---
+
+# Key Concept: The topicmodels package
+
+.panelset[
+
+.panel[.panel-name[topicmodels]
+
+The topicmodels package provides basic infrastructure for fitting topic models based on data structures
+
+]
+
+.panel[.panel-name[AssociatedPress]
+
+- Here's a snippet showing how you can use the topicmodels package with the AssociatedPress dataset, an example of a DocumentTermMatrix:
 
 
 ```r
 library(topicmodels)
+
 data("AssociatedPress", package = "topicmodels")
-lda_model &lt;- LDA(AssociatedPress, k = 10)
+AssociatedPress
+```
+
+```
+## &lt;&lt;DocumentTermMatrix (documents: 2246, terms: 10473)&gt;&gt;
+## Non-/sparse entries: 302031/23220327
+## Sparsity           : 99%
+## Maximal term length: 18
+## Weighting          : term frequency (tf)
+```
+
+]
+
+.panel[.panel-name[Fitting the model]
+
+We can use the `LDA()` function from the topicmodels package, setting k = 10, to create a ten-topic LDA model.
+
+
+```r
+lda_model &lt;- LDA(AssociatedPress, k = 10, control = list(seed = 1234))
+lda_model
+```
+
+```
+## A LDA_VEM topic model with 10 topics.
+```
+
+.panel[.panel-name[Topics]
+
+Using `terms()`, we can get the following results:
+
+- **Topic Labels:** The numbers at the top represent the topics generated by the LDA model, ranging from Topic 1 to Topic 10. These labels are typically generated automatically by the model.
+- **Top Words in Each Topic:** Each row under the topic labels lists the top words associated with that topic.
+- **Interpreting Topics:** To interpret the topics, you can examine the most significant words in each topic and try to identify common themes or subjects.
+
+]
+
+.panel[.panel-name[Topics]
+
+
+```r
 topics &lt;- terms(lda_model, 6)
 print(topics)
 ```
+
+```
+##      Topic 1   Topic 2     Topic 3   Topic 4     Topic 5      Topic 6   
+## [1,] "percent" "bush"      "million" "police"    "government" "police"  
+## [2,] "market"  "states"    "company" "military"  "party"      "people"  
+## [3,] "prices"  "house"     "billion" "two"       "people"     "i"       
+## [4,] "year"    "president" "year"    "people"    "political"  "two"     
+## [5,] "new"     "united"    "new"     "officials" "south"      "city"    
+## [6,] "dollar"  "bill"      "corp"    "army"      "president"  "children"
+##      Topic 7      Topic 8     Topic 9   Topic 10
+## [1,] "office"     "i"         "court"   "soviet"
+## [2,] "department" "dukakis"   "case"    "west"  
+## [3,] "new"        "bush"      "judge"   "east"  
+## [4,] "federal"    "new"       "drug"    "united"
+## [5,] "students"   "president" "trial"   "german"
+## [6,] "school"     "campaign"  "federal" "union"
+```
+
+]
 ]
 
+---
 
-*More on interpreting the topics in just a moment!*
+## Interpreting models
 
-.panel[.panel-name[Caution]
-
-- Topic modeling is very powerful: you can estimate the topics that describe 100s, 1000s, or 10,000+ documents quickly
-- But, it is not a panacea, and it is often important to note that the topics identified through topic modeling _may not validly characterize what is in the documents_; carefully reviewing the topics, qualitatively reading sample documents to see how well the topics in fact describe them, and thoughtfully reporting results is necessary, still
-
-]
-
-
-]
+- Topic modeling is very powerful: you can estimate the topics that describe 100s, 1000s, or 10,000+ documents quickly.
+- But, it is not a panacea, and it is often important to note that the topics identified through topic modeling _may not validly characterize what is in the documents_; carefully reviewing the topics, qualitatively reading sample documents to see how well the topics in fact describe them, and thoughtfully reporting results is necessary.
 
 ---
 
@@ -150,7 +298,7 @@ print(topics)
 
 .panel[.panel-name[Loading package and data]
 
-- Let's start by examining topics from the AssociatedPress dataset. It is included with the topicmodels package.
+- Let's start by examining topics from the AssociatedPress dataset included with the topicmodels package.
 - First, install and load the topicmodels package. Then, load the AssociatedPress dataset.
 
 
@@ -167,7 +315,7 @@ data("AssociatedPress")
 
 .panel[.panel-name[LDA()]
 
-- Let's set the number of topics we want with the LDA() function
+- Let's set the number of topics we want with the `LDA()` function
 - `k` is the number of topics we want to find
 - We use the code `control = list(seed = 1234)` to set a seed so that the output of the model is predictable
 
@@ -221,7 +369,6 @@ ap_top_terms %&gt;%
 - How would you name each of these topics? Let's talk through each of them.
 
 ]
-
 ]
 
 ---
@@ -232,11 +379,11 @@ ap_top_terms %&gt;%
 
 .panel[.panel-name[Weekly Assignment]
 
-- In this week's assignment, you will perform topic modeling on a dataset of your choosing, preferably from your own research. 
+- In this week's assignment, you will perform topic modeling on a dataset of your choosing, preferably from your own research.
 - It is likely you will want to prepare and tidy your dataset before starting the topic modeling process. Don't forget the skills you have used through this point in the semester---they are just as relevant now!!
-- Lastly, using your own data may be hard; you shouldn't look for perfect or even very good output, instead celebrating any results/output you can produce with their data! That's what we're looking for from this assignment. 
-    - There's also a backup dataset you can use if you don't have one
-
+- Lastly, using your own data may be hard; you shouldn't look for perfect or even very good output, instead celebrating any results/output you can produce with their data! That's what we're looking for from this assignment.
+    - There's also a backup dataset you can use if you don't have one - details in the assignment doc on how they can read it directly in from GitHub.
+    
 ]
 
 .panel[.panel-name[Final Projects]
@@ -261,6 +408,13 @@ This is linked in Canvas.
 &gt; Topic modeling: https://www.tidytextmining.com/topicmodeling
 
 This is also linked in Canvas.
+
+]
+
+.panel[.panel-name[Survey!]
+
+If we have time left over, please use it to take the UTK Voices survey!
+
 
 ]
 
