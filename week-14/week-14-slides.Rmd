@@ -222,6 +222,8 @@ lda_model <- LDA(AssociatedPress, k = 10, control = list(seed = 1234))
 lda_model
 ```
 
+]
+
 .panel[.panel-name[Topics]
 
 Using `terms()`, we can get the following results:
