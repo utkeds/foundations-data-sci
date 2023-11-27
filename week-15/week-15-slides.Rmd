@@ -37,11 +37,9 @@ Loops enable you to iterate (or loop) over data structures like lists, arrays, o
 
 ## What we'll do in this presentation
 
-- Discussion
 - Key Concept: Functions
 - Key Concept: Loops
 - Final projects: Breakout rooms and details
-- What's next: Assignment(s) and Readings
 
 ---
 
@@ -250,6 +248,7 @@ Every for loop has three components:
 ```r
 for (i in 1:5) {
   print(i)
+}
 ```
 
 ]
@@ -259,7 +258,9 @@ for (i in 1:5) {
 ```r
 for (i in 1:5) {
   print(i)
+}
 ```
+
 - `i` is the loop variable, starting at 1.
 - The condition is `i <= 5`, which means the loop will run as long as `i` is less than or equal to 5.
 - In each iteration, `i` is incremented by 1 (`i = i + 1`), and the value of `i` is printed.
@@ -398,6 +399,8 @@ Please prepare a 5-7 minute presentation on your project describing
 - What you are most proud of about your final project
 - What you still want to know more about/what you want to do next having completed your final project
 
+We'll have folks go alphabetically.
+
 ]
 
 .panel[.panel-name[Presentation rubric]
@@ -412,12 +415,14 @@ Please prepare a 5-7 minute presentation on your project describing
 
 - If you have questions to pose to others, please come with them!
 - Everybody, please be prepared to give feedback to the presenters.
-- The final sumbmission a week later should incorporate feedback from the presentation.
+- The final submission a week later should incorporate feedback from the presentation.
+]
+]
 
 ---
 
 ## Final project breakout rooms
 
 - Briefly introduce your project
-- Discuss where you are on your project
 - Any questions or issues that your classmates can help with?
+- Try to identify one part of your project that could be transformed into a function or a loop and discuss how you'd do it to your group. Work on this for the remainder of the time.
