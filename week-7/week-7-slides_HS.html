@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 7 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Hanall Sung" />
+    <script src="week-7-slides_HS_files/header-attrs-2.28/header-attrs.js"></script>
+    <script src="week-7-slides_HS_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-7-slides_HS_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-7-slides_HS_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-7-slides_HS_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-7-slides_HS_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-7-slides_HS_files/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="week-7-slides_HS_files/panelset-0.3.0/panelset.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 7 Slides
+]
+.subtitle[
+## Creating a Good College Ranking System
+]
+.author[
+### <strong>Hanall Sung</strong>
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the week that equips you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
+
+## What we'll do in this presentation
+
+- Discussion
+- Reading Recap
+- Key Concept: select, rename, filter, arrange
+- Key Concept: Ratings and rankings
+- Code-along and data
+- What's next: Assignment(s) and Readings
+
+---
+
+# Discussion
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- APIs can be very powerful, affording access to large data sets in a convenient manner
+- However, they can occasionally be difficult to use due to:
+
+    - Technical issues
+    - Challenges around the size or amount of the data being accessed
+    - The degree of documentation, among others
+
+]
+
+.panel[.panel-name[Discussion Questions]
+
+- What went well in the last week?
+- What issues, if any, did you encounter in the last week using the Education Data Portal API via the educationdata R package? How did you overcome them---or try to overcome them?
+- Did you find anything interesting and how would you extend your analysis?
+
+]
+
+]
+
+---
+
+# Reading Recap
+
+Substantive reading(s):
+
+&gt; Morse, R., and &amp; Brooks, E. (2023). How U.S. News Calculated the 2024 Best Colleges Rankings. https://www.usnews.com/education/best-colleges/articles/how-us-news-calculated-the-rankings
+
+&gt; Wolfe, R. (2023). A different kind of college ranking. *Washington Monthly.* https://washingtonmonthly.com/2023/08/27/a-different-kind-of-college-ranking-2/
+
+&gt; Blinder, A. (2023). With a New Formula, U.S. News  Rankings Boost Some State Universities. *New York Times*. https://www.nytimes.com/2023/09/18/us/us-news-college-ranking.html
+
+Technical reading(s):
+
+&gt; Data Science in Education Using R, Using School-Level Aggregate Data to Illuminate Educational Inequities: https://datascienceineducation.com/c09
+
+---
+
+# Reading Recap
+
+&lt;small&gt;
+&gt; These rankings, no matter how much data is taken into account can be misleading if you don't know how the rankings are calculated. The articles emphasize how drastically the rankings can change when emphasizing different values. -- Haylee
+
+&gt; Ultimately, college/university is a place in which students typically want to attend to learn, grow, and achieve their full potential to set themselves up for future success. But, if the universities feel like they must conform to some ranking system then how can they use their resources appropriately to help students learn and grow. -- Jeremy
+
+&gt; ... my experience is that it also creates a situation where the quality of teaching (and student success for that matter) is sacrificed to better hunt for those lucrative grants.  The tenure process already does not give enough weight to quality teaching, so adding another reason to prioritize grant writing over teaching seems counter productive to ranking a “best college.” -- Andy
+
+&gt; when a ranking system mirrors the impact of education on the lives of students instead of just selective admissions or endowment size, it provides a much more useful measure of institutional capacity. ... Changes in U.S. News’ formula show that previous rankings tend to disproportionately reward elite institutions with high per-student spending, small class sizes, and strong alumni donations. These mechanisms correlate more with wealth rather than educational effectiveness, putting private schools that are rich at an advantage. -- Olushegun
+
+&lt;/small&gt;
+
+---
+
+# Key Concept: dplyr "verbs"
+
+&lt;img src="dplyr-verbs_table_v2.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Key Concept: dplyr "verbs"
+
+&lt;img src="dplyr-verb_general-syntax-explanation.png" width="60%" style="display: block; margin: auto;" /&gt;&lt;img src="dplyr-pipe-syntax_simple.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Key Concept: dplyr "verbs"
+
+
+``` r
+library(dplyr)
+
+dat &lt;- tibble(
+    ID = c(1, 2, 3, 4),
+    Name = c("Alice", "Bob", "Charlie", "Stefanie"),
+    Age = c(25, 30, 22, 39),
+    State = c("TN", "NC", "CA", "TN")
+)
+
+dat
+```
+
+```
+## # A tibble: 4 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     1 Alice       25 TN   
+## 2     2 Bob         30 NC   
+## 3     3 Charlie     22 CA   
+## 4     4 Stefanie    39 TN
+```
+
+---
+
+# Key Concept: dplyr "verbs"
+
+.panelset[
+
+.panel[.panel-name[dplyr "verbs"]
+
+- There are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses
+- These are all "verbs": words used to describe an action, state, or occurrence ([OxfordLanguage](https://languages.oup.com/google-dictionary-en/))
+- The core dplyr "verbs" are `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
+]
+
+.panel[.panel-name[select]
+
+- `select()` is used to choose particular columns from a data frame (or tibble)
+- It works by specifying the variables you want to keep or remove
+
+
+``` r
+# Format: select(dataframe, column1, column2, ...) OR dataframe %&gt;% select(column1, column2, ...)
+selected_data &lt;- dat %&gt;%
+    select(Name, Age)
+selected_data
+```
+
+```
+## # A tibble: 4 × 2
+##   Name       Age
+##   &lt;chr&gt;    &lt;dbl&gt;
+## 1 Alice       25
+## 2 Bob         30
+## 3 Charlie     22
+## 4 Stefanie    39
+```
+
+- *Important note and point of emphasis*: if we don't assign the output a new name (`selected_data &lt;-`), the results of our use of a dplyr "verb" won't be saved.
+
+]
+
+.panel[.panel-name[rename]
+
+- `rename()` changes the names of variables
+
+
+``` r
+# Format: rename(dataframe, new_column_name = old_column_name)
+selected_renamed_data &lt;- 
+    selected_data %&gt;%
+    rename(name = Name, age = Age)
+
+selected_renamed_data
+```
+
+```
+## # A tibble: 4 × 2
+##   name       age
+##   &lt;chr&gt;    &lt;dbl&gt;
+## 1 Alice       25
+## 2 Bob         30
+## 3 Charlie     22
+## 4 Stefanie    39
+```
+
+]
+
+.panel[.panel-name[rename]
+
+- *Note*: You can _select_ and _rename_ in a single step using `select()`:
+
+
+``` r
+selected_and_renamed &lt;- 
+    dat %&gt;%
+    select(name = Name, age = Age) # selects Name and Age and renames them at the same time
+```
+
+Because `select()` can be used to rename, `rename()` is rarely used in practice.
+
+Learn more about `select()` and `rename()` [here](https://dplyr.tidyverse.org/reference/select.html) (https://dplyr.tidyverse.org/reference/select.html), including handy "select helpers"
+
+]
+
+.panel[.panel-name[filter]
+
+- `filter()` keeps or removes the rows of your data based on _logical conditions_ that you specify
+
+
+``` r
+# Format: filter(dataframe, condition)
+filtered_data &lt;- dat %&gt;%
+    filter(Age &gt;= 25)
+
+filtered_data
+```
+
+```
+## # A tibble: 3 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     1 Alice       25 TN   
+## 2     2 Bob         30 NC   
+## 3     4 Stefanie    39 TN
+```
+
+]
+
+.panel[.panel-name[filter]
+
+
+``` r
+filtered_data &lt;- dat %&gt;% 
+    filter(State == "TN")
+
+filtered_data
+```
+
+```
+## # A tibble: 2 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     1 Alice       25 TN   
+## 2     4 Stefanie    39 TN
+```
+
+Learn more about `filter()` [here](https://dplyr.tidyverse.org/reference/filter.html) (https://dplyr.tidyverse.org/reference/filter.html).
+
+]
+]
+
+---
+
+# Key Concept: dplyr "verbs"
+
+.panelset[
+
+.panel[.panel-name[arrange]
+
+- `arrange()` sorts the rows of your data frame based on numeric or alpha-numeric values
+
+
+``` r
+# Format: dataframe %&gt;% arrange(column1, column2, ...)
+arranged_data &lt;- dat %&gt;% 
+    arrange(Name)
+
+arranged_data
+```
+
+```
+## # A tibble: 4 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     1 Alice       25 TN   
+## 2     2 Bob         30 NC   
+## 3     3 Charlie     22 CA   
+## 4     4 Stefanie    39 TN
+```
+
+]
+
+.panel[.panel-name[arrange]
+
+You can reverse the order with `desc()`:
+
+
+``` r
+arranged_data &lt;- dat %&gt;% 
+    arrange(desc(Name))
+
+arranged_data
+```
+
+```
+## # A tibble: 4 × 4
+##      ID Name       Age State
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1     4 Stefanie    39 TN   
+## 2     3 Charlie     22 CA   
+## 3     2 Bob         30 NC   
+## 4     1 Alice       25 TN
+```
+
+Learn more about `arrange()` [here](https://dplyr.tidyverse.org/reference/arrange.html) (https://dplyr.tidyverse.org/reference/arrange.html).
+
+]
+
+.panel[.panel-name[mutate]
+
+- `mutate()` creates new variables
+
+
+``` r
+# Format: dataframe %&gt;% mutate(new_column, transformation, ...)
+mutated_data &lt;- dat %&gt;%
+    mutate(age_next_year = Age + 1)
+
+mutated_data
+```
+
+```
+## # A tibble: 4 × 5
+##      ID Name       Age State age_next_year
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
+## 1     1 Alice       25 TN               26
+## 2     2 Bob         30 NC               31
+## 3     3 Charlie     22 CA               23
+## 4     4 Stefanie    39 TN               40
+```
+
+Learn more about `mutate()` [here](https://dplyr.tidyverse.org/reference/mutate.html) (https://dplyr.tidyverse.org/reference/mutate.html).
+
+]
+
+]
+
+---
+
+# Key Concept: Ratings and rankings
+
+.panelset[
+
+.panel[.panel-name[educationdata]
+
+- Reminder: The [educationdata R package](https://urbaninstitute.github.io/education-data-package-r/index.html) facilitates access to the [Education Data Portal's API](https://educationdata.urban.org/documentation/index.html)
+
+
+``` r
+df &lt;- get_education_data(
+    level = "schools",
+    source = "ccd",
+    topic = "enrollment",
+    filters = list(year = 2021, grade = 12))
+```
+
+*Documentation:*
+
+1. The [R package documentation](https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html) (https://urbaninstitute.github.io/education-data-package-r/articles/introducing-educationdata.html)
+2. The [EDP API documentation](https://educationdata.urban.org/documentation/index.html) (https://educationdata.urban.org/documentation/index.html)
+] 
+
+.panel[.panel-name[Variables]
+
+- Any data on *colleges*: https://educationdata.urban.org/documentation/colleges.html
+- These four sources available via educationdata are likely to be particularly helpful:
+    - IPEDS
+    - College Scorecard
+    - Federal Student Aid
+    - National Association of College and University Business Officers
+
+]
+
+.panel[.panel-name[Ranking]
+
+- We will create a ranking involves 1) _accessing data_, 2) _preparing_ different variables, 3) _combining_ them into a single score or rank and 4) _interpreting_ the output
+- This will likely involve several dplyr functions:
+    - `mutate()`
+    - `filter()`
+    - `select()`
+    - `arrange()`
+
+]
+
+]
+
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[Accessing]
+
+- We'll have to access data on each, standardize them, and combine them to create a ranking
+- We'll start with student-faculty ratio and fall retention rates
+- Let's access the data
+
+
+``` r
+library(educationdata)
+library(tidyverse)
+
+ratio &lt;- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "student-faculty-ratio",
+    filters = list(year = 2020))
+
+retention &lt;- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "fall-retention",
+    filters = list(year = 2020))
+```
+
+]
+
+.panel[.panel-name[Preparing]
+
+
+``` r
+ratio &lt;- as_tibble(ratio)
+
+ratio &lt;- ratio %&gt;% 
+    select(unitid, student_faculty_ratio) # to simply the data
+```
+
+
+``` r
+retention &lt;- as_tibble(retention)
+
+# let's look at the total of both full and part-time students
+retention &lt;- retention %&gt;% 
+  filter(ftpt == 99) %&gt;% # ftpt: Full-time or part-time status, 99-total
+  select(unitid, retention_rate) # to simply the data
+```
+
+]
+
+.panel[.panel-name[Combining]
+
+- As the variables are on different scales, calculating _ranks_ may be helpful -- `min_rank()`, which assigns tied ranks to equivalent values
+
+
+```
+## [1] 2 4 1 4 3
+```
+
+
+``` r
+combined_data &lt;- inner_join(ratio, retention, by = c("unitid"))
+
+combined_data &lt;- combined_data %&gt;% 
+    mutate(student_faculty_ratio_rank = min_rank(student_faculty_ratio),
+           retention_rate_rank = min_rank(retention_rate)) %&gt;% 
+    select(unitid, student_faculty_ratio_rank, retention_rate_rank)
+
+final_ranks &lt;- combined_data %&gt;% 
+    mutate(total_rank = (student_faculty_ratio_rank + retention_rate_rank) / 2) %&gt;% 
+    arrange(total_rank) # sort the data by total rank (average rank)
+
+final_ranks
+```
+
+]
+
+.panel[.panel-name[Interpreting]
+
+- We need to know the names of the institutions to be able to present and interpret our results.
+- We can access that data, too
+
+
+``` r
+directory &lt;- get_education_data(level = "college-university",
+    source = "ipeds",
+    topic = "directory",
+    filters = list(year = 2020))
+
+directory &lt;- directory %&gt;% 
+    select(unitid, inst_name)
+
+final_ranks_inst &lt;- final_ranks %&gt;% 
+  left_join(directory) %&gt;% 
+  select(inst_name, total_rank)
+```
+
+]
+
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+- In the weekly assignment, you will expand on what we did in the code-along in several ways:
+    - Researching how _other ranking systems_ work
+    - Planning out your approach in terms of _three principles you want to adhere to_ in your analysis
+    - Adding at least _three variables to use in your analysis_
+    - Suggesting possible improvements in the context of your interpretation of your results
+- Big picture, this is challenging: **the goal is to use this as an opportunity to practice all of the skills you have developed through this point in an authentic task**, but it will be challenging, and try to not let the good become the enemy of the perfect 
+]
+
+.panel[.panel-name[Data]
+
+- We'll again be using data from the educationdata package --- any of the college-related data: https://educationdata.urban.org/documentation/colleges.html#ipeds_directory
+- Again, these four sources available via educationdata are likely to be particularly helpful:
+    - IPEDS
+    - College Scorecard
+    - Federal Student Aid
+    - National Association of College and University Business Officers
+
+]
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- Substantive reading(s) for the week ahead:
+
+&gt; Fisher et al. (2020). Mining big data in education: Affordances and challenges
+
+Linked in Canvas.
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s) for the week ahead:
+
+&gt; Summarizing Data by Groups (https://r-graphics.org/recipe-dataprep-summarize)
+
+&gt; Data Transformation (https://r4ds.hadley.nz/data-transform)
+
+Also linked in Canvas.
+
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
