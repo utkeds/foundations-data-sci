@@ -283,7 +283,7 @@ mtcars %>%
 knitr::include_graphics("summarize.png")
 ```
 
-Learn more about summarize here: https://dplyr.tidyverse.org/reference/summarize.html
+Learn more about summarize here: https://dplyr.tidyverse.org/reference/summarise.html
 
 ]
 
