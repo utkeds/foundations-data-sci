@@ -194,7 +194,7 @@ Source: Data Quality Campaign
 
 .panel[.panel-name[dplyr "verbs"]
 
-- As we discussed in our last class (for weeks 7-8), there are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses: `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
+- As we discussed in our last class (for week 7), there are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses: `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
 - Several additional "verbs" are also very useful and are the focus of this and the next week: `group_by()`, `summarize()`, `pivot_longer()`, and `pivot_wider()`
 - We focus on the first two of these additional "verbs" this week
 - We use the term "aggregating" to refer to grouping and summarizing - specifying groups in our data and summarizing them
