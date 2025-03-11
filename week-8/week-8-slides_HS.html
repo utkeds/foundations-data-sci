@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 8 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Hanall Sung" />
+    <script src="week-8-slides_HS_files/header-attrs-2.28/header-attrs.js"></script>
+    <script src="week-8-slides_HS_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-8-slides_HS_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-8-slides_HS_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-8-slides_HS_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-8-slides_HS_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-8-slides_HS_files/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="week-8-slides_HS_files/panelset-0.3.0/panelset.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 8 Slides
+]
+.subtitle[
+## Group By and Summarize
+]
+.author[
+### <strong>Hanall Sung</strong>
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the week that equips you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
+
+## What we'll do in this presentation
+
+- Mid-semester survey
+- Lesson Recap
+- Reading Recap
+- Discussion
+- Key Concept: Group by and summarize
+- Code-along and data
+- What's next: Assignment(s) and Readings
+
+---
+
+# Mid-semester survey
+
+## https://forms.gle/ggqjQABtHNsfuWeq7 
+
+* Data analysis vs data cleaning
+* Assignments in advance
+* Functions and iteration
+* Code along speed
+* Foundation R &amp; Advanced Skills
+* Discussion posts / substantive readings
+* Any concerns
+
+Contacting me: hanallsung@utk.edu
+
+---
+
+# Lesson Recap
+
+* Importing data, projects, data frames and tibbles, R markdown
+* Functions: glimpse(), view(), skim(), pull(), etc. 
+* ggplot2: geom_point(), geom_smooth(), point colors, themes, labels
+* Joins: inner_join(), left_join(), right_join(), full_join()
+* APIs: web-based APIs, educationdata R package
+* dplyr "verbs"
+
+---
+
+# Lesson Recap
+
+&lt;img src="1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Today!
+
+&lt;img src="2.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Reading Recap
+
+Substantive reading(s):
+
+&gt; Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... &amp; Warschauer, M. (2020). Mining big data in education: Affordances and challenges. *Review of Research in Education, 44*(1), 130-160.
+
+Technical reading(s):
+
+&gt; Summarizing Data by Groups: https://r-graphics.org/recipe-dataprep-summarizeLinks
+
+&gt; Data Transformation: https://r4ds.hadley.nz/data-transform (note: only review section 4.5)
+
+---
+
+# Reading Recap
+
+*Discussion Questions*:
+
+- For your research-related area of interest, what are one or more levels at which row-level data is aggregated?
+- For which purposes might raw data be more useful? For which purposes might aggregated data be useful?
+
+---
+
+# Reading Recap
+
+&lt;small&gt;
+&gt; For exercise psychology, contemporary research advocates for person specific data (i.e. the opposite of aggregate data). A common issue we see in our field is the issue of Simpson’s paradox, which in short states, that data analyzed at certain levels (aggregate or person specific) can produce trends in opposite directions. ... It is well known and accepted now that obtaining person-specific levels of data to inform a “bottom-up” method of research and data analysis can be beneficial for understanding the experience of physical activity and exercise. -- Jimmy
+
+&gt; I'm often visually and audibly recording simple behaviors (e.g., seed-taking behavior, aggressive behavior between birds), but the different contexts (e.g., flock sizes, traffic noise, vegetation density, diversity of species in flock, etc.) that their measured in reveals a plethora of different relationships in the data analysis later on. Aggregation is helpful because it allows you to simplify different data by grouping like parameters and distinguishing others. -- Zaharia
+
+&gt; a key challenge, as the article highlights, is the practical utilization of data. While I could analyze and present findings, the effectiveness of data-driven decision-making depended on whether stakeholders (administrators, faculty, or student affairs professionals) could translate insights into actionable strategies. ... Ensuring that aggregated data translates into meaningful institutional change remains an ongoing challenge. -- Jerri
+
+&lt;/small&gt;
+---
+
+# Aggregated data
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- One way we can think about _large and complex_ data sets is whether the data is aggregated---or not
+- In education data, it is highly common to aggregate raw data (e.g., individual student assessments) at multiple levels:
+
+    - Multiple assessments at the **student level**
+    - Multiple students at the **teacher level**
+    - Multiple teachers at the **subject level** and **school level**
+    - Multiple schools at the **district level**
+    - Multiple districts at the **state level**
+
+- What counts as raw and aggregated data differs for each field---and even for each research question!
+
+]
+
+.panel[.panel-name[Background]
+
+&lt;img src="examples.png" width="80%" style="display: block; margin: auto;" /&gt;
+Source: Data Quality Campaign
+
+]
+
+.panel[.panel-name[Definitions]
+
+- *Raw data* is data that has not been processed for use
+- *Row-level/individual data* is data that can be associated with a single element
+- *Aggregated data* is when multiple data sources are combined into one set to create a larger idea of a particular issue
+- *Disaggregated data* refers to the isolation of one or more variables within a data set, highlighting specific features or populations and leading to different insights 
+
+]
+
+]
+
+---
+
+# Key Concept: Aggregating
+
+.panelset[
+
+.panel[.panel-name[dplyr "verbs"]
+
+- As we discussed in our last class (for weeks 7-8), there are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses: `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
+- Several additional "verbs" are also very useful and are the focus of this and the next week: `group_by()`, `summarize()`, `pivot_longer()`, and `pivot_wider()`
+- We focus on the first two of these additional "verbs" this week
+- We use the term "aggregating" to refer to grouping and summarizing - specifying groups in our data and summarizing them
+]
+
+.panel[.panel-name[group_by]
+
+- `group_by()` is used to specify the group or groups in a a data frame (or tibble)
+- It works by specifying the variables you want to keep or remove
+
+&lt;img src="group_by.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[group_by]
+
+- Let's use our trusty `mtcars` dataset
+
+
+``` r
+mtcars %&gt;%
+    group_by(cyl) %&gt;%
+    head()
+```
+
+```
+## # A tibble: 6 × 11
+## # Groups:   cyl [3]
+##     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4
+## 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+## 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+## 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+## 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+## 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1
+```
+
+]
+
+.panel[.panel-name[multiple groups]
+
+- Importantly, we can specify multiple groups; typically, these variables are character strings or factors but they can be any unique identifiers
+
+
+``` r
+mtcars %&gt;%
+    group_by(cyl, vs) %&gt;%  # the data is now "grouped" by cyl *and* vs
+    head()
+```
+
+- What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific cyl within specific vs)
+- If you apply group_by() to an already grouped dataset, will overwrite the existing grouping variables.
+
+]
+
+.panel[.panel-name[ungrouping]
+
+- To remove all grouping variables, use `ungroup()`:
+
+``` r
+mtcars %&gt;%
+    group_by(cyl, vs) %&gt;%
+    head() %&gt;% 
+    ungroup()
+```
+
+```
+## # A tibble: 6 × 11
+##     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4
+## 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+## 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+## 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+## 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+## 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1
+```
+Learn more about `group_by()` here: https://dplyr.tidyverse.org/reference/group_by.html
+
+]
+]
+
+---
+
+# Key Concept: Aggregating
+
+.panelset[
+
+.panel[.panel-name[summarize]
+
+- Once we have specified groups, we can then calculate summary statistics
+- `summarise()/summarize()` computes a summary for each group.
+
+- The first part of the `summarize()` function is simply the name of our summary statistic --- whatever we want it to be!
+- The second part, following the `=` symbol, is the formula for how your summary statistic is calculated (as long as it returns a single value per group, it is a valid summary statistic!)
+
+
+``` r
+mtcars %&gt;% 
+    summarize(mean_mpg = mean(mpg)) 
+```
+
+```
+##   mean_mpg
+## 1 20.09062
+```
+
+]
+
+.panel[.panel-name[summarize]
+
+&lt;img src="summarize.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+Learn more about summarize here: https://dplyr.tidyverse.org/reference/summarize.html
+
+]
+
+.panel[.panel-name[piping it!]
+
+- We can use the pipe operator to link together these functions in a single block of code
+- We can also change our summary statistic or add multiple summary statistics, as below
+- Summary statistics are calculated for numeric variables
+
+
+``` r
+mtcars %&gt;% 
+    group_by(cyl) %&gt;% 
+    summarize(n = n(),
+              mean_mpg = mean(mpg)) 
+```
+
+```
+## # A tibble: 3 × 3
+##     cyl     n mean_mpg
+##   &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt;
+## 1     4    11     26.7
+## 2     6     7     19.7
+## 3     8    14     15.1
+```
+
+]
+]
+
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[grouping]
+
+
+``` r
+library(palmerpenguins)
+library(tidyverse)
+
+grouped_data &lt;- penguins %&gt;%
+    group_by(species)
+
+grouped_data 
+# the data is now "grouped" by species (internally)
+```
+
+]
+
+.panel[.panel-name[Multiple groups]
+
+
+``` r
+grouped_data_2 &lt;- penguins %&gt;%
+    group_by(species, island)
+
+grouped_data_2 
+# the data is "grouped" by species and island (Again, internally)
+```
+
+]
+
+.panel[.panel-name[summarize]
+
+
+``` r
+grouped_data %&gt;% 
+    summarize(mean_body_mass_g = mean(body_mass_g))
+
+# note: often, we need to add na.rm = TRUE 
+# to remove rows with missing values
+# can you replace mean with a different measure of central tendency? 
+# what do you find?
+
+grouped_data_2 %&gt;% 
+    summarize(mean_body_mass_g = mean(body_mass_g)) 
+# what is different in this output?
+
+grouped_data_2 %&gt;% 
+    summarize(mean_body_mass_g = mean(body_mass_g),
+              max_body_mass_g = max(body_mass_g),
+              n = n()) 
+# n() is a summary function that returns the number of rows per group
+```
+
+]
+
+.panel[.panel-name[Doing more]
+
+- There are some helpful extensions of summarize that may prove useful
+- Imagine you want to find the mean for _all_ of the numeric variables in your data, after you have grouped by species and island
+- Let's start from the raw data, building this up step-by-step, and assigning the output a new name
+
+
+``` r
+mean_vals_for_penguins &lt;- penguins %&gt;% 
+    group_by(species, island) %&gt;% 
+    summarize_if(is.numeric, mean, na.rm = TRUE) 
+                    # what if we don't add na.rm = TRUE? try this out!
+
+mean_vals_for_penguins
+```
+]
+
+.panel[.panel-name[And more!]
+
+- What if we wanted to remove year? We can use select to remove it --- or, try out `summarize_at()`:
+
+
+``` r
+mean_vals_for_penguins &lt;- penguins %&gt;% 
+    group_by(species, island) %&gt;% 
+    summarize_at(vars(bill_length_mm, bill_depth_mm, flipper_length_mm, 
+                      body_mass_g), mean, na.rm = TRUE)
+
+
+mean_vals_for_penguins
+```
+
+]
+
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+- In the weekly assignment, you will group and summarize school-level data on enrollments, practicing aggregating in three ways:
+
+1. at different levels (groups)
+2. for different variables
+3. with different summary statistics
+
+Due: As usual, **11:59 pm on Monday (March 17)**
+
+]
+
+
+.panel[.panel-name[Data]
+
+- We'll be using an already-saved version of data we accessed via the educationdata package on school-level enrollments
+- The data will be fairly large and complex --- thus suggesting the importance of grouping and summarizing as exploratory data analysis steps
+
+]
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- Substantive reading(s) for the week ahead:
+
+&gt; Kimmons, R., &amp; Veletsianos, G. (2018). Public internet data mining methods in instructional design, educational technology, and online learning research. TechTrends, 62(5), 492-500.
+
+Link is in Canvas
+
+Due: **11:59 pm on Monday (March 24; Before the class after spring break)**
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s) for the week ahead:
+
+&gt; Data tidying:https://r4ds.hadley.nz/data-tidy
+
+Link is in Canvas
+
+]
+
+.panel[.panel-name[Professional Development Plan]
+
+- The goal of this assignment is for you to reflect on how educational data science skills will contribute to your professional development and career goals. This exercise will help you identify key skills you need to acquire or strengthen and how these skills will support your future work.
+- Length: Write a 1-page professional development plan
+- Content: Your plan should include the following sections:
+    - Introduction
+    - Educational Data Science Skills
+    - Application of Skills
+    - Skills Gap Identification
+    - Next Steps
+- **Due: 11:59 pm on Monday (March 24; Before the class after spring break)**
+
+More detailed instructions are available in Canvas (https://utk.instructure.com/courses/224781/assignments/2142248?module_item_id=4916144)
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

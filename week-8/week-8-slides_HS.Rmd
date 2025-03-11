@@ -1,0 +1,461 @@
+---
+title: "Week 8 Slides"
+subtitle: "Group By and Summarize"
+author: "**Hanall Sung**"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_duo_accent(
+    primary_color = "#FF8200",
+    secondary_color = "#58595B",
+    title_slide_text_color = "#222943",
+    title_slide_background_color = "#ededed",
+    title_slide_background_image = "https://brand.utk.edu/wp-content/uploads/2019/02/University-HorizRightLogo-RGB.png",
+    title_slide_background_position = "bottom",
+    title_slide_background_size = "30%"
+)
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(palmerpenguins)
+```
+
+```{r, echo=FALSE}
+# then load all the relevant packages
+pacman::p_load(pacman, knitr, tidyverse, readxl)
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+# these allow any code snippets to be copied to the clipboard so they 
+# can be pasted easily
+htmltools::tagList(
+    xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",),
+    rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+# Purpose and Agenda
+
+What do you need to be able to work with a range of datasets? This week focuses on core data wrangling skills; it is the week that equips you with a set of skills focused on the dplyr and tidyr packages that are part of the tidyverse. The context is accessing and preparing data on colleges in advance of building a better rating system.
+
+## What we'll do in this presentation
+
+- Mid-semester survey
+- Lesson Recap
+- Reading Recap
+- Discussion
+- Key Concept: Group by and summarize
+- Code-along and data
+- What's next: Assignment(s) and Readings
+
+---
+
+# Mid-semester survey
+
+## https://forms.gle/ggqjQABtHNsfuWeq7 
+
+* Data analysis vs data cleaning
+* Assignments in advance
+* Functions and iteration
+* Code along speed
+* Foundation R & Advanced Skills
+* Discussion posts / substantive readings
+* Any concerns
+
+Contacting me: hanallsung@utk.edu
+
+---
+
+# Lesson Recap
+
+* Importing data, projects, data frames and tibbles, R markdown
+* Functions: glimpse(), view(), skim(), pull(), etc. 
+* ggplot2: geom_point(), geom_smooth(), point colors, themes, labels
+* Joins: inner_join(), left_join(), right_join(), full_join()
+* APIs: web-based APIs, educationdata R package
+* dplyr "verbs"
+
+---
+
+# Lesson Recap
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("1.png")
+```
+
+---
+
+# Today!
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("2.png")
+```
+
+---
+
+# Reading Recap
+
+Substantive reading(s):
+
+> Fischer, C., Pardos, Z. A., Baker, R. S., Williams, J. J., Smyth, P., Yu, R., ... & Warschauer, M. (2020). Mining big data in education: Affordances and challenges. *Review of Research in Education, 44*(1), 130-160.
+
+Technical reading(s):
+
+> Summarizing Data by Groups: https://r-graphics.org/recipe-dataprep-summarizeLinks
+
+> Data Transformation: https://r4ds.hadley.nz/data-transform (note: only review section 4.5)
+
+---
+
+# Reading Recap
+
+*Discussion Questions*:
+
+- For your research-related area of interest, what are one or more levels at which row-level data is aggregated?
+- For which purposes might raw data be more useful? For which purposes might aggregated data be useful?
+
+---
+
+# Reading Recap
+
+<small>
+> For exercise psychology, contemporary research advocates for person specific data (i.e. the opposite of aggregate data). A common issue we see in our field is the issue of Simpson’s paradox, which in short states, that data analyzed at certain levels (aggregate or person specific) can produce trends in opposite directions. ... It is well known and accepted now that obtaining person-specific levels of data to inform a “bottom-up” method of research and data analysis can be beneficial for understanding the experience of physical activity and exercise. -- Jimmy
+
+> I'm often visually and audibly recording simple behaviors (e.g., seed-taking behavior, aggressive behavior between birds), but the different contexts (e.g., flock sizes, traffic noise, vegetation density, diversity of species in flock, etc.) that their measured in reveals a plethora of different relationships in the data analysis later on. Aggregation is helpful because it allows you to simplify different data by grouping like parameters and distinguishing others. -- Zaharia
+
+> a key challenge, as the article highlights, is the practical utilization of data. While I could analyze and present findings, the effectiveness of data-driven decision-making depended on whether stakeholders (administrators, faculty, or student affairs professionals) could translate insights into actionable strategies. ... Ensuring that aggregated data translates into meaningful institutional change remains an ongoing challenge. -- Jerri
+
+</small>
+---
+
+# Aggregated data
+
+.panelset[
+
+.panel[.panel-name[Background]
+
+- One way we can think about _large and complex_ data sets is whether the data is aggregated---or not
+- In education data, it is highly common to aggregate raw data (e.g., individual student assessments) at multiple levels:
+
+    - Multiple assessments at the **student level**
+    - Multiple students at the **teacher level**
+    - Multiple teachers at the **subject level** and **school level**
+    - Multiple schools at the **district level**
+    - Multiple districts at the **state level**
+
+- What counts as raw and aggregated data differs for each field---and even for each research question!
+
+]
+
+.panel[.panel-name[Background]
+
+```{r}
+#| out.width: 80%
+#| fig-align: center
+knitr::include_graphics("examples.png")
+```
+Source: Data Quality Campaign
+
+]
+
+.panel[.panel-name[Definitions]
+
+- *Raw data* is data that has not been processed for use
+- *Row-level/individual data* is data that can be associated with a single element
+- *Aggregated data* is when multiple data sources are combined into one set to create a larger idea of a particular issue
+- *Disaggregated data* refers to the isolation of one or more variables within a data set, highlighting specific features or populations and leading to different insights 
+
+]
+
+]
+
+---
+
+# Key Concept: Aggregating
+
+.panelset[
+
+.panel[.panel-name[dplyr "verbs"]
+
+- As we discussed in our last class (for weeks 7-8), there are several functions loaded in the dplyr package (which itself is loaded in the tidyverse package) that are useful in practically all analyses: `select()`, `rename()`, `filter()`, `arrange()`, and `mutate()`
+- Several additional "verbs" are also very useful and are the focus of this and the next week: `group_by()`, `summarize()`, `pivot_longer()`, and `pivot_wider()`
+- We focus on the first two of these additional "verbs" this week
+- We use the term "aggregating" to refer to grouping and summarizing - specifying groups in our data and summarizing them
+]
+
+.panel[.panel-name[group_by]
+
+- `group_by()` is used to specify the group or groups in a a data frame (or tibble)
+- It works by specifying the variables you want to keep or remove
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("group_by.png")
+```
+
+]
+
+.panel[.panel-name[group_by]
+
+- Let's use our trusty `mtcars` dataset
+
+```{r, echo = TRUE}
+mtcars %>%
+    group_by(cyl) %>%
+    head()
+```
+
+]
+
+.panel[.panel-name[multiple groups]
+
+- Importantly, we can specify multiple groups; typically, these variables are character strings or factors but they can be any unique identifiers
+
+```{r, echo = TRUE, eval = FALSE}
+mtcars %>%
+    group_by(cyl, vs) %>%  # the data is now "grouped" by cyl *and* vs
+    head()
+```
+
+- What this grouping means is that **summary statistics will be calculated for each unique combination of groups** (specific cyl within specific vs)
+- If you apply group_by() to an already grouped dataset, will overwrite the existing grouping variables.
+
+]
+
+.panel[.panel-name[ungrouping]
+
+- To remove all grouping variables, use `ungroup()`:
+```{r, echo = TRUE}
+mtcars %>%
+    group_by(cyl, vs) %>%
+    head() %>% 
+    ungroup()
+```
+Learn more about `group_by()` here: https://dplyr.tidyverse.org/reference/group_by.html
+
+]
+]
+
+---
+
+# Key Concept: Aggregating
+
+.panelset[
+
+.panel[.panel-name[summarize]
+
+- Once we have specified groups, we can then calculate summary statistics
+- `summarise()/summarize()` computes a summary for each group.
+
+- The first part of the `summarize()` function is simply the name of our summary statistic --- whatever we want it to be!
+- The second part, following the `=` symbol, is the formula for how your summary statistic is calculated (as long as it returns a single value per group, it is a valid summary statistic!)
+
+```{r, echo = TRUE, eval = TRUE}
+mtcars %>% 
+    summarize(mean_mpg = mean(mpg)) 
+```
+
+]
+
+.panel[.panel-name[summarize]
+
+```{r}
+#| out.width: 60%
+#| fig-align: center
+knitr::include_graphics("summarize.png")
+```
+
+Learn more about summarize here: https://dplyr.tidyverse.org/reference/summarize.html
+
+]
+
+.panel[.panel-name[piping it!]
+
+- We can use the pipe operator to link together these functions in a single block of code
+- We can also change our summary statistic or add multiple summary statistics, as below
+- Summary statistics are calculated for numeric variables
+
+```{r, echo = TRUE, eval = TRUE}
+mtcars %>% 
+    group_by(cyl) %>% 
+    summarize(n = n(),
+              mean_mpg = mean(mpg)) 
+```
+
+]
+]
+
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[grouping]
+
+```{r, eval = FALSE, echo = TRUE}
+library(palmerpenguins)
+library(tidyverse)
+
+grouped_data <- penguins %>%
+    group_by(species)
+
+grouped_data 
+# the data is now "grouped" by species (internally)
+```
+
+]
+
+.panel[.panel-name[Multiple groups]
+
+```{r, eval = FALSE, echo = TRUE}
+grouped_data_2 <- penguins %>%
+    group_by(species, island)
+
+grouped_data_2 
+# the data is "grouped" by species and island (Again, internally)
+```
+
+]
+
+.panel[.panel-name[summarize]
+
+```{r, eval = FALSE, echo = TRUE}
+grouped_data %>% 
+    summarize(mean_body_mass_g = mean(body_mass_g))
+
+# note: often, we need to add na.rm = TRUE 
+# to remove rows with missing values
+# can you replace mean with a different measure of central tendency? 
+# what do you find?
+
+grouped_data_2 %>% 
+    summarize(mean_body_mass_g = mean(body_mass_g)) 
+# what is different in this output?
+
+grouped_data_2 %>% 
+    summarize(mean_body_mass_g = mean(body_mass_g),
+              max_body_mass_g = max(body_mass_g),
+              n = n()) 
+# n() is a summary function that returns the number of rows per group
+
+```
+
+]
+
+.panel[.panel-name[Doing more]
+
+- There are some helpful extensions of summarize that may prove useful
+- Imagine you want to find the mean for _all_ of the numeric variables in your data, after you have grouped by species and island
+- Let's start from the raw data, building this up step-by-step, and assigning the output a new name
+
+```{r, eval = FALSE, echo = TRUE}
+mean_vals_for_penguins <- penguins %>% 
+    group_by(species, island) %>% 
+    summarize_if(is.numeric, mean, na.rm = TRUE) 
+                    # what if we don't add na.rm = TRUE? try this out!
+
+mean_vals_for_penguins
+```
+]
+
+.panel[.panel-name[And more!]
+
+- What if we wanted to remove year? We can use select to remove it --- or, try out `summarize_at()`:
+
+```{r, eval = FALSE, echo = TRUE}
+mean_vals_for_penguins <- penguins %>% 
+    group_by(species, island) %>% 
+    summarize_at(vars(bill_length_mm, bill_depth_mm, flipper_length_mm, 
+                      body_mass_g), mean, na.rm = TRUE)
+
+
+mean_vals_for_penguins
+```
+
+]
+
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+- In the weekly assignment, you will group and summarize school-level data on enrollments, practicing aggregating in three ways:
+
+1. at different levels (groups)
+2. for different variables
+3. with different summary statistics
+
+Due: As usual, **11:59 pm on Monday (March 17)**
+
+]
+
+
+.panel[.panel-name[Data]
+
+- We'll be using an already-saved version of data we accessed via the educationdata package on school-level enrollments
+- The data will be fairly large and complex --- thus suggesting the importance of grouping and summarizing as exploratory data analysis steps
+
+]
+
+.panel[.panel-name[Substantive Reading(s)]
+
+- Substantive reading(s) for the week ahead:
+
+> Kimmons, R., & Veletsianos, G. (2018). Public internet data mining methods in instructional design, educational technology, and online learning research. TechTrends, 62(5), 492-500.
+
+Link is in Canvas
+
+Due: **11:59 pm on Monday (March 24; Before the class after spring break)**
+
+]
+
+.panel[.panel-name[Technical Reading(s)]
+
+- Technical reading(s) for the week ahead:
+
+> Data tidying:https://r4ds.hadley.nz/data-tidy
+
+Link is in Canvas
+
+]
+
+.panel[.panel-name[Professional Development Plan]
+
+- The goal of this assignment is for you to reflect on how educational data science skills will contribute to your professional development and career goals. This exercise will help you identify key skills you need to acquire or strengthen and how these skills will support your future work.
+- Length: Write a 1-page professional development plan
+- Content: Your plan should include the following sections:
+    - Introduction
+    - Educational Data Science Skills
+    - Application of Skills
+    - Skills Gap Identification
+    - Next Steps
+- **Due: 11:59 pm on Monday (March 24; Before the class after spring break)**
+
+More detailed instructions are available in Canvas (https://utk.instructure.com/courses/224781/assignments/2142248?module_item_id=4916144)
+]
+
+]
