@@ -70,7 +70,7 @@ knitr::include_graphics("https://media0.giphy.com/media/s4kpsTSwoiFCU/giphy.gif"
 
 ---
 
-## Revisit Key Concepts from Assignment 9
+## Revisit Key Concepts from Assignment 8
 
 **Why may you not want to do this?**
 
