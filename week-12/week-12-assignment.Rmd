@@ -1,6 +1,6 @@
 ---
 title: "Week 12 - Teacher"
-author: "Teacher"
+author: "Name"
 date: "Assignment Due Date"
 output: html_document
 ---
@@ -22,14 +22,15 @@ While the assignment guides you through the steps, it doesn't provide step-by-st
 ```
 
 2. Download and read in the following data using `read_excel()`:
-
-- The School Directory provides the school names, school numbers, district names, district numbers, school addresses, and other school-related information in an excel document for public reference: https://github.com/utkeds/f23-founds-eds/blob/main/week-12/data/data_2017_educator_race_ethnicity_by_district.xlsx
-- Educator Race and Ethnicity Data for 2016-17: https://github.com/utkeds/f23-founds-eds/blob/main/week-12/data/schl_directory_2017-18.xlsx
+- Instead of using read_csv() from tidyr, you will need to install the "readxl" package and use the function read_excel().
+- The School Directory provides the school names, school numbers, district names, district numbers, school addresses, and other school-related information in an excel document for public reference: https://github.com/utkeds/foundations-data-sci/tree/S25-foundations-eds/week-12/data/data_2017_educator_race_ethnicity_by_district.xlsx
+- Educator Race and Ethnicity Data for 2017-18: https://github.com/utkeds/foundations-data-sci/tree/S25-foundations-eds/week-12/data/schl_directory_2017-18.xlsx
 
 Clean the column names with janitor.
 
 ```{r}
 
+  
 ```
 
 3. Take a look at the column identifying districts in the `data_2017_educator_race_ethnicity_by_district` file. Notice that they are not the usual school district IDs that we've been using; instead, they are Tennessee-specific identifiers. Tigris uses the federal-specific identifiers. Luckily, the directory file provides a crosswalk between the two. 
@@ -42,7 +43,7 @@ Let's join the data so that the federal-specific identifiers are available in th
 
 Answer:
 
-2. To do this join successfully, we need to drop the `NA`s from the `schl_directory_2017` columns. Why? (Hint: use `group_by()` and `summarize(count = n())` to see how many of each
+2. To do this join successfully, we need to drop the `NA`s from the `schl_directory_2017` columns. Why? (Hint: use `group_by()` and `summarize(count = n())` to see how many of each unique value exists in the relevant column(s) before and after filtering out NAs. This will help you understand the impact of missing data on the join and why removing NAs is necessary to ensure a consistent match between datasets.)
 
 Answer:
 
