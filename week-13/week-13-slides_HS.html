@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 13 Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Hanall Sung" />
+    <meta name="date" content="2025-04-15" />
+    <script src="week-13-slides_HS_files/header-attrs-2.28/header-attrs.js"></script>
+    <link href="week-13-slides_HS_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="week-13-slides_HS_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="week-13-slides_HS_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week-13-slides_HS_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week-13-slides_HS_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="week-13-slides_HS_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-13-slides_HS_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-13-slides_HS_files/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="week-13-slides_HS_files/panelset-0.3.0/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 13 Slides
+]
+.subtitle[
+## Introduction to Text Analysis
+]
+.author[
+### <strong>Hanall Sung</strong>
+]
+.date[
+### April 15, 2025
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+# Purpose and Agenda
+
+This week, we'll introduced text data and text analysis. Traditionally, text data has been in the wheelhouse of qualitative researchers. However, we can use a programming language like R to carry out _computational_ text analyses---analyses that can blur the lines between qualitative and quantitative in compelling ways.
+
+## What we'll do in this presentation
+
+- Additional helpful tidyverse functions
+- Brief discussion on text data
+- Useful functions for analyzing text
+- Example of text analysis
+- New text analysis package: tidytext
+- Code-along
+
+---
+
+## Shout out
+
+Great job on the mini-project!
+
+&lt;img src="https://i1.wp.com/media2.giphy.com/media/Xc9XJ8poD8cE7SSopt/giphy.gif?ssl=1" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Helpful tidyverse functions: forcats
+
+.panelset[
+
+.panel[.panel-name[Factors]
+
+In R, factors are a way to handle categorical data.
+
+* R represents categorical data as factors to maintain the specific categories and their order.
+* Factors in R have both the category labels (levels) and the actual data.
+
+]
+
+.panel[.panel-name[`fct_reorder()`]
+
+`fct_reorder()` is a function in the forcats package that allows you to reorder levels of a factor based on the values of another variable. Suppose you have a dataset with two variables: "City" and "Revenue." You want to reorder the levels of "City" based on the sum of "Revenue" for each city.
+
+
+``` r
+library(forcats)
+library(dplyr)
+
+data &lt;- data.frame(
+  city = c("New York", "Los Angeles", "Chicago", "Houston", "New York", "Chicago"),
+  revenue = c(15000, 22000, 18000, 12000, 13500, 16000))
+
+data &lt;- data %&gt;%
+  mutate(city = city %&gt;% fct_reorder(., revenue, sum))
+             ## format: fct_reorder(.f, .x, .fun)
+# Check the levels after reordering
+levels(data$city)
+```
+
+```
+## [1] "Houston"     "Los Angeles" "New York"    "Chicago"
+```
+
+]
+
+.panel[.panel-name[`fct_relevel()`]
+
+`fct_relevel()` in the forcats package is used to reorder the levels of a factor to a specified order.
+
+Let's say you have a dataset with a factor variable "Education" that contains levels for different education levels. You want to reorder these levels to a custom order.
+
+
+``` r
+data &lt;- data.frame(
+  education = c("High School", "Bachelor's", "Some College", "Master's", "High School"))
+
+data &lt;- data %&gt;% 
+    mutate(education = fct_relevel(education, "Master's", "Bachelor's", "Some College", "High School"))
+            ## format: fct_relevel(.f, ...)
+levels(data$education)
+```
+
+```
+## [1] "Master's"     "Bachelor's"   "Some College" "High School"
+```
+
+]
+]
+
+---
+
+# What counts as text data?
+
+- Text data is common across physical, life sciences, and social sciences research fields (with this last group of fields including educational research).
+- Text data can take _many_ forms; what are some examples of text in your field? What sort of analysis do you do with text?
+
+**Next week: bring your own text data!**
+
+---
+
+# Example of text analysis
+
+She Giggles, He Gallops: &lt;https://pudding.cool/2017/08/screen-direction/&gt;
+
+---
+
+## tidytext
+
+**The tidytext package**: A tool designed for text mining and natural language processing, utilizing the principles of tidy data.
+
+Install using:
+
+```r
+install.packages("tidytext") # remember to delete this line after installing!
+```
+
+---
+
+## Key Concept: Tokens and the tidy text format
+
+.panelset[
+
+.panel[.panel-name[Token]
+
+- **Token**: A 'token' refers to the smallest unit of text analysis, such as a word, symbol, or n-gram.
+    - In the sentence "Text analysis is powerful", tokens would be "Text," "analysis," "is," and "powerful."
+- **Tokenization**: The process of splitting text into tokens, enabling efficient analysis of words, frequency, sentiment, and more.
+
+]
+
+.panel[.panel-name[Tidy text format]
+
+Tidy text has a specific structure: 
+
+    Each variable is a column
+    Each observation is a row
+    Each type of observational unit is a table
+
+- **Tidy text format**: a table with one-token-per-row.
+- The tidytext package provides functionality to tokenize by commonly used units of text like these and convert to a one-term-per-row format.
+
+]
+
+.panel[.panel-name[Applications and benefits]
+
+- We can use the same tidy data format we are familiar with.
+- Tidy data sets allow manipulation with a standard set of “tidy” tools.
+- There's great documentations and examples (see [tidytextmining.com](https://www.tidytextmining.com/)); the website has basic and advanced computational text analysis capabilities.
+
+&gt;  Treating text as data frames of individual words allows us to manipulate, summarize, and visualize the characteristics of text easily and integrate natural language processing into effective workflows we were already using. - Text Mining with R, Silge &amp; Robinson.
+
+]
+]
+
+---
+
+## Key concept: Tokenization
+
+.panelset[
+.panel[.panel-name[`unnest_tokens()`]
+
+**Transforming text into tidy text:** we must break text into individual tokens. That is, each word (i.e., token) must have its own line.
+
+- `unnest_tokens()` is the _key_ function in working with text data using tidytext
+
+```r
+df %&gt;%
+  unnest_tokens(word, text)
+```
+
+- The first argument (`word`) you must specify is the new column name the text will be unnested into.
+- The second argument (`text)` is the input column the text comes from. This can be quotes, transcripts, entire documents, etc.
+
+]
+
+.panel[.panel-name[Example]
+
+Here's a super small example (h/t to Run-D.M.C.). This is a typical character vector that we might want to analyze.
+
+
+``` r
+text = c(
+    "This speech is my recital, I think it's very vital",
+    "To rock (a rhyme), that's right (on time)",
+    "It's Tricky is the title, here we go..."
+)
+
+text
+```
+
+```
+## [1] "This speech is my recital, I think it's very vital"
+## [2] "To rock (a rhyme), that's right (on time)"         
+## [3] "It's Tricky is the title, here we go..."
+```
+
+]
+
+.panel[.panel-name[Example]
+
+To turn the text into a tidy text dataset, we first need to put it into a data frame. However, it still isn't compatible with text analysis.  We can’t filter out words or count which occur most frequently, since each row is made up of multiple combined words. We need to convert this so that it has **one-token-per-document-per-row**.
+
+
+``` r
+text_df &lt;- tibble(line = 1:3, text = text)
+
+text_df
+```
+
+```
+## # A tibble: 3 × 2
+##    line text                                              
+##   &lt;int&gt; &lt;chr&gt;                                             
+## 1     1 This speech is my recital, I think it's very vital
+## 2     2 To rock (a rhyme), that's right (on time)         
+## 3     3 It's Tricky is the title, here we go...
+```
+
+]
+
+.panel[.panel-name[Example]
+
+we need to both break the text into individual tokens (tokenization) and transform it to a tidy data structure. For this, we use tidytext’s `unnest_tokens()` function.
+
+* The arguments are the column names
+    * First, we have the output column name that will be created as the text is unnested into it (`word`)
+    * The input column that the text comes from (`text`)
+
+
+``` r
+tidy_df_unnest &lt;- text_df %&gt;%
+    unnest_tokens(word, text)
+```
+
+]
+
+.panel[.panel-name[Example]
+
+After using `unnest_tokens()`, we’ve split each row so that there is one token (word) in each row of the new data frame; the default tokenization in `unnest_tokens()` is for single words, as shown here.
+
+* Other columns, such as the line number each word came from, are retained.
+* Punctuation has been stripped.
+* By default, `unnest_tokens()` converts the tokens to lowercase.
+
+
+``` r
+tidy_df_unnest %&gt;%
+    head(3)
+```
+
+```
+## # A tibble: 3 × 2
+##    line word  
+##   &lt;int&gt; &lt;chr&gt; 
+## 1     1 this  
+## 2     1 speech
+## 3     1 is
+```
+
+]
+]
+
+---
+
+## Summary
+
+&lt;img src="tmwr_0101.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Key Concept: Stop Words
+
+.panelset[
+.panel[.panel-name[Stop Words]
+
+- **Stop words**: Words that are not useful for an analysis, typically extremely common words such as “the”, “of”, “to”, and so forth in English.
+- Often in text analysis, we want to remove stop words.
+
+]
+
+.panel[.panel-name[`anti_join()`]
+
+- We can manipulate our text data with tidy tools like dplyr.
+- `anti_join()` works to remove observations from a specified dataset.
+
+&gt; All rows from x where there are not matching values in y, keeping just columns from x.
+
+&lt;img src="anti-join.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+Source: &lt;https://www.garrickadenbuie.com/project/tidyexplain/#anti-join&gt;
+
+]
+
+.panel[.panel-name[`stop_words` dataset]
+
+- The `stop_words` dataset in the tidytext package contains stop words from three lexicons. 
+- Here we will use `stop_words` to remove stop words with `anti_join()`.
+
+
+``` r
+tidy_df_unnest %&gt;%
+    anti_join(stop_words)
+```
+
+```
+## # A tibble: 8 × 2
+##    line word   
+##   &lt;int&gt; &lt;chr&gt;  
+## 1     1 speech 
+## 2     1 recital
+## 3     1 vital  
+## 4     2 rock   
+## 5     2 rhyme  
+## 6     2 time   
+## 7     3 tricky 
+## 8     3 title
+```
+
+]
+]
+
+---
+
+## Another example
+
+.panelset[
+.panel[.panel-name[Example]
+
+```r
+my_sentences &lt;- tibble(sentences = c("I think that she's really good at playing soccer, but he's probably a better dancer, especially at his age", "I really like to watch soccer games, especially for OneKnox", "She was a great goalkeeper, perhaps because she played soccer from such a young age"))
+
+my_sentences %&gt;% 
+  unnest_tokens(___, ___) %&gt;% # separate words, removing punctuation
+  count(___) %&gt;% # counting words
+  ____(desc(n)) %&gt;% # arranging by frequency
+  ___(___) # removing common words, or "stop" words
+```
+
+]
+
+.panel[.panel-name[Example]
+
+```r
+my_sentences %&gt;% 
+  unnest_tokens(word, sentences) %&gt;% # separate words, removing punctuation
+  count(word) %&gt;% # counting words
+  arrange(desc(n)) %&gt;% # arranging by frequency
+  anti_join(stop_words) # removing common words, or "stop" words
+```
+
+]
+]
+
+---
+
+## Which text?
+
+.panelset[
+.panel[.panel-name[Sources]
+
+Text data can originate from a wide range of sources, encompassing both traditional and digital mediums.
+
+**Examples of Text Data Sources**:
+  
+- Digital sources: Websites, social media posts, online reviews, blogs, and news articles.
+- Traditional sources: Books, journals, newspapers, and transcripts of interviews or speeches.
+- Institutional documents: Official reports, legal documents, policy papers, and corporate communications.
+- Personal communication: Emails, letters, text messages, and notes.
+
+]
+
+.panel[.panel-name[Formats]
+
+Text data can be stored in many different formats.
+
+**Examples of Text Data Formats**:
+
+- String: Text can be stored as strings, i.e., character vectors, within R, and often text data is first read into memory in this form.
+- Corpus: These types of objects typically contain raw strings annotated with additional metadata and details.
+- Document-term matrix: This is a sparse matrix describing a collection (i.e., a corpus) of documents with one row for each document and one column for each term. The value in the matrix is typically word count or tf-idf.
+    
+]
+
+.panel[.panel-name[Data Ethics]
+  
+ **Considerations in Text Data Collection**:
+ 
+- Ethical considerations and privacy concerns, especially with personal or sensitive data.
+- Data quality and representativeness, ensuring that the text data accurately reflects the subject of study.
+- Challenges in processing and analyzing unstructured text, requiring specific tools and methodologies like Natural Language Processing (NLP).
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+
+.panel[.panel-name[Intro]
+
+Tidying the works of Jane Austen: Let’s use the text of Jane Austen’s 6 completed, published novels from the janeaustenr package. The janeaustenr package provides these texts in a one-row-per-line format, where a line in this context is analogous to a literal printed line in a physical book. 
+
+]
+
+.panel[.panel-name[janeaustenr]
+
+To analyze the words in Jane Austen books, let's use `mutate()` to:
+
+* annotate a `linenumber` quantity to keep track of lines in the original format
+* and create a `chapter` column (using a regex) to find where all the chapters are.
+
+```r
+library(janeaustenr)
+library(dplyr)
+library(stringr)
+
+original_books &lt;- austen_books() %&gt;%
+  group_by(book) %&gt;%
+  mutate(linenumber = row_number(),
+         chapter = cumsum(str_detect(text, 
+                                     regex("^chapter [\\divxlc]",
+                                           ignore_case = TRUE)))) %&gt;%
+  ungroup()
+```
+
+]
+
+.panel[.panel-name[`unnest_tokens()`]
+
+To work with this as a tidy dataset, we need to restructure it in the one-token-per-row format using `unnest_tokens()`.
+
+```r
+library(tidytext)
+tidy_books &lt;- original_books %&gt;%
+  unnest_tokens(word, text)
+```
+
+]
+
+
+.panel[.panel-name[Remove stop words]
+
+We can remove stop words (kept in the tidytext dataset `stop_words`) with an `anti_join()`.
+
+```r
+data(stop_words)
+
+tidy_books &lt;- tidy_books %&gt;%
+  anti_join(stop_words)
+```
+
+]
+]
+
+---
+
+## Code-Along
+
+.panelset[
+.panel[.panel-name[Count words]
+
+We can use dplyr’s `count()` to find the most common words in all the books as a whole.
+
+```r
+tidy_books %&gt;%
+  count(word, sort = TRUE)
+```
+
+]
+
+.panel[.panel-name[Visualize words]
+
+We can pipe the word count directly to the ggplot2 package.
+
+```r
+library(ggplot2)
+
+tidy_books %&gt;%
+  count(word, sort = TRUE) %&gt;%
+  filter(n &gt; 600) %&gt;%
+  mutate(word = fct_reorder(word, n)) %&gt;%
+  ggplot(aes(n, word)) +
+  geom_col() +
+  labs(y = NULL)
+```
+
+]
+]
+
+---
+
+# What's next?
+
+.panelset[
+
+.panel[.panel-name[Weekly Assignment]
+
+- You'll complete this week's assignment using our class transcript data!
+
+]
+
+.panel[.panel-name[Next Week: BYOD]
+
+Next week: bring your own text data!
+
+Think about the text data that you commonly work with and how you would like to analyze it.
+
+]
+
+.panel[.panel-name[Data Ethics]
+
+- This is posted in Canvas (https://utk.instructure.com/courses/224781/assignments/2142244) and is due **April. 21 (11:59 pm)** with partner feedback due **April. 28th (11:59 pm)**.
+
+]
+
+.panel[.panel-name[Final Project]
+
+- 1. Final Project (Presentation video file uploading): **Due 5/6 (11:59 pm)** (https://utk.instructure.com/courses/224781/discussion_topics/1699555?module_item_id=5201224)
+- 2. Final Project (Codes &amp; Report): **Due 5/13 (11:59 pm)** (https://utk.instructure.com/courses/224781/assignments/2142246?module_item_id=4916187)
+- Please find them in Week 16 module! Please don't hesitate to reach out to me if you have any questions.
+
+
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
