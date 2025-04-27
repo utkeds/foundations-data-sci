@@ -1,0 +1,537 @@
+---
+title: "Week 15 Slides"
+subtitle: "Functions & Loops"
+author: "**Hanall Sung**"
+date: "April 29, 2025"
+output: xaringan::moon_reader
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r, echo=FALSE}
+# then load all the relevant packages
+pacman::p_load(pacman, knitr, tidyverse, readxl)
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+# these allow any code snippets to be copied to the clipboard so they 
+# can be pasted easily
+htmltools::tagList(
+    xaringanExtra::use_clipboard(button_text = "<i class=\"fa fa-clipboard\"></i>",
+                                 success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",),
+    rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+# Purpose and Agenda
+
+Today, we'll talk about functions -- a reusable blocks of code -- and how we can create our own. You can write a function once and reuse it multiple times in your program. This promotes modularity, making your code easier to understand, maintain, and debug.
+
+Loops enable you to iterate (or loop) over data structures like lists, arrays, or datasets. Loops allow you to execute a block of code repeatedly for automating tasks that involve repetitive operations. This saves time and reduces the chance of errors that can occur with manual repetition.
+
+## What we'll do in this presentation
+
+- Key Concept: Functions
+- Key Concept: Loops
+- Final project (Parts 1, 2, and 3)
+
+---
+
+## Key Concept: Functions
+
+.panelset[
+
+.panel[.panel-name[Functions]
+
+Functions are reusable blocks of code. When you've used commands like `read_csv()`, `mutate()`, etc... those have all been functions!
+
+```{r}
+#| eval: true
+#| echo: true
+
+read_csv
+```
+
+]
+
+.panel[.panel-name[Writing a function]
+
+There are three main parts to writing a function:
+
+- Pick a name for the function.
+- List the inputs, or arguments, to the function inside function.  The arguments are things that vary across calls.
+- You place the code you have developed in body of the function, a `{` block that immediately follows `function(...)`.
+
+```r
+name <- function(arguments) {
+  body
+}
+--------------------------------
+add_numbers <- function(a, b) {
+  a + b
+}
+add_numbers(2, 3)
+```
+
+]
+]
+
+---
+
+.title[Creating Functions]
+
+.panelset[
+
+.panel[.panel-name[Identify repetition]
+
+I write this line of code to optimize PNGs in the posts in my `content/blog' folder.
+
+* Notice each time I use it, the code is very similar. Only the folder name is changing.
+
+```r
+xfun::optipng('content/blog/intro-to-quarto')
+xfun::optipng('content/blog/what-is-a-function')
+xfun::optipng('content/blog/data-science-in-2024')
+```
+
+]
+
+.panel[.panel-name[Create function]
+
+```r
+png_opt <- function(folder) {
+    xfun::optipng(paste0('content/blog/', folder))
+}
+```
+
+* Name: `png_opt`
+* Input: `folder`
+* Code: ` xfun::optipng(paste0('content/blog/', folder))`
+
+]
+
+.panel[.panel-name[Use the function]
+
+This will run the equivalent of `xfun::optipng('content/blog/resolutions-2024')`:
+
+```r
+png_opt('resolutions-2024')
+```
+
+]
+]
+
+---
+
+## Function writing exercise
+
+Can you turn these into functions?
+
+```r
+mean(is.na(x))
+mean(is.na(y))
+mean(is.na(z))
+
+x / sum(x, na.rm = TRUE)
+y / sum(y, na.rm = TRUE)
+z / sum(z, na.rm = TRUE)
+
+round(x / sum(x, na.rm = TRUE) * 100, 1)
+round(y / sum(y, na.rm = TRUE) * 100, 1)
+round(z / sum(z, na.rm = TRUE) * 100, 1)
+-------------------------------------------
+name <- function(arguments) {
+  body
+}
+```
+
+---
+
+## Function writing exercise
+
+Turning patterns into functions
+
+```r
+avg_missing <- function(var) {
+  mean(is.na(var))
+}
+
+prop_normalize <- function(var) {
+  var / sum(var, na.rm = TRUE)
+}
+
+prop_normalize_percentage <- function(var) {
+  round(var / sum(var, na.rm = TRUE) * 100, 1)
+}
+```
+---
+
+.title[Plot functions]
+
+.panelset[
+.panel[.panel-name[Identify repetition]
+
+You can also create functions for ggplot. Let's say you **really** like `theme_minimal()` and axis labels.
+
+```r
+diamonds %>%
+    ggplot(aes(x = carat)) +
+    geom_histogram(binwidth = 0.1,
+                   color = "grey",
+                   fill = "blue") +
+    theme_minimal() +
+    labs(x = "Size (in carats)", y = "Number of diamonds")
+```
+
+```r
+diamonds %>%
+    ggplot(aes(x = carat)) +
+    geom_histogram(binwidth = 0.3,
+                   color = "white",
+                   fill = "green") +
+    theme_minimal() +
+    labs(x = "Size (in carats)", y = "Number of diamonds")
+```
+
+]
+
+.panel[.panel-name[Create a function]
+
+Wouldn’t it be nice if you could wrap this up into a histogram function? 
+
+```{r}
+#| echo: true
+my_histograms <- function(dat, x, color, fill, binwidth){
+    dat %>%
+    ggplot(aes(x = x)) +
+    geom_histogram(binwidth = binwidth,
+               color = color,
+               fill = fill) +
+    theme_minimal() +
+    labs(x = "Size (in carats)", y = "Number of diamonds")
+}
+```
+
+]
+
+.panel[.panel-name[Use the function]
+
+```{r}
+#| echo: true
+my_histograms(diamonds, caret, "white", "blue", 0.2)
+```
+
+]
+]
+
+---
+
+# Function style
+
+## Function names
+
+- Ideally, the name of your function will be short, but clearly evoke what the function does.
+- Generally, function names should be verbs, and arguments should be nouns.
+- Avoid using names that are too generic or easily confused with existing functions or variables.
+
+## Function arguments
+
+- Avoid using too many arguments, as it can make your functions hard to understand and use.
+- Use default values when appropriate to provide flexibility.
+
+---
+
+## Function documentation
+
+- Write clean, readable code within your functions. Use consistent indentation, whitespace, and naming conventions.
+- `function()` should always be followed by curly brackets (`{}`), and the contents should be indented by an additional two spaces.
+- Include comments or documentation within your functions to explain their purpose, usage, and any important details.
+
+---
+
+## Key Concept: Loops
+
+.panelset[
+
+.panel[.panel-name[Loops]
+
+Loops allow you to execute a block of code repeatedly. In R, loops are used for iterating over data structures like vectors, lists, or arrays, and performing a specific set of operations on each element.
+
+]
+
+.panel[.panel-name[Writing a loop]
+
+Every for loop has three components:
+
+- **Initialization**: You initialize a loop variable (often called an index or counter) to a starting value. This variable keeps track of the current iteration.
+- **Condition**: You specify a condition that, as long as it evaluates to true, will continue the loop. The loop runs as long as the condition is true.
+- **Iteration Logic**: In each iteration of the loop, the loop variable is updated according to a specified rule. This step controls the progress of the loop.
+
+```r
+for (i in 1:5) {
+  print(i)
+}
+```
+
+]
+
+.panel[.panel-name[Writing a loop]
+
+```r
+for (i in 1:5) {
+  print(i)
+}
+```
+
+- `i` is the loop variable, starting at 1.
+- The condition is `i <= 5`, which means the loop will run as long as `i` is less than or equal to 5.
+- In each iteration, `i` is incremented by 1 (`i = i + 1`), and the value of `i` is printed.
+
+```r
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+```
+
+]
+]
+
+---
+
+## Difference between loops and functions
+
+Loops are used for repeating tasks, while functions are used for encapsulating and reusing code to perform specific operations.
+
+.panelset[
+
+.panel[.panel-name[Purpose]
+
+- Loops are used for repetition and iterating over data.
+- Functions are used for encapsulating and reusing specific pieces of code.
+]
+
+.panel[.panel-name[Use]
+
+- Loops repeat a block of code until a certain condition is met.
+- Functions execute a specific task or operation when called.
+]
+
+.panel[.panel-name[Structure]
+
+- Loops consist of control structures like for, while, etc.
+- Functions are modular and self-contained with their own logic.
+]
+
+.panel[.panel-name[Input/Output]
+
+- Loops typically don't have explicit inputs and outputs but operate on variables defined outside the loop.
+- Functions explicitly take input parameters and often return values as output.
+]
+
+.panel[.panel-name[Reuseability]
+
+- Loops are used to repeat a sequence of instructions in one place.
+- Functions are designed for reuse across different parts of a program.
+
+]
+] 
+---
+
+## Key Concept: Loops
+
+.panelset[
+
+.panel[.panel-name[Repeat a block of code]
+
+```r
+my_histograms(diamonds, caret, "white", "blue", 0.2)
+my_histograms(diamonds, caret, "white", "green", 0.2)
+my_histograms(diamonds, caret, "white", "red", 0.2)
+```
+
+]
+
+.panel[.panel-name[Create a loop]
+
+You can use a for loop in R to iterate over the colors and call the `my_histograms()` function with each color from the colors vector:
+
+- Define a vector colors that contains the colors you want to use: "blue", "green", and "red."
+- Use a for loop to iterate over each element (color) in the colors vector.
+- Inside the loop, call the `my_histograms()` function with the specified arguments, including the current color from the loop iteration.
+
+This loop will call `my_histograms()` three times, once for each color in the colors vector, achieving the same result as the original three function calls.
+
+```{r}
+#| echo: true
+colors <- c("blue", "green", "red")
+
+for (color in colors) {
+  print(my_histograms(diamonds, caret, "white", color, 0.2))
+}
+```
+
+]
+]
+---
+
+# Code-along
+
+.panelset[
+
+.panel[.panel-name[Function 1]
+
+```{r, echo = TRUE, eval = FALSE}
+# mean(is.na(x))
+# mean(is.na(y))
+# mean(is.na(z))
+
+# Calculating the proportion of missing values in a vector
+# Internally, FALSE is treated as 0 and TRUE as 1.
+
+avg_missing <- function(number) {
+    mean(is.na(number))
+}
+
+avg_missing(c(3, 5, NA, 10))
+```
+]
+
+.panel[.panel-name[Function 2]
+
+```{r, echo = TRUE, eval = FALSE}
+# x / sum(x, na.rm = TRUE)
+# y / sum(y, na.rm = TRUE)
+# z / sum(z, na.rm = TRUE)
+
+# Proportion Normalization 
+# Scales values relative to their total sum so they represent proportions
+prop_normalize <- function(number) {
+    number / sum(number, na.rm = TRUE)
+}
+
+prop_normalize(c(2, 2, 6))
+
+```
+
+]
+
+.panel[.panel-name[Function 3]
+
+```{r, echo = TRUE, eval = FALSE}
+# round(x / sum(x, na.rm = TRUE) * 100, 1)
+# round(y / sum(y, na.rm = TRUE) * 100, 1)
+# round(z / sum(z, na.rm = TRUE) * 100, 1)
+
+# Percentages with Rounding
+# Computes percentages of proportional normalization values, rounds the result to one decimal place, and ignores missing values
+prop_normalize_percentage <- function(number) {
+    round(number / sum(number, na.rm = TRUE) * 100, 1)
+}
+
+prop_normalize_percentage(c(2, 2, 6))
+
+```
+
+]
+
+---
+
+.panel[.panel-name[Function 4]
+
+```{r, echo = TRUE, eval = FALSE}
+my_histograms <- function(dat, x, color, fill, binwidth){
+    dat %>%
+    ggplot(aes(x = x)) +
+    geom_histogram(binwidth = binwidth,
+               color = color,
+               fill = fill) +
+    theme_minimal() +
+    labs(x = "Size (in carats)", y = "Number of diamonds")
+}
+
+my_histograms(diamonds, caret, "purple", "orange", 0.2)
+```
+]
+
+---
+
+.panel[.panel-name[Loop 1]
+
+```{r, echo = TRUE, eval = FALSE}
+for (i in 1:5) {
+    print(i)
+}
+```
+]
+
+---
+.panel[.panel-name[Loop 2]
+
+```{r, echo = TRUE, eval = FALSE}
+# my_histograms(diamonds, caret, "white", "blue", 0.2)
+# my_histograms(diamonds, caret, "white", "green", 0.2)
+# my_histograms(diamonds, caret, "white", "red", 0.2)
+
+colors <- c("blue", "green", "red")
+
+for (color in colors) {
+  print(my_histograms(diamonds, caret, "white", color, 0.2))
+}
+
+```
+
+]
+
+---
+
+.panel[.panel-name[Incorporate into Final project]
+
+Try to identify one part of your project that could be transformed into a function or a loop. You can work on this for the remainder of the time.
+
+]
+]
+
+---
+
+## Final project
+
+.panelset[
+.panel[.panel-name[Part 1: Presentation video file uploading]
+
+Please upload the link of the video of your presentation to the discussion board: https://utk.instructure.com/courses/224781/discussion_topics/1699555?module_item_id=5201224
+
+Please prepare a 5-7 minute presentation on your project describing
+- The topic of your project
+- Why you chose this topic
+- What problem it solved or question it helped/helps you to answer
+- What you did, including the learning/independent work you had to do to be able to achieve what you did
+- What you are most proud of about your final project
+- What you still want to know more about/what you want to do next having completed your final project
+
+It is due on **May 6th, 11:59 pm**!
+]
+
+.panel[.panel-name[Part 1: Peer feedback]
+
+- You will post the link to your presentation zoom recording on the discussion board (Due May 6).  
+- After viewing your peers' presentation, please provide comments, questions, or suggestions **for at least two persons** (Due May 13): 5 points
+]
+
+.panel[.panel-name[Parts 2&3: Codes & Report]
+
+- (1) Codes (submitted as .Rmd file): a file containing your code (50 points)
+- (2) Report (submitted as a .pdf): a written report of your analysis (150 points)
+- Details in Canvas (https://utk.instructure.com/courses/224781/assignments/2142246)
+- This is due on **May 13th, 11:59 pm**!
+
+]
+]
+
