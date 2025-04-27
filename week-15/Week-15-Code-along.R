@@ -65,7 +65,7 @@ my_histograms <- function(dat, x, color, fill, binwidth){
         labs(x = "Size (in carats)", y = "Number of diamonds")
 }
 
-my_histograms(diamonds, caret, "black", "yellow", 0.5)
+my_histograms(diamonds, carat, "black", "yellow", 0.5)
 
 
 # Loop 1
@@ -75,12 +75,12 @@ for (i in 1:5) {
 
 
 # Loop 2
-    # my_histograms(diamonds, caret, "white", "blue", 0.2)
-    # my_histograms(diamonds, caret, "white", "green", 0.2)
-    # my_histograms(diamonds, caret, "white", "red", 0.2)
+    # my_histograms(diamonds, carat, "white", "blue", 0.2)
+    # my_histograms(diamonds, carat, "white", "green", 0.2)
+    # my_histograms(diamonds, carat, "white", "red", 0.2)
 
 colors <- c("blue", "green", "red")
 
 for (color in colors) {
-    print(my_histograms(diamonds, caret, "white", color, 0.2))
+    print(my_histograms(diamonds, carat, "white", color, 0.2))
 }
