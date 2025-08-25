@@ -58,6 +58,7 @@ This week, we answer the following question: What's this course about? I will in
 - Core Skills Framework
 - Code along and data
 - What's next: Assignment(s) and Readings
+- Pre-survey QnA
 
 ---
 
@@ -102,13 +103,11 @@ Source: http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram
 
 # Reading Recap
 
-In advance of this class, you were tasked with two readings (Week 1):
+Substantive readings (Week 2):
 
-> Estrellado, R. A., Freer, E. A., Mostipak, J., Rosenberg, J. M., & Velásquez, I. C. (2020). Data science in education using R. Routledge. Chapter 3, What does data science in education look like? 
+> Salganik, M. J. (2019). Bit by bit: Social research in the digital age. Princeton University Press. Chapters 2 (Observing Behavior) and 3 (Asking Questions).
 
-> McFarland, D. A., Khanna, S., Domingue, B. W., & Pardos, Z. A. (2021). Education data science: Past, present, future. AERA Open, 7, 233 2858 4211052055.
-
-The purpose of these reading was to illustrate the breadth of data science use cases. The second reading is the introduction to the first journal special issue on education(al) data science field (*note the title*, terms are still being normed on in the field!). This introduction gives a sense of research-related use cases for educational data science.
+The digital age creates new opportunities and challenges for social research. This reading covers some of the ways we can approach using big data in our projects and specific considerations due to its size.
 
 ---
 
@@ -116,27 +115,23 @@ The purpose of these reading was to illustrate the breadth of data science use c
 
 I grabbed some quotes from your posts:
 
-<small>
-> "one other remarkable aspect of educational data science is that it also focuses on people. The goal is to understand and improve the experiences of students, teachers, and administrators. Be it in schools, districts, and communities; educational data scientists can drive positive change by humanizing the numbers and ensuring that analyses are meaningful in real-world contexts." -- Olusegun
+> "Observation also reminds me that context matters. When I see unusual patterns, I shouldn’t just treat them as “errors” to fix, but as signals that might carry meaning about the learning environment or student behavior. This is especially true in educational data, where outliers can sometimes point to unique but valuable experiences." -- Lydia
 
-> "“Data science is more about the things that you do than the title on your business card” (Estrellado et al., 2020)."... Much of my role involved analyzing student data to uncover insights about their interactions with the university and their overall success on campus. While my official title didn’t include "data science," this work closely aligns with data science principles, reinforcing the idea that the field is defined more by the processes and outcomes than by formal labels." -- Jerri
+> "Call what I need, clean the data in a way that is purposeful and useful, because "over-planning" can cause issues down the line." -- Ron
 
-> "I appreciated hearing that the goal is not to find relationships in the data, but to analyze the data and get to the human component that drives the data in education.  The why behind the results that the data shows. This continues past the analyzation of the data and into the communication of the data. " -- Ali
-
-</small>
+> "As part of my CDL project, I have been considering how to handle the construction of a survey that is respectful of the fact that we are asking sensitive information of a vulnerable population. Combining the behavior observation with very short questions seems like a sensible route after reading." -- Gus
 
 ---
 
 # Reading Recap - Discussion
 
-- Select one of the discussion questions (below) and join the breakout room (10 mins):
+The Bit by Bit reading introduced the idea of [drift](https://www.bitbybitbook.com/en/1st-ed/observing-behavior/characteristics/drift/): changes over time in who is represented (population drift), how they behave (behavioral drift), and the systems themselves (system drift).
 
-    - Room 1: Do you see your research being applied to any of the data science use cases? Many of you are from non-educational backgrounds. What contextual (or domain-specific) factors should be considered when using data science in research?
-    - Room 2: There is the potential for education data science to address educational equity gaps. How can data analysis contribute to identifying and addressing disparities in educational outcomes?
-    - Room 3: What are some of the challenges associated with working in educational data science, both from a technical and ethical standpoint? 
-    - Room 4: What kind of skill sets and educational backgrounds do you think are most valuable for individuals aspiring to work in educational data science?
+  - Population drift – who is now using these tools that didn’t before?
+  - Usage drift (Behavioral drift) – how has the way people use them shifted?
+  - System drift – how have the tools themselves changed in ways that matter?”
 
-*Please designate one person to share one highlight from your discussion.*
+With the rapid rise of generative AI, how do you see drift occurring in your own field or area of study? How might these shifts influence the way you observe phenomena or frame your research questions?
 
 ---
 
@@ -367,7 +362,7 @@ glimpse(starwars)
 .panel[.panel-name[view()]
 
 - `view()` is another way to see the data, though we generally recommend not using this in R Markdown documents (instead, copying and pasting it into the console) as it will cause an error in an R Markdown document
-- We commented it out for this reason 
+- I commented it out here for this reason 
 
 ```{r, eval = FALSE, echo = TRUE}
 # view(starwars)
@@ -462,14 +457,7 @@ Walk students through creating a week 2 folder, R script, and saving the ELSI da
 
 .panelset[
 
-.panel[.panel-name[Install RStudio]
-
-- Head to posit.co and install RStudio Desktop: https://posit.co/download/rstudio-desktop/
-- You will need to install R first: https://cran.rstudio.com/
-
-]
-
-.panel[.panel-name[Substantive Reading(s)]
+.panel[.panel-name[Readings - Week 3]
 
 - Substantive reading(s) for the week ahead:
 
@@ -480,26 +468,28 @@ Walk students through creating a week 2 folder, R script, and saving the ELSI da
 > Spreadsheet error led to Edinburgh hospital opening delay -- News article
 
 
-This is linked in Canvas. It is associated with a discussion due before the next class.
+These are all REQUIRED readings. All links are in Canvas. Readings assignment for week 3 is **due 11:59 pm, Aug 31**.
 
 ]
 
-.panel[.panel-name[Technical Reading(s)]
+.panel[.panel-name[Readings - Week 4]
 
-- Technical reading(s) for the week ahead (the same ones we had in Week 2)
+Substantive reading(s) -- Optional:
 
-> R for Data Science, Data Import: https://r4ds.hadley.nz/data-import
+> Lang, C., Wise, A. F., Merceron, A., Gasevic, D., & Siemens, G. (2022). What is learning analytics? The handbook of learning analytics, 8-18.
 
->RESM Handbook, Cleaning names with Janitor: https://bookdown.org/aschmi11/RESMHandbook/data-preparation-and-cleaning-in-r.html#cleaning-names-with-janitor
+Technical reading(s) -- Required:
+> 1. R for Data Science, Chapter 2 ggplot2 tutorial 
+> 2. Data Visualization introduction from Modern Dive
 
-This is also linked in Canvas. It is associated with the same discussion due before the next class.
+All links are in Canvas. Readings assignment for week 4 is **due 11:59 pm, Sep 7**.
 
 ]
 
 .panel[.panel-name[Weekly Assignment]
 
 - For this and all other weekly assignments, you will use an R Markdown document
-- At the end, you will "Knit" the file to an HTML report that you will upload to Canvas for the Week 2 Assignment
+- At the end, you will "Knit" the file to an HTML report that you will upload to Canvas for the Weeks 2 and 3 Assignments
 
 ]
 
@@ -511,10 +501,18 @@ This is also linked in Canvas. It is associated with the same discussion due bef
 
 ]
 
-.panel[.panel-name[Next class: Asyncronous]
+.panel[.panel-name[PingPong AI]
 
-- Next class (week 3: 2/4) **will be ASYNCHRONOUS**, which means no Zoom session.
-- There will be another fun assignment with the same data. I'll make the announcement via Canvas email. Stay tuned!
+- Please use PingPong AI for the assignments if you need any support or troubleshooting. I have assigned 10 pts for the use of PingPong during the course: https://pingpong.hks.harvard.edu/group/424?assistant=1655 
+
+- Of course, Cody can help you, too!
+
+]
+
+.panel[.panel-name[Next class: No Zoom session]
+
+- Next class (Labor day: Sep 1) will be **ASYNCHRONOUS**, which means no Zoom session.
+- There will be another fun assignment with the same data in week 3. I'll make the announcement via Canvas email. Stay tuned!
 
 ]
 
