@@ -193,15 +193,13 @@ ggsave("mtcars_plot_gear.png", plot = plot)
 # Reading Recap
 
 <small>
->  I felt that this commitment (data privacy and ethics) distinguished MMLA from traditional LA because they acknowledged the risks with multimodal data as it applies to students/teachers in a learning environment. -- Haylee
+> This is necessary because it would be the basis for linking rows between your data frames, and without this shared column, the join function would not work accurately. For example, joining a student achievement data frame with another data frame about extracurricular activities, you would need a shared key, which might be the student ID. When deciding on this column, you also need to make sure that the column, aside from sharing common values and possibly a name, the data type should be the same. That is, you cannot join a character data type to a numeric data type; they both must be either character or numeric. -- Sulaimon
 
-> While Lang et al. acknowledge the importance of integrating contextual and ethical considerations into LA, MMLA takes this further by actively de-emphasizing screen-based interactions and embracing richer, more immersive learning environments. -- Jerri
+> Column type really impacts the successful joining strategy. If one column is a number type formatted as 000123 and another is a text type formatted as 123, this could present some challenges. -- Ron
 
->  They also mention the importance of recognizing the difference between ecological and laboratory settings (another distinction made between the two types of LAs) and I do agree that having access to a variety of means of collecting data does not mean that it should be dispersed everywhere when it does not align with the "learning goals and research questions being explored" -- Zaharia
+>  I should keep in mind the research question or analysis goal.  The way that I structure the join should align with what I am trying to learn from the data, ensuring that the resulting data frame provides a clear and accurate foundation for analysis. -- Rhea
 
-> You must pay close attention to variable names that are common across data sets but have different meanings in each table. This could cause confusion or possible errors in the merger if the data name is misconstrued as a key that can be used to merge the data. -- Andy
-
-> Before performing the join, it is necessary to handle duplicates and missing values in these key columns and prepare the data properly. After that, choosing the right type of join based on your goal is also crucial. -- Kubra
+> Select the type of join based on your research question or analysis goal. A mutating join adds new variables from one data set to another based on matching observations. A filtering join does not add new columns; instead, it filters rows from one dataset on existing matching observations in another dataset. The data ultimately retained or excluded in the final dataset depends on the join type. Using this process will ensure that the merged dataset is reliable and meaningful to your research. -- Sephora
 
 </small>
 
@@ -239,10 +237,10 @@ y
 
 .panel[.panel-name[Discussion Question]
 
-- [Breakout room discussion in pairs] What are some use cases for your research (past or planned) that involve multiple data files? And, why might it be important to join those files together?
+- *[Breakout room discussion in pairs]* What are some use cases for your research (past, current, or planned) that involve multiple data files? And, why might it be important to join those files together?
 
-- [Whole group discussion 1] How do you think the integration of diverse data sources can improve the educational experience for students?
-- [Whole group discussion 2] What challenges or issues do you anticipate when combining data from various sources for fields such as learning analytics?
+- *[Whole group discussion 1]* From a research perspective, how might integrating diverse data sources deepen understanding or open up new insights in your field of study?
+- *[Whole group discussion 2]* What challenges or issues do you anticipate when combining data from various sources in any field or industry?
 
 ]
 

@@ -8,7 +8,7 @@
 
 #install.packages("tidyverse")
 #install.packages("ggthemes")
-#install.packages("dplyr)
+#install.packages("dplyr")
 library(tidyverse)
 library(ggthemes)
 library(dplyr)
@@ -21,6 +21,8 @@ ggplot(data = mtcars, aes(x = mpg, y = wt)) +
 
 ggplot(data = mtcars, aes(x = mpg, y = wt)) +
   geom_jitter()
+  ## Adds a small amount of random noise (or "jitter") to the points to spread them out slightly along the x or y axes.
+  ## This helps reduce overplotting (when points overlap) and makes it easier to see individual data points that share or have very close values.
 
 # point colors
 ggplot(data = mtcars, aes(x = mpg, y = wt, color = cyl)) +
@@ -39,7 +41,7 @@ ggplot(data = mtcars, aes(x = mpg, y = wt, color = factor(cyl))) +
 # geom_smooth()
 ggplot(data = mtcars, aes(x = mpg, y = wt)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE) # SE = Standard error (Type ??geom_smooth in the Console to see its documentation)
 
 ggplot(data = mtcars, aes(x = mpg, y = wt)) +
   geom_point() +
@@ -66,7 +68,7 @@ ggplot(data = mtcars, aes(x = mpg, y = wt)) +
        y = "Weight (1000s lbs)")
 
 # alpha / scale_color_colorblind() / ggsave()
-plot <- ggplot(mtcars, aes(x = mpg, y = wt, color = factor(gear))) +
+plot_gear <- ggplot(mtcars, aes(x = mpg, y = wt, color = factor(gear))) +
   geom_point(alpha = 0.6) +             # Makes points 60% opaque
   scale_color_colorblind() +            # Use colorblind-friendly palette for categorical data
   theme_minimal() +                     # Use minimal theme for a clean look
@@ -75,10 +77,10 @@ plot <- ggplot(mtcars, aes(x = mpg, y = wt, color = factor(gear))) +
        y = "Weight (1000 lbs)",                    
        color = "Number of Gears") 
 
-plot
+plot_gear
 
   ## Save the plot
-ggsave("mtcars_plot_gear.png", plot = plot)
+ggsave("mtcars_plot_gear.png", plot = plot_gear)
 
 #####################################
 
@@ -158,4 +160,4 @@ band_members
 band_instruments_new
 
 band_members %>% 
-  left_join(band_instruments_new, by = join_by(name, band)) # both the name and band columns must match in order for rows from the two data frames to be merged.
+  full_join(band_instruments_new, by = join_by(name, band)) # both the name and band columns must match in order for rows from the two data frames to be merged.
