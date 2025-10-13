@@ -1,5 +1,5 @@
 ---
-title: "Week 8 Slides"
+title: "Week 9 Slides"
 subtitle: "Group By and Summarize"
 author: "**Hanall Sung**"
 output:
@@ -65,17 +65,10 @@ What do you need to be able to work with a range of datasets? This week focuses 
 
 # Mid-semester survey
 
-## https://forms.gle/ggqjQABtHNsfuWeq7 
+Please complete it now: https://forms.gle/XNmVyWZL7TikSENaA 
 
-* Data analysis vs data cleaning
-* Assignments in advance
-* Functions and iteration
-* Code along speed
-* Foundation R & Advanced Skills
-* Discussion posts / substantive readings
-* Any concerns
-
-Contacting me: hanallsung@utk.edu
+* Contact Hanall (instructor): Course-related or general questions.
+* Contact Cody (TA): Troubleshooting questions or anything related to assignments.
 
 ---
 
@@ -126,23 +119,13 @@ Technical reading(s):
 
 # Reading Recap
 
-*Discussion Questions*:
 
-- For your research-related area of interest, what are one or more levels at which row-level data is aggregated?
-- For which purposes might raw data be more useful? For which purposes might aggregated data be useful?
+> Ignoring the interdependent relationships within educational data can produce misleading results and ill-informed decision-making. In educational data, the micro level focuses on individual student behavior, which is affected by classroom dynamics and teaching practices that occur on the meso-level. Both levels are influenced by the macro level, which focuses on institutional records and policies. -- Sephora
 
----
+> Aggregation makes it easier to compare groups, track progress, and make informed decisions at the right scale. -- Qi
 
-# Reading Recap
+> Aggregating data this way is useful because it can help connect small details to the larger picture. The goal is not just to see numbers and what is happening, but how those numbers can help educators understand why things happen. -- Stephen
 
-<small>
-> For exercise psychology, contemporary research advocates for person specific data (i.e. the opposite of aggregate data). A common issue we see in our field is the issue of Simpson’s paradox, which in short states, that data analyzed at certain levels (aggregate or person specific) can produce trends in opposite directions. ... It is well known and accepted now that obtaining person-specific levels of data to inform a “bottom-up” method of research and data analysis can be beneficial for understanding the experience of physical activity and exercise. -- Jimmy
-
-> I'm often visually and audibly recording simple behaviors (e.g., seed-taking behavior, aggressive behavior between birds), but the different contexts (e.g., flock sizes, traffic noise, vegetation density, diversity of species in flock, etc.) that their measured in reveals a plethora of different relationships in the data analysis later on. Aggregation is helpful because it allows you to simplify different data by grouping like parameters and distinguishing others. -- Zaharia
-
-> a key challenge, as the article highlights, is the practical utilization of data. While I could analyze and present findings, the effectiveness of data-driven decision-making depended on whether stakeholders (administrators, faculty, or student affairs professionals) could translate insights into actionable strategies. ... Ensuring that aggregated data translates into meaningful institutional change remains an ongoing challenge. -- Jerri
-
-</small>
 ---
 
 # Aggregated data
@@ -409,8 +392,6 @@ mean_vals_for_penguins
 2. for different variables
 3. with different summary statistics
 
-Due: As usual, **11:59 pm on Monday (March 17)**
-
 ]
 
 
@@ -421,41 +402,35 @@ Due: As usual, **11:59 pm on Monday (March 17)**
 
 ]
 
-.panel[.panel-name[Substantive Reading(s)]
+.panel[.panel-name[Reading(s)]
 
-- Substantive reading(s) for the week ahead:
+- Substantive reading(s) for the week ahead -- Optional:
 
 > Kimmons, R., & Veletsianos, G. (2018). Public internet data mining methods in instructional design, educational technology, and online learning research. TechTrends, 62(5), 492-500.
 
-Link is in Canvas
+- Technical reading(s) for the week ahead -- Required:
 
-Due: **11:59 pm on Monday (March 24; Before the class after spring break)**
+> Data tidying
 
-]
-
-.panel[.panel-name[Technical Reading(s)]
-
-- Technical reading(s) for the week ahead:
-
-> Data tidying:https://r4ds.hadley.nz/data-tidy
-
-Link is in Canvas
+Links are in Canvas
 
 ]
 
-.panel[.panel-name[Professional Development Plan]
+.panel[.panel-name[Mini-Project (Due Oct 26)]
 
-- The goal of this assignment is for you to reflect on how educational data science skills will contribute to your professional development and career goals. This exercise will help you identify key skills you need to acquire or strengthen and how these skills will support your future work.
-- Length: Write a 1-page professional development plan
-- Content: Your plan should include the following sections:
-    - Introduction
-    - Educational Data Science Skills
-    - Application of Skills
-    - Skills Gap Identification
-    - Next Steps
-- **Due: 11:59 pm on Monday (March 24; Before the class after spring break)**
+- The mini-project is now available in Canvas (https://utk.instructure.com/courses/239366/assignments/2443732?module_item_id=5687355)! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have __two weeks (Due 11:59 pm on Sunday 10/26/2025)__ to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
 
-More detailed instructions are available in Canvas (https://utk.instructure.com/courses/224781/assignments/2142248?module_item_id=4916144)
+]
+
+.panel[.panel-name[Asynch class from Oct 20]
+
+- As mentioned in our first session, the class is transitioning to **asynchronous** mode due to my maternity leave, which means we will no longer have live Zoom lectures.
+- Instead, I’ll upload the lecture video each week at our regular class time (Monday at 6 pm ET), and you can watch it whenever it’s convenient for you.
+- Weekly assignment deadlines remain the same: Sundays at 11:59 p.m.
+- For other assignments (mini project, final project plan, and final project), I’ll send reminders via Canvas announcements. 
+- Cody and I are here for you! If you need any support, don’t hesitate to reach out to us by email.
+
+
 ]
 
 ]
