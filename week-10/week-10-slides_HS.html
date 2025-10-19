@@ -4,7 +4,7 @@
     <title>Week 10 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Hanall Sung" />
-    <meta name="date" content="2025-03-25" />
+    <meta name="date" content="2025-10-19" />
     <script src="week-10-slides_HS_files/header-attrs-2.28/header-attrs.js"></script>
     <link href="week-10-slides_HS_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="week-10-slides_HS_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -31,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### <em>Hanall Sung</em>
 ]
 .date[
-### March 25, 2025
+### October 19, 2025
 ]
 
 ---
@@ -53,7 +53,7 @@ This week, we'll dive into an element of data analysis that is surprisingly comm
 ## What we'll do in this presentation
 
 - Announcements based on mid-semester survey
-- Reading recap &amp; Discussion
+- Reading recap
 - Key Concept: tidy data
 - Key Concept: Pivoting
 - Code-along and data
@@ -64,8 +64,9 @@ This week, we'll dive into an element of data analysis that is surprisingly comm
 
 # Announcements based on mid-semester survey
 
-* We'll shorten the discussion time.
-* Starting next week, readings are *optional*.
+* PingPong AI url was included in the Canvas module (At the top - Important Class Information)
+* We'll no longer have discussion time from this week.
+* Starting next week, __all readings are optional__.
 * Starting next week, I'll include assignment review at the beginning of class.
 
 ---
@@ -94,19 +95,13 @@ Technical Reading(s):
 
 ]
 
-.panel[.panel-name[Discussion Question]
-
-- Please share with your peers what challenges you encounter when cleaning, organizing, and tidying data for analysis, as well as how you plan to address them.
-
-]
-
 .panel[.panel-name[Reading Recap]
 
-&gt; Often the datasets are small enough to address each anomaly individually. One must determine the “why” behind each anomaly or outlier to determine the best means for dealing with that issue. -- Andy
+&gt; For me personally the biggest challenges I face when cleaning, organizing, and tidying data is situating my data in a way that is condensed enough to be analyzed without cutting so much that I limit myself to findings that could come out of the raw data. Because I mainly use EEG and eyetracking in my research, the raw data is very messy and has to go through a lot of processing before we can look at it. -- Lauren
 
-&gt; I would carefully go through the data to remove irrelevant or duplicate entries, use consistent rules to sort and categorize the content (like tagging reviews as positive, negative, or neutral), and exclude anything that looks suspicious or misleading. -- Kamrul
+&gt; Keeping data clean and organized is very important in sport and creating categories that the data can fit into can be helpful to reduce the data set as whole to make it more manageable. -- Jessica
 
-&gt; Fostering collaborations between practitioners and trained researchers can bridge the gap between data access and data literacy, ensuring that insights derived from public and institutional data sources lead to meaningful and effective decision-making. -- Jerri
+&gt; I’d also standardize variable names, detect and filter bots, use tools like pivot_longer() or pivot_wider to tidy the data into clear rows and columns, and group it by levels such as user, post, or site for analysis.  -- Xin (Lydia)
 
 ]
 
@@ -214,7 +209,7 @@ Technical Reading(s):
 ## 6 Isabella observation_at_t3           5
 ```
 
-*For examples of other common problems with datasets, check out [the tutorial reading](https://vita.had.co.nz/papers/tidy-data.pdf)(https://vita.had.co.nz/papers/tidy-data.pdf) on tidy data.*
+*For examples of other common problems with datasets, check out [the tutorial reading](https://vita.had.co.nz/papers/tidy-data.pdf) on tidy data.*
 ]
 
 ]
@@ -463,17 +458,9 @@ relig_income
 
 ]
 
-.panel[.panel-name[Final Project Planning]
-
-- There is an additional assignment this week: Final Project Planning
-- In this assignment, you will read a bit about the final project, and share some _initial, preliminary ideas_ (not final plans!) to receive early feedback (and to get your gears turning regarding what you will do): Instructions in Canvas (https://utk.instructure.com/courses/224781/discussion_topics/1625280)
-- Since this is due in the next week (+ based on the mid-semester survey), the readings are optional; be sure to budget time to start to think about your final project
-
-]
-
 .panel[.panel-name[Mini-Project]
 
-- The mini-project is now available in Canvas! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have __two weeks (Due 11:59 pm on Monday 4/7/2025)__ to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
+- The mini-project is now available in Canvas (https://utk.instructure.com/courses/239366/assignments/2443732?module_item_id=5687355)! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have __two weeks (Due 11:59 pm on Sunday 10/26/2025)__ to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
 
 ]
 
