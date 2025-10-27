@@ -16,7 +16,7 @@ library(dplyr)
 
 elsi_data <-
     readr::read_csv(
-        "https://github.com/utkeds/foundations-data-sci/blob/S25-foundations-eds/data/ELSI_csv_export_6383262475806903427192.csv?raw=true",
+        "ELSI_csv_export.csv",
         skip = 6
     ) %>% janitor::clean_names()
 ```
@@ -46,19 +46,21 @@ One of the most important aspects of working with geographical data is the prese
 
 ## What we'll do in this presentation
 
-- Comments & recommendations on final project plan (**will be provided by end of this week**) 
-- Revisit Key Concepts from Assignment 8
+- Final project plans
+- Revisit Key Concepts from Assignment 9
 - Mapping with ggplot2
 - Adding data to maps
 
 ---
 
-## Final project
+## Final project plans (Due Nov 2)
 
-* Please review the comments on your final projects and follow up if necessary (will be provided **by end of this week**) 
-* If you do not have the data, please obtain it as soon as possible (really only a month left!)
+* I'll ask you to share some _initial, preliminary ideas_ (not final plans!) to receive early feedback (and to get your gears turning regarding what you will do): Instructions in Canvas [(link)](https://utk.instructure.com/courses/239366/discussion_topics/1792393?module_item_id=5687348)
+* Please review my comments on your final project plans (I'll leave my comments by __Nov 3__)
+* If you do not have the data, please obtain it as soon as possible (only a month left!)
 * Please start data cleaning as soon as possible
 * Involve your PI/collaborators
+
 
 ```{r}
 #| echo: false
@@ -70,7 +72,7 @@ knitr::include_graphics("https://media0.giphy.com/media/s4kpsTSwoiFCU/giphy.gif"
 
 ---
 
-## Revisit Key Concepts from Assignment 8
+## Revisit Key Concepts from Assignment 9
 
 **Why may you not want to do this?**
 
@@ -814,9 +816,10 @@ ggplot(data = bear_map) +
 
 ]
 
-.panel[.panel-name[Mini-Project]
+.panel[.panel-name[Final Project Plans]
 
-- Again, the mini-project is available in Canvas! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have __two weeks (Due 11:59 pm on Monday 4/7/2025)__ to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
+- In this assignment, you will read a bit about the final project, and share some _initial, preliminary ideas_ (not final plans!) to receive early feedback (and to get your gears turning regarding what you will do): Instructions in Canvas (https://utk.instructure.com/courses/239366/discussion_topics/1792393?module_item_id=5687348)
+- It is due on Nov 2, Sunday 11:59 pm
 
 ]
 
