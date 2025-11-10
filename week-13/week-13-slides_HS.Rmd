@@ -51,7 +51,7 @@ This week, we'll introduced text data and text analysis. Traditionally, text dat
 
 ## Shout out
 
-Great job on the mini-project!
+Great job on the final project plans and the mini project!
 
 ```{r}
 #| echo: false
