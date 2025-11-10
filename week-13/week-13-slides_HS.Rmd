@@ -511,16 +511,10 @@ Think about the text data that you commonly work with and how you would like to 
 
 ]
 
-.panel[.panel-name[Data Ethics]
-
-- This is posted in Canvas (https://utk.instructure.com/courses/224781/assignments/2142244) and is due **April. 21 (11:59 pm)** with partner feedback due **April. 28th (11:59 pm)**.
-
-]
-
 .panel[.panel-name[Final Project]
 
-- 1 Final Project (Presentation video file uploading): **Due 5/6 (11:59 pm)** (https://utk.instructure.com/courses/224781/discussion_topics/1699555?module_item_id=5201224)
-- 2 Final Project (Codes & Report): **Due 5/13 (11:59 pm)** (https://utk.instructure.com/courses/224781/assignments/2142246?module_item_id=4916187)
+- 1 Final Project (Presentation video file uploading): **Due Sunday 11/30 (11:59 pm)** (https://utk.instructure.com/courses/239366/discussion_topics/1792391?module_item_id=5687383)
+- 2 Final Project (Codes & Report): **Due Sunday 12/7 (11:59 pm)** (https://utk.instructure.com/courses/239366/assignments/2443731?module_item_id=5687384)
 - Please find them in Week 16 module! Please don't hesitate to reach out to me if you have any questions.
 
 
