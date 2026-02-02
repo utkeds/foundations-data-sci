@@ -4,13 +4,13 @@
     <title>Week 2 Slides</title>
     <meta charset="utf-8" />
     <meta name="author" content="Hanall Sung" />
-    <script src="week-2-slides_HS_files/header-attrs-2.29/header-attrs.js"></script>
+    <script src="week-2-slides_HS_files/header-attrs-2.28/header-attrs.js"></script>
     <script src="week-2-slides_HS_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="week-2-slides_HS_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="week-2-slides_HS_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
-    <link href="week-2-slides_HS_files/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
-    <link href="week-2-slides_HS_files/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="week-2-slides_HS_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="week-2-slides_HS_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
     <link href="week-2-slides_HS_files/panelset-0.3.0/panelset.css" rel="stylesheet" />
     <script src="week-2-slides_HS_files/panelset-0.3.0/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -45,7 +45,7 @@ class: center, middle, inverse, title-slide
 
 # Purpose and Agenda
 
-This week, we answer the following question: What's this course about? I will introduce some basic concepts in R programming. You'll complete an assignment that will set you on the course to being a confident R programmer throughout this class. I'll also introduce the readings for this week.
+This week, we answer the following question: What's this course about? I will introduce some basic concepts in R programming. You'll complete an assignment that will set you on the course to being a confident R programmer throughout this class. I'll also introduce the readings for next week.
 
 ## What we'll do in this class
 
@@ -56,7 +56,6 @@ This week, we answer the following question: What's this course about? I will in
 - Core Skills Framework
 - Code along and data
 - What's next: Assignment(s) and Readings
-- Pre-survey QnA
 
 ---
 
@@ -86,7 +85,7 @@ Math and statistics | Programming Skills | Knowledge of a specific domain
 - In which of Conway's three areas of capabilities are you _presently most confident_?
 - In which area _do you most want to learn more_?
 
-Let us engage in a think-discuss-share activity. I will set up breakout rooms for pairs (4 mins).
+Please share your ideas briefly here: [Week 2 - Discussion](https://utk.instructure.com/courses/253707/discussion_topics/1944310)
 ]
 
 ]
@@ -99,35 +98,28 @@ Source: http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram
 
 # Reading Recap
 
+Tutorial readings (Week 2):
+
+&gt; R for Data Science: Chapter 8
+&gt; Cleaning names using the janitor package
+
 Substantive readings (Week 2):
 
 &gt; Salganik, M. J. (2019). Bit by bit: Social research in the digital age. Princeton University Press. Chapters 2 (Observing Behavior) and 3 (Asking Questions).
 
-The digital age creates new opportunities and challenges for social research. This reading covers some of the ways we can approach using big data in our projects and specific considerations due to its size.
+The digital age creates new opportunities and challenges for social research. These readings cover some of the ways we can approach using big data in our projects and specific considerations due to its size.
 
 ---
 
 # Reading Recap
 
-I grabbed some quotes from your posts:
+Let me briefly recap some of the key ideas you’ve shared in your posts:
 
-&gt; "Observation also reminds me that context matters. When I see unusual patterns, I shouldn’t just treat them as “errors” to fix, but as signals that might carry meaning about the learning environment or student behavior. This is especially true in educational data, where outliers can sometimes point to unique but valuable experiences." -- Lydia
+&gt; “data cleaning"
 
-&gt; "Call what I need, clean the data in a way that is purposeful and useful, because "over-planning" can cause issues down the line." -- Ron
+&gt; "patterns"
 
-&gt; "As part of my CDL project, I have been considering how to handle the construction of a survey that is respectful of the fact that we are asking sensitive information of a vulnerable population. Combining the behavior observation with very short questions seems like a sensible route after reading." -- Gus
-
----
-
-# Reading Recap - Discussion
-
-The Bit by Bit reading introduced the idea of [drift](https://www.bitbybitbook.com/en/1st-ed/observing-behavior/characteristics/drift/): changes over time in who is represented (population drift), how they behave (behavioral drift), and the systems themselves (system drift).
-
-  - Population drift – who is now using these tools that didn’t before?
-  - Usage drift (Behavioral drift) – how has the way people use them shifted?
-  - System drift – how have the tools themselves changed in ways that matter?”
-
-With the rapid rise of generative AI, how do you see drift occurring in your own field or area of study? How might these shifts influence the way you observe phenomena or frame your research questions?
+&gt; "combining datasets"
 
 ---
 
@@ -142,6 +134,19 @@ With the rapid rise of generative AI, how do you see drift occurring in your own
 &gt; "In an unjustly stratified world, methods of prediction could project the inequalities of the past into the future." -- McFarland et al. (2021)
 
 ---
+
+# Reading Recap - Discussion
+
+The Bit by Bit reading introduced the idea of [drift](https://www.bitbybitbook.com/en/1st-ed/observing-behavior/characteristics/drift/): changes over time in who is represented (population drift), how they behave (behavioral drift), and the systems themselves (system drift).
+
+  - Population drift – who is now using these tools that didn’t before?
+  - Usage drift (Behavioral drift) – how has the way people use them shifted?
+  - System drift – how have the tools themselves changed in ways that matter?”
+
+With the rapid rise of generative AI, how do you see drift occurring in your own field or area of study? How might these shifts influence the way you observe phenomena or frame your research questions? Please share your ideas briefly here: [Week 2 - Discussion](https://utk.instructure.com/courses/253707/discussion_topics/1944310)
+
+---
+
 
 # Key Concept
 
@@ -485,21 +490,20 @@ Walk students through creating a week 2 folder, R script, and saving the ELSI da
 &gt; Spreadsheet error led to Edinburgh hospital opening delay -- News article
 
 
-These are all REQUIRED readings. All links are in Canvas. Readings assignment for week 3 is **due 11:59 pm, Aug 31**.
+These are all REQUIRED readings. All links are in Canvas. Readings assignment for week 3 is **due 11:59 pm, Feb 8 (Sunday)**.
 
 ]
 
-.panel[.panel-name[Readings - Week 4]
+.panel[.panel-name[No lecture video - Week 3]
 
-Substantive reading(s) -- Optional:
+There will be no lecture video for Week 3. Instead, you will have: 
+- (1) a pre-survey Q&amp;A video
+- (2) an information video about the Learning Buddy AI
+- (3) pre-surveys related to the Learning Buddy AI
 
-&gt; Lang, C., Wise, A. F., Merceron, A., Gasevic, D., &amp; Siemens, G. (2022). What is learning analytics? The handbook of learning analytics, 8-18.
+I will share the links to the videos and surveys by next Monday (Feb 9).
 
-Technical reading(s) -- Required:
-&gt; 1. R for Data Science, Chapter 2 ggplot2 tutorial 
-&gt; 2. Data Visualization introduction from Modern Dive
-
-All links are in Canvas. Readings assignment for week 4 is **due 11:59 pm, Sep 7**.
+The Week 3 weekly assignment will proceed as usual and builds on the concepts covered in the lectures and previous assignments.
 
 ]
 
@@ -515,21 +519,6 @@ All links are in Canvas. Readings assignment for week 4 is **due 11:59 pm, Sep 7
 - This week's assignment uses data from the National Assessment of Educational Progress (NAEP), or the "Nation's Report Card." The data here is for the 4th grade mathematics test.
 - You can read more about it here: &lt;https://www.nationsreportcard.gov/&gt;
 - Let's open the R Markdown file - `week-2-assignment` - and the data -  `naep-data.csv` - from Canvas to get you started; please **save this in a week 2 folder in the project you created!**
-
-]
-
-.panel[.panel-name[PingPong AI]
-
-- Please use PingPong AI for the assignments if you need any support or troubleshooting. I have assigned 10 pts for the use of PingPong during the course: https://pingpong.hks.harvard.edu/group/424?assistant=1655 
-
-- Of course, Cody can help you, too!
-
-]
-
-.panel[.panel-name[Next class: No Zoom session]
-
-- Next class (Labor day: Sep 1) will be **ASYNCHRONOUS**, which means no Zoom session.
-- There will be another fun assignment with the same data in week 3. I'll make the announcement via Canvas email. Stay tuned!
 
 ]
 
