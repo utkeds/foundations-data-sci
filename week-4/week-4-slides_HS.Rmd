@@ -52,7 +52,6 @@ This week, we answer the following question: What's all the fuss about data scie
 
 ## What we'll do in this presentation
 
-- Quick attendance check
 - Recap
 - Discussion from the assignments
 - Reading Recap
@@ -67,7 +66,7 @@ This week, we answer the following question: What's all the fuss about data scie
 # Recap
 
 .pull-left[
-**Recap from last synch class**
+**Recap from last asynch class**
 
 In Week 2, we covered:
 
@@ -78,7 +77,7 @@ In Week 2, we covered:
 ]
 
 .pull-right[
-**Recap from last asynch class**
+**Recap from last assignment-only class**
 
 In Week 3, we covered:
 
@@ -187,16 +186,15 @@ Substantive reading(s):
 
 # Reading Recap - Week 3
 
-<small>
-> Language shapes perception, so saying "students with disabilities" rather than saying "disabled students" puts the person before the descriptor.  Framing the labels influences how people interact with the data and the groups represented. -- Rhea
+Let me briefly reflect on your Week 3 reading discussions:
 
-> In reality, some people may take advantage of data visualization for misleading. For instance, if only the total number of military personnel is counted, China ranks first in the world, but on a per capita basis, the figure is relatively small. Such presentations are prone to causing misunderstandings and spreading false information. -- Qi
+> - Clarity, intentional design, and storytelling in visualization 
 
-> "Counter Mapping" is the process of telling a story of a group of people for example, and portraying a message that they are wanting delivered. Here is a cool example of counter mapping [(link)](https://emergencemagazine.org/film/counter-mapping/). This is a short film (under 10 mins) about creating maps that have an indigenous voice. In the film one thing that is mentioned that directly correlates to this principle is that fact that he believes indigenous people have lost more land from mapping than conflicts. -- Andrea
+> - Prompt 3: appreciated your personal stories! --> building bridges between the learning concepts and your own experiences
 
-> And so forth... <u>Please revisit Week 3 reading assignment to read others' posts!</u> Thank you all for your excellent work!
+> - Good workflows (reproducibility) aren’t just about efficiency; they shape the quality and impact of the work we do
 
-</small>
+> - I carefully read your responses to all discussion prompts, so please keep up the great work!
 
 ---
 
@@ -212,11 +210,11 @@ This includes not only those who interpret your visualizations, but also you and
 
 ]
 
-.panel[.panel-name[Discussion Question]
+.panel[.panel-name[Reflection Questions]
 
-- [Breakout room discussion] What process should we go through to visualize our data? What considerations should we make?
+- What process should we go through to visualize our data? What steps might we take, and what considerations should we keep in mind before we even start making a chart?
 
-- [Whole group discussion] What kinds of design choices (or mistakes!) can create misleading data visualizations?
+- What kinds of design choices (or common mistakes!) can create misleading data visualizations? Have you ever encountered a chart or graphic that felt confusing, unclear, or even a little deceptive? What specifically made it feel that way to you?
 
 ]
 
@@ -239,13 +237,16 @@ This includes not only those who interpret your visualizations, but also you and
 
 ]
 
-.panel[.panel-name[Additional resources]
+.panel[.panel-name[Discussion questions]
 
-- Examples of good data visualizations: https://www.tableau.com/learn/articles/best-beautiful-data-visualization-examples#crimean-war
-- Choose your favorite, and explain why.
+Examples of good data visualizations: https://www.tableau.com/learn/articles/best-beautiful-data-visualization-examples#crimean-war
 
-- What are some common challenges or limitations you've identified while visualizing data using Microsoft Excel or Google Sheets?
- 
+1. Choose your favorite, and explain why.
+
+2. What are some common challenges or limitations you've identified while visualizing data using Microsoft Excel or Google Sheets?
+
+Please share your ideas briefly here: [Week 3 - Discussion](https://utk.instructure.com/courses/253707/discussion_topics/1955789)
+
 ]
 ]
 
