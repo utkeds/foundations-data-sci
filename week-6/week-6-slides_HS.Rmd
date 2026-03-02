@@ -167,12 +167,12 @@ A variety of services on the Internet allow people -- including _researchers_ --
 
 ]
 
-.panel[.panel-name[Chat Question]
+.panel[.panel-name[Discussion Question]
 
 What is an Internet-based service or organization that provides data that could be of interest to you, either for research or just curiosity? 
 
 - Think broadly and consider doing a bit of research, searching for a service of interest plus the term "API" (Application Programming Interfaces)
-- Paste your response in the chat (entity + an example of data they provide + whether they have an API)
+- <u><b>Paste your response</b></u> (entity + an example of data they provide + whether they have an API) in here [Week 6 - Lecture Discussion](https://utk.instructure.com/courses/253707/discussion_topics/1966641)
 
 ]
 
@@ -260,14 +260,17 @@ Here [(click)](https://educationdata.urban.org/api/v1/schools/ccd/enrollment/201
     3. even more specifically, we want **enrollment data** for **2013**
     4. for students in **third grade** in **charter schools** in a particular state, **Tennessee**
 - See other examples here[(click)](https://educationdata.urban.org/documentation/schools.html): https://educationdata.urban.org/documentation/schools.html
-- Can you _manually_ (by typing out the URL) create another request?
 
 ]
 
 
 .panel[.panel-name[Discussion question]
 
-What are some potential advantages and disadvantages of accessing data by editing the URL?
+Here [(click)](https://educationdata.urban.org/api/v1/schools/ccd/enrollment/2013/grade-3/?charter=1&fips=47) is an example of an API from the Education Data Portal: `https://educationdata.urban.org/api/v1/schools/ccd/enrollment/2013/grade-3/?charter=1&fips=47`
+
+- Can you _manually_ (by typing out the URL) create another request? After you create it, copy and paste the complete URL here</b></u> [Week 6 - Lecture Discussion](https://utk.instructure.com/courses/253707/discussion_topics/1966641)
+
+- What are some potential advantages and disadvantages of accessing data by editing the URL?
 
 ]
 
