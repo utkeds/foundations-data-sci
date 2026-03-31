@@ -2,7 +2,6 @@
 title: "Week 10 Slides"
 subtitle: "Do the Pivot"
 author: "*Hanall Sung*"
-date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: xaringan::moon_reader
 ---
 
@@ -38,7 +37,7 @@ This week, we'll dive into an element of data analysis that is surprisingly comm
 
 ## What we'll do in this presentation
 
-- Announcements based on mid-semester survey
+- Mid-semester survey recap
 - Reading recap
 - Key Concept: tidy data
 - Key Concept: Pivoting
@@ -48,12 +47,12 @@ This week, we'll dive into an element of data analysis that is surprisingly comm
 
 ---
 
-# Announcements based on mid-semester survey
+# Mid-semester survey recap
 
-* PingPong AI url was included in the Canvas module (At the top - Important Class Information)
-* We'll no longer have discussion time from this week.
-* Starting next week, __all readings are optional__.
-* Starting next week, I'll include assignment review at the beginning of class.
+* Starting next week, __all readings are optional__. That means, we don't have reading assignments from next week.
+* Still, we'll have the lecture discussion activity. Some mentioned they loved to see others' reflections, which I highly value!
+* Starting next week, I'll include a brief weekly assignment review at the beginning of class.
+* Slack channel for our class: [link](https://eddatascienceatutk.slack.com/archives/C0APVGGRYRG) 
 
 ---
 
@@ -83,11 +82,9 @@ Technical Reading(s):
 
 .panel[.panel-name[Reading Recap]
 
-> For me personally the biggest challenges I face when cleaning, organizing, and tidying data is situating my data in a way that is condensed enough to be analyzed without cutting so much that I limit myself to findings that could come out of the raw data. Because I mainly use EEG and eyetracking in my research, the raw data is very messy and has to go through a lot of processing before we can look at it. -- Lauren
+> Real-world data is messy (i.e., Real-world data is not _tidy_ by default).
 
-> Keeping data clean and organized is very important in sport and creating categories that the data can fit into can be helpful to reduce the data set as whole to make it more manageable. -- Jessica
-
-> I’d also standardize variable names, detect and filter bots, use tools like pivot_longer() or pivot_wider to tidy the data into clear rows and columns, and group it by levels such as user, post, or site for analysis.  -- Xin (Lydia)
+> We must structure it before analysis.
 
 ]
 
@@ -437,7 +434,7 @@ relig_income
 
 .panel[.panel-name[Mini-Project]
 
-- The mini-project is now available in Canvas (https://utk.instructure.com/courses/239366/assignments/2443732?module_item_id=5687355)! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You'll have __two weeks (Due 11:59 pm on Sunday 10/26/2025)__ to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
+- The mini-project is now available in Canvas [(Link)](https://utk.instructure.com/courses/253707/assignments/2632151?module_item_id=6149104)! You will be using recent data from the Tennessee Department of Education. While the data is specified, the analyses you conduct to answer two questions of the data are more open-ended in nature. You have __one more week (Due 11:59 pm This Sunday)__ to complete this, to allow for time for you to ask questions and dig deep into the data. One pointer - note that many of the variables are at the school-level and represent the percentage of teachers who chose a particular response. How you choose to "wrangle" or prepare the data given the nature of these variables is an important consideration as you work on your mini project. Our goal with this assignment is not perfection, but rather for you to practice capabilities you have developed over the semester. This is reflected in the grading rubric for the assignment!
 
 ]
 
