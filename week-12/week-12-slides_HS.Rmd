@@ -2,7 +2,6 @@
 title: "Week 12 Slides"
 subtitle: "Mapping, Part 2"
 author: "**Hanall Sung**"
-date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: xaringan::moon_reader
 ---
 
@@ -790,7 +789,7 @@ tn_data2 %>%
 
 # What's next?
 
-- Be sure to turn in your mini-project if you haven't already.
+- Be sure to turn in your mini-project and final project plans if you haven't already.
 - Please turn in any late assignments; grade book will be up to date by next week
 
 ---
