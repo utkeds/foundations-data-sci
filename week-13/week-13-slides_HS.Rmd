@@ -2,7 +2,6 @@
 title: "Week 13 Slides"
 subtitle: "Introduction to Text Analysis"
 author: "**Hanall Sung**"
-date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: xaringan::moon_reader
 ---
 
@@ -41,17 +40,17 @@ This week, we'll introduced text data and text analysis. Traditionally, text dat
 ## What we'll do in this presentation
 
 - Additional helpful tidyverse functions
-- Brief discussion on text data
-- Useful functions for analyzing text
+- Key concepts: Tokens, tidy text format, tokenization
 - Example of text analysis
 - New text analysis package: tidytext
 - Code-along
+- Final project
 
 ---
 
 ## Shout out
 
-Great job on the final project plans and the mini project!
+Great job on the  mini project and the final project plans!
 
 ```{r}
 #| echo: false
@@ -513,9 +512,9 @@ Think about the text data that you commonly work with and how you would like to 
 
 .panel[.panel-name[Final Project]
 
-- 1 Final Project (Presentation video file uploading): **Due Sunday 11/30 (11:59 pm)** (https://utk.instructure.com/courses/239366/discussion_topics/1792391?module_item_id=5687383)
-- 2 Final Project (Codes & Report): **Due Sunday 12/7 (11:59 pm)** (https://utk.instructure.com/courses/239366/assignments/2443731?module_item_id=5687384)
-- Please find them in Week 16 module! Please don't hesitate to reach out to me if you have any questions.
+- 1 Final Project (Presentation video file uploading): [Link](https://utk.instructure.com/courses/253707)
+- 2 Final Project (Codes & Report): [Link](https://utk.instructure.com/courses/253707/assignments/2632150?module_item_id=6149138)
+- Please find them in Week 15 module! Please don't hesitate to reach out to me if you have any questions.
 
 
 ]
