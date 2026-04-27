@@ -2,7 +2,6 @@
 title: "Week 14 Slides"
 subtitle: "Topic Modeling"
 author: "**Hanall Sung**"
-date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: xaringan::moon_reader
 ---
 
@@ -41,15 +40,6 @@ This week, we'll continue our exploration of text analysis specifically with top
 - Key Concept: Topic modeling | Document-term matrix | the Topicmodels package
 - Code-along and data
 - What's next: Assignment(s) and Readings
-
----
-
-## TNVoice
-
-TNVoice (TN Volunteer Online Instructor & Course Evaluations) will open to students on **Wednesday, Nov 19** at 12:01 am and will remain open until 11:59 pm on **Wednesday, Dec 3**.
-
-- Should be available in your email or on Canvas
-- Can help provide evidence of the effectiveness of the class in future CVs/materials
 
 ---
 
@@ -349,10 +339,10 @@ ap_top_terms %>%
 
 .panel[.panel-name[Final Projects]
 
-- How are you doing? Your final project _presentation video uploading_ is coming up soon (**Due Nov 30**)! Please see details here(https://utk.instructure.com/courses/239366/discussion_topics/1792391?module_item_id=5687383)
+- How are you doing? Your final project _presentation video uploading_ is coming up soon! Please see details here ([Link](https://utk.instructure.com/courses/253707)).
 - Next week (Week 15),
-    - We’ll reserve some time next week for preparing your final project presentations, meaning that lecture will be shorter than usual.
-    - Just a reminder: your final reports will be due on **Dec 7**, following the video uploading of your presentations.
+    - We’ll reserve some time next week for preparing your final project presentations.
+    - Just a reminder: your final reports will be __**due one week**__ after your presentation videos are uploaded ([Link](https://utk.instructure.com/courses/253707/assignments/2632150?module_item_id=6149138)).
 
 
 ]
@@ -372,6 +362,14 @@ This is linked in Canvas.
 > Topic modeling: https://www.tidytextmining.com/topicmodeling
 
 This is also linked in Canvas.
+
+]
+
+.panel[.panel-name[Post-surveys]
+
+- We have post-surveys that are required to complete and are due in two weeks. Please find them in the Week 15 module on Canvas.
+
+Thank you so much! :)
 
 ]
 
